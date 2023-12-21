@@ -78,7 +78,7 @@ export const HomeTemplate = () => {
 
             <S.SectionCards>
               <S.WrapperCard>
-                <h3>Missão</h3>
+                <S.SubTitle>Missão</S.SubTitle>
                 <S.Card>
                   <p>
                     Contribuir para a segurança no mercado de{" "}
@@ -91,7 +91,7 @@ export const HomeTemplate = () => {
               </S.WrapperCard>
 
               <S.WrapperCard>
-                <h3>Visão</h3>
+                <S.SubTitle>Visão</S.SubTitle>
                 <S.Card>
                   <p>
                     Nosso propósito é ser a principal referência em{" "}
@@ -103,7 +103,7 @@ export const HomeTemplate = () => {
               </S.WrapperCard>
 
               <S.WrapperCard>
-                <h3>Valores</h3>
+                <S.SubTitle>Valores</S.SubTitle>
                 <S.Card>
                   <S.Grid gridTemplate=".2fr 1fr" gap="16px">
                     <img src="assets/imgs/check-icon.svg" alt="" />
@@ -123,6 +123,96 @@ export const HomeTemplate = () => {
             </S.SectionCards>
           </S.SectionAboutContent>
         </S.SectionAbout>
+        <S.SectionServices>
+          <S.SectionServicesContent>
+            <S.Title>
+              Serviços{} <img src="assets/imgs/check-icon.svg" alt="" />
+            </S.Title>
+            <S.TextDefault>
+              <S.TextStrong>Compre</S.TextStrong> e{" "}
+              <S.TextStrong>agende online</S.TextStrong> sua vistoria conosco e
+              tenha certeza da realização do serviço.
+            </S.TextDefault>
+
+            <S.TableService>
+              <thead>
+                <tr>
+                  <td colSpan={2}>
+                    <h2>
+                      <img
+                        src="assets/imgs/pin-icon.svg"
+                        alt="pin de localização"
+                      />
+                      Vistoria de Transferência{" "}
+                      <S.TextBlue>Posto fixo</S.TextBlue>
+                    </h2>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Moto</td>
+                  <td>
+                    {" "}
+                    <h3>
+                      R$ 115 <span>+</span> <p> taxas</p>
+                    </h3>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Carro</td>
+                  <td>
+                    {" "}
+                    <h4>
+                      <h3>
+                        R$ 150 <span>+</span> <p> taxas</p>
+                      </h3>
+                    </h4>{" "}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ônibus/Caminhão e Veículos Grandes</td>
+                  <td>
+                    {" "}
+                    <h4>
+                      <h3>
+                        R$ 190 <span>+</span> <p> taxas</p>
+                      </h3>
+                    </h4>{" "}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan={2}>
+                    <h2>
+                      <img
+                        src="assets/imgs/mapa-icon.svg"
+                        alt="pin de localização"
+                      />
+                      Vistoria de Transferência{" "}
+                      <S.TextBlue>Domicilar</S.TextBlue>
+                    </h2>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colSpan={2}>
+                    <h3>
+                      R$ 190 <span>+</span> <p> taxas</p>
+                    </h3>
+                  </td>
+                </tr>
+              </tfoot>
+            </S.TableService>
+
+            <S.SubTitle>Tipo de Veículo</S.SubTitle>
+            <S.Textplus>
+              Micro-ônibus - Ônibus - Reboque - Semirreboque - Caminhão -
+              Caminhão Trator - Trator de Rodas - Trator Misto -
+              Chassi/Plataforma
+            </S.Textplus>
+          </S.SectionServicesContent>
+        </S.SectionServices>
       </S.Container>
     </LayoutTemplate>
   );

@@ -43,6 +43,27 @@ export const Title = styled.h2`
   }
 `;
 
+export const SubTitle = styled.h3`
+  color: #111;
+  text-align: center;
+  font-family: "Poppins";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+`;
+
+export const Textplus = styled.p`
+  color: #2d2d2d;
+  text-align: center;
+  font-family: "Roboto";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+  margin: 24px 0;
+`;
+
 export const SectioStarCheckLeftSideWrapper = styled.div`
   ${({ theme: { space } }) => css`
     max-width: 80%;
@@ -170,7 +191,7 @@ export const WrapperCard = styled.div`
   }
 `;
 
-export const Grid = styled.div<{ gridTemplate: string; gap: string }>`
+export const Grid = styled.div<{ gridTemplate: string; gap?: string }>`
   ${({ gridTemplate, gap }) => css`
     display: grid;
     grid-template-columns: ${gridTemplate};
@@ -181,6 +202,19 @@ export const Grid = styled.div<{ gridTemplate: string; gap: string }>`
       width: 20px;
       margin-top: 6px;
     }
+  `}
+`;
+
+export const Flex = styled.div<{
+  gap?: string;
+  justifyContent?: string;
+  alignItems?: string;
+}>`
+  ${({ alignItems, justifyContent, gap }) => css`
+    display: flex;
+    align-items: ${alignItems};
+    justify-content: ${justifyContent};
+    gap: ${gap};
   `}
 `;
 
@@ -207,6 +241,118 @@ export const Card = styled.div`
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
+    line-height: 32px;
+  }
+`;
+
+export const SectionServices = styled.div`
+  ${({ theme: { space } }) => css`
+    max-width: ${space.large};
+    background-color: #eee;
+    padding: 80px 0;
+  `}
+`;
+
+export const SectionServicesContent = styled.div`
+  ${({ theme: { space } }) => css`
+    max-width: ${space.medio};
+    margin: 0 auto;
+    text-align: center;
+  `}
+`;
+
+export const TableService = styled.table`
+  width: 1005px;
+  margin: 60px auto;
+  height: 590px;
+  border-collapse: collapse;
+
+  border-radius: 5px;
+  background: linear-gradient(
+    221deg,
+    #00186d -7.87%,
+    #002ed1 -7.85%,
+    #00114d 109.87%
+  );
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  td {
+    h2 {
+      color: #eee;
+      font-family: "Poppins";
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 38px;
+
+      display: flex;
+      margin: 0 auto;
+
+      justify-content: center;
+      gap: 16px;
+      align-items: center;
+    }
+
+    h3 {
+      color: #eee;
+      text-align: center;
+      font-family: "Lato";
+      font-size: 48px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 48px;
+      letter-spacing: 1.44px;
+
+      p {
+        color: #558fff;
+        font-family: "Poppins";
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 38px;
+        letter-spacing: 0.96px;
+      }
+
+      span {
+        font-family: "Poppins";
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 38px;
+        letter-spacing: 0.96px;
+      }
+    }
+  }
+
+  tr {
+    text-align: center;
+    height: 98px;
+  }
+
+  tbody td {
+    width: 50%;
+  }
+
+  tbody td:nth-child(1) + td {
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+  }
+
+  tbody td:nth-child(1) {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+
+    color: #eee;
+    text-align: center;
+    font-family: "Roboto";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
     line-height: 32px;
   }
 `;
