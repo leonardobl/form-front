@@ -61,7 +61,8 @@ export const Textplus = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 32px;
-  margin: 24px 0;
+  margin-top: 24px;
+  margin-bottom: 48px;
 `;
 
 export const SectioStarCheckLeftSideWrapper = styled.div`

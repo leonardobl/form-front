@@ -211,6 +211,8 @@ export const HomeTemplate = () => {
               Caminhão Trator - Trator de Rodas - Trator Misto -
               Chassi/Plataforma
             </S.Textplus>
+
+            <ButtonHome>AGENDAR VISTORIA</ButtonHome>
           </S.SectionServicesContent>
         </S.SectionServices>
       </S.Container>
