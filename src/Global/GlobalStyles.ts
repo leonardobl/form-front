@@ -13,7 +13,7 @@ export const GlobalStyles = createGlobalStyle`
 
 
 html, body, #root {
-  min-width: 100vh;
+  min-height: 100vh;
 }
 
 
