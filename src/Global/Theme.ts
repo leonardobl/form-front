@@ -18,4 +18,8 @@ export const Theme = {
     a2: "#0029BF",
     a1: "#286BED",
   },
+  space: {
+    large: "1600px",
+    medio: "1158px",
+  },
 };

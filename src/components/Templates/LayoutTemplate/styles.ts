@@ -1,8 +1,10 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  max-width: 1600px;
-  margin: 0 auto;
+  ${({ theme: { space } }) => css`
+    max-width: ${space.large};
+    margin: 0 auto;
+  `}
 `;
 
 export const header = styled.header`
@@ -11,13 +13,15 @@ export const header = styled.header`
 `;
 
 export const HeaderContent = styled.div`
-  max-width: 1158px;
-  margin: 0 auto;
-  height: 100%;
+  ${({ theme: { space } }) => css`
+    max-width: ${space.medio};
+    margin: 0 auto;
+    height: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `}
 `;
 
 export const HeaderMenu = styled.nav`
@@ -51,43 +55,47 @@ export const FooterBar = styled.div`
 `;
 
 export const FooterBarContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1158px;
-  margin: 0 auto;
-  height: 100%;
+  ${({ theme: { space } }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: ${space.medio};
+    margin: 0 auto;
+    height: 100%;
 
-  h3 {
-    color: #eee;
-    font-family: "Poppins";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 32px;
+    h3 {
+      color: #eee;
+      font-family: "Poppins";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 32px;
 
-    span {
-      color: #266bf0;
+      span {
+        color: #266bf0;
+      }
     }
-  }
+  `}
 `;
 
 export const FooterContent = styled.div`
-  max-width: 1158px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 100px;
-  flex: 1;
-  align-items: center;
-  /* justify-content: space-between; */
+  ${({ theme: { space } }) => css`
+    max-width: 1158px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 100px;
+    flex: 1;
+    align-items: center;
+    /* justify-content: space-between; */
 
-  color: #eee;
-  font-family: "Roboto";
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 32px;
+    color: #eee;
+    font-family: "Roboto";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+  `}
 `;
 
 export const FooterFirstDiv = styled.div`
