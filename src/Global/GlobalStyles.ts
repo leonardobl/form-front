@@ -8,8 +8,13 @@ export const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+  /* outline: none; */
+  border: none
 }
 
+button {
+  cursor: pointer;
+}
 
 
 html, body, #root {
