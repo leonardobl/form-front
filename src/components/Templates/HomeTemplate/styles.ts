@@ -263,6 +263,14 @@ export const SectionServicesContent = styled.div`
 `;
 
 export const TableService = styled.table`
+  thead {
+    background: #00114d;
+  }
+
+  tbody tr:nth-child(4) {
+    background: #00114d;
+  }
+
   width: 1005px;
   margin: 60px auto;
   height: 590px;
@@ -334,11 +342,8 @@ export const TableService = styled.table`
     height: 98px;
   }
 
-  tbody td {
-    width: 50%;
-  }
-
   tbody td:nth-child(1) + td {
+    width: 50%;
     border-top: 1px solid #eee;
     border-left: 1px solid #eee;
     border-bottom: 1px solid #eee;
