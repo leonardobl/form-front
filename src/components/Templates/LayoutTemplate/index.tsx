@@ -1,13 +1,15 @@
 import React from "react";
 import * as S from "./styles";
 import { ButtonLogin } from "../../Atoms/ButtonLogin";
-
+import { Link } from "react-router-dom";
 export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   return (
     <S.Container>
       <S.header>
         <S.HeaderContent>
-          <img src="assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
+          <Link to={"/"}>
+            <img src="assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
+          </Link>
           <S.HeaderMenu>
             <a href="#sobre">Sobre Nós</a>
             <a href="#servicos">Serviços</a>
@@ -21,7 +23,12 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       <S.Footer>
         <S.FooterContent>
           <S.FooterFirstDiv>
-            <img src="assets/imgs/logo-starcheck02.svg" alt="logo starcheck" />
+            <Link to={"/"}>
+              <img
+                src="assets/imgs/logo-starcheck02.svg"
+                alt="logo starcheck"
+              />
+            </Link>
             <p>
               Agende uma vistoria conosco hoje mesmo e experimente o
               profissionalismo e a excelência que tornaram a{" "}

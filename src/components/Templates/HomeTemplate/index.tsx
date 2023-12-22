@@ -1,6 +1,7 @@
 import React from "react";
 import * as S from "./styles";
 import { LayoutTemplate } from "../LayoutTemplate";
+import { Link } from "react-router-dom";
 import { ButtonHome } from "../../Atoms/ButtonHome";
 
 export const HomeTemplate = () => {
@@ -28,7 +29,9 @@ export const HomeTemplate = () => {
                   seu veículo, garantindo segurança e complementos.
                   <span>Vistoria Veicularh</span>
                 </p>
-                <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+                <Link to={"agendamento"}>
+                  <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+                </Link>
               </S.SectioStarCheckLeftSideWrapper>
             </S.SectioStarCheckLeftSide>
             <S.SectioStarCheckRightSide>
@@ -77,7 +80,9 @@ export const HomeTemplate = () => {
               vistorias.
             </S.TextDefault>
 
-            <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+            <Link to={"agendamento"}>
+              <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+            </Link>
 
             <S.SectionCards>
               <S.WrapperCard>
@@ -224,7 +229,9 @@ export const HomeTemplate = () => {
               Chassi/Plataforma
             </S.Textplus>
 
-            <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+            <Link to={"agendamento"}>
+              <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+            </Link>
           </S.SectionServicesContent>
         </S.SectionServices>
         <S.SectionLocation id="localizacao">
