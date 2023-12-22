@@ -94,17 +94,19 @@ export const SectioStarCheckRightSide = styled.div`
 export const SectioStarCheckRightSideWrapper = styled.div`
   ${({ theme: { space } }) => css`
     position: relative;
+    width: 550px;
 
     img {
       position: relative;
       z-index: 1;
-      width: 550px;
+      display: block;
+      width: 100%;
     }
 
     &::before {
       content: "";
       top: -30px;
-      right: -10px;
+      right: -30px;
       display: block;
       width: 477px;
       height: 314px;
