@@ -15,7 +15,10 @@ export const HomeTemplate = () => {
                   Star{" "}
                   <span>
                     Check{" "}
-                    <img src="assets/imgs/check-icon.svg" alt="icone check" />
+                    <img
+                      src="assets/imgs/check-icon.svg"
+                      alt="icone de checado"
+                    />
                   </span>
                 </S.Title>
 
@@ -30,7 +33,7 @@ export const HomeTemplate = () => {
             </S.SectioStarCheckLeftSide>
             <S.SectioStarCheckRightSide>
               <S.SectioStarCheckRightSideWrapper>
-                <img src="assets/imgs/Rectangle.png" alt="foto mecanico" />
+                <img src="assets/imgs/Rectangle.png" alt="icone de checado" />
               </S.SectioStarCheckRightSideWrapper>
             </S.SectioStarCheckRightSide>
           </S.SectioStarCheckContent>
@@ -105,17 +108,29 @@ export const HomeTemplate = () => {
               <S.WrapperCard>
                 <S.SubTitle>Valores</S.SubTitle>
                 <S.Card>
-                  <S.Grid gridTemplate=".2fr 1fr" gap="16px">
-                    <img src="assets/imgs/check-icon.svg" alt="" />
+                  <S.Grid $gridTemplate=".2fr 1fr" $gap="16px">
+                    <img
+                      src="assets/imgs/check-icon.svg"
+                      alt="icone de checado"
+                    />
                     <h4>INTEGRIDADE</h4>
 
-                    <img src="assets/imgs/check-icon.svg" alt="" />
+                    <img
+                      src="assets/imgs/check-icon.svg"
+                      alt="icone de checado"
+                    />
                     <h4>COMPROMETIMENTO</h4>
 
-                    <img src="assets/imgs/check-icon.svg" alt="" />
+                    <img
+                      src="assets/imgs/check-icon.svg"
+                      alt="icone de checado"
+                    />
                     <h4>RESPEITO</h4>
 
-                    <img src="assets/imgs/check-icon.svg" alt="" />
+                    <img
+                      src="assets/imgs/check-icon.svg"
+                      alt="icone de checado"
+                    />
                     <h4>CONFIANÇA</h4>
                   </S.Grid>
                 </S.Card>
@@ -126,7 +141,8 @@ export const HomeTemplate = () => {
         <S.SectionServices>
           <S.SectionServicesContent>
             <S.Title>
-              Serviços{} <img src="assets/imgs/check-icon.svg" alt="" />
+              Serviços{}{" "}
+              <img src="assets/imgs/check-icon.svg" alt="icone de checado" />
             </S.Title>
             <S.TextDefault>
               <S.TextStrong>Compre</S.TextStrong> e{" "}
@@ -163,22 +179,18 @@ export const HomeTemplate = () => {
                   <td>Carro</td>
                   <td>
                     {" "}
-                    <h4>
-                      <h3>
-                        R$ 150 <span>+</span> <p> taxas</p>
-                      </h3>
-                    </h4>{" "}
+                    <h3>
+                      R$ 150 <span>+</span> <p> taxas</p>
+                    </h3>
                   </td>
                 </tr>
                 <tr>
                   <td>Ônibus/Caminhão e Veículos Grandes</td>
                   <td>
                     {" "}
-                    <h4>
-                      <h3>
-                        R$ 190 <span>+</span> <p> taxas</p>
-                      </h3>
-                    </h4>{" "}
+                    <h3>
+                      R$ 190 <span>+</span> <p> taxas</p>
+                    </h3>
                   </td>
                 </tr>
                 <tr>
@@ -215,6 +227,34 @@ export const HomeTemplate = () => {
             <ButtonHome>AGENDAR VISTORIA</ButtonHome>
           </S.SectionServicesContent>
         </S.SectionServices>
+        <S.SectionLocation>
+          <S.SectionLocationContent>
+            <S.Title>
+              Localização{}{" "}
+              <img src="assets/imgs/check-icon.svg" alt="icone de checado" />
+            </S.Title>
+
+            <S.SectionLocationWrapperCardsMap>
+              <S.SectionLocationCardMap>
+                <S.WrapperImgMap>
+                  <img src="assets/imgs/map1.svg" alt="mapa de sao luiz" />
+                </S.WrapperImgMap>
+              </S.SectionLocationCardMap>
+
+              <S.SectionLocationCardMap>
+                <S.WrapperImgMap>
+                  <img src="assets/imgs/map2.svg" alt="mapa de sao luiz" />
+                </S.WrapperImgMap>
+              </S.SectionLocationCardMap>
+
+              <S.SectionLocationCardMap>
+                <S.WrapperImgMap>
+                  <img src="assets/imgs/map3.svg" alt="mapa de sao luiz" />
+                </S.WrapperImgMap>
+              </S.SectionLocationCardMap>
+            </S.SectionLocationWrapperCardsMap>
+          </S.SectionLocationContent>
+        </S.SectionLocation>
       </S.Container>
     </LayoutTemplate>
   );

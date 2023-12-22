@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  ${({ theme: { space } }) => css``}
+  ${({ theme: { space } }) => css`
+    padding: 0 16px;
+  `}
 `;
 
 export const SectioStarCheckContent = styled.div`
@@ -192,11 +194,11 @@ export const WrapperCard = styled.div`
   }
 `;
 
-export const Grid = styled.div<{ gridTemplate: string; gap?: string }>`
-  ${({ gridTemplate, gap }) => css`
+export const Grid = styled.div<{ $gridTemplate: string; $gap?: string }>`
+  ${({ $gridTemplate, $gap }) => css`
     display: grid;
-    grid-template-columns: ${gridTemplate};
-    gap: ${gap};
+    grid-template-columns: ${$gridTemplate};
+    gap: ${$gap};
 
     img {
       display: block;
@@ -360,5 +362,65 @@ export const TableService = styled.table`
     font-style: normal;
     font-weight: 700;
     line-height: 32px;
+  }
+`;
+
+export const SectionLocation = styled.div`
+  ${({ theme: { space } }) => css`
+    padding: 120px 0;
+  `}
+`;
+
+export const SectionLocationContent = styled.div`
+  ${({ theme: { space } }) => css`
+    max-width: ${space.medio};
+    margin: 0 auto;
+    text-align: center;
+  `}
+`;
+
+export const SectionLocationWrapperCardsMap = styled.div`
+  display: flex;
+  gap: 70px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+export const SectionLocationCardMap = styled.div``;
+
+export const WrapperImgMap = styled.div`
+  position: relative;
+
+  &::before {
+    content: "";
+    top: -18px;
+    right: -20px;
+    position: absolute;
+    display: block;
+    width: 257.37px;
+    height: 165.42px;
+    border-radius: 5px;
+    background: #00186d;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  &::after {
+    content: "";
+    bottom: -14px;
+    left: -20px;
+    position: absolute;
+    display: block;
+    width: 257.37px;
+    height: 165.42px;
+    border-radius: 5px;
+    background: #266bf0;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  img {
+    width: 320px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
   }
 `;
