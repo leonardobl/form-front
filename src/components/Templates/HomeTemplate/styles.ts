@@ -385,21 +385,22 @@ export const SectionLocationWrapperCardsMap = styled.div`
   justify-content: space-between;
 `;
 
+export const TitleLocalization = styled.h2`
+  display: flex;
+  color: #111;
+  font-family: "Poppins";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+
+  span {
+    text-align: left;
+  }
+`;
 export const SectionLocationCardMap = styled.div`
   h2 {
-    display: flex;
-    color: #111;
-    font-family: "Poppins";
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 32px;
     justify-content: center;
-    margin-bottom: 24px;
-
-    span {
-      text-align: left;
-    }
   }
 
   p {
@@ -410,6 +411,7 @@ export const SectionLocationCardMap = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 33px;
+    margin-top: 24px;
   }
 `;
 
@@ -450,4 +452,41 @@ export const WrapperImgMap = styled.a`
     position: relative;
     z-index: 1;
   }
+`;
+
+export const SectionContact = styled.section`
+  padding: 50px 0;
+  background: #266bf0;
+  min-height: 216px;
+`;
+
+export const SectionContactContent = styled.div`
+  ${({ theme: { space } }) => css`
+    max-width: ${space.medio};
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      color: #eee;
+      font-family: "Poppins";
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 48px;
+    }
+
+    div {
+      p {
+        color: #eee;
+        font-family: "Poppins";
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 48px;
+      }
+    }
+  `}
 `;

@@ -243,13 +243,13 @@ export const HomeTemplate = () => {
                   <img src="assets/imgs/map1.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
 
-                <h2>
+                <S.TitleLocalization>
                   <img src="assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
                     Calhau
                     <br /> São Luís / MA
                   </span>
-                </h2>
+                </S.TitleLocalization>
                 <p>
                   Rua Chapadinha N.04 - Quadra 40,
                   <br />
@@ -264,13 +264,13 @@ export const HomeTemplate = () => {
                 >
                   <img src="assets/imgs/map2.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
-                <h2>
+                <S.TitleLocalization>
                   <img src="assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
                     Centro
                     <br /> Bacabal / MA
                   </span>
-                </h2>
+                </S.TitleLocalization>
                 <p>
                   Br 316, SN Centro,
                   <br />
@@ -285,13 +285,13 @@ export const HomeTemplate = () => {
                 >
                   <img src="assets/imgs/map3.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
-                <h2>
+                <S.TitleLocalization>
                   <img src="assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
                     XXXXX
                     <br /> Balsas / MA
                   </span>
-                </h2>
+                </S.TitleLocalization>
                 <p>
                   Rua XXXXXX
                   <br /> <S.TextStrong>CEP 658000-000</S.TextStrong>
@@ -300,6 +300,46 @@ export const HomeTemplate = () => {
             </S.SectionLocationWrapperCardsMap>
           </S.SectionLocationContent>
         </S.SectionLocation>
+
+        <S.SectionContact>
+          <S.SectionContactContent>
+            <h1>
+              Ligue para agendar <br />
+              sua Vistoria!
+            </h1>
+
+            <div>
+              <S.TitleLocalization>
+                <span>
+                  Calhau
+                  <br /> São Luis / MA
+                </span>
+              </S.TitleLocalization>
+
+              <p>(98) 98562-0425</p>
+            </div>
+
+            <div>
+              <S.TitleLocalization>
+                <span>
+                  Centro
+                  <br /> Bacabal / MA
+                </span>
+              </S.TitleLocalization>
+              <p>(99) 99128-2316</p>
+            </div>
+
+            <div>
+              <S.TitleLocalization>
+                <span>
+                  XXXXX
+                  <br /> Balsas / MA
+                </span>
+              </S.TitleLocalization>
+              <p>(XX) XXXX-XXXX</p>
+            </div>
+          </S.SectionContactContent>
+        </S.SectionContact>
       </S.Container>
     </LayoutTemplate>
   );
