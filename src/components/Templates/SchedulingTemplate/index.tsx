@@ -16,7 +16,7 @@ export const SchedulingTemplate = () => {
 
               <p>
                 Agende sua vistoria de <S.TitleBlue>forma rápida</S.TitleBlue> e
-                <S.TitleBlue>fácil.</S.TitleBlue> Não perca tempo e garanta sua
+                <S.TitleBlue> fácil.</S.TitleBlue> Não perca tempo e garanta sua
                 segurança!
               </p>
             </S.BannerLeftSideContent>

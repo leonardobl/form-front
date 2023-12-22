@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "./styles";
 import { ButtonLogin } from "../../Atoms/ButtonLogin";
 import { Link, useLocation } from "react-router-dom";
@@ -6,6 +6,10 @@ import { NavHashLink } from "react-router-hash-link";
 
 export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <S.Container>
