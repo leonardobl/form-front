@@ -486,6 +486,7 @@ export const SectionContactContent = styled.div`
         font-style: normal;
         font-weight: 700;
         line-height: 48px;
+        margin-top: 10px;
       }
     }
   `}
