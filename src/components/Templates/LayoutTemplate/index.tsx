@@ -9,11 +9,12 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <S.Container>
-      <S.header>
+      <S.header id="home">
         <S.HeaderContent>
-          <Link to={"/"}>
+          <NavHashLink to={pathname !== "/" ? "/#home" : "#home"}>
             <img src="assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
-          </Link>
+          </NavHashLink>
+
           <S.HeaderMenu>
             <NavHashLink to={pathname !== "/" ? "/#sobre" : "#sobre"}>
               Sobre Nós
@@ -43,12 +44,13 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       <S.Footer>
         <S.FooterContent>
           <S.FooterFirstDiv>
-            <Link to={"/"}>
+            <NavHashLink to={pathname !== "/" ? "/#home" : "#home"}>
               <img
                 src="assets/imgs/logo-starcheck02.svg"
                 alt="logo starcheck"
               />
-            </Link>
+            </NavHashLink>
+
             <p>
               Agende uma vistoria conosco hoje mesmo e experimente o
               profissionalismo e a excelência que tornaram a{" "}
