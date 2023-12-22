@@ -1,8 +1,12 @@
 import React from "react";
 import * as S from "./styles";
 import { ButtonLogin } from "../../Atoms/ButtonLogin";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { NavHashLink } from "react-router-hash-link";
+
 export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
+  const { pathname } = useLocation();
+
   return (
     <S.Container>
       <S.header>
@@ -11,10 +15,24 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             <img src="assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
           </Link>
           <S.HeaderMenu>
-            <a href="#sobre">Sobre Nós</a>
-            <a href="#servicos">Serviços</a>
-            <a href="#localizacao">Localização</a>
-            <a href="#contato">Contatos</a>
+            <NavHashLink to={pathname !== "/" ? "/#sobre" : "#sobre"}>
+              Sobre Nós
+            </NavHashLink>
+
+            <NavHashLink to={pathname !== "/" ? "/#servicos" : "#servicos"}>
+              Serviços
+            </NavHashLink>
+
+            <NavHashLink
+              to={pathname !== "/" ? "/#localizacao" : "#localizacao"}
+            >
+              Localização
+            </NavHashLink>
+
+            <NavHashLink to={pathname !== "/" ? "/#contato" : "#contato"}>
+              Contatos
+            </NavHashLink>
+
             <Link to="/login">
               <ButtonLogin>Login</ButtonLogin>
             </Link>
