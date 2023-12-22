@@ -15,26 +15,36 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
     <S.Container>
       <S.header id="home">
         <S.HeaderContent>
-          <NavHashLink to={pathname !== "/" ? "/#home" : "#home"}>
+          <NavHashLink smooth={true} to={pathname !== "/" ? "/#home" : "#home"}>
             <img src="assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
           </NavHashLink>
 
           <S.HeaderMenu>
-            <NavHashLink to={pathname !== "/" ? "/#sobre" : "#sobre"}>
+            <NavHashLink
+              smooth={true}
+              to={pathname !== "/" ? "/#sobre" : "#sobre"}
+            >
               Sobre Nós
             </NavHashLink>
 
-            <NavHashLink to={pathname !== "/" ? "/#servicos" : "#servicos"}>
+            <NavHashLink
+              smooth={true}
+              to={pathname !== "/" ? "/#servicos" : "#servicos"}
+            >
               Serviços
             </NavHashLink>
 
             <NavHashLink
+              smooth={true}
               to={pathname !== "/" ? "/#localizacao" : "#localizacao"}
             >
               Localização
             </NavHashLink>
 
-            <NavHashLink to={pathname !== "/" ? "/#contato" : "#contato"}>
+            <NavHashLink
+              smooth={true}
+              to={pathname !== "/" ? "/#contato" : "#contato"}
+            >
               Contatos
             </NavHashLink>
 
