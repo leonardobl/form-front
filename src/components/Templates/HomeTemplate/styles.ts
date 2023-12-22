@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  ${({ theme: { space } }) => css`
-    padding: 0 16px;
-  `}
+  ${({ theme: { space } }) => css``}
 `;
 
 export const SectioStarCheckContent = styled.div`
@@ -380,16 +378,46 @@ export const SectionLocationContent = styled.div`
 `;
 
 export const SectionLocationWrapperCardsMap = styled.div`
+  padding: 80px 0;
   display: flex;
   gap: 70px;
   flex-wrap: wrap;
   justify-content: space-between;
 `;
 
-export const SectionLocationCardMap = styled.div``;
+export const SectionLocationCardMap = styled.div`
+  h2 {
+    display: flex;
+    color: #111;
+    font-family: "Poppins";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px;
+    justify-content: center;
+    margin-bottom: 24px;
 
-export const WrapperImgMap = styled.div`
+    span {
+      text-align: left;
+    }
+  }
+
+  p {
+    color: #2d2d2d;
+    text-align: center;
+    font-family: "Roboto";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 33px;
+  }
+`;
+
+export const WrapperImgMap = styled.a`
   position: relative;
+  display: block;
+  cursor: pointer;
+  margin-bottom: 60px;
 
   &::before {
     content: "";
@@ -406,7 +434,7 @@ export const WrapperImgMap = styled.div`
 
   &::after {
     content: "";
-    bottom: -14px;
+    bottom: -10px;
     left: -20px;
     position: absolute;
     display: block;
@@ -421,6 +449,5 @@ export const WrapperImgMap = styled.div`
     width: 320px;
     position: relative;
     z-index: 1;
-    cursor: pointer;
   }
 `;
