@@ -6,6 +6,7 @@ import { GlobalStyles } from "./Global/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import { Theme } from "./Global/Theme";
 import { Home } from "./components/Pages/home";
+import { Scheduling } from "./components/Pages/scheduling";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,6 +16,7 @@ root.render(
     <ThemeProvider theme={Theme}>
       <GlobalStyles />
       <Home />
+      <Scheduling />
     </ThemeProvider>
   </React.StrictMode>
 );

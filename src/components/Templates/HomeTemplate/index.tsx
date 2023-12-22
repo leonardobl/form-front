@@ -38,7 +38,7 @@ export const HomeTemplate = () => {
             </S.SectioStarCheckRightSide>
           </S.SectioStarCheckContent>
         </S.SectioStarCheck>
-        <S.SectionAbout>
+        <S.SectionAbout id="sobre">
           <S.SectionAboutContent>
             <S.Title>
               Sobre
@@ -138,7 +138,7 @@ export const HomeTemplate = () => {
             </S.SectionCards>
           </S.SectionAboutContent>
         </S.SectionAbout>
-        <S.SectionServices>
+        <S.SectionServices id="servicos">
           <S.SectionServicesContent>
             <S.Title>
               Serviços{}{" "}
@@ -227,7 +227,7 @@ export const HomeTemplate = () => {
             <ButtonHome>AGENDAR VISTORIA</ButtonHome>
           </S.SectionServicesContent>
         </S.SectionServices>
-        <S.SectionLocation>
+        <S.SectionLocation id="localizacao">
           <S.SectionLocationContent>
             <S.Title>
               Localização{}{" "}
@@ -301,7 +301,7 @@ export const HomeTemplate = () => {
           </S.SectionLocationContent>
         </S.SectionLocation>
 
-        <S.SectionContact>
+        <S.SectionContact id="contato">
           <S.SectionContactContent>
             <h1>
               Ligue para agendar <br />

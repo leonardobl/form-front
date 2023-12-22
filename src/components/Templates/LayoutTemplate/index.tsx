@@ -9,10 +9,10 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
         <S.HeaderContent>
           <img src="assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
           <S.HeaderMenu>
-            <a href="">Sobre Nós</a>
-            <a href="">Serviços</a>
-            <a href="">Localização</a>
-            <a href="">Contatos</a>
+            <a href="#sobre">Sobre Nós</a>
+            <a href="#servicos">Serviços</a>
+            <a href="#localizacao">Localização</a>
+            <a href="#contato">Contatos</a>
             <ButtonLogin>Login</ButtonLogin>
           </S.HeaderMenu>
         </S.HeaderContent>
