@@ -67,20 +67,16 @@ export const Textplus = styled.p`
 
 export const SectioStarCheckLeftSideWrapper = styled.div`
   ${({ theme: { space } }) => css`
-    max-width: 80%;
+    max-width: 70%;
 
     p {
       color: #2d2d2d;
-      font-family: "Roboto";
+      font-family: Roboto;
       font-size: 20px;
       font-style: normal;
-      font-weight: 700;
+      font-weight: 400;
       line-height: 32px;
       margin-bottom: 20px;
-
-      span {
-        color: #266bf0;
-      }
     }
   `}
 `;
@@ -151,6 +147,7 @@ export const SectionAboutContent = styled.div`
 
 export const TextBlue = styled.span`
   color: #266bf0;
+  font-weight: 700;
 `;
 
 export const TextDefault = styled.p`

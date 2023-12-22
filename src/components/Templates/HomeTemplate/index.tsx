@@ -24,10 +24,10 @@ export const HomeTemplate = () => {
                 </S.Title>
 
                 <p>
-                  Bem-vindo à StarCheck, sua empresa de Vistoria Veicular,
+                  Bem-vindo à <S.TextStrong>StarCheck</S.TextStrong>, sua
+                  empresa de <S.TextBlue>Vistoria Veicular</S.TextBlue>,
                   especializada em fornecer análises precisas e fornecidas do
                   seu veículo, garantindo segurança e complementos.
-                  <span>Vistoria Veicularh</span>
                 </p>
                 <Link to={"agendamento"}>
                   <ButtonCustom typeOfButton="BlueGradient">

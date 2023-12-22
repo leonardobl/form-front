@@ -13,6 +13,10 @@ export const Buttongradiente = styled.button`
   font-weight: 700;
   line-height: 36px;
   letter-spacing: 0.72px;
+
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
 `;
 
 export const ButtonLogin = styled.button`
@@ -42,6 +46,10 @@ export const ButtonBlueLight = styled.button`
   font-weight: 500;
   line-height: 32px;
   letter-spacing: 0.72px;
+
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
 `;
 
 export const ButtonBlueDark = styled.button`
@@ -57,4 +65,8 @@ export const ButtonBlueDark = styled.button`
   font-weight: 700;
   line-height: 32px;
   letter-spacing: 1.44px;
+
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+  -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
 `;
