@@ -36,7 +36,7 @@ export const HomeTemplate = () => {
             </S.SectioStarCheckLeftSide>
             <S.SectioStarCheckRightSide>
               <S.SectioStarCheckRightSideWrapper>
-                <img src="assets/imgs/Rectangle.png" alt="icone de checado" />
+                <img src="assets/imgs/Rectangle.svg" alt="icone de checado" />
               </S.SectioStarCheckRightSideWrapper>
             </S.SectioStarCheckRightSide>
           </S.SectioStarCheckContent>
