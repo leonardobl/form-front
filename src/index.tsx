@@ -10,8 +10,8 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { ThemeProvider as MUIThemeProvider } from "@mui/material";
 import { Login } from "./components/Pages/login";
 import { MUI_Theme } from "./Global/MUI-Theme";
-import { Physical } from "./components/Pages/fical";
-import { SchedulingContainerTemplate } from "./components/Templates/SchedulingContainerTemplate";
+import { Physical } from "./components/Pages/physical";
+import { PageLayoutTemplate } from "./components/Templates/PageTemplate";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -24,9 +24,10 @@ root.render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="agendamento" element={<SchedulingContainerTemplate />}>
+            <Route path="agendamento" element={<PageLayoutTemplate />}>
               <Route index element={<Scheduling />} />
               <Route path="loja-fisica" element={<Physical />} />
+              <Route path="domicilio" element={<Physical />} />
             </Route>
             <Route path="login" element={<Login />} />
           </Routes>

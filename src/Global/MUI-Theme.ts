@@ -30,6 +30,22 @@ export const MUI_Theme = createTheme({
       },
     },
 
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          "& label": {
+            color: "#266BF0",
+          },
+          "& fieldset": {
+            borderColor: "#266BF0",
+          },
+          "&:hover label": {
+            borderColor: "#266BF0",
+            borderWidth: "0.15rem",
+          },
+        },
+      },
+    },
     MuiFormLabel: {
       styleOverrides: {
         asterisk: {
