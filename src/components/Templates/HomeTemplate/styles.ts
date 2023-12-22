@@ -95,6 +95,7 @@ export const SectioStarCheckRightSideWrapper = styled.div`
   ${({ theme: { space } }) => css`
     position: relative;
     width: 550px;
+    height: 720px;
 
     img {
       position: relative;
