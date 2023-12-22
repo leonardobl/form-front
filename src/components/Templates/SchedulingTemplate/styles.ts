@@ -10,7 +10,8 @@ export const Banner = styled.div`
   height: 720px;
   display: flex;
   background-image: url("assets/imgs/banner-agendamento.svg");
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 
 export const BannerLeftSide = styled.div`
