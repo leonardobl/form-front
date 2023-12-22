@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { ButtonHome } from "../../Atoms/ButtonHome";
+import { ButtonCustom } from "../../Atoms/ButtonCustom";
 
 export const SchedulingTemplate = () => {
   return (
@@ -31,8 +31,8 @@ export const SchedulingTemplate = () => {
           </p>
 
           <S.WrapperButtons>
-            <ButtonHome>Loja Física</ButtonHome>
-            <ButtonHome>Domicilio</ButtonHome>
+            <ButtonCustom typeOfButton="BlueLight">Loja Física</ButtonCustom>
+            <ButtonCustom typeOfButton="BlueLight">Domicilio</ButtonCustom>
           </S.WrapperButtons>
         </S.Preference>
       </S.Container>

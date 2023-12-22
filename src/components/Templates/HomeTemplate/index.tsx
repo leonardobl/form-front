@@ -2,7 +2,7 @@ import React from "react";
 import * as S from "./styles";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { Link } from "react-router-dom";
-import { ButtonHome } from "../../Atoms/ButtonHome";
+import { ButtonCustom } from "../../Atoms/ButtonCustom";
 
 export const HomeTemplate = () => {
   return (
@@ -30,7 +30,9 @@ export const HomeTemplate = () => {
                   <span>Vistoria Veicularh</span>
                 </p>
                 <Link to={"agendamento"}>
-                  <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+                  <ButtonCustom typeOfButton="BlueGradient">
+                    AGENDAR VISTORIA
+                  </ButtonCustom>
                 </Link>
               </S.SectioStarCheckLeftSideWrapper>
             </S.SectioStarCheckLeftSide>
@@ -81,7 +83,9 @@ export const HomeTemplate = () => {
             </S.TextDefault>
 
             <Link to={"agendamento"}>
-              <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+              <ButtonCustom typeOfButton="BlueGradient">
+                AGENDAR VISTORIA
+              </ButtonCustom>
             </Link>
 
             <S.SectionCards>
@@ -230,7 +234,9 @@ export const HomeTemplate = () => {
             </S.Textplus>
 
             <Link to={"agendamento"}>
-              <ButtonHome>AGENDAR VISTORIA</ButtonHome>
+              <ButtonCustom typeOfButton="BlueGradient">
+                AGENDAR VISTORIA
+              </ButtonCustom>
             </Link>
           </S.SectionServicesContent>
         </S.SectionServices>

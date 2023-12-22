@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { ButtonHome } from "../../Atoms/ButtonHome";
+import { ButtonCustom } from "../../Atoms/ButtonCustom";
 
 export const LoginTemplate = () => {
   return (
@@ -12,8 +12,8 @@ export const LoginTemplate = () => {
           vistoria.
         </p>
         <S.WrapperButtons>
-          <ButtonHome>LOGIN</ButtonHome>
-          <ButtonHome>CADASTRO</ButtonHome>
+          <ButtonCustom typeOfButton="BlueDark">LOGIN</ButtonCustom>
+          <ButtonCustom typeOfButton="BlueLight">CADASTRO</ButtonCustom>
         </S.WrapperButtons>
       </S.Container>
     </LayoutTemplate>

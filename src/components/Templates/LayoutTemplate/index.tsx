@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import * as S from "./styles";
-import { ButtonLogin } from "../../Atoms/ButtonLogin";
+import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { Link, useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 
@@ -49,7 +49,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             </NavHashLink>
 
             <Link to="/login">
-              <ButtonLogin>Login</ButtonLogin>
+              <ButtonCustom typeOfButton="Login">Login</ButtonCustom>
             </Link>
           </S.HeaderMenu>
         </S.HeaderContent>
