@@ -98,6 +98,7 @@ export const SectioStarCheckRightSideWrapper = styled.div`
     img {
       position: relative;
       z-index: 1;
+      width: 550px;
     }
 
     &::before {
