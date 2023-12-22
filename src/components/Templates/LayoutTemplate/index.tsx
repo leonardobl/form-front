@@ -15,7 +15,9 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             <a href="#servicos">Serviços</a>
             <a href="#localizacao">Localização</a>
             <a href="#contato">Contatos</a>
-            <ButtonLogin>Login</ButtonLogin>
+            <Link to="/login">
+              <ButtonLogin>Login</ButtonLogin>
+            </Link>
           </S.HeaderMenu>
         </S.HeaderContent>
       </S.header>

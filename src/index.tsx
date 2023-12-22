@@ -7,6 +7,7 @@ import { Theme } from "./Global/Theme";
 import { Home } from "./components/Pages/home";
 import { Scheduling } from "./components/Pages/scheduling";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Login } from "./components/Pages/login";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,6 +20,7 @@ root.render(
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/agendamento" element={<Scheduling />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
