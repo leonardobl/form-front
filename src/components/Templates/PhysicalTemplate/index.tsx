@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as S from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { v4 } from "uuid";
@@ -44,11 +44,16 @@ const horariosOptions = [
 
 export const PhysicalTemplate = () => {
   const [data, setData] = useState<lojaFisica>({} as lojaFisica);
+  const { pathname } = useLocation();
 
   return (
     <S.Container>
       <S.Content>
-        <S.Title>Loja Física</S.Title>
+        <S.Title>
+          {pathname.includes("loja-fisica")
+            ? "Loja Física"
+            : "Atendimento em Domicílio"}
+        </S.Title>
 
         <S.WrapperInput>
           <SimpleSelect isClearable label="Loja" options={cidadeOptions} />

@@ -26,7 +26,7 @@ root.render(
           <Route path="agendamento" element={<PageLayoutTemplate />}>
             <Route index element={<Scheduling />} />
             <Route path="loja-fisica" element={<Physical />} />
-            <Route path="domicilio" element={<Physical />} />
+            <Route path="atendimento-domicilio" element={<Physical />} />
           </Route>
           <Route path="login" element={<Login />} />
         </Routes>

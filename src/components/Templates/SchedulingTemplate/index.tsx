@@ -34,7 +34,9 @@ export const SchedulingTemplate = () => {
           <Link to={"loja-fisica"}>
             <ButtonCustom typeOfButton="BlueLight">Loja Física</ButtonCustom>
           </Link>
-          <ButtonCustom typeOfButton="BlueLight">Domicilio</ButtonCustom>
+          <Link to={"atendimento-domicilio"}>
+            <ButtonCustom typeOfButton="BlueLight">Domicilio</ButtonCustom>
+          </Link>
         </S.WrapperButtons>
       </S.Preference>
     </S.Container>
