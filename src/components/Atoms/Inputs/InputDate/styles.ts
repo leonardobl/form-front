@@ -18,6 +18,18 @@ export const Container = styled.div`
     gap: 2px;
   }
 
+  .react-datepicker__close-icon {
+    &::after {
+      background-color: transparent;
+      color: rgba(38, 107, 240, 1);
+      font-size: 22px;
+      position: absolute;
+      font-weight: 900;
+      right: 60px;
+      bottom: 16px;
+    }
+  }
+
   .react-datepicker__input-container {
     /* width: 600px; */
     input {

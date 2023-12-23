@@ -26,6 +26,21 @@ const cidadeOptions = [
   },
 ];
 
+const horariosOptions = [
+  {
+    label: "09:30",
+    value: v4(),
+  },
+  {
+    label: "10:20",
+    value: v4(),
+  },
+  {
+    label: "15:30",
+    value: v4(),
+  },
+];
+
 export const PhysicalTemplate = () => {
   const [data, setData] = useState<lojaFisica>({} as lojaFisica);
 
@@ -35,7 +50,7 @@ export const PhysicalTemplate = () => {
         <S.Title>Loja Física</S.Title>
 
         <S.WrapperInput>
-          <SimpleSelect label="Loja" options={cidadeOptions} />
+          <SimpleSelect isClearable label="Loja" options={cidadeOptions} />
         </S.WrapperInput>
 
         <p>
@@ -47,13 +62,18 @@ export const PhysicalTemplate = () => {
             <InputDate
               showIcon={true}
               label="Data"
-              onChange={(e) => console.log(e)}
+              onChange={(e) => setData((prev) => ({ ...prev, data: e }))}
               placeholderText="__/__/__"
+              selected={data.data}
             />
           </S.WrapperInput>
 
           <S.WrapperInput>
-            <SimpleSelect label="Horario" />
+            <SimpleSelect
+              isClearable
+              options={horariosOptions}
+              label="Horario"
+            />
           </S.WrapperInput>
         </S.InputsContainer>
       </S.Content>
