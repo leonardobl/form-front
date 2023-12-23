@@ -12,6 +12,7 @@ import { Login } from "./components/Pages/login";
 
 import { Physical } from "./components/Pages/physical";
 import { PageLayoutTemplate } from "./components/Templates/PageTemplate";
+import { Register } from "./components/Pages/register";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -23,6 +24,7 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/cadastro" element={<Register />} />
           <Route path="agendamento" element={<PageLayoutTemplate />}>
             <Route index element={<Scheduling />} />
             <Route path="loja-fisica" element={<Physical />} />
