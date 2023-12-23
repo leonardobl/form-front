@@ -6,6 +6,10 @@ export const Container = styled.div<{ $isLabel: boolean }>`
 
     position: relative;
 
+    input {
+      height: 36px;
+    }
+
     .css-1u9des2-indicatorSeparator {
       display: none;
     }
