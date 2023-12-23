@@ -24,6 +24,10 @@ export const Container = styled.div<{ $isLabel: boolean }>`
       border-color: #266bf0;
     }
 
+    .css-lm8j94-menu {
+      z-index: 2;
+    }
+
     .css-1jqq78o-placeholder {
       display: ${$isLabel ? "none" : "block"};
     }
