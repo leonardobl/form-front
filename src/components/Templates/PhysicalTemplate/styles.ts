@@ -8,9 +8,9 @@ export const Content = styled.div`
   width: max-content;
   margin: 0 auto;
 
-  div {
+  /* div {
     width: 400px;
-  }
+  } */
 `;
 
 export const Title = styled.h1`
