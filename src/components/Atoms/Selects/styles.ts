@@ -10,11 +10,13 @@ export const Container = styled.div<{ $isLabel: boolean }>`
       display: none;
     }
 
-    .css-1h06qz8-control {
+    .css-1h06qz8-control,
+    .css-13cymwt-control {
       border-color: #266bf0;
     }
 
-    .css-1h06qz8-control:hover {
+    .css-1h06qz8-control:hover,
+    .css-13cymwt-control:hover {
       border-color: #266bf0;
     }
 

@@ -2,6 +2,8 @@ import React from "react";
 import * as S from "./styles";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 
+import { AsyncSimpleSelect } from "../../Atoms/Selects/AsyncSelect";
+
 const opt = [
   {
     value: "Leonardo",
@@ -18,7 +20,7 @@ export const PhysicalTemplate = () => {
     <S.Container>
       <S.Content>
         <S.Title>Loja Física</S.Title>
-        <SimpleSelect required isClearable options={opt} label="Required" />
+        <AsyncSimpleSelect label="Teste" required />
       </S.Content>
     </S.Container>
   );

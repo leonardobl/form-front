@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import * as S from "../styles";
-import Select, {
-  GroupBase,
-  InputActionMeta,
-  OnChangeValue,
-  Props,
-} from "react-select";
+import Select, { GroupBase, Props } from "react-select";
 
-interface ISelectProps {
+export interface ISelectsProps {
   label?: string;
 }
 
@@ -15,7 +10,7 @@ export function SimpleSelect<
   Option,
   IsMulti extends boolean = false,
   Group extends GroupBase<Option> = GroupBase<Option>
->(props: Props<Option, IsMulti, Group> & ISelectProps) {
+>(props: Props<Option, IsMulti, Group> & ISelectsProps) {
   return (
     <S.Container $isLabel={!!props.label}>
       {props.label && (
