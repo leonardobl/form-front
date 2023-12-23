@@ -6,8 +6,13 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   ${({ theme: { space } }) => css`
-    max-width: 900px;
+    width: 900px;
     margin: 0 auto;
+
+    button {
+      margin-left: 100%;
+      transform: translateX(-100%);
+    }
 
     p {
       color: #2d2d2d;
@@ -30,6 +35,7 @@ export const WrapperInput = styled.div`
 export const InputsContainer = styled.div`
   display: flex;
   gap: 100px;
+  margin-bottom: 50px;
 `;
 
 export const TextBlue = styled.span`

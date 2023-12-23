@@ -9,7 +9,7 @@ export const Container = styled.div`
 export const Banner = styled.div`
   height: 720px;
   display: flex;
-  background-image: url("assets/imgs/banner-agendamento.svg");
+  background-image: url("assets/imgs/fundo.jpg");
   background-size: contain;
   background-repeat: no-repeat;
 `;

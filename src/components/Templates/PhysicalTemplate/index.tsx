@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import * as S from "./styles";
-import { FaCalendar } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { v4 } from "uuid";
+import { ButtonCustom } from "../../Atoms/ButtonCustom";
 
 type lojaFisica = {
   loja: string;
@@ -76,6 +77,10 @@ export const PhysicalTemplate = () => {
             />
           </S.WrapperInput>
         </S.InputsContainer>
+
+        <Link to={""}>
+          <ButtonCustom typeOfButton="BlueLight">Avançar</ButtonCustom>
+        </Link>
       </S.Content>
     </S.Container>
   );

@@ -22,7 +22,7 @@ export const Container = styled.div`
     &::after {
       background-color: transparent;
       color: rgba(38, 107, 240, 1);
-      font-size: 22px;
+      font-size: 21px;
       position: absolute;
       font-weight: 900;
       right: 60px;
