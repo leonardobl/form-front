@@ -15,7 +15,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
     <S.Container>
       <S.header id="home">
         <S.HeaderContent>
-          <NavHashLink smooth={true} to={pathname !== "/" ? "/#home" : "#home"}>
+          <NavHashLink smooth={true} to={"/"}>
             <img src="assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
           </NavHashLink>
 
@@ -58,7 +58,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       <S.Footer>
         <S.FooterContent>
           <S.FooterFirstDiv>
-            <NavHashLink to={pathname !== "/" ? "/#home" : "#home"}>
+            <NavHashLink to={"/"}>
               <img
                 src="assets/imgs/logo-starcheck02.svg"
                 alt="logo starcheck"
