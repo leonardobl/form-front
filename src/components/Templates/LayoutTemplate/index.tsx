@@ -48,7 +48,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
               Contatos
             </NavHashLink>
 
-            <Link to="/login">
+            <Link to="/login-cadastro">
               <ButtonCustom typeOfButton="Login">Login</ButtonCustom>
             </Link>
           </S.HeaderMenu>
