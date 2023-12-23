@@ -7,15 +7,18 @@ export const Container = styled.div`
 export const Content = styled.div`
   width: max-content;
   margin: 0 auto;
-  /* background-color: #266bf0; */
+  position: relative;
+`;
 
-  /* div {
-    width: 400px;
-  } */
+export const WrapperDate = styled.div`
+  width: 500px;
+  position: absolute;
+  z-index: 2;
 `;
 
 export const Title = styled.h1`
   color: #266bf0;
+
   margin-bottom: 40px;
   font-family: "Poppins";
   font-size: 36px;
