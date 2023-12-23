@@ -7,6 +7,7 @@ export const Container = styled.div`
 export const Content = styled.div`
   width: max-content;
   margin: 0 auto;
+  /* background-color: #266bf0; */
 
   /* div {
     width: 400px;

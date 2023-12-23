@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as S from "./styles";
+import * as S from "../styles";
 import Select, {
   GroupBase,
   InputActionMeta,
@@ -18,7 +18,12 @@ export function SimpleSelect<
 >(props: Props<Option, IsMulti, Group> & ISelectProps) {
   return (
     <S.Container $isLabel={!!props.label}>
-      {props.label && <S.Label>{props.label}</S.Label>}
+      {props.label && (
+        <S.Label>
+          {props.label}{" "}
+          <S.Required $isRequired={!!props.required}>*</S.Required>
+        </S.Label>
+      )}
       <Select {...props} theme={(theme) => ({ ...theme, borderRadius: 5 })} />
     </S.Container>
   );

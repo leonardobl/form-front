@@ -44,3 +44,14 @@ export const Label = styled.label`
   font-weight: 400;
   line-height: 16px;
 `;
+
+export const Required = styled.p<{ $isRequired: boolean }>`
+  color: rgba(237, 0, 0, 1);
+  position: absolute;
+  padding-right: 5px;
+  background-color: #fff;
+  z-index: 1;
+  top: 0;
+  right: -8px;
+  display: ${({ $isRequired }) => ($isRequired ? "block" : "none")};
+`;

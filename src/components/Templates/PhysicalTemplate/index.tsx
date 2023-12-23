@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./styles";
-import { SimpleSelect } from "../../Atoms/SimpleSelect";
+import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 
 const opt = [
   {
@@ -18,7 +18,7 @@ export const PhysicalTemplate = () => {
     <S.Container>
       <S.Content>
         <S.Title>Loja Física</S.Title>
-        <SimpleSelect isClearable options={opt} />
+        <SimpleSelect required isClearable options={opt} label="Required" />
       </S.Content>
     </S.Container>
   );
