@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import * as S from "./styles";
+import { FaCalendar } from "react-icons/fa";
+import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 
 export const PhysicalTemplate = () => {
@@ -7,8 +9,31 @@ export const PhysicalTemplate = () => {
     <S.Container>
       <S.Content>
         <S.Title>Loja Física</S.Title>
+
+        <S.WrapperInput>
+          <SimpleSelect required label="Loja" />
+        </S.WrapperInput>
+
+        <p>
+          Datas e horários <S.TextBlue>disponíveis.</S.TextBlue>
+        </p>
+
+        <S.InputsContainer>
+          <S.WrapperInput>
+            <InputDate
+              showIcon={true}
+              required
+              label="Data"
+              onChange={(e) => console.log(e)}
+              placeholderText="__/__/__"
+            />
+          </S.WrapperInput>
+
+          <S.WrapperInput>
+            <SimpleSelect required label="Loja" />
+          </S.WrapperInput>
+        </S.InputsContainer>
       </S.Content>
-      <InputDate onChange={(e) => ""} monthsShown={2} />
     </S.Container>
   );
 };

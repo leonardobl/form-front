@@ -1,14 +1,28 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  position: relative;
+
   .react-datepicker-wrapper {
-    width: 400px;
+    min-width: 400px;
+
+    svg {
+      right: 15px;
+      top: 5px;
+      font-size: 24px;
+    }
+  }
+
+  .react-datepicker {
+    display: flex;
+    gap: 2px;
   }
 
   .react-datepicker__input-container {
+    /* width: 600px; */
     input {
       width: 100%;
-      height: 40px;
+      height: 50px;
       border-radius: 5px;
       border: 1px solid red;
       padding: 0 10px;
@@ -22,4 +36,33 @@ export const Container = styled.div`
       }
     }
   }
+`;
+
+export const Required = styled.span<{ $isRequired: boolean }>`
+  color: rgba(237, 0, 0, 1);
+  position: absolute;
+  padding-right: 5px;
+  background-color: #fff;
+  z-index: 1;
+  top: 3px;
+  font-size: 16px;
+  right: -10px;
+  display: ${({ $isRequired }) => ($isRequired ? "block" : "none")};
+`;
+
+export const Label = styled.label`
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  left: 10px;
+  background-color: #fff;
+  display: block;
+  padding: 2px 5px;
+
+  color: rgba(0, 0, 0, 0.56);
+  font-family: "Roboto";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
 `;

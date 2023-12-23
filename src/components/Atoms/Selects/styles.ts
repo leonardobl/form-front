@@ -51,13 +51,14 @@ export const Label = styled.label`
   line-height: 16px;
 `;
 
-export const Required = styled.p<{ $isRequired: boolean }>`
+export const Required = styled.span<{ $isRequired: boolean }>`
   color: rgba(237, 0, 0, 1);
   position: absolute;
   padding-right: 5px;
   background-color: #fff;
   z-index: 1;
-  top: 0;
-  right: -8px;
+  top: 3px;
+  font-size: 16px;
+  right: -10px;
   display: ${({ $isRequired }) => ($isRequired ? "block" : "none")};
 `;
