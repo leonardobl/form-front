@@ -3,13 +3,23 @@ import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { Link, useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
+  const [token, setToken] = useSessionStorage("@token");
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  function handleLoginLogout() {
+    if (token) {
+      sessionStorage.removeItem("@token");
+      window.open("/login", "_self");
+    }
+    window.open("/login-cadastro", "_self");
+  }
 
   return (
     <S.Container>
@@ -48,9 +58,9 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
               Contatos
             </NavHashLink>
 
-            <Link to="/login-cadastro">
-              <ButtonCustom typeOfButton="Login">Login</ButtonCustom>
-            </Link>
+            <ButtonCustom typeOfButton="Login" onClick={handleLoginLogout}>
+              {token ? "Logout" : "Login"}
+            </ButtonCustom>
           </S.HeaderMenu>
         </S.HeaderContent>
       </S.header>
