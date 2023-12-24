@@ -8,7 +8,7 @@ type PaymentCodContainerProps = {
 export const PaymentCodContainer = ({ value }: PaymentCodContainerProps) => {
   return (
     <S.Container>
-      {value}{" "}
+      <S.Input value={value} readOnly />
       <img alt="icone copia e cola" src={"/assets/imgs/past-icon.svg"} />
     </S.Container>
   );

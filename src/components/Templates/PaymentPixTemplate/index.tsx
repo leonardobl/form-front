@@ -2,6 +2,7 @@ import React from "react";
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
+import { v4 } from "uuid";
 
 export const PaymentPixTemplate = () => {
   return (
@@ -26,7 +27,7 @@ export const PaymentPixTemplate = () => {
         <S.WrapperDataPayment>
           <S.Qrcode src="/assets/imgs/qrcode.jpg" />
           <S.DataPaymentContent>
-            <PaymentCodContainer value="rerse" />
+            <PaymentCodContainer value={v4()} />
             <S.WrapperButtons>
               <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
               <ButtonCustom typeOfButton="Ghost">
