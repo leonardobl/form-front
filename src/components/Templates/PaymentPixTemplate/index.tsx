@@ -5,6 +5,10 @@ import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
 import { v4 } from "uuid";
 
 export const PaymentPixTemplate = () => {
+  function handleTicket() {
+    window.open("boleto", "_self");
+  }
+
   return (
     <S.Continer>
       <S.Content>
@@ -30,7 +34,7 @@ export const PaymentPixTemplate = () => {
             <PaymentCodContainer value={v4()} />
             <S.WrapperButtons>
               <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
-              <ButtonCustom typeOfButton="Ghost">
+              <ButtonCustom typeOfButton="Ghost" onClick={handleTicket}>
                 ALTERAR PARA BOLETO
               </ButtonCustom>
             </S.WrapperButtons>

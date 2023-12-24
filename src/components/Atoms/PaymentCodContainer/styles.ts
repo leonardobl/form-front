@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
+  width: fit-content;
 
   img {
     position: absolute;
@@ -14,8 +15,6 @@ export const Container = styled.div`
 export const Input = styled.input`
   width: 400px;
   height: 55px;
-  overflow: hidden;
-  position: relative;
 
   border-radius: 4px;
   border: 1px solid #266bf0;
@@ -31,4 +30,8 @@ export const Input = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: 32px;
+
+  &:focus {
+    outline: 1px solid #266bf0;
+  }
 `;

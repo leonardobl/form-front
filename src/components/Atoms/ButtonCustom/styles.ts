@@ -96,7 +96,7 @@ export const ButtonGhost = styled.button<{ $disabled?: boolean }>`
     color: #266bf0;
     text-align: center;
     font-family: Roboto;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 700;
     line-height: 22px;

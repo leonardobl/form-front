@@ -20,6 +20,7 @@ import { SearchVehicle } from "./components/Pages/searchVehicle";
 import { ProtectedRoute } from "./components/Atoms/ProtectedRoute";
 
 import { PaymentPix } from "./components/Pages/paymentPix";
+import { PaymentTicket } from "./components/Pages/paymentTicket";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -56,8 +57,30 @@ root.render(
               </ProtectedRoute>
             }
           >
-            <Route index element={<Payment />} />
-            <Route path="pix" element={<PaymentPix />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <Payment />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="pix"
+              element={
+                <ProtectedRoute>
+                  <PaymentPix />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="boleto"
+              element={
+                <ProtectedRoute>
+                  <PaymentTicket />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>
