@@ -32,12 +32,12 @@ export const LoginTemplate = () => {
           <S.FormContent>
             <S.Grid $gridTemplate="1fr">
               <label>E-mail</label>
-              <InputCustom type="email" />
+              <InputCustom type="email" required />
             </S.Grid>
 
             <S.Grid $gridTemplate="1fr">
               <label>Senha</label>
-              <InputCustom type="password" />
+              <InputCustom type="password" required />
               <a href="#">Esqueceu a senha?</a>
             </S.Grid>
 
