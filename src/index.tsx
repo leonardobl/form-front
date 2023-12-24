@@ -19,6 +19,8 @@ import { ToastContainer } from "react-toastify";
 import { SearchVehicle } from "./components/Pages/searchVehicle";
 import { ProtectedRoute } from "./components/Atoms/ProtectedRoute";
 
+import { PaymentPix } from "./components/Pages/paymentPix";
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -50,10 +52,13 @@ root.render(
             path="pagamento"
             element={
               <ProtectedRoute>
-                <Payment />
+                <PageLayoutTemplate />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<Payment />} />
+            <Route path="pix" element={<PaymentPix />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

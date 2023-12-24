@@ -82,3 +82,26 @@ export const ButtonBlueDark = styled.button<{ $disabled?: boolean }>`
     -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
   `}
 `;
+
+export const ButtonGhost = styled.button<{ $disabled?: boolean }>`
+  ${({ $disabled }) => css`
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    height: 56px;
+    background-color: #fff;
+
+    color: #266bf0;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px;
+    text-transform: uppercase;
+    border: 1px solid #266bf0;
+    border-radius: 5px;
+  `}
+`;

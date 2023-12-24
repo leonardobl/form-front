@@ -26,7 +26,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       <S.header id="home">
         <S.HeaderContent>
           <NavHashLink smooth={true} to={"/"}>
-            <img src="assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
+            <img src="/assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
           </NavHashLink>
 
           <S.HeaderMenu>
@@ -70,7 +70,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
           <S.FooterFirstDiv>
             <NavHashLink to={"/"}>
               <img
-                src="assets/imgs/logo-starcheck02.svg"
+                src="/assets/imgs/logo-starcheck02.svg"
                 alt="logo starcheck"
               />
             </NavHashLink>
@@ -92,7 +92,10 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             <S.TitleSectionFooter>Redes Sociais</S.TitleSectionFooter>
             <S.WrapperSocialIconsFooter>
               <a href="#">
-                <img src="assets/imgs/facebook-icon.svg" alt="icone facebook" />
+                <img
+                  src="/assets/imgs/facebook-icon.svg"
+                  alt="icone facebook"
+                />
               </a>
               <a
                 href="https://www.instagram.com/"
@@ -100,12 +103,12 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
                 rel="noreferrer"
               >
                 <img
-                  src="assets/imgs/instagram-icon.svg"
+                  src="/assets/imgs/instagram-icon.svg"
                   alt="icone instagram"
                 />
               </a>
               <a href="#">
-                <img src="assets/imgs/youtube-icon.svg" alt="icone youtube" />
+                <img src="/assets/imgs/youtube-icon.svg" alt="icone youtube" />
               </a>
             </S.WrapperSocialIconsFooter>
           </S.FooterSecondDiv>
@@ -113,22 +116,22 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             <S.TitleSectionFooter>Fale conosco</S.TitleSectionFooter>
 
             <S.WrapperThirdDivContent>
-              <img src="assets/imgs/telefone-icon.svg" alt="icone telefone" />
+              <img src="/assets/imgs/telefone-icon.svg" alt="icone telefone" />
               <p>
                 Calhau <span>(98) 98562-0425</span>
               </p>
 
-              <img src="assets/imgs/telefone-icon.svg" alt="icone telefone" />
+              <img src="/assets/imgs/telefone-icon.svg" alt="icone telefone" />
               <p>
                 Bacabal <span>(99) 99128-2316</span>
               </p>
 
-              <img src="assets/imgs/telefone-icon.svg" alt="icone telefone" />
+              <img src="/assets/imgs/telefone-icon.svg" alt="icone telefone" />
               <p>
                 Balsas <span>(xx) xxxxx-xxxxx</span>
               </p>
 
-              <img src="assets/imgs/email-icon.svg" alt="" />
+              <img src="/assets/imgs/email-icon.svg" alt="" />
               <p>vistoriastarcheck@gmail.com</p>
             </S.WrapperThirdDivContent>
             <S.TitleSectionFooter>Localização</S.TitleSectionFooter>
