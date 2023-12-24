@@ -59,7 +59,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Required = styled.p<{ $isRequired: boolean }>`
+export const Required = styled.span<{ $isRequired: boolean }>`
   color: rgba(237, 0, 0, 1);
   position: absolute;
   padding-right: 5px;

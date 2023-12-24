@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { Link, useLocation } from "react-router-dom";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { v4 } from "uuid";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { ISelectOptions } from "../../../types/inputs";
 
 type lojaFisica = {
   loja: string;
   data: Date | null;
-  cidade: string;
+  horario: string;
 };
 
 const cidadeOptions = [
@@ -46,6 +47,8 @@ export const PhysicalTemplate = () => {
   const [data, setData] = useState<lojaFisica>({} as lojaFisica);
   const { pathname } = useLocation();
 
+  const isDisabled = !!(data.loja && data.horario && data.data);
+
   return (
     <S.Container>
       <S.Content>
@@ -56,7 +59,14 @@ export const PhysicalTemplate = () => {
         </S.Title>
 
         <S.WrapperInput>
-          <SimpleSelect isClearable label="Loja" options={cidadeOptions} />
+          <SimpleSelect
+            required
+            label="Loja"
+            isClearable
+            value={cidadeOptions.find((item) => item.value === data.loja)}
+            options={cidadeOptions}
+            onChange={(e) => setData((prev) => ({ ...prev, loja: e?.value }))}
+          />
         </S.WrapperInput>
 
         <p>
@@ -69,6 +79,7 @@ export const PhysicalTemplate = () => {
               showIcon={true}
               label="Data"
               isClearable
+              required
               monthsShown={2}
               onChange={(e) => setData((prev) => ({ ...prev, data: e }))}
               placeholderText="__/__/__"
@@ -79,6 +90,13 @@ export const PhysicalTemplate = () => {
           <S.WrapperInput>
             <SimpleSelect
               isClearable
+              required
+              value={horariosOptions.find(
+                (item) => item.value === data.horario
+              )}
+              onChange={(e) =>
+                setData((prev) => ({ ...prev, horario: e?.value }))
+              }
               options={horariosOptions}
               label="Horario"
             />
@@ -86,7 +104,9 @@ export const PhysicalTemplate = () => {
         </S.InputsContainer>
 
         <Link to={""}>
-          <ButtonCustom typeOfButton="BlueLight">Avançar</ButtonCustom>
+          <ButtonCustom typeOfButton="BlueLight" disabled={!isDisabled}>
+            Avançar
+          </ButtonCustom>
         </Link>
       </S.Content>
     </S.Container>
