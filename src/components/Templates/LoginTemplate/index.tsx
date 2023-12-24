@@ -4,12 +4,28 @@ import * as S from "./styles";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { Link } from "react-router-dom";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { v4 } from "uuid";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const LoginTemplate = () => {
+  const [token, setToken] = useSessionStorage("@token");
+
+  function login(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    setToken(v4());
+    toast.success("Sucesso no login!");
+    setTimeout(() => {
+      window.open("/buscar-veiculo", "_self");
+    }, 3000);
+  }
+
   return (
     <LayoutTemplate>
       <S.Container>
-        <S.Form>
+        <S.Form onSubmit={login}>
           <S.Header>
             <h1>Entrar</h1>
           </S.Header>
@@ -26,9 +42,7 @@ export const LoginTemplate = () => {
             </S.Grid>
 
             <S.WrapperButton>
-              <Link to={"/buscar-veiculo"}>
-                <ButtonCustom typeOfButton="Login">Login</ButtonCustom>
-              </Link>
+              <ButtonCustom typeOfButton="Login">Login</ButtonCustom>
             </S.WrapperButton>
           </S.FormContent>
         </S.Form>

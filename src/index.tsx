@@ -14,6 +14,9 @@ import { Register } from "./components/Pages/register";
 
 import { Login } from "./components/Pages/login";
 import { LoginRegister } from "./components/Pages/loginRegister";
+import { ToastContainer } from "react-toastify";
+import { SearchVehicle } from "./components/Pages/searchVehicle";
+import { ProtectedRoute } from "./components/Atoms/ProtectedRoute";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,6 +24,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={Theme}>
+      <ToastContainer autoClose={2000} />
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
@@ -33,6 +37,14 @@ root.render(
             <Route path="loja-fisica" element={<Physical />} />
             <Route path="atendimento-domicilio" element={<Physical />} />
           </Route>
+          <Route
+            path="buscar-veiculo"
+            element={
+              <ProtectedRoute>
+                <SearchVehicle />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
