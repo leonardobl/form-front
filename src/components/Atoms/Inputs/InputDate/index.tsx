@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import * as S from "./styles";
 import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import ptBR from "date-fns/locale/pt-BR";
+import ReactDatePicker, { registerLocale } from "react-datepicker";
 
 interface InputDateProps extends ReactDatePickerProps {
   label?: string;
 }
 
 export const InputDate = (props: InputDateProps) => {
+  registerLocale("ptBR", ptBR);
+
   return (
     <S.Container>
       {props.label && (
@@ -17,14 +21,8 @@ export const InputDate = (props: InputDateProps) => {
         </S.Label>
       )}
       <DatePicker
-        {...props}
-        renderCustomHeader={({
-          monthDate,
-
-          decreaseMonth,
-          increaseMonth,
-        }) => (
-          <div>
+        renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
+          <div className="react-datepicker__navigation_wrapper">
             <button
               aria-label="Previous Month"
               className={
@@ -63,13 +61,8 @@ export const InputDate = (props: InputDateProps) => {
             </button>
           </div>
         )}
-        isClearable
         dateFormat={"dd/MM/yyyy"}
-        // onChange={(date) => {
-        //   const data = date;
-        //   setStartDate(data);
-        // }}
-        monthsShown={2}
+        locale={"ptBR"}
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -103,6 +96,7 @@ export const InputDate = (props: InputDateProps) => {
             </defs>
           </svg>
         }
+        {...props}
       />
     </S.Container>
   );

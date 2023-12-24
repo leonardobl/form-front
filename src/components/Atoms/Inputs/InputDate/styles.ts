@@ -3,6 +3,17 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: relative;
 
+  .react-datepicker__navigation_wrapper {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 0.3fr;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      position: relative;
+    }
+  }
+
   .react-datepicker-wrapper {
     min-width: 400px;
 
@@ -14,8 +25,7 @@ export const Container = styled.div`
   }
 
   .react-datepicker {
-    display: flex;
-    gap: 2px;
+    min-width: max-content;
   }
 
   .react-datepicker__close-icon {
@@ -31,7 +41,6 @@ export const Container = styled.div`
   }
 
   .react-datepicker__input-container {
-    /* width: 600px; */
     input {
       width: 100%;
       height: 50px;
@@ -50,7 +59,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Required = styled.span<{ $isRequired: boolean }>`
+export const Required = styled.p<{ $isRequired: boolean }>`
   color: rgba(237, 0, 0, 1);
   position: absolute;
   padding-right: 5px;

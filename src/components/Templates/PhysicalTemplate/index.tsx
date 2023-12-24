@@ -68,6 +68,8 @@ export const PhysicalTemplate = () => {
             <InputDate
               showIcon={true}
               label="Data"
+              isClearable
+              monthsShown={2}
               onChange={(e) => setData((prev) => ({ ...prev, data: e }))}
               placeholderText="__/__/__"
               selected={data.data}
