@@ -20,6 +20,7 @@ export const Label = styled.label`
 
 export const Input = styled.input`
   opacity: 0;
+  position: absolute;
 `;
 
 export const WrapperLeftContent = styled.div`
