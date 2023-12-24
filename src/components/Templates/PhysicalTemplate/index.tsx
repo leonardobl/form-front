@@ -5,7 +5,6 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { v4 } from "uuid";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
-import { ISelectOptions } from "../../../types/inputs";
 
 type lojaFisica = {
   loja: string;
@@ -103,7 +102,7 @@ export const PhysicalTemplate = () => {
           </S.WrapperInput>
         </S.InputsContainer>
 
-        <Link to={""}>
+        <Link to={"/login-cadastro"}>
           <ButtonCustom typeOfButton="BlueLight" disabled={!isDisabled}>
             Avançar
           </ButtonCustom>

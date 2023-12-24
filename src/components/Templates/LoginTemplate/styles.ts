@@ -73,3 +73,7 @@ export const Grid = styled.div<{ $gridTemplate: string; $gap?: string }>`
     }
   `}
 `;
+
+export const WrapperButton = styled.div`
+  text-align: center;
+`;

@@ -64,3 +64,8 @@ export const Grid = styled.div<{ $gridTemplate: string; $gap?: string }>`
 export const WrapperContentForm = styled.div`
   padding: 70px 100px;
 `;
+
+export const WrapperButton = styled.div`
+  margin-top: 80px;
+  text-align: center;
+`;

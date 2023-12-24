@@ -2,6 +2,8 @@ import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
+import { Link } from "react-router-dom";
+import { ButtonCustom } from "../../Atoms/ButtonCustom";
 
 export const LoginTemplate = () => {
   return (
@@ -22,6 +24,12 @@ export const LoginTemplate = () => {
               <InputCustom type="password" />
               <a href="#">Esqueceu a senha?</a>
             </S.Grid>
+
+            <S.WrapperButton>
+              <Link to={"/buscar-veiculo"}>
+                <ButtonCustom typeOfButton="Login">Login</ButtonCustom>
+              </Link>
+            </S.WrapperButton>
           </S.FormContent>
         </S.Form>
       </S.Container>

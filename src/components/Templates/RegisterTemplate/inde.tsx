@@ -2,6 +2,8 @@ import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles.ts";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
+import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Link } from "react-router-dom";
 
 export const RegisterTemplate = () => {
   return (
@@ -84,6 +86,12 @@ export const RegisterTemplate = () => {
                 <InputCustom />
                 <InputCustom />
               </S.Grid>
+
+              <S.WrapperButton>
+                <Link to="/login">
+                  <ButtonCustom typeOfButton="Login">Criar Conta</ButtonCustom>
+                </Link>
+              </S.WrapperButton>
             </S.WrapperContentForm>
           </S.Form>
         </S.Content>
