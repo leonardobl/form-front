@@ -21,6 +21,7 @@ import { ProtectedRoute } from "./components/Atoms/ProtectedRoute";
 
 import { PaymentPix } from "./components/Pages/paymentPix";
 import { PaymentTicket } from "./components/Pages/paymentTicket";
+import { SchedulingDetail } from "./components/Pages/schedulingDetail";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -36,6 +37,14 @@ root.render(
           <Route path="login-cadastro" element={<LoginRegister />} />
           <Route path="login" element={<Login />} />
           <Route path="cadastro" element={<Register />} />
+          <Route
+            path="detalhe-pagamento"
+            element={
+              <ProtectedRoute>
+                <SchedulingDetail />
+              </ProtectedRoute>
+            }
+          />
           <Route path="agendamento" element={<PageLayoutTemplate />}>
             <Route index element={<Scheduling />} />
             <Route path="loja-fisica" element={<Physical />} />
