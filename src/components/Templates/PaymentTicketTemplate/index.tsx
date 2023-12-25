@@ -3,6 +3,7 @@ import * as S from "./styles";
 import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
 import { v4 } from "uuid";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Link } from "react-router-dom";
 
 export const PaymentTicketTemplate = () => {
   function handlePix() {
@@ -35,7 +36,9 @@ export const PaymentTicketTemplate = () => {
           <PaymentCodContainer value={v4()} />
         </S.WrapperCod>
         <S.WrapperButtons>
-          <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
+          <Link to={"/detalhe-pagamento"}>
+            <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
+          </Link>
           <ButtonCustom typeOfButton="Ghost" onClick={handlePix}>
             ALTERAR PARA PIX
           </ButtonCustom>
