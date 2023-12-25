@@ -5,6 +5,7 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { v4 } from "uuid";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 type lojaFisica = {
   loja: string;
@@ -45,12 +46,24 @@ const horariosOptions = [
 export const PhysicalTemplate = () => {
   const [data, setData] = useState<lojaFisica>({} as lojaFisica);
   const { pathname } = useLocation();
+  const [session, setSession] = useSessionStorage("agendamento");
 
-  const isDisabled = !!(data.loja && data.horario && data.data);
+  function handleSubmit(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    const paths = pathname.split("/");
+
+    const agendamento = {
+      ...data,
+      tipoAgendamento: paths[paths.length - 1],
+    };
+    setSession(agendamento);
+    window.open("/login-cadastro", "_self");
+  }
 
   return (
     <S.Container>
-      <S.Content>
+      <S.Content onSubmit={handleSubmit}>
         <S.Title>
           {pathname.includes("loja-fisica")
             ? "Loja Física"
@@ -62,9 +75,9 @@ export const PhysicalTemplate = () => {
             required
             label="Loja"
             isClearable
-            value={cidadeOptions.find((item) => item.value === data.loja)}
+            value={cidadeOptions.find((item) => item.label === data.loja)}
             options={cidadeOptions}
-            onChange={(e) => setData((prev) => ({ ...prev, loja: e?.value }))}
+            onChange={(e) => setData((prev) => ({ ...prev, loja: e?.label }))}
           />
         </S.WrapperInput>
 
@@ -91,10 +104,10 @@ export const PhysicalTemplate = () => {
               isClearable
               required
               value={horariosOptions.find(
-                (item) => item.value === data.horario
+                (item) => item.label === data.horario
               )}
               onChange={(e) =>
-                setData((prev) => ({ ...prev, horario: e?.value }))
+                setData((prev) => ({ ...prev, horario: e?.label }))
               }
               options={horariosOptions}
               label="Horario"
@@ -102,11 +115,7 @@ export const PhysicalTemplate = () => {
           </S.WrapperInput>
         </S.InputsContainer>
 
-        <Link to={"/login-cadastro"}>
-          <ButtonCustom typeOfButton="BlueLight" disabled={!isDisabled}>
-            Avançar
-          </ButtonCustom>
-        </Link>
+        <ButtonCustom typeOfButton="BlueLight">Avançar</ButtonCustom>
       </S.Content>
     </S.Container>
   );

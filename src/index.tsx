@@ -22,6 +22,7 @@ import { ProtectedRoute } from "./components/Atoms/ProtectedRoute";
 import { PaymentPix } from "./components/Pages/paymentPix";
 import { PaymentTicket } from "./components/Pages/paymentTicket";
 import { SchedulingDetail } from "./components/Pages/schedulingDetail";
+import { ContextProvider } from "./context/Context";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -31,68 +32,70 @@ root.render(
     <ThemeProvider theme={Theme}>
       <ToastContainer autoClose={2000} />
       <GlobalStyles />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="login-cadastro" element={<LoginRegister />} />
-          <Route path="login" element={<Login />} />
-          <Route path="cadastro" element={<Register />} />
-          <Route
-            path="detalhe-pagamento"
-            element={
-              <ProtectedRoute>
-                <SchedulingDetail />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="agendamento" element={<PageLayoutTemplate />}>
-            <Route index element={<Scheduling />} />
-            <Route path="loja-fisica" element={<Physical />} />
-            <Route path="atendimento-domicilio" element={<Physical />} />
-          </Route>
-          <Route
-            path="buscar-veiculo"
-            element={
-              <ProtectedRoute>
-                <SearchVehicle />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="pagamento"
-            element={
-              <ProtectedRoute>
-                <PageLayoutTemplate />
-              </ProtectedRoute>
-            }
-          >
+      <ContextProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="login-cadastro" element={<LoginRegister />} />
+            <Route path="login" element={<Login />} />
+            <Route path="cadastro" element={<Register />} />
             <Route
-              index
+              path="detalhe-pagamento"
               element={
                 <ProtectedRoute>
-                  <Payment />
+                  <SchedulingDetail />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="agendamento" element={<PageLayoutTemplate />}>
+              <Route index element={<Scheduling />} />
+              <Route path="loja-fisica" element={<Physical />} />
+              <Route path="atendimento-domicilio" element={<Physical />} />
+            </Route>
+            <Route
+              path="buscar-veiculo"
+              element={
+                <ProtectedRoute>
+                  <SearchVehicle />
                 </ProtectedRoute>
               }
             />
             <Route
-              path="pix"
+              path="pagamento"
               element={
                 <ProtectedRoute>
-                  <PaymentPix />
+                  <PageLayoutTemplate />
                 </ProtectedRoute>
               }
-            />
-            <Route
-              path="boleto"
-              element={
-                <ProtectedRoute>
-                  <PaymentTicket />
-                </ProtectedRoute>
-              }
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+            >
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <Payment />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="pix"
+                element={
+                  <ProtectedRoute>
+                    <PaymentPix />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="boleto"
+                element={
+                  <ProtectedRoute>
+                    <PaymentTicket />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ContextProvider>
     </ThemeProvider>
   </React.StrictMode>
 );
