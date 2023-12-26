@@ -231,6 +231,7 @@ export const RegisterTemplate = () => {
                 />
 
                 <SimpleSelect
+                  key={`${Math.random()}-${form.uf}`}
                   required
                   placeholder=""
                   value={cidadesOptions.find(
