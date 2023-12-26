@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { ApiAgendamento } from "../../Apis/Agendamento";
+import { ApiBrave1 } from "../../Apis/Brave1";
 import {
   IAgendamentoBasicoForm,
   IAgendamentoDTO,
@@ -17,15 +17,15 @@ export class Agendamento {
   }: {
     uuid: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
-    return ApiAgendamento.get(`${basePath}/${uuid}`);
+    return ApiBrave1.get(`${basePath}/${uuid}`);
   }
 
   static async post(props: IAgendamentoBasicoForm) {
-    return ApiAgendamento.post(basePath, props);
+    return ApiBrave1.post(basePath, props);
   }
 
   static async put(props: IPutAgendamentoProps) {
     const { uuid, ...rest } = props;
-    return ApiAgendamento.put(`${basePath}/${uuid}`, rest);
+    return ApiBrave1.put(`${basePath}/${uuid}`, rest);
   }
 }

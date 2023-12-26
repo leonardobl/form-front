@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const ApiAgendamento = axios.create({
-  baseURL: process.env.REACT_APP_AGENDAMENTO_API_URL,
+export const ApiBrave1 = axios.create({
+  baseURL: process.env.REACT_APP_BRAVE1_API_URL,
   headers: {
     "Content-type": "application/json; charset=UTF-8",
   },

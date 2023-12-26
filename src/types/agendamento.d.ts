@@ -35,11 +35,11 @@ export interface IEnderecoDTO {
   bairro: string;
   cep: string;
   cidade: string;
-  complemento: string;
+  complemento?: string;
   logradouro: string;
-  numero: string;
+  numero?: string;
   uf: string;
-  uuid: string;
+  uuid?: string;
 }
 
 export interface IDeliveryDTO {
