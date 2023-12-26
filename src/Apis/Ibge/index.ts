@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const ApiViaCep = axios.create({
-  baseURL: process.env.REACT_APP_VIACEP_URL,
+export const ApiIbge = axios.create({
+  baseURL: process.env.REACT_APP_IBGE_API_URL,
   headers: {
     "Content-type": "application/json; charset=UTF-8",
   },
