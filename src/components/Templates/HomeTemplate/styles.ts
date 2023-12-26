@@ -383,7 +383,8 @@ export const SectionLocationWrapperCardsMap = styled.div`
   display: flex;
   gap: 70px;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 80px;
+  justify-content: center;
 `;
 
 export const TitleLocalization = styled.h2`

@@ -247,7 +247,7 @@ export const HomeTemplate = () => {
           <S.SectionLocationContent>
             <S.Title>
               Localização{}{" "}
-              <img src="assets/imgs/check-icon.svg" alt="icone de checado" />
+              <img src="/assets/imgs/check-icon.svg" alt="icone de checado" />
             </S.Title>
 
             <S.SectionLocationWrapperCardsMap>
@@ -256,11 +256,11 @@ export const HomeTemplate = () => {
                   target="_blank"
                   href="https://www.google.com.br/maps/place//@-2.4919149,-44.2529526,19z/data=!4m3!1m2!2m1!1s65072-852+numero+4?entry=ttu"
                 >
-                  <img src="assets/imgs/map1.svg" alt="mapa de sao luiz" />
+                  <img src="/assets/imgs/map1.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
 
                 <S.TitleLocalization>
-                  <img src="assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
+                  <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
                     Calhau
                     <br /> São Luís / MA
@@ -278,10 +278,10 @@ export const HomeTemplate = () => {
                   target="_blank"
                   href="https://maps.app.goo.gl/MGjZUfehbJMduUvU8"
                 >
-                  <img src="assets/imgs/map2.svg" alt="mapa de sao luiz" />
+                  <img src="/assets/imgs/map2.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
                 <S.TitleLocalization>
-                  <img src="assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
+                  <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
                     Centro
                     <br /> Bacabal / MA
@@ -299,10 +299,50 @@ export const HomeTemplate = () => {
                   target="_blank"
                   href="https://maps.app.goo.gl/ZmpgQHNkvTemgHi47"
                 >
-                  <img src="assets/imgs/map3.svg" alt="mapa de sao luiz" />
+                  <img src="/assets/imgs/map3.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
                 <S.TitleLocalization>
-                  <img src="assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
+                  <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
+                  <span>
+                    XXXXX
+                    <br /> Balsas / MA
+                  </span>
+                </S.TitleLocalization>
+                <p>
+                  Rua XXXXXX
+                  <br /> <S.TextStrong>CEP 658000-000</S.TextStrong>
+                </p>
+              </S.SectionLocationCardMap>
+
+              <S.SectionLocationCardMap>
+                <S.WrapperImgMap
+                  target="_blank"
+                  href="https://maps.app.goo.gl/ZmpgQHNkvTemgHi47"
+                >
+                  <img src="/assets/imgs/map4.svg" alt="mapa de sao luiz" />
+                </S.WrapperImgMap>
+                <S.TitleLocalization>
+                  <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
+                  <span>
+                    XXXXX
+                    <br /> Balsas / MA
+                  </span>
+                </S.TitleLocalization>
+                <p>
+                  Rua XXXXXX
+                  <br /> <S.TextStrong>CEP 658000-000</S.TextStrong>
+                </p>
+              </S.SectionLocationCardMap>
+
+              <S.SectionLocationCardMap>
+                <S.WrapperImgMap
+                  target="_blank"
+                  href="https://maps.app.goo.gl/ZmpgQHNkvTemgHi47"
+                >
+                  <img src="/assets/imgs/map5.svg" alt="mapa de sao luiz" />
+                </S.WrapperImgMap>
+                <S.TitleLocalization>
+                  <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
                     XXXXX
                     <br /> Balsas / MA
@@ -319,10 +359,7 @@ export const HomeTemplate = () => {
 
         <S.SectionContact id="contato">
           <S.SectionContactContent>
-            <h1>
-              Ligue para agendar <br />
-              sua Vistoria!
-            </h1>
+            <h1>Contatos</h1>
 
             <div>
               <S.TitleLocalization>
