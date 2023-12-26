@@ -14,9 +14,9 @@ export const SchedulingDetailTemplate = () => {
           </S.Text>
           <S.Form>
             <S.WrapperBorder $borderBottom>
-              <S.Grid $gridTemplate="3fr 2fr 1fr 1fr">
+              <S.Grid $gridTemplate="3fr 1fr 1fr">
                 <S.SubTitle>Status</S.SubTitle>
-                <S.SubTitle>Local</S.SubTitle>
+
                 <S.SubTitle>Data</S.SubTitle>
                 <S.SubTitle>Horário</S.SubTitle>
 
@@ -24,7 +24,7 @@ export const SchedulingDetailTemplate = () => {
                   readOnly
                   value={"Aguardando confirmação do pagamento"}
                 />
-                <InputCustom readOnly />
+
                 <InputCustom readOnly placeholder="__/__/__" />
                 <InputCustom readOnly />
               </S.Grid>
@@ -39,12 +39,10 @@ export const SchedulingDetailTemplate = () => {
                 <InputCustom readOnly />
               </S.Grid>
 
-              <S.Grid $gridTemplate="4fr 4fr 4fr 4fr">
+              <S.Grid $gridTemplate="5fr 2fr 2fr">
                 <S.SubTitle>Modelo do carro</S.SubTitle>
-                <S.SubTitle>Loja</S.SubTitle>
                 <S.SubTitle>Placa</S.SubTitle>
                 <S.SubTitle>Renavam</S.SubTitle>
-                <InputCustom readOnly />
                 <InputCustom readOnly />
                 <InputCustom readOnly />
                 <InputCustom readOnly />
@@ -52,16 +50,16 @@ export const SchedulingDetailTemplate = () => {
             </S.WrapperBorder>
 
             <S.WrapperBorder>
-              <S.Grid $gridTemplate="4fr 4fr 8fr">
+              <S.Grid $gridTemplate="8fr 4fr">
                 <S.SubTitle>Serviço</S.SubTitle>
                 <S.SubTitle>Valor do serviço</S.SubTitle>
-                <S.SubTitle>Loja</S.SubTitle>
+
                 <InputCustom readOnly />
-                <InputCustom readOnly />
+
                 <InputCustom readOnly />
               </S.Grid>
               <S.Grid $gridTemplate="12fr">
-                <S.SubTitle>Endereço</S.SubTitle>
+                <S.SubTitle>Local de realização da vistoria</S.SubTitle>
                 <InputCustom readOnly />
               </S.Grid>
             </S.WrapperBorder>
