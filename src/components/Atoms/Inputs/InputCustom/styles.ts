@@ -41,6 +41,10 @@ export const Input = styled.input`
   font-size: 16px;
   font-family: "Roboto";
 
+  &[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
   &:focus {
     outline: 1px solid rgba(38, 107, 240, 1);
   }
