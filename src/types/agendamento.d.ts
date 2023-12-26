@@ -60,7 +60,7 @@ export interface ILocalTime {
 }
 
 export interface ILojaDTO {
-  endereco: Endereco;
+  endereco: IEnderecoDTO;
   horarioFinal: HoraAgendada;
   horarioInicial: HoraAgendada;
   nome: string;
