@@ -74,7 +74,6 @@ export const PhysicalTemplate = () => {
           <SimpleSelect
             required
             label="Loja"
-            isClearable
             value={cidadeOptions.find((item) => item.label === data.loja)}
             options={cidadeOptions}
             onChange={(e) => setData((prev) => ({ ...prev, loja: e?.label }))}
@@ -90,7 +89,6 @@ export const PhysicalTemplate = () => {
             <InputDate
               showIcon={true}
               label="Data"
-              isClearable
               required
               monthsShown={2}
               onChange={(e) => setData((prev) => ({ ...prev, data: e }))}
@@ -101,7 +99,6 @@ export const PhysicalTemplate = () => {
 
           <S.WrapperInput>
             <SimpleSelect
-              isClearable
               required
               value={horariosOptions.find(
                 (item) => item.label === data.horario
