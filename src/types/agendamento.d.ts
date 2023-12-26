@@ -61,11 +61,11 @@ export interface ILocalTime {
 
 export interface ILojaDTO {
   endereco: IEnderecoDTO;
-  horarioFinal: HoraAgendada;
-  horarioInicial: HoraAgendada;
+  horarioFinal: ILocalTime;
+  horarioInicial: ILocalTime;
   nome: string;
   quantidadeVagas: number;
-  tempoMedio: HoraAgendada;
+  tempoMedio: ILocalTime;
   uuid: string;
 }
 
@@ -85,4 +85,29 @@ export interface IVeiculoDTO {
   renavam: string;
   tipo: TipoServicoEnum;
   uuid: string;
+}
+
+export interface IAgendamentoBasicoForm {
+  diaAgendado: string;
+  horaAgendada: ILocalTime;
+  tipoAtendimento: string;
+  uuidDelivery?: string;
+  uuidLoja?: string;
+}
+
+export interface IAgendamentoForm {
+  codigoPagamento?: string;
+  dataPagamento?: string;
+  dataRealizacao?: string;
+  diaAgendado: string;
+  horaAgendada: ILocalTime;
+  primeiroAgendamento?: string;
+  revistoria?: boolean;
+  status?: StatusAgendamentoEnum;
+  tipoAtendimento: TipoAtendimentoEnum;
+  uuidCliente?: string;
+  uuidDelivery?: string;
+  uuidLoja?: string;
+  uuidServico?: string;
+  uuidVeiculo?: string;
 }

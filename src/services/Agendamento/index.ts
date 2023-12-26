@@ -1,9 +1,31 @@
 import { AxiosResponse } from "axios";
 import { ApiAgendamento } from "../../Apis/Agendamento";
-import { IAgendamentoDTO } from "../../types/agendamento";
+import {
+  IAgendamentoBasicoForm,
+  IAgendamentoDTO,
+  IAgendamentoForm,
+} from "../../types/agendamento";
 
-export class Ibge {
-  static async UFs(): Promise<AxiosResponse<IAgendamentoDTO>> {
-    return ApiAgendamento.get(`estados`);
+const basePath = "/agendamento";
+
+interface IPutAgendamentoProps extends IAgendamentoForm {
+  uuid: string;
+}
+export class Agendamento {
+  static async agendamento({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiAgendamento.get(`${basePath}/${uuid}`);
+  }
+
+  static async post(props: IAgendamentoBasicoForm) {
+    return ApiAgendamento.post(basePath, props);
+  }
+
+  static async put(props: IPutAgendamentoProps) {
+    const { uuid, ...rest } = props;
+    return ApiAgendamento.put(`${basePath}/${uuid}`, rest);
   }
 }
