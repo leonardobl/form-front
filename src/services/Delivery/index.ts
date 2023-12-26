@@ -3,19 +3,17 @@ import { ApiBrave1 } from "../../Apis/Brave1";
 import { removeEmpty } from "../../utils/removeEmpty";
 import { IPageDeliveryDTO } from "../../types/delivery";
 import { ILocalTime } from "../../types/agendamento";
+import { IPageRequest } from "../../types/page";
 
 const basePath = "/delivery";
 
-type GetDeliveryProps = {
-  cidad?: string;
-  page?: number;
-  size?: number;
-  sort?: string;
-};
+interface IGetDeliveryProps extends IPageRequest {
+  cidade?: string;
+}
 
 export class Delivery {
   static async get(
-    props: GetDeliveryProps
+    props: IGetDeliveryProps
   ): Promise<AxiosResponse<IPageDeliveryDTO>> {
     const params = removeEmpty(props);
     return params
