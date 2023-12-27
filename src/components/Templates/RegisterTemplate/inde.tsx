@@ -13,35 +13,29 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { IUFS } from "../../../types/ibge";
 import { Ibge } from "../../../services/Ibge";
 import { ISelectOptions } from "../../../types/inputs";
-
-type RegistroProps = {
-  nome: string;
-  cpf: string;
-  telefone: string;
-  rua: string;
-  numero: string;
-  complemento?: string;
-  bairro: string;
-  cidade: string;
-  uf: string;
-  cep: string;
-  email: string;
-  senha: string;
-  confirmaSenha: string;
-};
+import { IClienteForm } from "../../../types/cliente";
+import { Cliente } from "../../../services/Cliente";
 
 export const RegisterTemplate = () => {
-  const [form, setForm] = useState<RegistroProps>({} as RegistroProps);
+  const [form, setForm] = useState<IClienteForm>({} as IClienteForm);
   const { setIsLoad } = useContextSite();
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    toast.success("Cadastro realizado com sucesso!");
-    setTimeout(() => {
-      window.open("/login", "_self");
-    }, 3000);
+
+    setIsLoad(true);
+
+    Cliente.post(form)
+      .then(() => {
+        toast.success("Cadastro realizado com sucesso!");
+        setTimeout(() => {
+          window.open("/login", "_self");
+        }, 3000);
+      })
+      .catch((error) => toast.error(error?.message))
+      .finally(() => setIsLoad(false));
   }
 
   function handlePhone(e: string) {
@@ -51,7 +45,7 @@ export const RegisterTemplate = () => {
 
   function handleCpf(e: string) {
     const newCpfValue = maskCpf(e);
-    setForm((prev) => ({ ...prev, cpf: newCpfValue }));
+    setForm((prev) => ({ ...prev, cpfCnpj: newCpfValue }));
   }
 
   useEffect(() => {
@@ -78,23 +72,31 @@ export const RegisterTemplate = () => {
           .then(({ data }) => {
             setForm((prev) => ({
               ...prev,
-              rua: data.street,
-              bairro: data.neighborhood,
-              cidade: data.city,
-              uf: data.state,
+              endereco: {
+                logradouro: data.street,
+                bairro: data.neighborhood,
+                cidade: data.city,
+                uf: data.state,
+                cep: newCepValue,
+              },
             }));
           })
           .catch((erro) => toast.error("Cep não encontrado"))
           .finally(() => setIsLoad(false));
       }, 1000);
+
+      return;
     }
 
-    setForm((prev) => ({ ...prev, cep: newCepValue }));
+    setForm((prev) => ({
+      ...prev,
+      endereco: { ...prev.endereco, cep: newCepValue },
+    }));
   }
 
   useEffect(() => {
-    if (form.uf) {
-      Ibge.CidadesPorEstado({ sigla: form.uf })
+    if (form?.endereco?.uf) {
+      Ibge.CidadesPorEstado({ sigla: form.endereco.uf })
         .then(({ data }) => {
           const options = data.map((item) => ({
             value: item.nome,
@@ -105,7 +107,7 @@ export const RegisterTemplate = () => {
         })
         .catch((erro) => toast.error("Erro ao requisitar as cidades"));
     }
-  }, [form.uf]);
+  }, [form?.endereco?.uf]);
 
   return (
     <LayoutTemplate>
@@ -138,7 +140,7 @@ export const RegisterTemplate = () => {
                 </label>
                 <InputCustom
                   required
-                  value={form.cpf}
+                  value={form.cpfCnpj}
                   maxLength={14}
                   onChange={(e) => handleCpf(e.target.value)}
                 />
@@ -162,16 +164,22 @@ export const RegisterTemplate = () => {
                 <InputCustom
                   required
                   maxLength={9}
-                  value={form.cep}
+                  value={form?.endereco?.cep}
                   onChange={(e) => handleCep(e.target.value)}
                 />
 
                 <InputCustom
                   required
                   type="number"
-                  value={form.numero}
+                  value={form?.endereco?.numero}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, numero: e.target.value }))
+                    setForm((prev) => ({
+                      ...prev,
+                      endereco: {
+                        ...prev.endereco,
+                        numero: e.target.value,
+                      },
+                    }))
                   }
                 />
               </S.Grid>
@@ -182,9 +190,15 @@ export const RegisterTemplate = () => {
                 <InputCustom
                   placeholder="Rua"
                   required
-                  value={form.rua}
+                  value={form?.endereco?.logradouro}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, rua: e.target.value }))
+                    setForm((prev) => ({
+                      ...prev,
+                      endereco: {
+                        ...prev.endereco,
+                        logradouro: e.target.value,
+                      },
+                    }))
                   }
                 />
               </S.Grid>
@@ -196,18 +210,24 @@ export const RegisterTemplate = () => {
                 <label>Complemento</label>
                 <InputCustom
                   required
-                  value={form.bairro}
+                  value={form?.endereco?.bairro}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, bairro: e.target.value }))
+                    setForm((prev) => ({
+                      ...prev,
+                      endereco: { ...prev.endereco, bairro: e.target.value },
+                    }))
                   }
                 />
 
                 <InputCustom
-                  value={form.complemento}
+                  value={form?.endereco?.complemento}
                   onChange={(e) =>
                     setForm((prev) => ({
                       ...prev,
-                      complemento: e.target.value,
+                      endereco: {
+                        ...prev.endereco,
+                        complemento: e.target.value,
+                      },
                     }))
                   }
                 />
@@ -224,22 +244,33 @@ export const RegisterTemplate = () => {
                 <SimpleSelect
                   placeholder=""
                   options={ufOptions}
-                  value={ufOptions.find((item) => item.value === form.uf)}
+                  value={ufOptions.find(
+                    (item) => item.value === form?.endereco?.uf
+                  )}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, uf: e.value }))
+                    setForm((prev) => ({
+                      ...prev,
+                      endereco: { ...prev.endereco, uf: e.value },
+                    }))
                   }
                 />
 
                 <SimpleSelect
-                  key={`${Math.random()}-${form.uf}`}
+                  key={`${Math.random()}-${form?.endereco?.uf}`}
                   required
                   placeholder=""
                   value={cidadesOptions.find(
-                    (item) => item.value === form.cidade
+                    (item) => item.value === form?.endereco?.cidade
                   )}
                   options={cidadesOptions}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, cidade: e.value }))
+                    setForm((prev) => ({
+                      ...prev,
+                      endereco: {
+                        ...prev.endereco,
+                        cidade: e.value,
+                      },
+                    }))
                   }
                 />
               </S.Grid>
@@ -273,14 +304,14 @@ export const RegisterTemplate = () => {
                   }
                 />
                 <InputCustom
-                  required
-                  value={form.confirmaSenha}
-                  onChange={(e) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      confirmaSenha: e.target.value,
-                    }))
-                  }
+                // required
+                // value={form.senha}
+                // onChange={(e) =>
+                //   setForm((prev) => ({
+                //     ...prev,
+                //     confirmaSenha: e.target.value,
+                //   }))
+                // }
                 />
               </S.Grid>
 
