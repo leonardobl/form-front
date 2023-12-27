@@ -63,7 +63,7 @@ export const PhysicalTemplate = () => {
 
   return (
     <S.Container>
-      <S.Content onSubmit={handleSubmit}>
+      <S.Form onSubmit={handleSubmit}>
         <S.Title>
           {pathname.includes("loja-fisica")
             ? "Loja Física"
@@ -113,7 +113,7 @@ export const PhysicalTemplate = () => {
         </S.InputsContainer>
 
         <ButtonCustom typeOfButton="BlueLight">Avançar</ButtonCustom>
-      </S.Content>
+      </S.Form>
     </S.Container>
   );
 };

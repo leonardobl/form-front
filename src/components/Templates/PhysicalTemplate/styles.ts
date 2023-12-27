@@ -4,7 +4,7 @@ export const Container = styled.div`
   padding: 180px 0;
 `;
 
-export const Content = styled.form`
+export const Form = styled.form`
   ${({ theme: { space } }) => css`
     width: 900px;
     margin: 0 auto;
