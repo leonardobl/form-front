@@ -16,6 +16,8 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   function handleLoginLogout() {
     if (token) {
       sessionStorage.removeItem("@token");
+      sessionStorage.removeItem("tipoAtendimento");
+
       window.open("/login", "_self");
     }
     window.open("/login-cadastro", "_self");

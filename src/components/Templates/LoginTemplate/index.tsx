@@ -11,14 +11,21 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const LoginTemplate = () => {
   const [token, setToken] = useSessionStorage("@token");
+  const [atendimentoSession, setAtendimentoSession] =
+    useSessionStorage("tipoAtendimento");
 
   function login(e: React.SyntheticEvent) {
     e.preventDefault();
 
     setToken(v4());
     toast.success("Sucesso no login!");
+
     setTimeout(() => {
-      window.open("/opcoes-servicos", "_self");
+      if (atendimentoSession) {
+        return window.open("/opcoes-servicos", "_self");
+      }
+
+      return window.open("/agendamento", "_self");
     }, 3000);
   }
 
