@@ -14,10 +14,10 @@ export const LoginRegisterTemplate = () => {
         </p>
         <S.WrapperButtons>
           <Link to={"/login"}>
-            <ButtonCustom typeOfButton="BlueDark">LOGIN</ButtonCustom>
+            <ButtonCustom typeOfButton="BlueLight">LOGIN</ButtonCustom>
           </Link>
           <Link to={"/cadastro"}>
-            <ButtonCustom typeOfButton="BlueLight">CADASTRO</ButtonCustom>
+            <ButtonCustom typeOfButton="BlueDark">CADASTRO</ButtonCustom>
           </Link>
         </S.WrapperButtons>
       </S.Container>

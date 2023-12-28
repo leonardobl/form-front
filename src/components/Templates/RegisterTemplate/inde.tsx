@@ -115,7 +115,7 @@ export const RegisterTemplate = () => {
         <S.Content>
           <S.Form onSubmit={handleSubmit}>
             <S.Header>
-              <h1>Cadastro</h1>
+              <h1>Cadastro de Acesso</h1>
             </S.Header>
             <S.WrapperContentForm>
               <S.Grid $gridTemplate="1fr">
@@ -123,7 +123,6 @@ export const RegisterTemplate = () => {
                   Nome <span>*</span>
                 </label>
                 <InputCustom
-                  placeholder="DIGITE SEU NOME COMPLETO"
                   required
                   value={form.nome}
                   onChange={(e) =>
@@ -150,6 +149,20 @@ export const RegisterTemplate = () => {
                   value={form.telefone}
                   maxLength={15}
                   onChange={(e) => handlePhone(e.target.value)}
+                />
+              </S.Grid>
+
+              <S.Grid $gridTemplate="1fr">
+                <label>
+                  E-mail <span>*</span>
+                </label>
+                <InputCustom
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, email: e.target.value }))
+                  }
                 />
               </S.Grid>
 
@@ -271,20 +284,6 @@ export const RegisterTemplate = () => {
                         cidade: e.value,
                       },
                     }))
-                  }
-                />
-              </S.Grid>
-
-              <S.Grid $gridTemplate="1fr">
-                <label>
-                  E-mail <span>*</span>
-                </label>
-                <InputCustom
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, email: e.target.value }))
                   }
                 />
               </S.Grid>

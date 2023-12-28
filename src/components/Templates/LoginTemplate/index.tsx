@@ -38,7 +38,7 @@ export const LoginTemplate = () => {
             <S.Grid $gridTemplate="1fr">
               <label>Senha</label>
               <InputCustom type="password" required />
-              <a href="#">Esqueceu a senha?</a>
+              {/* <a href="#">Esqueceu a senha?</a> */}
             </S.Grid>
 
             <S.WrapperButton>
