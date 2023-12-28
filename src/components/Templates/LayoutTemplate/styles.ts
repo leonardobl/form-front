@@ -41,7 +41,6 @@ export const HeaderMenu = styled.nav`
 `;
 
 export const Footer = styled.footer`
-  height: 660px;
   background: #00114d;
 
   display: flex;
@@ -83,11 +82,12 @@ export const FooterContent = styled.div`
     max-width: 1158px;
     margin: 0 auto;
     display: grid;
+    padding: 100px 0;
     grid-template-columns: repeat(3, 1fr);
+
     gap: 100px;
     flex: 1;
     align-items: center;
-    /* justify-content: space-between; */
 
     color: #eee;
     font-family: "Roboto";
@@ -98,25 +98,22 @@ export const FooterContent = styled.div`
   `}
 `;
 
-export const FooterFirstDiv = styled.div`
+export const FooterFirstDiv = styled.div``;
+
+export const FooterSecondDiv = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 48px;
-  align-items: center;
+  align-items: start;
 
-  img {
-    display: block;
-    max-width: 192px;
-  }
-
-  p {
-    span {
-      color: #266bf0;
+  div {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    img {
+      margin-top: -5px;
     }
   }
 `;
-
-export const FooterSecondDiv = styled.div``;
 
 export const FooterThirdDiv = styled.div``;
 
@@ -139,12 +136,12 @@ export const WrapperThirdDivContent = styled.div`
 
 export const TitleSectionFooter = styled.h3`
   color: #eee;
+  text-align: center;
   font-family: "Poppins";
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: 32px;
-  margin-bottom: 16px;
 `;
 
 export const TextSectionFooter = styled.p`
@@ -165,6 +162,9 @@ export const WrapperSocialIconsFooter = styled.div`
   display: flex;
   align-items: center;
   gap: 14px;
+  margin: 18px 0;
+
+  justify-content: center;
 
   img {
     display: block;
