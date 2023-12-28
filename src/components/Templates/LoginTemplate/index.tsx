@@ -18,7 +18,7 @@ export const LoginTemplate = () => {
     setToken(v4());
     toast.success("Sucesso no login!");
     setTimeout(() => {
-      window.open("/buscar-veiculo", "_self");
+      window.open("/opcoes-servicos", "_self");
     }, 3000);
   }
 

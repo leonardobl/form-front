@@ -25,17 +25,19 @@ export const RegisterTemplate = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    setIsLoad(true);
+    window.open("/login", "_self");
 
-    Cliente.post(form)
-      .then(() => {
-        toast.success("Cadastro realizado com sucesso!");
-        setTimeout(() => {
-          window.open("/login", "_self");
-        }, 3000);
-      })
-      .catch((error) => toast.error(error?.message))
-      .finally(() => setIsLoad(false));
+    // setIsLoad(true);
+
+    // Cliente.post(form)
+    //   .then(() => {
+    //     toast.success("Cadastro realizado com sucesso!");
+    //     setTimeout(() => {
+    //       window.open("/login", "_self");
+    //     }, 3000);
+    //   })
+    //   .catch((error) => toast.error(error?.message))
+    //   .finally(() => setIsLoad(false));
   }
 
   function handlePhone(e: string) {

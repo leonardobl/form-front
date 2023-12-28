@@ -23,6 +23,7 @@ import { PaymentPix } from "./components/Pages/paymentPix";
 import { PaymentTicket } from "./components/Pages/paymentTicket";
 import { SchedulingDetail } from "./components/Pages/schedulingDetail";
 import { ContextProvider } from "./context/Context";
+import { ServiceOptions } from "./components/Pages/serviceOptions";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -36,6 +37,14 @@ root.render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route
+              path="opcoes-servicos"
+              element={
+                <ProtectedRoute>
+                  <ServiceOptions />
+                </ProtectedRoute>
+              }
+            />
             <Route path="login-cadastro" element={<LoginRegister />} />
             <Route path="login" element={<Login />} />
             <Route path="cadastro" element={<Register />} />
