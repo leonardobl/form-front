@@ -446,7 +446,7 @@ export const WrapperImgMap = styled.a`
 `;
 
 export const SectionContact = styled.section`
-  padding: 50px 0;
+  padding: 150px 0;
   background: #266bf0;
   min-height: 216px;
 `;
@@ -458,18 +458,21 @@ export const SectionContactContent = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
 
     h1 {
-      color: #eee;
+      color: #efefef;
       font-family: "Poppins";
-      font-size: 32px;
+      font-size: 72px;
       font-style: normal;
       font-weight: 700;
-      line-height: 48px;
+      line-height: 80px;
+
+      align-self: center;
     }
 
     div {
+      align-self: self-end;
       p {
         color: #eee;
         font-family: "Poppins";

@@ -411,14 +411,20 @@ export const HomeTemplate = () => {
 
         <S.SectionContact id="contato">
           <S.SectionContactContent>
-            <h1>Contatos</h1>
+            <h1>
+              Contatos{" "}
+              <img
+                src="/assets/imgs/check-dark-blue.svg"
+                alt="icone de checado"
+              />
+            </h1>
 
             <div>
               <S.TitleLocalization>
-                <span>
-                  Calhau
-                  <br /> São Luis / MA
-                </span>
+                <span>Caxias / MA</span>
+              </S.TitleLocalization>
+              <S.TitleLocalization>
+                <span>São Luis / MA</span>
               </S.TitleLocalization>
 
               <p>(98) 98562-0425</p>
@@ -426,22 +432,26 @@ export const HomeTemplate = () => {
 
             <div>
               <S.TitleLocalization>
-                <span>
-                  Centro
-                  <br /> Bacabal / MA
-                </span>
+                <span>Codó / MA</span>
               </S.TitleLocalization>
+              <S.TitleLocalization>
+                <span>Bacabal / MA</span>
+              </S.TitleLocalization>
+
               <p>(99) 99128-2316</p>
             </div>
 
             <div>
               <S.TitleLocalization>
-                <span>
-                  XXXXX
-                  <br /> Balsas / MA
-                </span>
+                <span>Pinheiro /MA</span>
               </S.TitleLocalization>
-              <p>(XX) XXXX-XXXX</p>
+              <S.TitleLocalization>
+                <span>Riachão / MA</span>
+              </S.TitleLocalization>
+              <S.TitleLocalization>
+                <span>Balsas / MA</span>
+              </S.TitleLocalization>
+              <p>(99) 98535-5900</p>
             </div>
           </S.SectionContactContent>
         </S.SectionContact>
