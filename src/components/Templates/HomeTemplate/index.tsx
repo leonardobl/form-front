@@ -183,7 +183,7 @@ export const HomeTemplate = () => {
                   <td>
                     {" "}
                     <h3>
-                      R$ 115 <span>+</span> <p> taxas</p>
+                      R$ 115 <span>**</span>
                     </h3>
                   </td>
                 </tr>
@@ -192,7 +192,7 @@ export const HomeTemplate = () => {
                   <td>
                     {" "}
                     <h3>
-                      R$ 150 <span>+</span> <p> taxas</p>
+                      R$ 150 <span>**</span>
                     </h3>
                   </td>
                 </tr>
@@ -201,7 +201,7 @@ export const HomeTemplate = () => {
                   <td>
                     {" "}
                     <h3>
-                      R$ 190 <span>+</span> <p> taxas</p>
+                      R$ 190 <span>**</span>
                     </h3>
                   </td>
                 </tr>
@@ -222,18 +222,30 @@ export const HomeTemplate = () => {
                 <tr>
                   <td colSpan={2}>
                     <h3>
-                      R$ 190 <span>+</span> <p> taxas</p>
+                      R$ 190 <span>**</span>
                     </h3>
                   </td>
                 </tr>
               </tfoot>
             </S.TableService>
 
-            <S.SubTitle>Tipo de Veículo</S.SubTitle>
+            {/* <S.SubTitle>Tipo de Veículo</S.SubTitle> */}
             <S.Textplus>
-              Micro-ônibus - Ônibus - Reboque - Semirreboque - Caminhão -
-              Caminhão Trator - Trator de Rodas - Trator Misto -
+              <S.TextRed>*</S.TextRed>Ônibus <S.TextBlue>-</S.TextBlue>{" "}
+              Micro-ônibus <S.TextBlue>-</S.TextBlue> Reboque{" "}
+              <S.TextBlue>-</S.TextBlue> Semi-reboque <S.TextBlue>-</S.TextBlue>{" "}
+              Caminhão <S.TextBlue>-</S.TextBlue> Caminhão Trator{" "}
+              <S.TextBlue>-</S.TextBlue> Trator de Rodas{" "}
+              <S.TextBlue>-</S.TextBlue> Trator Misto <S.TextBlue>-</S.TextBlue>{" "}
               Chassi/Plataforma
+            </S.Textplus>
+            <S.Textplus>
+              <S.TextRed>*</S.TextRed>
+              <S.TextRed>*</S.TextRed>Taxa será acrescida no valor da compra.
+              Taxa bancária no <S.TextStrong>PIX</S.TextStrong> no valor de{" "}
+              <S.TextBlue>R$ 1,92</S.TextBlue>. Taxa bancária no{" "}
+              <S.TextStrong>Boleto</S.TextStrong> no valor de{" "}
+              <S.TextBlue>R$ 3,50</S.TextBlue>.
             </S.Textplus>
 
             <Link to={"agendamento"}>
@@ -254,7 +266,7 @@ export const HomeTemplate = () => {
               <S.SectionLocationCardMap>
                 <S.WrapperImgMap
                   target="_blank"
-                  href="https://www.google.com.br/maps/place//@-2.4919149,-44.2529526,19z/data=!4m3!1m2!2m1!1s65072-852+numero+4?entry=ttu"
+                  href="https://www.google.com.br/maps/place/R.+Chapadinha,+4,+S%C3%A3o+Lu%C3%ADs+-+MA,+65072-852/@-2.4922137,-44.2593521,15.21z/data=!4m5!3m4!1s0x7f68d8c6eaaf73d:0x2ff22426484a03bc!8m2!3d-2.4915126!4d-44.2535711?entry=ttu"
                 >
                   <img src="/assets/imgs/map1.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
@@ -297,19 +309,19 @@ export const HomeTemplate = () => {
               <S.SectionLocationCardMap>
                 <S.WrapperImgMap
                   target="_blank"
-                  href="https://maps.app.goo.gl/ZmpgQHNkvTemgHi47"
+                  href="https://www.google.com.br/maps/place/Av.+Contorno,+4144+-+Potosi,+Balsas+-+MA,+65800-000/@-7.5148335,-46.0400104,17z/data=!4m6!3m5!1s0x92d5ef72b8053479:0x58ce885f51bb8393!8m2!3d-7.5144506!4d-46.0379397!16s%2Fg%2F11c2151wrp?entry=ttu"
                 >
                   <img src="/assets/imgs/map3.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
                 <S.TitleLocalization>
                   <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
-                    XXXXX
+                    Potosí
                     <br /> Balsas / MA
                   </span>
                 </S.TitleLocalization>
                 <p>
-                  Rua XXXXXX
+                  Rua Contorno N 4144B
                   <br /> <S.TextStrong>CEP 658000-000</S.TextStrong>
                 </p>
               </S.SectionLocationCardMap>
@@ -317,40 +329,80 @@ export const HomeTemplate = () => {
               <S.SectionLocationCardMap>
                 <S.WrapperImgMap
                   target="_blank"
-                  href="https://maps.app.goo.gl/ZmpgQHNkvTemgHi47"
+                  href="https://www.google.com.br/maps/place/Departamento+Estadual+de+Tr%C3%A2nsito+-+Ag%C3%AAncia+de+Pinheiro/@-2.5319845,-45.0898621,18.21z/data=!4m6!3m5!1s0x92b34e19f05da7cb:0x93230d9a3f531ba3!8m2!3d-2.5317729!4d-45.0897476!16s%2Fg%2F11b6hrry1p?entry=ttu"
                 >
                   <img src="/assets/imgs/map4.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
                 <S.TitleLocalization>
                   <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
-                    XXXXX
-                    <br /> Balsas / MA
+                    São Castelo
+                    <br /> Pinheiro / MA
                   </span>
                 </S.TitleLocalization>
                 <p>
-                  Rua XXXXXX
-                  <br /> <S.TextStrong>CEP 658000-000</S.TextStrong>
+                  Rua Pedro Amengol, S/N
+                  <br /> <S.TextStrong>CEP 65200-000</S.TextStrong>
                 </p>
               </S.SectionLocationCardMap>
 
               <S.SectionLocationCardMap>
                 <S.WrapperImgMap
                   target="_blank"
-                  href="https://maps.app.goo.gl/ZmpgQHNkvTemgHi47"
+                  href="https://www.google.com.br/maps/place/Av.+Alexandre+Costa,+3480+-+Volta+Redonda,+Caxias+-+MA,+65605-515/@-4.8784905,-43.3442526,18.21z/data=!4m6!3m5!1s0x78e926f2c1ee513:0x7a4fe4ca5df3da7!8m2!3d-4.8783834!4d-43.3436598!16s%2Fg%2F11tsjtc8r3?entry=ttu"
                 >
                   <img src="/assets/imgs/map5.svg" alt="mapa de sao luiz" />
                 </S.WrapperImgMap>
                 <S.TitleLocalization>
                   <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
                   <span>
-                    XXXXX
-                    <br /> Balsas / MA
+                    Volta Redonda
+                    <br /> Caxias / MA
                   </span>
                 </S.TitleLocalization>
                 <p>
-                  Rua XXXXXX
-                  <br /> <S.TextStrong>CEP 658000-000</S.TextStrong>
+                  Av. Alexandre Costa, 3480
+                  <br /> <S.TextStrong>CEP 65000-300</S.TextStrong>
+                </p>
+              </S.SectionLocationCardMap>
+
+              <S.SectionLocationCardMap>
+                <S.WrapperImgMap
+                  target="_blank"
+                  href="https://www.google.com.br/maps/place/R.+Francisco+Bernardino,+1442+-+Cod%C3%B3,+MA,+65400-000/@-4.4692901,-43.8874529,18.21z/data=!4m5!3m4!1s0x78bf118b28a068f:0x3e73c0e7e32d81d2!8m2!3d-4.4693113!4d-43.8868038?entry=ttu"
+                >
+                  <img src="/assets/imgs/map6.svg" alt="mapa de sao luiz" />
+                </S.WrapperImgMap>
+                <S.TitleLocalization>
+                  <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
+                  <span>
+                    Santa Lúcia
+                    <br /> Codó / MA
+                  </span>
+                </S.TitleLocalization>
+                <p>
+                  R. Francisco Bernardino, 1442
+                  <br /> <S.TextStrong>CEP 65400-00</S.TextStrong>
+                </p>
+              </S.SectionLocationCardMap>
+
+              <S.SectionLocationCardMap>
+                <S.WrapperImgMap
+                  target="_blank"
+                  href="https://www.google.com.br/maps/place/7%C2%B021'46.6%22S+46%C2%B037'21.5%22W/@-7.3630442,-46.6229281,19z/data=!4m4!3m3!8m2!3d-7.362956!4d-46.62264?entry=ttu"
+                >
+                  <img src="/assets/imgs/map7.svg" alt="mapa de sao luiz" />
+                </S.WrapperImgMap>
+                <S.TitleLocalization>
+                  <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
+                  <span>
+                    Bela Vista
+                    <br /> Riachão / MA
+                  </span>
+                </S.TitleLocalization>
+                <p>
+                  Rua 31 de Dezembro, N188
+                  <br /> <S.TextStrong>CEP 65990-000</S.TextStrong>
                 </p>
               </S.SectionLocationCardMap>
             </S.SectionLocationWrapperCardsMap>

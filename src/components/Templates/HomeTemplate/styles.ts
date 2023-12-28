@@ -57,12 +57,16 @@ export const Textplus = styled.p`
   color: #2d2d2d;
   text-align: center;
   font-family: "Roboto";
-  font-size: 24px;
+  font-size: 1.22rem;
   font-style: normal;
   font-weight: 400;
   line-height: 32px;
   margin-top: 24px;
   margin-bottom: 48px;
+
+  span {
+    margin-right: 5px;
+  }
 `;
 
 export const SectioStarCheckLeftSideWrapper = styled.div`
@@ -317,23 +321,8 @@ export const TableService = styled.table`
       line-height: 48px;
       letter-spacing: 1.44px;
 
-      p {
-        color: #558fff;
-        font-family: "Poppins";
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 38px;
-        letter-spacing: 0.96px;
-      }
-
       span {
-        font-family: "Poppins";
-        font-size: 32px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 38px;
-        letter-spacing: 0.96px;
+        color: #ed0000;
       }
     }
   }
@@ -492,4 +481,8 @@ export const SectionContactContent = styled.div`
       }
     }
   `}
+`;
+
+export const TextRed = styled.span`
+  color: #ed0000;
 `;
