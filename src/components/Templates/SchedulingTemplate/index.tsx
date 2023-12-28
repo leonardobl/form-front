@@ -3,8 +3,22 @@ import React from "react";
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { Link } from "react-router-dom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const SchedulingTemplate = () => {
+  const [storage, setStorage] = useSessionStorage("tipoAtendimento");
+
+  function handleClick({ tipoAtendimento }: { tipoAtendimento: string }) {
+    const url =
+      tipoAtendimento === "loja-fisica"
+        ? "loja-fisica"
+        : "atendimento-domicilio";
+
+    setStorage(url);
+
+    window.open(`/agendamento/${url}`, "_self");
+  }
+
   return (
     <S.Container>
       <S.Banner>
@@ -31,12 +45,20 @@ export const SchedulingTemplate = () => {
         </p>
 
         <S.WrapperButtons>
-          <Link to={"loja-fisica"}>
-            <ButtonCustom typeOfButton="BlueLight">Loja Física</ButtonCustom>
-          </Link>
-          <Link to={"atendimento-domicilio"}>
-            <ButtonCustom typeOfButton="BlueLight">Domicilio</ButtonCustom>
-          </Link>
+          <ButtonCustom
+            typeOfButton="BlueLight"
+            onClick={() => handleClick({ tipoAtendimento: "loja-fisica" })}
+          >
+            Loja Física
+          </ButtonCustom>
+          <ButtonCustom
+            typeOfButton="BlueDark"
+            onClick={() =>
+              handleClick({ tipoAtendimento: "atendimento-domicilio" })
+            }
+          >
+            Domicilio
+          </ButtonCustom>
         </S.WrapperButtons>
       </S.Preference>
     </S.Container>
