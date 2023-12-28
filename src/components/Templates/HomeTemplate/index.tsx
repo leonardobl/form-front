@@ -178,12 +178,15 @@ export const HomeTemplate = () => {
                   <td>
                     {" "}
                     <h3>
-                      R$ 150 <span>**</span>
+                      R$ 152 <span>**</span>
                     </h3>
                   </td>
                 </tr>
                 <tr>
-                  <td>Ônibus/Caminhão e Veículos Grandes</td>
+                  <td>
+                    Veículos Grande Porte
+                    <S.TextRed> *</S.TextRed>
+                  </td>
                   <td>
                     {" "}
                     <h3>
