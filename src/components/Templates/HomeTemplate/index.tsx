@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as S from "./styles";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { Link } from "react-router-dom";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
-import { useContextSite } from "../../../context/Context";
 
 export const HomeTemplate = () => {
-  const { setIsLoad } = useContextSite();
-
   return (
     <LayoutTemplate>
       <S.Container>
