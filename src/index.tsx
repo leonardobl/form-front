@@ -24,6 +24,7 @@ import { PaymentTicket } from "./components/Pages/paymentTicket";
 import { SchedulingDetail } from "./components/Pages/schedulingDetail";
 import { ContextProvider } from "./context/Context";
 import { ServiceOptions } from "./components/Pages/serviceOptions";
+import { ServiceAddressRegistration } from "./components/Pages/ serviceAddressRegistration";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -38,6 +39,15 @@ root.render(
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
+              path="cadastro-endereco"
+              element={
+                <ProtectedRoute>
+                  <ServiceAddressRegistration />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
               path="opcoes-servicos"
               element={
                 <ProtectedRoute>
@@ -47,7 +57,7 @@ root.render(
             />
             <Route path="login-cadastro" element={<LoginRegister />} />
             <Route path="login" element={<Login />} />
-            <Route path="cadastro" element={<Register />} />
+            <Route path="cadastro-acesso" element={<Register />} />
             <Route
               path="detalhe-pagamento"
               element={

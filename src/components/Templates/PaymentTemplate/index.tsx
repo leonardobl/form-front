@@ -11,10 +11,8 @@ export const PaymentTemplate = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    toast.info("Gerando pagamento");
-    setTimeout(() => {
-      window.open(`pagamento/${payment.toLowerCase()}`, "_self");
-    }, 3000);
+    // toast.info("Gerando pagamento");
+    window.open(`pagamento/${payment.toLowerCase()}`, "_self");
   }
 
   return (

@@ -47,6 +47,11 @@ export const SchedulingDetailTemplate = () => {
                 <InputCustom readOnly />
                 <InputCustom readOnly />
               </S.Grid>
+
+              <S.Grid $gridTemplate="1fr">
+                <S.SubTitle>Chassi</S.SubTitle>
+                <InputCustom readOnly />
+              </S.Grid>
             </S.WrapperBorder>
 
             <S.WrapperBorder>

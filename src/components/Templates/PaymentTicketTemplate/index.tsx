@@ -36,9 +36,9 @@ export const PaymentTicketTemplate = () => {
           <PaymentCodContainer value={v4()} />
         </S.WrapperCod>
         <S.WrapperButtons>
-          <Link to={"/detalhe-pagamento"}>
+          {/* <Link to={"/detalhe-pagamento"}>
             <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
-          </Link>
+          </Link> */}
           <ButtonCustom typeOfButton="Ghost" onClick={handlePix}>
             ALTERAR PARA PIX
           </ButtonCustom>

@@ -16,7 +16,7 @@ export const LoginRegisterTemplate = () => {
           <Link to={"/login"}>
             <ButtonCustom typeOfButton="BlueLight">LOGIN</ButtonCustom>
           </Link>
-          <Link to={"/cadastro"}>
+          <Link to={"/cadastro-acesso"}>
             <ButtonCustom typeOfButton="BlueDark">CADASTRO</ButtonCustom>
           </Link>
         </S.WrapperButtons>

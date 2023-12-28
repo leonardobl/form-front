@@ -47,6 +47,7 @@ export const PhysicalTemplate = () => {
   const [data, setData] = useState<lojaFisica>({} as lojaFisica);
   const { pathname } = useLocation();
   const [session, setSession] = useSessionStorage("agendamento");
+  const [token, setToken] = useSessionStorage("@token");
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -58,6 +59,11 @@ export const PhysicalTemplate = () => {
       tipoAgendamento: paths[paths.length - 1],
     };
     setSession(agendamento);
+
+    if (token) {
+      return window.open("/buscar-veiculo", "_self");
+    }
+
     window.open("/login-cadastro", "_self");
   }
 
