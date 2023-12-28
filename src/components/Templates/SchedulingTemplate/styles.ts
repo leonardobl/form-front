@@ -10,8 +10,9 @@ export const Banner = styled.div`
   height: 720px;
   display: flex;
   background-image: url("/assets/imgs/fundo.jpg");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: center right;
 `;
 
 export const BannerLeftSide = styled.div`
