@@ -26,6 +26,7 @@ import { ContextProvider } from "./context/Context";
 import { ServiceOptions } from "./components/Pages/serviceOptions";
 import { ServiceAddressRegistration } from "./components/Pages/ serviceAddressRegistration";
 import { ScheduleListing } from "./components/Pages/scheduleListing";
+import { OfflineSystem } from "./components/Pages/ offlineSystem";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -39,6 +40,7 @@ root.render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/offline" element={<OfflineSystem />} />
             <Route
               path="cadastro-endereco"
               element={

@@ -162,7 +162,7 @@ export const HomeTemplate = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>Moto</td>
+                  <td>Carro e Moto</td>
                   <td>
                     {" "}
                     <h3>
@@ -170,7 +170,7 @@ export const HomeTemplate = () => {
                     </h3>
                   </td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td>Carro</td>
                   <td>
                     {" "}
@@ -178,7 +178,7 @@ export const HomeTemplate = () => {
                       R$ 152 <span>**</span>
                     </h3>
                   </td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td>
                     Veículos Grande Porte
