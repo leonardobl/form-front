@@ -69,3 +69,7 @@ export const WrapperButton = styled.div`
   margin-top: 80px;
   text-align: center;
 `;
+
+export const MsgError = styled.p`
+  color: #ed0000;
+`;

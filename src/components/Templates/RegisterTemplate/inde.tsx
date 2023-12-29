@@ -1,43 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles.ts";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { maskCep, maskCpf, maskPhone } from "../../../utils/masks";
 import { ViaCep } from "../../../services/ViaCep";
 import { useContextSite } from "../../../context/Context";
-import AsyncSelect from "react-select/dist/declarations/src/Async";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
-import { IUFS } from "../../../types/ibge";
 import { Ibge } from "../../../services/Ibge";
 import { ISelectOptions } from "../../../types/inputs";
 import { IClienteForm } from "../../../types/cliente";
 import { Cliente } from "../../../services/Cliente";
+import { TipoClienteEnum } from "../../../enums/tipoCliente";
 
 export const RegisterTemplate = () => {
   const [form, setForm] = useState<IClienteForm>({} as IClienteForm);
   const { setIsLoad } = useContextSite();
+  const [isDisabled, setIsDisabled] = useState(false);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
+
+  const inpSenhaRef = useRef<HTMLInputElement>(null);
+  const inpConfirSenha = useRef<HTMLInputElement>(null);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    window.open("/login", "_self");
+    const PAYLOAD: IClienteForm = { ...form, tipo: TipoClienteEnum.PARTICULAR };
 
-    // setIsLoad(true);
+    setIsLoad(true);
+    setIsDisabled(true);
 
-    // Cliente.post(form)
-    //   .then(() => {
-    //     toast.success("Cadastro realizado com sucesso!");
-    //     setTimeout(() => {
-    //       window.open("/login", "_self");
-    //     }, 3000);
-    //   })
-    //   .catch((error) => toast.error(error?.message))
-    //   .finally(() => setIsLoad(false));
+    Cliente.post(PAYLOAD)
+      .then(() => {
+        setIsLoad(false);
+        toast.success("Cadastro realizado com sucesso!");
+        setTimeout(() => {
+          window.open("/login", "_self");
+        }, 3000);
+      })
+      .catch((error) => toast.error(error?.message))
+      .finally(() => {
+        setIsLoad(false);
+        setIsDisabled(false);
+      });
+  }
+
+  function checkPass() {
+    const pass = inpSenhaRef.current.value;
+    const confirm = inpConfirSenha.current.value;
+
+    if (pass !== confirm) {
+      inpConfirSenha.current.setCustomValidity("Senhas nao conferem");
+      return;
+    }
+
+    inpConfirSenha.current.setCustomValidity("");
+
+    return;
   }
 
   function handlePhone(e: string) {
@@ -299,25 +320,25 @@ export const RegisterTemplate = () => {
                 </label>
                 <InputCustom
                   required
+                  type="password"
                   value={form.senha}
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, senha: e.target.value }))
-                  }
+                  ref={inpSenhaRef}
+                  onChange={(e) => {
+                    setForm((prev) => ({ ...prev, senha: e.target.value }));
+                    checkPass();
+                  }}
                 />
                 <InputCustom
-                // required
-                // value={form.senha}
-                // onChange={(e) =>
-                //   setForm((prev) => ({
-                //     ...prev,
-                //     confirmaSenha: e.target.value,
-                //   }))
-                // }
+                  required
+                  ref={inpConfirSenha}
+                  type="password"
+                  onChange={(e) => checkPass()}
                 />
               </S.Grid>
-
               <S.WrapperButton>
-                <ButtonCustom typeOfButton="Login">Criar Conta</ButtonCustom>
+                <ButtonCustom typeOfButton="Login" disabled={isDisabled}>
+                  Criar Conta
+                </ButtonCustom>
               </S.WrapperButton>
             </S.WrapperContentForm>
           </S.Form>
