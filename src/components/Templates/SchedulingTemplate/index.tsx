@@ -2,21 +2,16 @@ import React from "react";
 
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
-import { Link } from "react-router-dom";
+
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const SchedulingTemplate = () => {
   const [storage, setStorage] = useSessionStorage("tipoAtendimento");
 
   function handleClick({ tipoAtendimento }: { tipoAtendimento: string }) {
-    const url =
-      tipoAtendimento === "loja-fisica"
-        ? "loja-fisica"
-        : "atendimento-domicilio";
+    setStorage(tipoAtendimento);
 
-    setStorage(url);
-
-    window.open(`/agendamento/${url}`, "_self");
+    window.open(`/agendamento/${tipoAtendimento}`, "_self");
   }
 
   return (
@@ -47,15 +42,13 @@ export const SchedulingTemplate = () => {
         <S.WrapperButtons>
           <ButtonCustom
             typeOfButton="BlueLight"
-            onClick={() => handleClick({ tipoAtendimento: "loja-fisica" })}
+            onClick={() => handleClick({ tipoAtendimento: "loja" })}
           >
             Loja Física
           </ButtonCustom>
           <ButtonCustom
             typeOfButton="BlueDark"
-            onClick={() =>
-              handleClick({ tipoAtendimento: "atendimento-domicilio" })
-            }
+            onClick={() => handleClick({ tipoAtendimento: "domicilio" })}
           >
             Domicilio
           </ButtonCustom>
