@@ -105,3 +105,17 @@ export const ButtonGhost = styled.button<{ $disabled?: boolean }>`
     border-radius: 5px;
   `}
 `;
+
+export const ButtonScheduleListing = styled.button<{ $disabled?: boolean }>`
+  border-radius: 5px;
+  background: #266bf0;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #eee;
+  font-family: "Poppins";
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  padding: 2px 8px;
+  letter-spacing: 0.24px;
+`;

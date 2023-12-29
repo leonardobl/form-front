@@ -25,6 +25,7 @@ import { SchedulingDetail } from "./components/Pages/schedulingDetail";
 import { ContextProvider } from "./context/Context";
 import { ServiceOptions } from "./components/Pages/serviceOptions";
 import { ServiceAddressRegistration } from "./components/Pages/ serviceAddressRegistration";
+import { ScheduleListing } from "./components/Pages/scheduleListing";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -56,6 +57,7 @@ root.render(
               }
             />
             <Route path="login-cadastro" element={<LoginRegister />} />
+
             <Route path="login" element={<Login />} />
             <Route path="cadastro-acesso" element={<Register />} />
             <Route
@@ -63,6 +65,15 @@ root.render(
               element={
                 <ProtectedRoute>
                   <SchedulingDetail />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="listagem-agendamentos"
+              element={
+                <ProtectedRoute>
+                  <ScheduleListing />
                 </ProtectedRoute>
               }
             />

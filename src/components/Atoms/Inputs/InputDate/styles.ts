@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
+  width: 100%;
 
   .react-datepicker__navigation_wrapper {
     display: grid;
@@ -15,7 +16,7 @@ export const Container = styled.div`
   }
 
   .react-datepicker-wrapper {
-    min-width: 400px;
+    width: 100%;
 
     svg {
       right: 15px;
@@ -42,8 +43,8 @@ export const Container = styled.div`
 
   .react-datepicker__input-container {
     input {
-      width: 100%;
       height: 50px;
+      width: 100%;
       border-radius: 5px;
       border: 1px solid red;
       padding: 0 10px;

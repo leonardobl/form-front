@@ -6,7 +6,8 @@ type TypeOfButtonOptions =
   | "BlueLight"
   | "BlueGradient"
   | "Login"
-  | "Ghost";
+  | "Ghost"
+  | "ScheduleList";
 export interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   typeOfButton: TypeOfButtonOptions;
 }
@@ -17,6 +18,9 @@ export const ButtonCustom = ({ typeOfButton, ...props }: ButtonProps) => {
     BlueGradient: <S.Buttongradiente {...props} $disabled={props.disabled} />,
     Login: <S.ButtonLogin {...props} $disabled={props.disabled} />,
     Ghost: <S.ButtonGhost {...props} $disabled={props.disabled} />,
+    ScheduleList: (
+      <S.ButtonScheduleListing {...props} $disabled={props.disabled} />
+    ),
   };
 
   return buttonsOptions[typeOfButton];
