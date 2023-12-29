@@ -6,6 +6,7 @@ export const Pagination = styled.div`
   margin: 0 auto;
   padding: 0.8rem 0;
   align-items: center;
+  font-family: "Poppins";
 
   width: max-content;
 
