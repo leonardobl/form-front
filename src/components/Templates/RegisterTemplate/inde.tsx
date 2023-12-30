@@ -52,7 +52,7 @@ export const RegisterTemplate = () => {
     const confirm = inpConfirSenha.current.value;
 
     if (pass !== confirm) {
-      inpConfirSenha.current.setCustomValidity("Senhas nao conferem");
+      inpConfirSenha.current.setCustomValidity("As senhas não conferem");
       return;
     }
 
