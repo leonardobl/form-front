@@ -23,7 +23,14 @@ export const LoginTemplate = () => {
     setIsLoad(true);
 
     Autenticacao.post(form)
-      .then(({ data }) => console.log(data))
+      .then(({ data }) => {
+        setToken(data.token);
+        if (atendimentoSession) {
+          return window.open("/opcoes-servicos", "_self");
+        }
+
+        return window.open("/agendamento", "_self");
+      })
       .catch(
         ({
           response: {
@@ -34,15 +41,6 @@ export const LoginTemplate = () => {
         }
       )
       .finally(() => setIsLoad(false));
-
-    // setToken(v4());
-    // setTimeout(() => {
-    //   if (atendimentoSession) {
-    //     return window.open("/opcoes-servicos", "_self");
-    //   }
-
-    //   return window.open("/agendamento", "_self");
-    // }, 3000);
   }
 
   return (
