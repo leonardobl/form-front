@@ -57,8 +57,6 @@ export const RegisterTemplate = () => {
     }
 
     inpConfirSenha.current.setCustomValidity("");
-
-    return;
   }
 
   function handlePhone(e: string) {

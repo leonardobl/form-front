@@ -10,8 +10,8 @@ interface ILojaParams extends IPageRequest {
 
 const basePath = "/loja";
 
-export class Lojas {
-  static async get(props: ILojaParams): Promise<AxiosResponse<IPageLojaDTO>> {
+export class Loja {
+  static async get(props?: ILojaParams): Promise<AxiosResponse<IPageLojaDTO>> {
     return ApiBrave1.get(`${basePath}`);
   }
 

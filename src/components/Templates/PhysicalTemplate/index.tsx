@@ -6,6 +6,8 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { v4 } from "uuid";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { Loja } from "../../../services/Lojas";
+import { toast } from "react-toastify";
 
 type lojaFisica = {
   loja: string;
@@ -48,15 +50,14 @@ export const PhysicalTemplate = () => {
   const { pathname } = useLocation();
   const [session, setSession] = useSessionStorage("agendamento");
   const [token, setToken] = useSessionStorage("@token");
+  const [path, setPath] = useState(pathname.split("/"));
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    const paths = pathname.split("/");
-
     const agendamento = {
       ...data,
-      tipoAgendamento: paths[paths.length - 1],
+      tipoAgendamento: path[path.length - 1],
     };
     setSession(agendamento);
 
@@ -67,19 +68,23 @@ export const PhysicalTemplate = () => {
     window.open("/login-cadastro", "_self");
   }
 
+  useEffect(() => {
+    Loja.get()
+      .then(({ data }) => console.log(data))
+      .catch((error) => toast.error(error?.message));
+  }, [path]);
+
   return (
     <S.Container>
       <S.Form onSubmit={handleSubmit}>
         <S.Title>
-          {pathname.includes("loja-fisica")
-            ? "Loja Física"
-            : "Atendimento em Domicílio"}
+          {path.includes("loja") ? "Loja Física" : "Atendimento em Domicílio"}
         </S.Title>
 
         <S.WrapperInput>
           <SimpleSelect
             required
-            label="Loja"
+            label={path.includes("loja") ? "Loja" : "Cidade"}
             value={cidadeOptions.find((item) => item.label === data.loja)}
             options={cidadeOptions}
             onChange={(e) => setData((prev) => ({ ...prev, loja: e?.label }))}

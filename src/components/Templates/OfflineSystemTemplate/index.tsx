@@ -29,9 +29,10 @@ export const OfflineSystemTemplate = () => {
               </div>
             </S.Flex>
             <div>
-              <S.Subtitle>Codó / MA</S.Subtitle>
-              <S.Subtitle>Bacabal / MA</S.Subtitle>
-              <S.Contact>(99) 99128-2316</S.Contact>
+              <S.Subtitle>Balsas / MA</S.Subtitle>
+              <S.Subtitle>Pinheiro / MA</S.Subtitle>
+              <S.Subtitle>Riachão / MA</S.Subtitle>
+              <S.Contact>(99) 98535-5900</S.Contact>
             </div>
           </S.WrapperContacts>
           <S.SectionLocationWrapperCardsMap>
