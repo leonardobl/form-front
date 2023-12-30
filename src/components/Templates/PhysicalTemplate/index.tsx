@@ -8,6 +8,7 @@ import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { Loja } from "../../../services/Lojas";
 import { toast } from "react-toastify";
+import { ISelectOptions } from "../../../types/inputs";
 
 type lojaFisica = {
   loja: string;
@@ -51,6 +52,7 @@ export const PhysicalTemplate = () => {
   const [session, setSession] = useSessionStorage("agendamento");
   const [token, setToken] = useSessionStorage("@token");
   const [path, setPath] = useState(pathname.split("/"));
+  const [lojaOptions, setLojaOptions] = useState<ISelectOptions[]>([]);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -69,9 +71,24 @@ export const PhysicalTemplate = () => {
   }
 
   useEffect(() => {
-    Loja.get()
-      .then(({ data }) => console.log(data))
-      .catch((error) => toast.error(error?.message));
+    if (path.includes("loja")) {
+      Loja.get()
+        .then(({ data }) => {
+          const options = data.content.map((item) => ({
+            label: item.nome,
+            value: item.uuid,
+            element: item,
+          }));
+          setLojaOptions(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+    }
   }, [path]);
 
   return (
