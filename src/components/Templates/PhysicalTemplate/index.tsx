@@ -35,7 +35,7 @@ export const PhysicalTemplate = () => {
     const PAYLOAD: IAgendamentoBasicoForm = {
       ...form,
       tipoAtendimento: TipoAtendimentoEnum[path[path.length - 1].toUpperCase()],
-      diaAgendado: date.toLocaleDateString().split(" / ").reverse().join(" - "),
+      diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
     };
 
     setIsLoad(true);
@@ -152,6 +152,7 @@ export const PhysicalTemplate = () => {
         <S.InputsContainer>
           <S.WrapperInput>
             <InputDate
+              minDate={new Date()}
               showIcon={true}
               label="Data"
               required
