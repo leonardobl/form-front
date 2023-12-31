@@ -16,7 +16,7 @@ export const SearchVehicleTemplate = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (atendimentoStorage === "loja-fisica") {
+    if (atendimentoStorage === "loja") {
       return window.open("/pagamento", "_self");
     }
 

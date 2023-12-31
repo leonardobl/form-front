@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
 import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { Agendamento } from "../../../services/Agendamento";
 
 export const PhysicalTemplate = () => {
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
@@ -24,22 +26,37 @@ export const PhysicalTemplate = () => {
   const [lojaOptions, setLojaOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
+  const [date, setDate] = useState<Date>(null);
   const { isLoad, setIsLoad } = useContextSite();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    const agendamento = {
+    const PAYLOAD: IAgendamentoBasicoForm = {
       ...form,
-      tipoAgendamento: path[path.length - 1],
+      tipoAtendimento: TipoAtendimentoEnum[path[path.length - 1].toUpperCase()],
+      diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
     };
-    setSession(agendamento);
 
-    if (token) {
-      return window.open("/buscar-veiculo", "_self");
-    }
+    setIsLoad(true);
+    Agendamento.post(PAYLOAD)
+      .then(() => {
+        setSession(PAYLOAD);
 
-    window.open("/login-cadastro", "_self");
+        if (token) {
+          return window.open("/servicos", "_self");
+        }
+
+        window.open("/login-cadastro", "_self");
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
   }
 
   useEffect(() => {
@@ -65,8 +82,7 @@ export const PhysicalTemplate = () => {
   }, [path]);
 
   useEffect(() => {
-    setForm((prev) => ({ ...prev, diaAgendado: null }));
-
+    setDate(null);
     if (form?.uuidLoja) {
       Loja.getDiasIndisponiveis({ uuidLoja: form.uuidLoja })
         .then(({ data }) => {
@@ -86,16 +102,12 @@ export const PhysicalTemplate = () => {
 
   useEffect(() => {
     setForm((prev) => ({ ...prev, horaAgendada: null }));
-    if (form?.diaAgendado) {
-      const date = form?.diaAgendado
-        .toLocaleDateString()
-        .split("/")
-        .reverse()
-        .join("-");
+    if (date) {
+      const newDate = date.toLocaleDateString().split("/").reverse().join("-");
 
       Loja.getHorariosDisponiveis({
         uuidLoja: form?.uuidLoja,
-        dataAgendamento: date,
+        dataAgendamento: newDate,
       }).then(({ data }) => {
         const options = data.map((item) => ({
           value: item,
@@ -106,7 +118,7 @@ export const PhysicalTemplate = () => {
         setHorariosOptions(options);
       });
     }
-  }, [form?.diaAgendado]);
+  }, [date]);
 
   return (
     <S.Container>
@@ -119,10 +131,16 @@ export const PhysicalTemplate = () => {
           <SimpleSelect
             required
             label={path.includes("loja") ? "Loja" : "Cidade"}
-            value={lojaOptions.find((item) => item.value === form.uuidLoja)}
+            value={
+              path.includes("loja")
+                ? lojaOptions.find((item) => item.value === form.uuidLoja)
+                : lojaOptions.find((item) => item.value === form.uuidDelivery)
+            }
             options={lojaOptions}
             onChange={(e) => {
-              setForm((prev) => ({ ...prev, uuidLoja: e?.value }));
+              path.includes("loja")
+                ? setForm((prev) => ({ ...prev, uuidLoja: e?.value }))
+                : setForm((prev) => ({ ...prev, uuidDelivery: e?.value }));
             }}
           />
         </S.WrapperInput>
@@ -137,20 +155,21 @@ export const PhysicalTemplate = () => {
               showIcon={true}
               label="Data"
               required
-              key={form.uuidLoja}
-              disabled={!form.uuidLoja}
+              disabled={
+                path.includes("loja") ? !form.uuidLoja : !form.uuidDelivery
+              }
               excludeDates={diasIndisponiveis}
               monthsShown={2}
-              onChange={(e) => setForm((prev) => ({ ...prev, diaAgendado: e }))}
+              onChange={(e) => setDate(e)}
               placeholderText="__/__/__"
-              selected={form.diaAgendado}
+              selected={date}
             />
           </S.WrapperInput>
 
           <S.WrapperInput>
             <SimpleSelect
               required
-              isDisabled={!form?.diaAgendado}
+              isDisabled={!date}
               value={
                 horariosOptions?.find(
                   (item) => item.value === form.horaAgendada

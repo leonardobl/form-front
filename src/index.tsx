@@ -51,7 +51,7 @@ root.render(
             />
 
             <Route
-              path="opcoes-servicos"
+              path="servicos"
               element={
                 <ProtectedRoute>
                   <ServiceOptions />
