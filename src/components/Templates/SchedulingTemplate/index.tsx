@@ -3,14 +3,8 @@ import React from "react";
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
-
 export const SchedulingTemplate = () => {
-  const [storage, setStorage] = useSessionStorage("tipoAtendimento");
-
   function handleClick({ tipoAtendimento }: { tipoAtendimento: string }) {
-    setStorage(tipoAtendimento);
-
     window.open(`/agendamento/${tipoAtendimento}`, "_self");
   }
 

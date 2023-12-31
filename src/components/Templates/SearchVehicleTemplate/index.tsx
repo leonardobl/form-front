@@ -6,17 +6,19 @@ import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { toast } from "react-toastify";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
+import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 
 export const SearchVehicleTemplate = () => {
   const [serviceStorage, setServiceStorage] = useSessionStorage("service");
-  const [atendimentoStorage, setAtendimentoStorage] =
-    useSessionStorage("tipoAtendimento");
+  const [sessionAgendamento, setSessionAgendamento] =
+    useSessionStorage("agendamento");
   const [service, setService] = useState("");
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+    const agendamento = sessionAgendamento as IAgendamentoBasicoForm;
 
-    if (atendimentoStorage === "loja") {
+    if (agendamento?.tipoAtendimento === "LOJA") {
       return window.open("/pagamento", "_self");
     }
 

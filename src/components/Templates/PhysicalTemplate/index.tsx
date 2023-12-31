@@ -35,28 +35,36 @@ export const PhysicalTemplate = () => {
     const PAYLOAD: IAgendamentoBasicoForm = {
       ...form,
       tipoAtendimento: TipoAtendimentoEnum[path[path.length - 1].toUpperCase()],
-      diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
+      diaAgendado:
+        'date.toLocaleDateString().split(" / ").reverse().join(" - "),',
     };
 
-    setIsLoad(true);
-    Agendamento.post(PAYLOAD)
-      .then(() => {
-        setSession(PAYLOAD);
+    setSession(PAYLOAD);
+    if (token) {
+      return window.open("/servicos", "_self");
+    }
 
-        if (token) {
-          return window.open("/servicos", "_self");
-        }
+    window.open("/login-cadastro", "_self");
 
-        window.open("/login-cadastro", "_self");
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
-      .finally(() => setIsLoad(false));
+    // setIsLoad(true);
+    // Agendamento.post(PAYLOAD)
+    //   .then(() => {
+    //     setSession(PAYLOAD);
+
+    //     if (token) {
+    //       return window.open("/servicos", "_self");
+    //     }
+
+    //     window.open("/login-cadastro", "_self");
+    //   })
+    //   .catch(
+    //     ({
+    //       response: {
+    //         data: { mensagem },
+    //       },
+    //     }) => toast.error(mensagem)
+    //   )
+    //   .finally(() => setIsLoad(false));
   }
 
   useEffect(() => {
@@ -129,7 +137,7 @@ export const PhysicalTemplate = () => {
 
         <S.WrapperInput>
           <SimpleSelect
-            required
+            // required
             label={path.includes("loja") ? "Loja" : "Cidade"}
             value={
               path.includes("loja")
@@ -154,7 +162,7 @@ export const PhysicalTemplate = () => {
             <InputDate
               showIcon={true}
               label="Data"
-              required
+              // required
               disabled={
                 path.includes("loja") ? !form.uuidLoja : !form.uuidDelivery
               }
@@ -168,7 +176,7 @@ export const PhysicalTemplate = () => {
 
           <S.WrapperInput>
             <SimpleSelect
-              required
+              // required
               isDisabled={!date}
               value={
                 horariosOptions?.find(

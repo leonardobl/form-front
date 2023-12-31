@@ -16,7 +16,11 @@ export const InputCustom = React.forwardRef<HTMLInputElement, InputCustomProps>(
             <span>*</span>
           </S.Label>
         )}
-        <S.Input {...props} ref={ref} />
+        <S.Input
+          {...props}
+          onWheel={(event) => event.currentTarget.blur()}
+          ref={ref}
+        />
       </S.Container>
     );
   }
