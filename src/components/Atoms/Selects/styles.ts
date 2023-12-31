@@ -10,7 +10,8 @@ export const Container = styled.div<{ $isLabel: boolean }>`
       height: 36px;
     }
 
-    .css-1u9des2-indicatorSeparator {
+    .css-1u9des2-indicatorSeparator,
+    .css-894a34-indicatorSeparator {
       display: none;
     }
 
@@ -34,6 +35,10 @@ export const Container = styled.div<{ $isLabel: boolean }>`
 
     svg path {
       fill: #266bf0;
+    }
+
+    .css-lutf1-control[aria-disabled="true"] {
+      background-color: rgba(239, 239, 239, 0.3);
     }
   `}
 `;

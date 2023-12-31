@@ -4,61 +4,33 @@ import { Link, useLocation } from "react-router-dom";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { v4 } from "uuid";
+import { addDays } from "date-fns";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { Loja } from "../../../services/Lojas";
 import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
-
-type lojaFisica = {
-  loja: string;
-  data: Date | null;
-  horario: string;
-};
-
-const cidadeOptions = [
-  {
-    label: "Calhau Sao Luiz / MA",
-    value: v4(),
-  },
-  {
-    label: "Centro Bacabal / MA",
-    value: v4(),
-  },
-  {
-    label: "XXXXX Balsas / MA",
-    value: v4(),
-  },
-];
-
-const horariosOptions = [
-  {
-    label: "09:30",
-    value: v4(),
-  },
-  {
-    label: "10:20",
-    value: v4(),
-  },
-  {
-    label: "15:30",
-    value: v4(),
-  },
-];
+import { IAgendamentoBasicoForm } from "../../../types/agendamento";
+import { useContextSite } from "../../../context/Context";
 
 export const PhysicalTemplate = () => {
-  const [data, setData] = useState<lojaFisica>({} as lojaFisica);
+  const [form, setForm] = useState<IAgendamentoBasicoForm>(
+    {} as IAgendamentoBasicoForm
+  );
   const { pathname } = useLocation();
   const [session, setSession] = useSessionStorage("agendamento");
   const [token, setToken] = useSessionStorage("@token");
   const [path, setPath] = useState(pathname.split("/"));
   const [lojaOptions, setLojaOptions] = useState<ISelectOptions[]>([]);
+  const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
+  const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
+  const { isLoad, setIsLoad } = useContextSite();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
     const agendamento = {
-      ...data,
+      ...form,
       tipoAgendamento: path[path.length - 1],
     };
     setSession(agendamento);
@@ -79,6 +51,7 @@ export const PhysicalTemplate = () => {
             value: item.uuid,
             element: item,
           }));
+
           setLojaOptions(options);
         })
         .catch(
@@ -91,6 +64,50 @@ export const PhysicalTemplate = () => {
     }
   }, [path]);
 
+  useEffect(() => {
+    setForm((prev) => ({ ...prev, diaAgendado: null }));
+
+    if (form?.uuidLoja) {
+      Loja.getDiasIndisponiveis({ uuidLoja: form.uuidLoja })
+        .then(({ data }) => {
+          const options = data.map((item) => addDays(new Date(item), 1));
+
+          setDiasIndisponiveis(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+    }
+  }, [form?.uuidLoja]);
+
+  useEffect(() => {
+    setForm((prev) => ({ ...prev, horaAgendada: null }));
+    if (form?.diaAgendado) {
+      const date = form?.diaAgendado
+        .toLocaleDateString()
+        .split("/")
+        .reverse()
+        .join("-");
+
+      Loja.getHorariosDisponiveis({
+        uuidLoja: form?.uuidLoja,
+        dataAgendamento: date,
+      }).then(({ data }) => {
+        const options = data.map((item) => ({
+          value: item,
+          label: item,
+          element: item,
+        }));
+
+        setHorariosOptions(options);
+      });
+    }
+  }, [form?.diaAgendado]);
+
   return (
     <S.Container>
       <S.Form onSubmit={handleSubmit}>
@@ -102,9 +119,11 @@ export const PhysicalTemplate = () => {
           <SimpleSelect
             required
             label={path.includes("loja") ? "Loja" : "Cidade"}
-            value={cidadeOptions.find((item) => item.label === data.loja)}
-            options={cidadeOptions}
-            onChange={(e) => setData((prev) => ({ ...prev, loja: e?.label }))}
+            value={lojaOptions.find((item) => item.value === form.uuidLoja)}
+            options={lojaOptions}
+            onChange={(e) => {
+              setForm((prev) => ({ ...prev, uuidLoja: e?.value }));
+            }}
           />
         </S.WrapperInput>
 
@@ -118,21 +137,27 @@ export const PhysicalTemplate = () => {
               showIcon={true}
               label="Data"
               required
+              key={form.uuidLoja}
+              disabled={!form.uuidLoja}
+              excludeDates={diasIndisponiveis}
               monthsShown={2}
-              onChange={(e) => setData((prev) => ({ ...prev, data: e }))}
+              onChange={(e) => setForm((prev) => ({ ...prev, diaAgendado: e }))}
               placeholderText="__/__/__"
-              selected={data.data}
+              selected={form.diaAgendado}
             />
           </S.WrapperInput>
 
           <S.WrapperInput>
             <SimpleSelect
               required
-              value={horariosOptions.find(
-                (item) => item.label === data.horario
-              )}
+              isDisabled={!form?.diaAgendado}
+              value={
+                horariosOptions?.find(
+                  (item) => item.value === form.horaAgendada
+                ) || null
+              }
               onChange={(e) =>
-                setData((prev) => ({ ...prev, horario: e?.label }))
+                setForm((prev) => ({ ...prev, horaAgendada: e?.value }))
               }
               options={horariosOptions}
               label="Horario"

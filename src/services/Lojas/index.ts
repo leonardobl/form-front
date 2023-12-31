@@ -29,7 +29,9 @@ export class Loja {
   }: {
     uuidLoja: string;
     dataAgendamento: string;
-  }): Promise<AxiosResponse<ILocalTime[]>> {
-    return ApiBrave1.get(`${basePath}/${uuidLoja}/dias-indiponiveis`);
+  }): Promise<AxiosResponse<string[]>> {
+    return ApiBrave1.get(
+      `${basePath}/${uuidLoja}/horarios-disponiveis?dataAgendamento=${dataAgendamento}`
+    );
   }
 }

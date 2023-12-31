@@ -88,7 +88,7 @@ export interface IVeiculoDTO {
 }
 
 export interface IAgendamentoBasicoForm {
-  diaAgendado: string;
+  diaAgendado: Date;
   horaAgendada: ILocalTime;
   tipoAtendimento: string;
   uuidDelivery?: string;

@@ -56,6 +56,10 @@ export const Container = styled.div`
       &:focus {
         outline: 1px solid rgba(38, 107, 240, 1);
       }
+
+      &:disabled {
+        border: 1px solid rgb(230, 230, 230);
+      }
     }
   }
 `;
