@@ -17,19 +17,26 @@ export const LoginTemplate = () => {
   const [atendimentoSession, setAtendimentoSession] =
     useSessionStorage("tipoAtendimento");
   const { isLoad, setIsLoad } = useContextSite();
+  const [isDisable, setIsDisable] = useState(false);
 
   function login(e: React.SyntheticEvent) {
     e.preventDefault();
     setIsLoad(true);
+    setIsDisable(true);
 
     Autenticacao.post(form)
       .then(({ data }) => {
         setToken(data.token);
-        if (atendimentoSession) {
-          return window.open("/opcoes-servicos", "_self");
-        }
 
-        return window.open("/agendamento", "_self");
+        toast.success("Login efetuado com sucesso");
+        setTimeout(() => {
+          setIsDisable(false);
+          if (atendimentoSession) {
+            return window.open("/opcoes-servicos", "_self");
+          }
+
+          return window.open("/agendamento", "_self");
+        }, 3000);
       })
       .catch(
         ({
@@ -38,6 +45,7 @@ export const LoginTemplate = () => {
           },
         }) => {
           toast.error(mensagem);
+          setIsDisable(false);
         }
       )
       .finally(() => setIsLoad(false));
@@ -77,7 +85,9 @@ export const LoginTemplate = () => {
             </S.Grid>
 
             <S.WrapperButton>
-              <ButtonCustom typeOfButton="Login">Login</ButtonCustom>
+              <ButtonCustom typeOfButton="Login" disabled={isDisable}>
+                Login
+              </ButtonCustom>
             </S.WrapperButton>
           </S.FormContent>
         </S.Form>
