@@ -1,7 +1,7 @@
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { toast } from "react-toastify";
-import { maskCep, maskCpf, maskPhone } from "../../../utils/masks";
+import { maskCep, maskPhone } from "../../../utils/masks";
 import { ViaCep } from "../../../services/ViaCep";
 import { useContextSite } from "../../../context/Context";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
