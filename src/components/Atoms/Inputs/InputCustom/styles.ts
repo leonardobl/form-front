@@ -40,13 +40,13 @@ export const Label = styled.label<{ $isRequired: boolean }>`
   }
 `;
 
-export const Input = styled.input<{ typeInput: string }>`
-  ${({ typeInput }) => css`
+export const Input = styled.input<{ $typeInput: string }>`
+  ${({ $typeInput }) => css`
     width: 100%;
     height: 48px;
     border: 1px solid rgba(38, 107, 240, 1);
     border-radius: 5px;
-    padding: ${typeInput === "password" ? "0 40px 0 10px" : "0 10px"};
+    padding: ${$typeInput === "password" ? "0 40px 0 10px" : "0 10px"};
     font-size: 16px;
     font-family: "Roboto";
 

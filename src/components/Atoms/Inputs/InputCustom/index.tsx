@@ -25,7 +25,7 @@ export const InputCustom = React.forwardRef<HTMLInputElement, InputCustomProps>(
         )}
 
         <S.Input
-          typeInput={props.type}
+          $typeInput={props.type}
           {...props}
           type={eyeOpen ? "text" : props.type}
           onWheel={(event) => event.currentTarget.blur()}
