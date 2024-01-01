@@ -5,7 +5,7 @@ import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { v4 } from "uuid";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Autenticacao } from "../../../services/Autenticacao";
