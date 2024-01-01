@@ -9,7 +9,7 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { ISelectOptions } from "../../../types/inputs";
 import { IClienteForm } from "../../../types/cliente";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as S from "./styles";
 import { Ibge } from "../../../services/Ibge";
 import { LayoutTemplate } from "../LayoutTemplate";
@@ -19,9 +19,25 @@ export const ServiceAddressRegistrationTemplate = () => {
   const { setIsLoad } = useContextSite();
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
+  const inpSenhaRef = useRef<HTMLInputElement>(null);
+  const inpConfirSenha = useRef<HTMLInputElement>(null);
+
+  function checkPass() {
+    const pass = inpSenhaRef.current.value;
+    const confirm = inpConfirSenha.current.value;
+
+    if (pass !== confirm) {
+      inpConfirSenha.current.setCustomValidity("As senhas não conferem");
+      return;
+    }
+
+    inpConfirSenha.current.setCustomValidity("");
+  }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+
+    return;
 
     window.open("/pagamento", "_self");
 
@@ -41,11 +57,6 @@ export const ServiceAddressRegistrationTemplate = () => {
   function handlePhone(e: string) {
     const newPhoneValue = maskPhone(e);
     setForm((prev) => ({ ...prev, telefone: newPhoneValue }));
-  }
-
-  function handleCpf(e: string) {
-    const newCpfValue = maskCpf(e);
-    setForm((prev) => ({ ...prev, cpfCnpj: newCpfValue }));
   }
 
   useEffect(() => {
@@ -273,20 +284,19 @@ export const ServiceAddressRegistrationTemplate = () => {
                 </label>
                 <InputCustom
                   required
+                  type="password"
                   value={form.senha}
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, senha: e.target.value }))
-                  }
+                  ref={inpSenhaRef}
+                  onChange={(e) => {
+                    setForm((prev) => ({ ...prev, senha: e.target.value }));
+                    checkPass();
+                  }}
                 />
                 <InputCustom
-                // required
-                // value={form.senha}
-                // onChange={(e) =>
-                //   setForm((prev) => ({
-                //     ...prev,
-                //     confirmaSenha: e.target.value,
-                //   }))
-                // }
+                  ref={inpConfirSenha}
+                  type="password"
+                  required
+                  onChange={checkPass}
                 />
               </S.Grid>
 
