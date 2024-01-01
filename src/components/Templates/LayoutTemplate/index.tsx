@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
