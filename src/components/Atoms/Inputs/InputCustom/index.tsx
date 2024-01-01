@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./styles";
+import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
 interface InputCustomProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -8,6 +9,12 @@ interface InputCustomProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const InputCustom = React.forwardRef<HTMLInputElement, InputCustomProps>(
   (props: InputCustomProps, ref) => {
+    const [eyeOpen, setEyeOpen] = useState(false);
+
+    function handleTypeChange() {
+      setEyeOpen((prev) => !prev);
+    }
+
     return (
       <S.Container>
         {props.label && (
@@ -16,11 +23,21 @@ export const InputCustom = React.forwardRef<HTMLInputElement, InputCustomProps>(
             <span>*</span>
           </S.Label>
         )}
+
         <S.Input
+          typeInput={props.type}
           {...props}
+          type={eyeOpen ? "text" : props.type}
           onWheel={(event) => event.currentTarget.blur()}
           ref={ref}
         />
+        {props.type === "password" ? (
+          eyeOpen ? (
+            <IoEyeSharp onClick={handleTypeChange} />
+          ) : (
+            <IoEyeOffSharp onClick={handleTypeChange} />
+          )
+        ) : null}
       </S.Container>
     );
   }

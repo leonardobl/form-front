@@ -1,7 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   position: relative;
+
+  svg {
+    cursor: pointer;
+    position: absolute;
+    right: 14px;
+    top: 16px;
+    color: rgba(38, 107, 240, 1);
+  }
 `;
 
 export const Label = styled.label<{ $isRequired: boolean }>`
@@ -32,20 +40,22 @@ export const Label = styled.label<{ $isRequired: boolean }>`
   }
 `;
 
-export const Input = styled.input`
-  width: 100%;
-  height: 48px;
-  border: 1px solid rgba(38, 107, 240, 1);
-  border-radius: 5px;
-  padding: 0 10px;
-  font-size: 16px;
-  font-family: "Roboto";
+export const Input = styled.input<{ typeInput: string }>`
+  ${({ typeInput }) => css`
+    width: 100%;
+    height: 48px;
+    border: 1px solid rgba(38, 107, 240, 1);
+    border-radius: 5px;
+    padding: ${typeInput === "password" ? "0 40px 0 10px" : "0 10px"};
+    font-size: 16px;
+    font-family: "Roboto";
 
-  &[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
+    &[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
 
-  &:focus {
-    outline: 1px solid rgba(38, 107, 240, 1);
-  }
+    &:focus {
+      outline: 1px solid rgba(38, 107, 240, 1);
+    }
+  `}
 `;
