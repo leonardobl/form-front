@@ -3,7 +3,6 @@ import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
 import { v4 } from "uuid";
-import { Link } from "react-router-dom";
 
 export const PaymentPixTemplate = () => {
   function handleTicket() {
