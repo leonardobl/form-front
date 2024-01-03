@@ -41,8 +41,8 @@ export const PhysicalTemplate = () => {
 
     setIsLoad(true);
     Agendamento.post(PAYLOAD)
-      .then(() => {
-        setSession(PAYLOAD);
+      .then(({ data }) => {
+        setSession({ ...PAYLOAD, uuid: data.uuid });
 
         if (token) {
           return window.open("/servicos", "_self");

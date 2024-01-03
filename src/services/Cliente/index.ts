@@ -1,12 +1,12 @@
 import { AxiosResponse } from "axios";
-import { ApiBrave1 } from "../../Apis/Brave1";
+import { ApiBrave } from "../../Apis/Brave";
 import { IClienteForm } from "../../types/cliente";
 
 const basePath = "/cliente";
 
 export class Cliente {
   static async post(props: IClienteForm) {
-    return ApiBrave1.post(`${basePath}`, props);
+    return ApiBrave.post(`${basePath}`, props);
   }
 
   static async getByUsuario({
@@ -14,6 +14,6 @@ export class Cliente {
   }: {
     uuidUsuario: string;
   }): Promise<AxiosResponse<IClienteForm>> {
-    return ApiBrave1.get(`${basePath}/usuario/${uuidUsuario}`);
+    return ApiBrave.get(`${basePath}/usuario/${uuidUsuario}`);
   }
 }

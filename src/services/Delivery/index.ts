@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { ApiBrave1 } from "../../Apis/Brave1";
+import { ApiBrave } from "../../Apis/Brave";
 import { removeEmpty } from "../../utils/removeEmpty";
 import { IPageDeliveryDTO } from "../../types/delivery";
 import { ILocalTime } from "../../types/agendamento";
@@ -17,8 +17,8 @@ export class Delivery {
   ): Promise<AxiosResponse<IPageDeliveryDTO>> {
     const params = props ? removeEmpty(props) : null;
     return params
-      ? ApiBrave1.get(`${basePath}?${params}`)
-      : ApiBrave1.get(basePath);
+      ? ApiBrave.get(`${basePath}?${params}`)
+      : ApiBrave.get(basePath);
   }
 
   static async getDiasIndisponiveis({
@@ -26,7 +26,7 @@ export class Delivery {
   }: {
     uuidDelivery: string;
   }): Promise<AxiosResponse<string[]>> {
-    return ApiBrave1.get(`${basePath}/${uuidDelivery}/dias-indiponiveis`);
+    return ApiBrave.get(`${basePath}/${uuidDelivery}/dias-indiponiveis`);
   }
 
   static async getHorariosDisponiveis({
@@ -36,7 +36,7 @@ export class Delivery {
     uuidDelivery: string;
     dataAgendamento: string;
   }): Promise<AxiosResponse<string[]>> {
-    return ApiBrave1.get(
+    return ApiBrave.get(
       `${basePath}/${uuidDelivery}/horarios-disponiveis?dataAgendamento=${dataAgendamento}`
     );
   }

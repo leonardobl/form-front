@@ -7,51 +7,60 @@ import { useContextSite } from "../../../context/Context";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 
 import { ISelectOptions } from "../../../types/inputs";
-import { IClienteForm } from "../../../types/cliente";
 
 import React, { useEffect, useRef, useState } from "react";
 import * as S from "./styles";
 import { Ibge } from "../../../services/Ibge";
 import { LayoutTemplate } from "../LayoutTemplate";
+import { IAtendimentoDomiciliarForm } from "../../../types/agendamento";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { Agendamento } from "../../../services/Agendamento";
 
 export const ServiceAddressRegistrationTemplate = () => {
-  const [form, setForm] = useState<IClienteForm>({} as IClienteForm);
+  const [form, setForm] = useState<IAtendimentoDomiciliarForm>(
+    {} as IAtendimentoDomiciliarForm
+  );
   const { setIsLoad } = useContextSite();
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
-  const inpSenhaRef = useRef<HTMLInputElement>(null);
-  const inpConfirSenha = useRef<HTMLInputElement>(null);
+  const [agendamento, setAgendamento] = useSessionStorage("agendamento");
+  // const inpSenhaRef = useRef<HTMLInputElement>(null);
+  // const inpConfirSenha = useRef<HTMLInputElement>(null);
 
-  function checkPass() {
-    const pass = inpSenhaRef.current.value;
-    const confirm = inpConfirSenha.current.value;
+  // function checkPass() {
+  //   const pass = inpSenhaRef.current.value;
+  //   const confirm = inpConfirSenha.current.value;
 
-    if (pass !== confirm) {
-      inpConfirSenha.current.setCustomValidity("As senhas não conferem");
-      return;
-    }
+  //   if (pass !== confirm) {
+  //     inpConfirSenha.current.setCustomValidity("As senhas não conferem");
+  //     return;
+  //   }
 
-    inpConfirSenha.current.setCustomValidity("");
-  }
+  //   inpConfirSenha.current.setCustomValidity("");
+  // }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    return;
+    setIsLoad(true);
 
-    window.open("/pagamento", "_self");
+    const PAYLOAD = { ...form, uuid: agendamento?.uuid };
 
-    // setIsLoad(true);
-
-    // Cliente.post(form)
-    //   .then(() => {
-    //     toast.success("Cadastro realizado com sucesso!");
-    //     setTimeout(() => {
-    //       window.open("/login", "_self");
-    //     }, 3000);
-    //   })
-    //   .catch((error) => toast.error(error?.message))
-    //   .finally(() => setIsLoad(false));
+    Agendamento.putAddress(PAYLOAD)
+      .then(() => {
+        toast.success("Endereco cadastrado com sucesso!");
+        setTimeout(() => {
+          window.open("/pagamento", "_self");
+        }, 3000);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
   }
 
   function handlePhone(e: string) {
@@ -275,7 +284,7 @@ export const ServiceAddressRegistrationTemplate = () => {
                 />
               </S.Grid>
 
-              <S.Grid $gridTemplate="1fr 1fr" $gap="0 24px">
+              {/* <S.Grid $gridTemplate="1fr 1fr" $gap="0 24px">
                 <label>
                   Senha <span>*</span>
                 </label>
@@ -298,7 +307,7 @@ export const ServiceAddressRegistrationTemplate = () => {
                   required
                   onChange={checkPass}
                 />
-              </S.Grid>
+              </S.Grid> */}
 
               <S.WrapperButton>
                 <ButtonCustom typeOfButton="Login">

@@ -111,3 +111,10 @@ export interface IAgendamentoForm {
   uuidServico?: string;
   uuidVeiculo?: string;
 }
+
+export interface IAtendimentoDomiciliarForm {
+  endereco: IEnderecoDTO;
+  nome: string;
+  telefone: string;
+  uuid: string;
+}
