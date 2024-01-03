@@ -13,9 +13,9 @@ interface IGetDeliveryProps extends IPageRequest {
 
 export class Delivery {
   static async get(
-    props: IGetDeliveryProps
+    props?: IGetDeliveryProps
   ): Promise<AxiosResponse<IPageDeliveryDTO>> {
-    const params = removeEmpty(props);
+    const params = props ? removeEmpty(props) : null;
     return params
       ? ApiBrave1.get(`${basePath}?${params}`)
       : ApiBrave1.get(basePath);
@@ -35,7 +35,7 @@ export class Delivery {
   }: {
     uuidDelivery: string;
     dataAgendamento: string;
-  }): Promise<AxiosResponse<ILocalTime[]>> {
+  }): Promise<AxiosResponse<string[]>> {
     return ApiBrave1.get(
       `${basePath}/${uuidDelivery}/horarios-disponiveis?dataAgendamento=${dataAgendamento}`
     );

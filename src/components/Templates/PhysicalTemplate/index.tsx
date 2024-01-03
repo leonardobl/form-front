@@ -14,6 +14,7 @@ import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { Agendamento } from "../../../services/Agendamento";
+import { Delivery } from "../../../services/Delivery";
 
 export const PhysicalTemplate = () => {
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
@@ -23,7 +24,7 @@ export const PhysicalTemplate = () => {
   const [session, setSession] = useSessionStorage("agendamento");
   const [token, setToken] = useSessionStorage("@token");
   const [path, setPath] = useState(pathname.split("/"));
-  const [lojaOptions, setLojaOptions] = useState<ISelectOptions[]>([]);
+  const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [date, setDate] = useState<Date>(null);
@@ -69,7 +70,27 @@ export const PhysicalTemplate = () => {
             element: item,
           }));
 
-          setLojaOptions(options);
+          setSelectOptions(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+    }
+
+    if (path.includes("domicilio")) {
+      Delivery.get()
+        .then(({ data }) => {
+          const options = data.content.map((item) => ({
+            value: item.uuid,
+            label: item.cidade,
+            element: item,
+          }));
+
+          setSelectOptions(options);
         })
         .catch(
           ({
@@ -98,25 +119,57 @@ export const PhysicalTemplate = () => {
           }) => toast.error(mensagem)
         );
     }
-  }, [form?.uuidLoja]);
+
+    if (form.uuidDelivery) {
+      Delivery.getDiasIndisponiveis({ uuidDelivery: form.uuidDelivery })
+        .then(({ data }) => {
+          const options = data.map((item) => addDays(new Date(item), 1));
+          setDiasIndisponiveis(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+    }
+  }, [form?.uuidLoja, form.uuidDelivery]);
 
   useEffect(() => {
     setForm((prev) => ({ ...prev, horaAgendada: null }));
     if (date) {
       const newDate = date.toLocaleDateString().split("/").reverse().join("-");
 
-      Loja.getHorariosDisponiveis({
-        uuidLoja: form?.uuidLoja,
-        dataAgendamento: newDate,
-      }).then(({ data }) => {
-        const options = data.map((item) => ({
-          value: item,
-          label: item,
-          element: item,
-        }));
+      if (form?.uuidLoja) {
+        Loja.getHorariosDisponiveis({
+          uuidLoja: form?.uuidLoja,
+          dataAgendamento: newDate,
+        }).then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item,
+            label: item,
+            element: item,
+          }));
 
-        setHorariosOptions(options);
-      });
+          setHorariosOptions(options);
+        });
+      }
+
+      if (form?.uuidDelivery) {
+        Delivery.getHorariosDisponiveis({
+          uuidDelivery: form?.uuidDelivery,
+          dataAgendamento: newDate,
+        }).then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item,
+            label: item,
+            element: item,
+          }));
+
+          setHorariosOptions(options);
+        });
+      }
     }
   }, [date]);
 
@@ -133,10 +186,10 @@ export const PhysicalTemplate = () => {
             label={path.includes("loja") ? "Loja" : "Cidade"}
             value={
               path.includes("loja")
-                ? lojaOptions.find((item) => item.value === form.uuidLoja)
-                : lojaOptions.find((item) => item.value === form.uuidDelivery)
+                ? selectOptions.find((item) => item.value === form.uuidLoja)
+                : selectOptions.find((item) => item.value === form.uuidDelivery)
             }
-            options={lojaOptions}
+            options={selectOptions}
             onChange={(e) => {
               path.includes("loja")
                 ? setForm((prev) => ({ ...prev, uuidLoja: e?.value }))

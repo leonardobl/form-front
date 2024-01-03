@@ -14,8 +14,7 @@ import { useContextSite } from "../../../context/Context";
 export const LoginTemplate = () => {
   const [token, setToken] = useSessionStorage("@token");
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
-  const [atendimentoSession, setAtendimentoSession] =
-    useSessionStorage("tipoAtendimento");
+  const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const { isLoad, setIsLoad } = useContextSite();
   const [isDisable, setIsDisable] = useState(false);
 
@@ -31,8 +30,8 @@ export const LoginTemplate = () => {
         toast.success("Login efetuado com sucesso");
         setTimeout(() => {
           setIsDisable(false);
-          if (atendimentoSession) {
-            return window.open("/opcoes-servicos", "_self");
+          if (agendamento) {
+            return window.open("/servicos", "_self");
           }
 
           return window.open("/agendamento", "_self");
