@@ -2,6 +2,7 @@ import { StatusAgendamentoEnum } from "../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
 import { TipoClienteEnum } from "../enums/tipoCliente";
 import { TipoServicoEnum } from "../enums/tipoServico";
+import { IPageableObject, ISortObject } from "./delivery";
 
 export interface IAgendamentoDTO {
   cliente: IClienteDTO;
@@ -117,4 +118,18 @@ export interface IAtendimentoDomiciliarForm {
   nome: string;
   telefone: string;
   uuid: string;
+}
+
+export interface IPageAgendamentoDTO {
+  content: IAgendamentoDTO[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: IPageableObject;
+  size: number;
+  sort: ISortObject;
+  totalElements: number;
+  totalPages: number;
 }

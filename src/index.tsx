@@ -40,6 +40,7 @@ root.render(
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+
             <Route path="/offline" element={<OfflineSystem />} />
             <Route
               path="cadastro-endereco"
@@ -63,7 +64,7 @@ root.render(
             <Route path="login" element={<Login />} />
             <Route path="cadastro-acesso" element={<Register />} />
             <Route
-              path="detalhe-pagamento"
+              path="detalhe-agendamento"
               element={
                 <ProtectedRoute>
                   <SchedulingDetail />
@@ -72,7 +73,7 @@ root.render(
             />
 
             <Route
-              path="listagem-agendamentos"
+              path="meus-agendamentos"
               element={
                 <ProtectedRoute>
                   <ScheduleListing />

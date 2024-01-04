@@ -13,7 +13,7 @@ export const InputDate = (props: InputDateProps) => {
   registerLocale("ptBR", ptBR);
 
   return (
-    <S.Container>
+    <S.Container $showIcon={props.showIcon}>
       {props.label && (
         <S.Label>
           {props.label}

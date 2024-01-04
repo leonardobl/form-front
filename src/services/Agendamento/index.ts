@@ -5,15 +5,38 @@ import {
   IAgendamentoDTO,
   IAgendamentoForm,
   IAtendimentoDomiciliarForm,
+  IPageAgendamentoDTO,
 } from "../../types/agendamento";
+import { IPageRequest } from "../../types/page";
+import { TipoAtendimentoEnum } from "../../enums/tipoAtendimento";
+import { StatusAgendamentoEnum } from "../../enums/statusAgendamento";
+import objectToParams from "../../utils/objectToParams";
 
 const basePath = "/agendamento";
 
 interface IPutAgendamentoProps extends IAgendamentoForm {
   uuid: string;
 }
+
+export interface IGetAgendamentosProps extends IPageRequest {
+  loja?: string;
+  tipoAtendimento?: TipoAtendimentoEnum;
+  veiculo?: string;
+  cidade?: string;
+  data?: string;
+  placa?: string;
+  renavam?: string;
+  statusAgendamento?: StatusAgendamentoEnum;
+}
 export class Agendamento {
-  static async agendamento({
+  static async get(
+    props?: IGetAgendamentosProps
+  ): Promise<AxiosResponse<IPageAgendamentoDTO>> {
+    const params = objectToParams(props);
+    return ApiBrave.get(params ? `${basePath}?${params}` : basePath);
+  }
+
+  static async getById({
     uuid,
   }: {
     uuid: string;

@@ -219,7 +219,7 @@ export const HomeTemplate = () => {
             <S.Textplus>
               <S.TextRed>*</S.TextRed>Ônibus <S.TextBlue>-</S.TextBlue>{" "}
               Micro-ônibus <S.TextBlue>-</S.TextBlue> Reboque{" "}
-              <S.TextBlue>-</S.TextBlue> Semi-reboque <S.TextBlue>-</S.TextBlue>{" "}
+              <S.TextBlue>-</S.TextBlue> Semirreboque <S.TextBlue>-</S.TextBlue>{" "}
               Caminhão <S.TextBlue>-</S.TextBlue> Caminhão Trator{" "}
               <S.TextBlue>-</S.TextBlue> Trator de Rodas{" "}
               <S.TextBlue>-</S.TextBlue> Trator Misto <S.TextBlue>-</S.TextBlue>{" "}

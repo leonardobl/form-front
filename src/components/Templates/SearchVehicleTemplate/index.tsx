@@ -32,7 +32,7 @@ export const SearchVehicleTemplate = () => {
   }
 
   useEffect(() => {
-    if (serviceStorage !== "1Emplacamento") {
+    if (serviceStorage === "Vistoria") {
       Municipio.get()
         .then(({ data }) => {
           const options = data.content.map((item) => ({
@@ -76,7 +76,7 @@ export const SearchVehicleTemplate = () => {
             />
             <InputCustom label="Renavam" required type="number" />
 
-            {serviceStorage !== "1Emplacamento" && (
+            {serviceStorage === "Vistoria" && (
               <SimpleSelect
                 required
                 label="Cidade"

@@ -1,17 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
-import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
+import { ISelectsProps, SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { Pagination } from "../../Atoms/Pagination";
+import { useContextSite } from "../../../context/Context";
+import {
+  Agendamento,
+  IGetAgendamentosProps,
+} from "../../../services/Agendamento";
+import { toast } from "react-toastify";
+import { IAgendamentoDTO } from "../../../types/agendamento";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { Municipio } from "../../../services/Municipio";
+import { IPagination } from "../../../types/pagination";
+import {
+  reverseToBrDate,
+  reverseToIsoDate,
+} from "../../../utils/dateTransform";
 
 export const ScheduleListingTemplate = () => {
-  const [visao, setVisao] = useSessionStorage("visao");
+  const { setIsLoad } = useContextSite();
+  const [formFilter, setFormFilter] = useState<IGetAgendamentosProps>(
+    {} as IGetAgendamentosProps
+  );
+  const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
+  const [date, setDate] = useState<Date>();
+  const [cidadeOptions, setCidadeoptions] = useState<ISelectsProps[]>([]);
+  const lojaOptions = Object.values(TipoAtendimentoEnum).map((item) => ({
+    value: item,
+    label: item,
+  }));
 
+  const [visao, setVisao] = useState("visao");
+  const size = 5;
+  const [pagination, setPagination] = useState<IPagination>({} as IPagination);
+  const [numberPage, setNumberPage] = useState(0);
   const statusOptions = Object.values(StatusAgendamentoEnum).map((item) => ({
     value: item,
     label: item.split("_").join(" "),
@@ -35,48 +63,81 @@ export const ScheduleListingTemplate = () => {
     },
   };
 
-  const dataGrid = [
-    {
-      tipo: "Presencial",
-      Veículo: "Modelo do veículo",
-      Loja: "Nome da loja",
-      Cidade: "Cidade do atendimento",
-      "Data / Hora": "03/01/2024",
-      Status: "AGUARDANDO PAGAMENTO",
-    },
-    {
-      tipo: "Domiciliar",
-      Veículo: "Modelo do veículo",
-      Loja: "Nome da loja",
-      Cidade: "Cidade do atendimento",
-      "Data / Hora": "03/01/2024",
-      Status: "AGENDADO",
-    },
-    {
-      tipo: "Presencial",
-      Veículo: "Modelo do veículo",
-      Loja: "Nome da loja",
-      Cidade: "Cidade do atendimento",
-      "Data / Hora": "03/01/2024",
-      Status: "INICIADO",
-    },
-    {
-      tipo: "Domiciliar",
-      Veículo: "Modelo do veículo",
-      Loja: "Nome da loja",
-      Cidade: "Cidade do atendimento",
-      "Data / Hora": "03/01/2024",
-      Status: "FINALIZADO",
-    },
-    {
-      tipo: "Presencial",
-      Veículo: "Modelo do veículo",
-      Loja: "Nome da loja",
-      Cidade: "Cidade do atendimento",
-      "Data / Hora": "03/01/2024",
-      Status: "CANCELADO",
-    },
-  ];
+  useEffect(() => {
+    setIsLoad(true);
+
+    Municipio.get()
+      .then(({ data }) => {
+        const options = data.content.map((item) => ({
+          value: item.nome,
+          label: item.nome,
+          element: item,
+        }));
+        setCidadeoptions(options);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }, []);
+
+  useEffect(() => {
+    setIsLoad(true);
+
+    Agendamento.get({ ...formFilter, size, page: numberPage })
+      .then(({ data }) => {
+        setAgendamentos(data.content);
+
+        setPagination({
+          actualPage: data.number,
+          totalPage: data.totalPages,
+          totalRegister: data.totalElements,
+        });
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }, [numberPage]);
+
+  function handleSubmit(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    const values = Object.values(formFilter).some(
+      (item) => item || typeof item === "number"
+    );
+    if (!values) return;
+
+    setIsLoad(true);
+
+    setNumberPage(0);
+
+    Agendamento.get({ ...formFilter, size, page: 0 })
+      .then(({ data }) => {
+        setAgendamentos(data.content);
+        setPagination({
+          actualPage: data.number,
+          totalPage: data.totalPages,
+          totalRegister: data.totalElements,
+        });
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
 
   return (
     <LayoutTemplate>
@@ -84,36 +145,65 @@ export const ScheduleListingTemplate = () => {
         <S.Title>
           {visao === "atendente" ? "Agendamentos" : "Meus agendamentos"}
         </S.Title>
-
         {visao === "atendente" ? (
-          <S.FormFilter>
+          <S.FormFilter onSubmit={handleSubmit}>
             <S.BorderContainer>
               <S.TitleFilter>Filtro</S.TitleFilter>
             </S.BorderContainer>
-            <S.Grid gridtemplate="1.5fr 4fr 2fr 4fr" gap="0  24px">
+            <S.Grid gridtemplate="1.6fr 4fr 2fr 4fr" gap="0  24px">
               <S.SubTitle>Data</S.SubTitle>
               <S.SubTitle>Status</S.SubTitle>
               <S.SubTitle>Placa</S.SubTitle>
               <S.SubTitle>Renavam</S.SubTitle>
               <InputDate
-                onChange={(e) => ""}
+                onChange={(e) => {
+                  setDate(e);
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    data: reverseToIsoDate(e?.toLocaleDateString()),
+                  }));
+                }}
                 placeholderText="__/__/__"
                 isClearable
+                selected={date}
               />
               <SimpleSelect
                 isClearable
                 placeholder=""
+                value={statusOptions.find(
+                  (item) => item.value === formFilter?.statusAgendamento
+                )}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    statusAgendamento: e?.value,
+                  }))
+                }
                 options={statusOptions}
               />
-              <InputCustom />
-              <InputCustom />
+              <InputCustom
+                value={formFilter?.placa}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({ ...prev, placa: e.target.value }))
+                }
+              />
+              <InputCustom
+                type="number"
+                value={formFilter.renavam}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    renavam: e.target.value,
+                  }))
+                }
+              />
             </S.Grid>
             <S.WrapperBtn>
               <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
             </S.WrapperBtn>
           </S.FormFilter>
         ) : (
-          <S.FormFilter>
+          <S.FormFilter onSubmit={handleSubmit}>
             <S.BorderContainer>
               <S.TitleFilter>Filtro</S.TitleFilter>
             </S.BorderContainer>
@@ -124,17 +214,67 @@ export const ScheduleListingTemplate = () => {
               <S.SubTitle>Placa</S.SubTitle>
               <S.SubTitle>Renavam</S.SubTitle>
 
-              <SimpleSelect />
-              <SimpleSelect />
-              <InputDate onChange={(e) => ""} placeholderText="__/__/__" />
-              <InputCustom />
-              <InputCustom />
+              <SimpleSelect
+                options={lojaOptions}
+                isClearable
+                placeholder=""
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    tipoAtendimento: e?.value,
+                  }))
+                }
+                value={lojaOptions.find(
+                  (item) => item.value === formFilter?.tipoAtendimento
+                )}
+              />
+              <SimpleSelect isClearable options={cidadeOptions} />
+              <InputDate
+                onChange={(e) => {
+                  setDate(e);
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    data: reverseToIsoDate(e?.toLocaleDateString()),
+                  }));
+                }}
+                selected={date}
+                isClearable
+                placeholderText="__/__/__"
+              />
+              <InputCustom
+                value={formFilter.placa}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({ ...prev, placa: e.target.value }))
+                }
+              />
+              <InputCustom
+                type="number"
+                value={formFilter.renavam}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    renavam: e.target.value,
+                  }))
+                }
+              />
             </S.Grid>
 
             <S.Grid gridtemplate="10fr 2fr" gap="0 24px">
               <S.SubTitle>Status</S.SubTitle>
               <S.SubTitle></S.SubTitle>
-              <SimpleSelect />
+              <SimpleSelect
+                options={statusOptions}
+                isClearable
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    statusAgendamento: e?.value,
+                  }))
+                }
+                value={statusOptions.find(
+                  (item) => item.value === formFilter?.statusAgendamento
+                )}
+              />
               <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
             </S.Grid>
           </S.FormFilter>
@@ -150,16 +290,22 @@ export const ScheduleListingTemplate = () => {
           <S.TitleGrid></S.TitleGrid>
           <S.TitleGrid></S.TitleGrid>
         </S.GridTitles>
-        {dataGrid.map((item) => (
+        {agendamentos.map((item) => (
           <S.GridItem key={`${Math.random()}-${item}`}>
-            <S.ItemGrid>{item.tipo}</S.ItemGrid>
-            <S.ItemGrid>{item.Veículo}</S.ItemGrid>
-            <S.ItemGrid>{item.Loja}</S.ItemGrid>
-            <S.ItemGrid>{item.Cidade}</S.ItemGrid>
-            <S.ItemGrid>{item["Data / Hora"]}</S.ItemGrid>
-            <S.ItemGrid>{item.Status}</S.ItemGrid>
+            <S.ItemGrid>{item?.tipoAtendimento || "---"}</S.ItemGrid>
+            <S.ItemGrid>{item?.veiculo?.tipo || "---"}</S.ItemGrid>
+            <S.ItemGrid>{item?.loja?.nome || "---"}</S.ItemGrid>
+            <S.ItemGrid>{item?.loja?.endereco?.cidade || "---"}</S.ItemGrid>
             <S.ItemGrid>
-              {item.Status === "AGENDADO" && (
+              {item?.diaAgendado && item?.horaAgendada
+                ? `${reverseToBrDate(item?.diaAgendado)} - ${
+                    item?.horaAgendada
+                  }`
+                : "---"}
+            </S.ItemGrid>
+            <S.ItemGrid>{item.status || "---"}</S.ItemGrid>
+            <S.ItemGrid>
+              {item.status === "AGENDADO" && (
                 <ButtonCustom typeOfButton="ScheduleList">INICIAR</ButtonCustom>
               )}
             </S.ItemGrid>
@@ -167,17 +313,19 @@ export const ScheduleListingTemplate = () => {
               <img
                 alt="icone de visualização"
                 src="/assets/imgs/visualizar-icon.svg"
-                onClick={() => window.open("/detalhe-pagamento", "_self")}
+                onClick={() =>
+                  window.open(`/detalhe-agendamento?id=${item.uuid}`, "_black")
+                }
               />{" "}
             </S.ItemGrid>
           </S.GridItem>
         ))}
-
         <Pagination
-          totalPage={11}
-          totalRegister={8}
-          actualPage={0}
-          setNumberPage={() => ""}
+          key={`${Math.random()} - ${pagination}`}
+          totalPage={pagination.totalPage}
+          totalRegister={pagination.totalPage}
+          actualPage={pagination.actualPage}
+          setNumberPage={setNumberPage}
         />
       </S.Container>
     </LayoutTemplate>

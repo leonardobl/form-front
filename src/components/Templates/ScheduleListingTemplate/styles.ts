@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { darken } from "polished";
 
 export const Container = styled.div`
   ${({ theme: { space } }) => css`
@@ -90,6 +91,10 @@ export const GridItem = styled.div`
   align-items: center;
   border-radius: 5px;
   background: #f7f7f7;
+
+  &:hover {
+    background: ${() => darken(0.05, "#f7f7f7")};
+  }
 
   + div {
     margin-top: 32px;
