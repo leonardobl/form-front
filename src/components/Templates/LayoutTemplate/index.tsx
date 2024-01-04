@@ -59,11 +59,10 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             >
               Contatos
             </NavHashLink>
-
-            <ButtonCustom typeOfButton="Login" onClick={handleLoginLogout}>
-              {token ? "Logout" : "Login"}
-            </ButtonCustom>
           </S.HeaderMenu>
+          <ButtonCustom typeOfButton="Login" onClick={handleLoginLogout}>
+            {token ? "Logout" : "Login"}
+          </ButtonCustom>
         </S.HeaderContent>
       </S.header>
       {children}
