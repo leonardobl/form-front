@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
 import { IAgendamentoBasicoForm } from "../../../types/agendamento";
+import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 
 export const SearchVehicleTemplate = () => {
   const [serviceStorage, setServiceStorage] = useSessionStorage("service");
@@ -50,6 +51,10 @@ export const SearchVehicleTemplate = () => {
               required
             />
             <InputCustom label="Renavam" required type="number" />
+
+            {service !== "1Emplacamento" && (
+              <SimpleSelect required label="Cidade" />
+            )}
           </S.WrapperInputs>
           <S.WrapperButton>
             <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>

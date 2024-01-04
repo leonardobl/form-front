@@ -36,13 +36,12 @@ export const TextBlue = styled.span`
 `;
 
 export const WrapperInputs = styled.div`
-  display: flex;
-  gap: 70px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
   margin-bottom: 50px;
 
-  div {
-    flex: 1;
-  }
+  align-items: center;
 `;
 
 export const WrapperButton = styled.div`
