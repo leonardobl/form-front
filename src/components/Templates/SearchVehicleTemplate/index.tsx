@@ -44,7 +44,12 @@ export const SearchVehicleTemplate = () => {
             e <S.TextBlue>renavam</S.TextBlue> do veículo para consultar os
             dados.
           </S.Text>
-          <S.WrapperInputs>
+          <S.WrapperInputs
+            $gridColumns={
+              service === "1Emplacamento" ? "1fr 1fr" : "1fr 1fr 1fr"
+            }
+            $gap={service === "1Emplacamento" ? "0 70px" : "0 24px"}
+          >
             <InputCustom
               type={service === "1Emplacamento" ? "number" : "text"}
               label={service === "1Emplacamento" ? "Chassi" : "Placa"}

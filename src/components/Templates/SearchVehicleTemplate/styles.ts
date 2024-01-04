@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   padding: 180px 0;
@@ -35,13 +35,15 @@ export const TextBlue = styled.span`
   font-weight: 700;
 `;
 
-export const WrapperInputs = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 50px;
+export const WrapperInputs = styled.div<{ $gridColumns: string; $gap: string }>`
+  ${({ $gridColumns, $gap }) => css`
+    display: grid;
+    grid-template-columns: ${$gridColumns};
+    gap: ${$gap};
+    margin-bottom: 50px;
 
-  align-items: center;
+    align-items: center;
+  `}
 `;
 
 export const WrapperButton = styled.div`
