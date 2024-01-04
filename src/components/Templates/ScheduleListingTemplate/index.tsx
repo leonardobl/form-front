@@ -4,7 +4,7 @@ import * as S from "./styles";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
-import { ISelectsProps, SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
+import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { Pagination } from "../../Atoms/Pagination";
@@ -22,6 +22,7 @@ import {
   reverseToBrDate,
   reverseToIsoDate,
 } from "../../../utils/dateTransform";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const ScheduleListingTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -30,7 +31,7 @@ export const ScheduleListingTemplate = () => {
   );
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const [date, setDate] = useState<Date>();
-  const [cidadeOptions, setCidadeoptions] = useState<ISelectsProps[]>([]);
+  const [cidadeOptions, setCidadeoptions] = useState<ISelectOptions[]>([]);
   const lojaOptions = Object.values(TipoAtendimentoEnum).map((item) => ({
     value: item,
     label: item,
@@ -69,7 +70,7 @@ export const ScheduleListingTemplate = () => {
     Municipio.get()
       .then(({ data }) => {
         const options = data.content.map((item) => ({
-          value: item.nome,
+          value: item.nome.toUpperCase(),
           label: item.nome,
           element: item,
         }));
@@ -228,7 +229,16 @@ export const ScheduleListingTemplate = () => {
                   (item) => item.value === formFilter?.tipoAtendimento
                 )}
               />
-              <SimpleSelect isClearable options={cidadeOptions} />
+              <SimpleSelect
+                isClearable
+                options={cidadeOptions}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({ ...prev, cidade: e?.value }))
+                }
+                value={cidadeOptions.find(
+                  (item) => item.value === formFilter?.cidade
+                )}
+              />
               <InputDate
                 onChange={(e) => {
                   setDate(e);
@@ -314,7 +324,7 @@ export const ScheduleListingTemplate = () => {
                 alt="icone de visualização"
                 src="/assets/imgs/visualizar-icon.svg"
                 onClick={() =>
-                  window.open(`/detalhe-agendamento?id=${item.uuid}`, "_black")
+                  window.open(`/detalhe-agendamento/${item.uuid}`, "_black")
                 }
               />{" "}
             </S.ItemGrid>

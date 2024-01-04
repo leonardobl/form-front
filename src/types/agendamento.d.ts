@@ -11,7 +11,7 @@ export interface IAgendamentoDTO {
   dataRealizacao: string;
   delivery: IDeliveryDTO;
   diaAgendado: string;
-  horaAgendada: ILocalTime;
+  horaAgendada: string;
   loja: ILojaDTO;
   primeiroAgendamento: string;
   revistoria: boolean;

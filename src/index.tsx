@@ -64,7 +64,7 @@ root.render(
             <Route path="login" element={<Login />} />
             <Route path="cadastro-acesso" element={<Register />} />
             <Route
-              path="detalhe-agendamento"
+              path="detalhe-agendamento/:id"
               element={
                 <ProtectedRoute>
                   <SchedulingDetail />
