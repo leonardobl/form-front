@@ -46,11 +46,11 @@ export const ScheduleListingTemplate = () => {
     label: item.split("_").join(" "),
   }));
 
-  const colorsStatus = {
+  const colorsStatus: { [key: string]: { color: string } } = {
     INICIADO: {
       color: "#0025A8",
     },
-    "AGUARDANDO PAGAMENTO": {
+    AGUARDANDO_PAGAMENTO: {
       color: "#D0C808",
     },
     AGENDADO: {
@@ -61,6 +61,9 @@ export const ScheduleListingTemplate = () => {
     },
     CANCELADO: {
       color: "#E42E30",
+    },
+    ABERTO: {
+      color: "#26BE51",
     },
   };
 
@@ -313,7 +316,9 @@ export const ScheduleListingTemplate = () => {
                   }`
                 : "---"}
             </S.ItemGrid>
-            <S.ItemGrid>{item.status || "---"}</S.ItemGrid>
+            <S.ItemGrid $color={colorsStatus[item?.status].color}>
+              {item.status || "---"}
+            </S.ItemGrid>
             <S.ItemGrid>
               {item.status === "AGENDADO" && (
                 <ButtonCustom typeOfButton="ScheduleList">INICIAR</ButtonCustom>

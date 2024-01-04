@@ -101,17 +101,19 @@ export const GridItem = styled.div`
   }
 `;
 
-export const ItemGrid = styled.p`
-  color: #595959;
-  font-family: "Roboto";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0.36px;
-  text-transform: uppercase;
+export const ItemGrid = styled.p<{ $color?: string }>`
+  ${({ $color }) => css`
+    color: ${$color ? $color : "#595959"};
+    font-family: "Roboto";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.36px;
+    text-transform: uppercase;
 
-  img {
-    cursor: pointer;
-  }
+    img {
+      cursor: pointer;
+    }
+  `}
 `;
