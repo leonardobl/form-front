@@ -8,12 +8,17 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
 import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
+import { Municipio } from "../../../services/Municipio";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const SearchVehicleTemplate = () => {
   const [serviceStorage, setServiceStorage] = useSessionStorage("service");
   const [sessionAgendamento, setSessionAgendamento] =
     useSessionStorage("agendamento");
-  const [service, setService] = useState("");
+
+  const [municipiosOptions, setMunicipiosOptions] = useState<ISelectOptions[]>(
+    []
+  );
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -27,7 +32,21 @@ export const SearchVehicleTemplate = () => {
   }
 
   useEffect(() => {
-    setService(serviceStorage);
+    if (serviceStorage !== "1Emplacamento") {
+      Municipio.get()
+        .then(({ data }) => {
+          const options = data.content.map((item) => ({
+            value: item.nome,
+            label: item.nome,
+            element: item,
+          }));
+
+          setMunicipiosOptions(options);
+        })
+        .catch((error) => {
+          toast.error(JSON.stringify(error));
+        });
+    }
   }, []);
 
   return (
@@ -39,26 +58,30 @@ export const SearchVehicleTemplate = () => {
           <S.Text>
             Digite a{" "}
             <S.TextBlue>
-              {service === "1Emplacamento" ? "chassi" : "placa"}
+              {serviceStorage === "1Emplacamento" ? "chassi" : "placa"}
             </S.TextBlue>{" "}
             e <S.TextBlue>renavam</S.TextBlue> do veículo para consultar os
             dados.
           </S.Text>
           <S.WrapperInputs
             $gridColumns={
-              service === "1Emplacamento" ? "1fr 1fr" : "1fr 1fr 1fr"
+              serviceStorage === "1Emplacamento" ? "1fr 1fr" : "1fr 1fr 1fr"
             }
-            $gap={service === "1Emplacamento" ? "0 70px" : "0 24px"}
+            $gap={serviceStorage === "1Emplacamento" ? "0 70px" : "0 24px"}
           >
             <InputCustom
-              type={service === "1Emplacamento" ? "number" : "text"}
-              label={service === "1Emplacamento" ? "Chassi" : "Placa"}
+              type={serviceStorage === "1Emplacamento" ? "number" : "text"}
+              label={serviceStorage === "1Emplacamento" ? "Chassi" : "Placa"}
               required
             />
             <InputCustom label="Renavam" required type="number" />
 
-            {service !== "1Emplacamento" && (
-              <SimpleSelect required label="Cidade" />
+            {serviceStorage !== "1Emplacamento" && (
+              <SimpleSelect
+                required
+                label="Cidade"
+                options={municipiosOptions}
+              />
             )}
           </S.WrapperInputs>
           <S.WrapperButton>
