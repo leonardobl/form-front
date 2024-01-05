@@ -45,7 +45,6 @@ export const ScheduleListingTemplate = () => {
     value: item,
     label: item.split("_").join(" "),
   }));
-  const [resetForm, setResetForm] = useState(0);
 
   const colorsStatus: { [key: string]: { color: string } } = {
     INICIADO: {
@@ -69,6 +68,11 @@ export const ScheduleListingTemplate = () => {
   };
 
   function handleClear() {
+    const values = Object.values(formFilter).some(
+      (item) => item || typeof item === "number"
+    );
+    if (!values) return;
+
     setIsLoad(true);
     setFormFilter({
       cidade: null,
@@ -187,7 +191,7 @@ export const ScheduleListingTemplate = () => {
           {visao === "atendente" ? "Agendamentos" : "Meus agendamentos"}
         </S.Title>
         {visao === "atendente" ? (
-          <S.FormFilter onSubmit={handleSubmit} key={`${resetForm}`}>
+          <S.FormFilter onSubmit={handleSubmit}>
             <S.BorderContainer>
               <S.TitleFilter>Filtro</S.TitleFilter>
             </S.BorderContainer>
