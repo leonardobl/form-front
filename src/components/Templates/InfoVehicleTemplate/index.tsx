@@ -12,7 +12,7 @@ export const InfoVehicleTemplate = () => {
     e.preventDefault();
 
     if (agendamento.tipoAtendimento === "LOJA") {
-      window.open(`/pagamento/${agendamento.uuid}`, "_self");
+      window.open(`/pagamento`, "_self");
       return;
     }
     window.open("/cadastro-endereco", "_self");

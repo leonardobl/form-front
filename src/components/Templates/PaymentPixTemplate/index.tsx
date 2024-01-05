@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
 import { v4 } from "uuid";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { useContextSite } from "../../../context/Context";
+import { Pagamento } from "../../../services/Pagamento";
+import { toast } from "react-toastify";
 
 export const PaymentPixTemplate = () => {
+  const [agendamento, setAgendamento] = useSessionStorage("agendamento");
+  const { isLoad, setIsLoad } = useContextSite();
+
   function handleTicket() {
     window.open("boleto", "_self");
   }
+
+  useEffect(() => {
+    if (!agendamento?.uuid) return;
+
+    setIsLoad(true);
+
+    Pagamento.post({ uuidAgendamento: agendamento?.uuid })
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }, [agendamento?.uuid]);
 
   return (
     <S.Continer>

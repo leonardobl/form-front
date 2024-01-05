@@ -30,7 +30,7 @@ export class Pagamento {
   }: {
     uuidAgendamento: string;
   }): Promise<AxiosResponse<IFaturaResponse>> {
-    return ApiBrave.get(
+    return ApiBrave.post(
       `${basePath}/agendamento/${uuidAgendamento}/gerar-fatura`
     );
   }

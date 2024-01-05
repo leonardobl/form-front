@@ -4,15 +4,16 @@ import * as S from "./styles";
 import { PaymentsOptionsContainer } from "../../Atoms/PaymentsOptionsContainer";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+
 import { useContextSite } from "../../../context/Context";
 import { Pagamento } from "../../../services/Pagamento";
 import { IFaturaDTO } from "../../../types/pagamento";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const PaymentTemplate = () => {
   const [payment, setPaymento] = useState("");
-  const { id } = useParams();
   const { isLoad, setIsLoad } = useContextSite();
+  const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
 
   function handleSubmit(e: React.SyntheticEvent) {
@@ -23,10 +24,10 @@ export const PaymentTemplate = () => {
   }
 
   useEffect(() => {
-    if (!id) return;
+    if (!agendamento?.uuid) return;
     setIsLoad(true);
 
-    Pagamento.get({ uuidAgendamento: id })
+    Pagamento.get({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
         console.log(data);
         setPagamento(data);
@@ -39,7 +40,7 @@ export const PaymentTemplate = () => {
         }) => toast.error(mensagem)
       )
       .finally(() => setIsLoad(false));
-  }, [id]);
+  }, [agendamento?.uuid]);
 
   return (
     <S.Container>

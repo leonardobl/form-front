@@ -22,6 +22,8 @@ export const SearchVehicleTemplate = () => {
   const [sessionAgendamento, setSessionAgendamento] =
     useSessionStorage("agendamento");
 
+  const [sessionVehicle, setSessionVeihicle] = useSessionStorage("veiculo");
+
   const [municipiosOptions, setMunicipiosOptions] = useState<ISelectOptions[]>(
     []
   );
@@ -47,6 +49,8 @@ export const SearchVehicleTemplate = () => {
       Veiculo.postByChassi(PAYLOAD)
         .then(({ data }) => {
           console.log(data);
+
+          setSessionVeihicle(data);
           // if (agendamento?.tipoAtendimento === "LOJA") {
           //   return window.open("/pagamento", "_self");
           // }
