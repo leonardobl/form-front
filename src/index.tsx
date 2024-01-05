@@ -27,6 +27,7 @@ import { ServiceOptions } from "./components/Pages/serviceOptions";
 import { ServiceAddressRegistration } from "./components/Pages/ serviceAddressRegistration";
 import { ScheduleListing } from "./components/Pages/scheduleListing";
 import { OfflineSystem } from "./components/Pages/ offlineSystem";
+import { InforVeihicle } from "./components/Pages/infoVehicle";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -90,6 +91,15 @@ root.render(
               element={
                 <ProtectedRoute>
                   <SearchVehicle />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="informacoes-veiculo"
+              element={
+                <ProtectedRoute>
+                  <InforVeihicle />
                 </ProtectedRoute>
               }
             />
