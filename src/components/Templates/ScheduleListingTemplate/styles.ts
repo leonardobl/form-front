@@ -64,8 +64,18 @@ export const SubTitle = styled.p`
 `;
 
 export const WrapperBtn = styled.div`
-  padding: 32px 60px 0;
-  text-align: end;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  gap: 0 40px;
+`;
+
+export const WrapperButtons = styled.div`
+  display: flex;
+  margin-top: 30px;
+  gap: 30px;
+  justify-content: end;
+  padding: 0 60px;
 `;
 
 export const TitleGrid = styled.p`

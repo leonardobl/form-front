@@ -92,6 +92,7 @@ export const ButtonGhost = styled.button<{ $disabled?: boolean }>`
     padding: 0 20px;
     height: 56px;
     background-color: #fff;
+    cursor: ${$disabled ? "not-allowed" : "pointer"};
 
     color: #266bf0;
     text-align: center;
@@ -107,15 +108,38 @@ export const ButtonGhost = styled.button<{ $disabled?: boolean }>`
 `;
 
 export const ButtonScheduleListing = styled.button<{ $disabled?: boolean }>`
-  border-radius: 5px;
-  background: #266bf0;
-  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
-  color: #eee;
-  font-family: "Poppins";
-  font-size: 8px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 20px;
-  padding: 2px 8px;
-  letter-spacing: 0.24px;
+  ${({ $disabled }) => css`
+    border-radius: 5px;
+    background: #266bf0;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+    color: #eee;
+    font-family: "Poppins";
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    padding: 2px 8px;
+    letter-spacing: 0.24px;
+    cursor: ${$disabled ? "not-allowed" : "pointer"};
+  `}
+`;
+
+export const ButtonNoBorder = styled.button<{ $disabled?: boolean }>`
+  ${({ $disabled }) => css`
+    border: none;
+    cursor: ${$disabled ? "not-allowed" : "pointer"};
+    color: #717171;
+    background-color: transparent;
+    text-align: center;
+    font-family: "Poppins";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    line-height: 24px;
+    letter-spacing: 0.54px;
+    width: max-content;
+  `}
 `;

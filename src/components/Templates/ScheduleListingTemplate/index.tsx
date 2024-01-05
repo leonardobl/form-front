@@ -37,7 +37,7 @@ export const ScheduleListingTemplate = () => {
     label: item,
   }));
 
-  const [visao, setVisao] = useState("visao");
+  const [visao, setVisao] = useState("atendente");
   const size = 5;
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const [numberPage, setNumberPage] = useState(0);
@@ -45,6 +45,7 @@ export const ScheduleListingTemplate = () => {
     value: item,
     label: item.split("_").join(" "),
   }));
+  const [resetForm, setResetForm] = useState(0);
 
   const colorsStatus: { [key: string]: { color: string } } = {
     INICIADO: {
@@ -66,6 +67,42 @@ export const ScheduleListingTemplate = () => {
       color: "#26BE51",
     },
   };
+
+  function handleClear() {
+    setIsLoad(true);
+    setFormFilter({
+      cidade: null,
+      data: "",
+      loja: null,
+      placa: "",
+      renavam: "",
+      veiculo: "",
+      statusAgendamento: null,
+      tipoAtendimento: null,
+    });
+
+    setDate(null);
+    setNumberPage(0);
+
+    Agendamento.get({ size, page: 0 })
+      .then(({ data }) => {
+        setAgendamentos(data.content);
+
+        setPagination({
+          actualPage: data.number,
+          totalPage: data.totalPages,
+          totalRegister: data.totalElements,
+        });
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
 
   useEffect(() => {
     setIsLoad(true);
@@ -150,7 +187,7 @@ export const ScheduleListingTemplate = () => {
           {visao === "atendente" ? "Agendamentos" : "Meus agendamentos"}
         </S.Title>
         {visao === "atendente" ? (
-          <S.FormFilter onSubmit={handleSubmit}>
+          <S.FormFilter onSubmit={handleSubmit} key={`${resetForm}`}>
             <S.BorderContainer>
               <S.TitleFilter>Filtro</S.TitleFilter>
             </S.BorderContainer>
@@ -174,9 +211,11 @@ export const ScheduleListingTemplate = () => {
               <SimpleSelect
                 isClearable
                 placeholder=""
-                value={statusOptions.find(
-                  (item) => item.value === formFilter?.statusAgendamento
-                )}
+                value={
+                  statusOptions.find(
+                    (item) => item.value === formFilter?.statusAgendamento
+                  ) || null
+                }
                 onChange={(e) =>
                   setFormFilter((prev) => ({
                     ...prev,
@@ -202,9 +241,16 @@ export const ScheduleListingTemplate = () => {
                 }
               />
             </S.Grid>
-            <S.WrapperBtn>
+            <S.WrapperButtons>
+              <ButtonCustom
+                typeOfButton="Noborder"
+                onClick={handleClear}
+                type="button"
+              >
+                Limpar tudo
+              </ButtonCustom>
               <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
-            </S.WrapperBtn>
+            </S.WrapperButtons>
           </S.FormFilter>
         ) : (
           <S.FormFilter onSubmit={handleSubmit}>
@@ -228,19 +274,24 @@ export const ScheduleListingTemplate = () => {
                     tipoAtendimento: e?.value,
                   }))
                 }
-                value={lojaOptions.find(
-                  (item) => item.value === formFilter?.tipoAtendimento
-                )}
+                value={
+                  lojaOptions.find(
+                    (item) => item.value === formFilter?.tipoAtendimento
+                  ) || null
+                }
               />
               <SimpleSelect
                 isClearable
+                placeholder=""
                 options={cidadeOptions}
                 onChange={(e) =>
                   setFormFilter((prev) => ({ ...prev, cidade: e?.value }))
                 }
-                value={cidadeOptions.find(
-                  (item) => item.value === formFilter?.cidade
-                )}
+                value={
+                  cidadeOptions.find(
+                    (item) => item.value === formFilter?.cidade
+                  ) || null
+                }
               />
               <InputDate
                 onChange={(e) => {
@@ -272,23 +323,35 @@ export const ScheduleListingTemplate = () => {
               />
             </S.Grid>
 
-            <S.Grid gridtemplate="10fr 2fr" gap="0 24px">
+            <S.Grid gridtemplate="8fr 2fr" gap="0 24px">
               <S.SubTitle>Status</S.SubTitle>
               <S.SubTitle></S.SubTitle>
               <SimpleSelect
                 options={statusOptions}
                 isClearable
+                placeholder=""
                 onChange={(e) =>
                   setFormFilter((prev) => ({
                     ...prev,
                     statusAgendamento: e?.value,
                   }))
                 }
-                value={statusOptions.find(
-                  (item) => item.value === formFilter?.statusAgendamento
-                )}
+                value={
+                  statusOptions.find(
+                    (item) => item.value === formFilter?.statusAgendamento
+                  ) || null
+                }
               />
-              <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
+              <S.WrapperBtn>
+                <ButtonCustom
+                  typeOfButton="Noborder"
+                  onClick={handleClear}
+                  type="button"
+                >
+                  Limpar tudo
+                </ButtonCustom>
+                <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
+              </S.WrapperBtn>
             </S.Grid>
           </S.FormFilter>
         )}
