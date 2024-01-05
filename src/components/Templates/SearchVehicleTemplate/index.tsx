@@ -47,11 +47,13 @@ export const SearchVehicleTemplate = () => {
       Veiculo.postByChassi(PAYLOAD)
         .then(({ data }) => {
           console.log(data);
-          if (agendamento?.tipoAtendimento === "LOJA") {
-            return window.open("/pagamento", "_self");
-          }
+          // if (agendamento?.tipoAtendimento === "LOJA") {
+          //   return window.open("/pagamento", "_self");
+          // }
 
-          window.open("/cadastro-endereco", "_self");
+          // window.open("/cadastro-endereco", "_self");
+
+          window.open("/informacoes-veiculo", "_self");
         })
         .catch(
           ({
