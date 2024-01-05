@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { PaymentsOptionsContainer } from "../../Atoms/PaymentsOptionsContainer";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { useContextSite } from "../../../context/Context";
+import { Pagamento } from "../../../services/Pagamento";
+import { IFaturaDTO } from "../../../types/pagamento";
 
 export const PaymentTemplate = () => {
   const [payment, setPaymento] = useState("");
+  const { id } = useParams();
+  const { isLoad, setIsLoad } = useContextSite();
+  const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -14,6 +21,25 @@ export const PaymentTemplate = () => {
     // toast.info("Gerando pagamento");
     window.open(`pagamento/${payment.toLowerCase()}`, "_self");
   }
+
+  useEffect(() => {
+    if (!id) return;
+    setIsLoad(true);
+
+    Pagamento.get({ uuidAgendamento: id })
+      .then(({ data }) => {
+        console.log(data);
+        setPagamento(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }, [id]);
 
   return (
     <S.Container>
@@ -30,7 +56,7 @@ export const PaymentTemplate = () => {
             required
             value="R$ 116.92"
             handleSelect={(e) => setPaymento(e)}
-            iconLeft="assets/imgs/pix-icon.svg"
+            iconLeft="/assets/imgs/pix-icon.svg"
             textIcon="PIX"
           />
 
@@ -39,7 +65,7 @@ export const PaymentTemplate = () => {
             handleSelect={(e) => setPaymento(e)}
             name="pagamento"
             value="R$ 118.50"
-            iconLeft="assets/imgs/cod-barra.svg"
+            iconLeft="/assets/imgs/cod-barra.svg"
             textIcon="BOLETO"
           />
 

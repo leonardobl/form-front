@@ -113,6 +113,7 @@ root.render(
             >
               <Route
                 index
+                path=":id"
                 element={
                   <ProtectedRoute>
                     <Payment />

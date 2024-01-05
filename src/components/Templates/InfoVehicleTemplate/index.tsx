@@ -3,14 +3,27 @@ import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const InfoVehicleTemplate = () => {
+  const [agendamento, setAgendamento] = useSessionStorage("agendamento");
+
+  function handleSubmit(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    if (agendamento.tipoAtendimento === "LOJA") {
+      window.open(`/pagamento/${agendamento.uuid}`, "_self");
+      return;
+    }
+    window.open("/cadastro-endereco", "_self");
+  }
+
   return (
     <LayoutTemplate>
       <S.Container>
         <S.Content>
           <h1>Informações do veículo</h1>
-          <S.Form>
+          <S.Form onSubmit={handleSubmit}>
             <S.Grid>
               <S.TitleItemGrid>Modelo do carro</S.TitleItemGrid>
               <S.TitleItemGrid>Ano</S.TitleItemGrid>
