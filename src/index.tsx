@@ -64,23 +64,25 @@ root.render(
 
             <Route path="login" element={<Login />} />
             <Route path="cadastro-acesso" element={<Register />} />
-            <Route
-              path="detalhe-agendamento/:id"
-              element={
-                <ProtectedRoute>
-                  <SchedulingDetail />
-                </ProtectedRoute>
-              }
-            />
 
-            <Route
-              path="meus-agendamentos"
-              element={
-                <ProtectedRoute>
-                  <ScheduleListing />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="meus-agendamentos">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <ScheduleListing />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="detalhe-agendamento/:id"
+                element={
+                  <ProtectedRoute>
+                    <SchedulingDetail />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
             <Route path="agendamento" element={<PageLayoutTemplate />}>
               <Route index element={<Scheduling />} />
               <Route path="loja" element={<Physical />} />

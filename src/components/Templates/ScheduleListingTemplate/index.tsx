@@ -360,55 +360,61 @@ export const ScheduleListingTemplate = () => {
           </S.FormFilter>
         )}
 
-        <S.GridTitles>
-          <S.TitleGrid>Tipo</S.TitleGrid>
-          <S.TitleGrid>Veículo</S.TitleGrid>
-          <S.TitleGrid>Loja</S.TitleGrid>
-          <S.TitleGrid>Cidade</S.TitleGrid>
-          <S.TitleGrid>Data / Hora</S.TitleGrid>
-          <S.TitleGrid>Status</S.TitleGrid>
-          <S.TitleGrid></S.TitleGrid>
-          <S.TitleGrid></S.TitleGrid>
-        </S.GridTitles>
-        {agendamentos.map((item) => (
-          <S.GridItem key={`${Math.random()}-${item}`}>
-            <S.ItemGrid>{item?.tipoAtendimento || "---"}</S.ItemGrid>
-            <S.ItemGrid>{item?.veiculo?.tipo || "---"}</S.ItemGrid>
-            <S.ItemGrid>{item?.loja?.nome || "---"}</S.ItemGrid>
-            <S.ItemGrid>{item?.loja?.endereco?.cidade || "---"}</S.ItemGrid>
-            <S.ItemGrid>
-              {item?.diaAgendado && item?.horaAgendada
-                ? `${reverseToBrDate(item?.diaAgendado)} - ${
-                    item?.horaAgendada
-                  }`
-                : "---"}
-            </S.ItemGrid>
-            <S.ItemGrid $color={colorsStatus[item?.status].color}>
-              {item.status || "---"}
-            </S.ItemGrid>
-            <S.ItemGrid>
-              {item.status === "AGENDADO" && (
-                <ButtonCustom typeOfButton="ScheduleList">INICIAR</ButtonCustom>
-              )}
-            </S.ItemGrid>
-            <S.ItemGrid>
-              <img
-                alt="icone de visualização"
-                src="/assets/imgs/visualizar-icon.svg"
-                onClick={() =>
-                  window.open(`/detalhe-agendamento/${item.uuid}`, "_black")
-                }
-              />{" "}
-            </S.ItemGrid>
-          </S.GridItem>
-        ))}
-        <Pagination
-          key={`${Math.random()} - ${pagination}`}
-          totalPage={pagination.totalPage}
-          totalRegister={pagination.totalPage}
-          actualPage={pagination.actualPage}
-          setNumberPage={setNumberPage}
-        />
+        {!!agendamentos?.length && (
+          <>
+            <S.GridTitles>
+              <S.TitleGrid>Tipo</S.TitleGrid>
+              <S.TitleGrid>Veículo</S.TitleGrid>
+              <S.TitleGrid>Loja</S.TitleGrid>
+              <S.TitleGrid>Cidade</S.TitleGrid>
+              <S.TitleGrid>Data / Hora</S.TitleGrid>
+              <S.TitleGrid>Status</S.TitleGrid>
+              <S.TitleGrid></S.TitleGrid>
+              <S.TitleGrid></S.TitleGrid>
+            </S.GridTitles>
+            {agendamentos.map((item) => (
+              <S.GridItem key={`${Math.random()}-${item}`}>
+                <S.ItemGrid>{item?.tipoAtendimento || "---"}</S.ItemGrid>
+                <S.ItemGrid>{item?.veiculo?.tipo || "---"}</S.ItemGrid>
+                <S.ItemGrid>{item?.loja?.nome || "---"}</S.ItemGrid>
+                <S.ItemGrid>{item?.loja?.endereco?.cidade || "---"}</S.ItemGrid>
+                <S.ItemGrid>
+                  {item?.diaAgendado && item?.horaAgendada
+                    ? `${reverseToBrDate(item?.diaAgendado)} - ${
+                        item?.horaAgendada
+                      }`
+                    : "---"}
+                </S.ItemGrid>
+                <S.ItemGrid $color={colorsStatus[item?.status].color}>
+                  {item.status || "---"}
+                </S.ItemGrid>
+                <S.ItemGrid>
+                  {item.status === "AGENDADO" && (
+                    <ButtonCustom typeOfButton="ScheduleList">
+                      INICIAR
+                    </ButtonCustom>
+                  )}
+                </S.ItemGrid>
+                <S.ItemGrid>
+                  <img
+                    alt="icone de visualização"
+                    src="/assets/imgs/visualizar-icon.svg"
+                    onClick={() =>
+                      window.open(`/detalhe-agendamento/${item.uuid}`, "_black")
+                    }
+                  />{" "}
+                </S.ItemGrid>
+              </S.GridItem>
+            ))}
+            <Pagination
+              key={`${Math.random()} - ${pagination}`}
+              totalPage={pagination.totalPage}
+              totalRegister={pagination.totalPage}
+              actualPage={pagination.actualPage}
+              setNumberPage={setNumberPage}
+            />
+          </>
+        )}
       </S.Container>
     </LayoutTemplate>
   );

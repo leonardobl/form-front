@@ -41,6 +41,7 @@ export const TextBlue = styled.span`
 export const Form = styled.form`
   background: #eee;
   padding: 40px 80px;
+  margin-bottom: 80px;
 `;
 
 export const Grid = styled.div<{
@@ -71,4 +72,32 @@ export const WrapperBorder = styled.div<{ $borderBottom?: boolean }>`
     padding-top: 40px;
     border-bottom: ${$borderBottom ? "1px solid #cacaca" : "none"};
   `}
+`;
+
+export const WrapperBtns = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0 72px;
+`;
+
+export const ModalContent = styled.div`
+  padding: 102px 132px;
+  background: #266bf0;
+
+  p {
+    color: #eee;
+    text-align: center;
+    font-family: "Roboto";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 42px;
+    max-width: 340px;
+    margin-bottom: 40px;
+  }
+
+  button {
+    margin: 0 auto;
+    display: block;
+  }
 `;

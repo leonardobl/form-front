@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { reverseToBrDate } from "../../../utils/dateTransform";
 import { maskCpf, maskMoney } from "../../../utils/masks";
+import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 
 export const SchedulingDetailTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -16,6 +18,7 @@ export const SchedulingDetailTemplate = () => {
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
     {} as IAgendamentoDTO
   );
+  const [isOpen, setISOpen] = useState(false);
 
   useEffect(() => {
     setIsLoad(true);
@@ -129,8 +132,26 @@ export const SchedulingDetailTemplate = () => {
               </S.Grid>
             </S.WrapperBorder>
           </S.Form>
+
+          <S.WrapperBtns>
+            <ButtonCustom typeOfButton="Ghost">REAGENDAR</ButtonCustom>
+            <ButtonCustom typeOfButton="Ghost" onClick={() => setISOpen(true)}>
+              CANCELAR
+            </ButtonCustom>
+          </S.WrapperBtns>
         </S.Content>
       </S.Container>
+      <CustomConfirmModal
+        isOpen={isOpen}
+        onRequestClose={() => setISOpen(false)}
+      >
+        <S.ModalContent>
+          <p>Tem certeza que deseja cancelar sua vistoria?</p>
+          <ButtonCustom typeOfButton="Login" onClick={() => setISOpen(false)}>
+            CONFIRMAR
+          </ButtonCustom>
+        </S.ModalContent>
+      </CustomConfirmModal>
     </LayoutTemplate>
   );
 };
