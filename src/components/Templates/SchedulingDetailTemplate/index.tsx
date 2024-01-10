@@ -27,9 +27,12 @@ export const SchedulingDetailTemplate = () => {
     setIsLoad(true);
     setSession(agendamento);
     setTimeout(() => {
-      window.open("/agendamento", "_self");
+      window.open(
+        `/agendamento/${agendamento?.tipoAtendimento?.toLowerCase()}`,
+        "_self"
+      );
       setIsLoad(false);
-    }, 2000);
+    }, 1000);
   }
 
   useEffect(() => {

@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styles";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
-import { v4 } from "uuid";
+
 import { addDays } from "date-fns";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { Loja } from "../../../services/Lojas";
 import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
-import {
-  IAgendamentoBasicoForm,
-  IReagendamentoForm,
-} from "../../../types/agendamento";
+import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
-import {
-  Agendamento,
-  IReagendamentoProps,
-} from "../../../services/Agendamento";
+import { Agendamento } from "../../../services/Agendamento";
 import { Delivery } from "../../../services/Delivery";
 
 export const PhysicalTemplate = () => {
@@ -28,8 +22,6 @@ export const PhysicalTemplate = () => {
   );
   const { pathname } = useLocation();
   const [session, setSession] = useSessionStorage("agendamento");
-  const [detalheAgendamento, setDetalheAgendamento] =
-    useSessionStorage("detalheAgendamento");
   const [token, setToken] = useSessionStorage("@token");
   const [path, setPath] = useState(pathname.split("/"));
   const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>([]);
@@ -37,8 +29,6 @@ export const PhysicalTemplate = () => {
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [date, setDate] = useState<Date>(null);
   const { isLoad, setIsLoad } = useContextSite();
-  const [confirm, setConfirm] = useState(false);
-  const [isOpen, setisOpen] = useState(false);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -48,29 +38,6 @@ export const PhysicalTemplate = () => {
       tipoAtendimento: TipoAtendimentoEnum[path[path.length - 1].toUpperCase()],
       diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
     };
-
-    // if (detalheAgendamento) {
-    //   setIs
-    //   const PAYLOAD: IReagendamentoProps = {
-    //     diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
-    //     horaAgendada: form.horaAgendada,
-    //     uuidAgendamento: detalheAgendamento?.uuid,
-    //   };
-    //   Agendamento.reagendar(PAYLOAD)
-    //     .then(() => {
-    //       window.open("/servicos", "_self");
-    //       return
-    //     })
-    //     .catch(
-    //       ({
-    //         response: {
-    //           data: { mensagem },
-    //         },
-    //       }) => toast.error(mensagem)
-    //     )
-    //     .finally(() => setIsLoad(false));
-    //   return;
-    // }
 
     setIsLoad(true);
 
