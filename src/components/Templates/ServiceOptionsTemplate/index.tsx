@@ -5,7 +5,7 @@ import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const ServiceOptionsTemplate = () => {
-  const [storage, setStorage] = useSessionStorage("service");
+  const [storage, setStorage] = useSessionStorage("servico");
 
   function handleClick(tipoServico: string) {
     setStorage(tipoServico);
@@ -21,7 +21,7 @@ export const ServiceOptionsTemplate = () => {
         <S.WrapperButtons>
           <ButtonCustom
             typeOfButton="BlueLight"
-            onClick={() => handleClick("1Emplacamento")}
+            onClick={() => handleClick("Emplacamento")}
           >
             1° EMPLACAMENTO
           </ButtonCustom>

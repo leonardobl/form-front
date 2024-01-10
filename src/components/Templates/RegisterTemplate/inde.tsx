@@ -155,9 +155,7 @@ export const RegisterTemplate = () => {
                 <label>
                   CPF <span>*</span>
                 </label>
-                <label>
-                  Telefone <span>*</span>
-                </label>
+                <label>Telefone</label>
                 <InputCustom
                   required
                   value={form.cpfCnpj}
@@ -166,7 +164,6 @@ export const RegisterTemplate = () => {
                 />
                 <InputCustom
                   placeholder="(00) 00000-0000"
-                  required
                   value={form.telefone}
                   maxLength={15}
                   onChange={(e) => handlePhone(e.target.value)}
@@ -174,12 +171,9 @@ export const RegisterTemplate = () => {
               </S.Grid>
 
               <S.Grid $gridTemplate="1fr">
-                <label>
-                  E-mail <span>*</span>
-                </label>
+                <label>E-mail</label>
                 <InputCustom
                   type="email"
-                  required
                   value={form.email}
                   onChange={(e) =>
                     setForm((prev) => ({ ...prev, email: e.target.value }))

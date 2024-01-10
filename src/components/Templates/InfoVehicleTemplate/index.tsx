@@ -11,7 +11,7 @@ export const InfoVehicleTemplate = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamento.tipoAtendimento === "LOJA") {
+    if (agendamento?.tipoAtendimento === "LOJA") {
       window.open(`/pagamento`, "_self");
       return;
     }

@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useContextSite } from "../../../context/Context";
+import { maskCpf } from "../../../utils/masks";
 
 export const LoginTemplate = () => {
   const [token, setToken] = useSessionStorage("@token");
@@ -17,6 +18,11 @@ export const LoginTemplate = () => {
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const { isLoad, setIsLoad } = useContextSite();
   const [isDisable, setIsDisable] = useState(false);
+
+  function handleCpf(e: string) {
+    const newCpfValue = maskCpf(e);
+    setForm((prev) => ({ ...prev, cpfCNPJ: newCpfValue }));
+  }
 
   function login(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -59,14 +65,16 @@ export const LoginTemplate = () => {
           </S.Header>
           <S.FormContent>
             <S.Grid $gridTemplate="1fr">
-              <label>E-mail</label>
+              <label>CPF/CNPJ</label>
               <InputCustom
-                type="email"
+                value={form?.cpfCNPJ}
+                maxLength={14}
+                onChange={(e) => handleCpf(e.target.value)}
                 required
-                value={form.email}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, email: e.target.value }))
-                }
+                // value={form.email}
+                // onChange={(e) =>
+                //   setForm((prev) => ({ ...prev, email: e.target.value }))
+                // }
               />
             </S.Grid>
 

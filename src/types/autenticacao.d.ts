@@ -1,4 +1,4 @@
 interface IAutenticacaoForm {
-  email: string;
+  cpfCNPJ: string;
   senha: string;
 }

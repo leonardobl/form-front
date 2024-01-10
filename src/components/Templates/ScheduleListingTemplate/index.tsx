@@ -400,7 +400,10 @@ export const ScheduleListingTemplate = () => {
                     alt="icone de visualização"
                     src="/assets/imgs/visualizar-icon.svg"
                     onClick={() =>
-                      window.open(`/detalhe-agendamento/${item.uuid}`, "_black")
+                      window.open(
+                        `/meus-agendamentos/detalhe-agendamento/${item.uuid}`,
+                        "_black"
+                      )
                     }
                   />{" "}
                 </S.ItemGrid>

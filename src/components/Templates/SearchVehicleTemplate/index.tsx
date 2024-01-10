@@ -18,7 +18,7 @@ import {
 import { Veiculo } from "../../../services/Veiculo";
 
 export const SearchVehicleTemplate = () => {
-  const [serviceStorage, setServiceStorage] = useSessionStorage("service");
+  const [serviceStorage, setServiceStorage] = useSessionStorage("servico");
   const [sessionAgendamento, setSessionAgendamento] =
     useSessionStorage("agendamento");
 
@@ -39,7 +39,7 @@ export const SearchVehicleTemplate = () => {
     const agendamento = sessionAgendamento as IAgendamentoBasicoForm;
     setIsLoad(true);
 
-    if (serviceStorage === "1Emplacamento") {
+    if (serviceStorage === "Emplacamento") {
       const PAYLOAD: IConsultaVeiculoChassiForm = {
         Chassi: form.Chassi,
         CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
@@ -80,7 +80,6 @@ export const SearchVehicleTemplate = () => {
 
     Veiculo.postByPlaca(PAYLOAD)
       .then(({ data }) => {
-        console.log(data);
         if (agendamento?.tipoAtendimento === "LOJA") {
           return window.open("/pagamento", "_self");
         }
@@ -125,7 +124,7 @@ export const SearchVehicleTemplate = () => {
         <S.Form onSubmit={handleSubmit}>
           <S.Title>Buscar Veículo</S.Title>
 
-          {serviceStorage === "1Emplacamento" ? (
+          {serviceStorage === "Emplacamento" ? (
             <S.Text>
               Digite a <S.TextBlue>chassi</S.TextBlue> e{" "}
               <S.TextBlue>cidade</S.TextBlue> do veículo para consultar os
@@ -140,19 +139,19 @@ export const SearchVehicleTemplate = () => {
           )}
           <S.WrapperInputs
             $gridColumns={
-              serviceStorage === "1Emplacamento" ? "1fr 1fr" : "1fr 1fr 1fr"
+              serviceStorage === "Emplacamento" ? "1fr 1fr" : "1fr 1fr 1fr"
             }
-            $gap={serviceStorage === "1Emplacamento" ? "0 70px" : "0 24px"}
+            $gap={serviceStorage === "Emplacamento" ? "0 70px" : "0 24px"}
           >
             <InputCustom
-              type={serviceStorage === "1Emplacamento" ? "number" : "text"}
-              label={serviceStorage === "1Emplacamento" ? "Chassi" : "Placa"}
+              type={serviceStorage === "Emplacamento" ? "number" : "text"}
+              label={serviceStorage === "Emplacamento" ? "Chassi" : "Placa"}
               required
               value={
-                serviceStorage === "1Emplacamento" ? form.Chassi : form.Placa
+                serviceStorage === "Emplacamento" ? form.Chassi : form.Placa
               }
               onChange={(e) => {
-                serviceStorage === "1Emplacamento"
+                serviceStorage === "Emplacamento"
                   ? setForm((prev) => ({ ...prev, Chassi: e.target.value }))
                   : setForm((prev) => ({ ...prev, Placa: e.target.value }));
               }}
