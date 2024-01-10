@@ -37,7 +37,7 @@ export const ScheduleListingTemplate = () => {
     label: item,
   }));
 
-  const [visao, setVisao] = useState("atendente");
+  const [visao, setVisao] = useState("vistoriado");
   const size = 5;
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const [numberPage, setNumberPage] = useState(0);
