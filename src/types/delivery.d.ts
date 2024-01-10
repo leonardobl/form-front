@@ -1,5 +1,3 @@
-import { ILocalTime } from "./agendamento";
-
 export interface IPageDeliveryDTO {
   content: IDeliveryDTO[];
   empty: boolean;
@@ -16,10 +14,10 @@ export interface IPageDeliveryDTO {
 
 export interface IDeliveryDTO {
   cidade: string;
-  horarioFinal: ILocalTime;
-  horarioInicial: ILocalTime;
+  horarioFinal: string;
+  horarioInicial: string;
   quantidadeVagas: number;
-  tempoMedio: ILocalTime;
+  tempoMedio: string;
   uf: string;
   uuid: string;
 }

@@ -10,7 +10,7 @@ interface IUsuarioForm {
 }
 
 export interface IUsuarioDTO {
-  authorities: IGrantedAuthority[];
+  authorities: IPerfil[];
   cpfCnpj: string;
   email: string;
   nome: string;
@@ -19,6 +19,17 @@ export interface IUsuarioDTO {
   uuid: string;
 }
 
-export interface IGrantedAuthority {
-  authority: string;
+export interface IPerfil {
+  ativo: boolean;
+  authority?: string;
+  createdAt: string;
+  id: number;
+  nome: string;
+  rescursos?: IPerfil[];
+  updateReason: string;
+  updatedAt: string;
+  userNameUpdate: string;
+  uuid: string;
+  uuidUserUpdate: string;
+  version: number;
 }

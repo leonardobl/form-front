@@ -1,8 +1,7 @@
 import { AxiosResponse } from "axios";
 import { IPageRequest } from "../../types/page";
 import { ApiBrave } from "../../Apis/Brave/index";
-import { IPageLojaDTO } from "../../types/Loja";
-import { ILocalTime } from "../../types/agendamento";
+import { IPageLojaDTO } from "../../types/loja";
 
 interface ILojaParams extends IPageRequest {
   nome?: string;

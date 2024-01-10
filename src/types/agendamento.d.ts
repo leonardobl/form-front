@@ -45,28 +45,21 @@ export interface IEnderecoDTO {
 
 export interface IDeliveryDTO {
   cidade: string;
-  horarioFinal: ILocalTime;
-  horarioInicial: ILocalTime;
+  horarioFinal: string;
+  horarioInicial: string;
   quantidadeVagas: number;
-  tempoMedio: ILocalTime;
+  tempoMedio: string;
   uf: string;
   uuid: string;
 }
 
-export interface ILocalTime {
-  hour: number;
-  minute: number;
-  nano: number;
-  second: number;
-}
-
 export interface ILojaDTO {
   endereco: IEnderecoDTO;
-  horarioFinal: ILocalTime;
-  horarioInicial: ILocalTime;
+  horarioFinal: string;
+  horarioInicial: string;
   nome: string;
   quantidadeVagas: number;
-  tempoMedio: ILocalTime;
+  tempoMedio: string;
   uuid: string;
 }
 
@@ -90,7 +83,7 @@ export interface IVeiculoDTO {
 
 export interface IAgendamentoBasicoForm {
   diaAgendado: string;
-  horaAgendada: ILocalTime;
+  horaAgendada: string;
   tipoAtendimento: string;
   uuidDelivery?: string;
   uuidLoja?: string;
@@ -101,7 +94,7 @@ export interface IAgendamentoForm {
   dataPagamento?: string;
   dataRealizacao?: string;
   diaAgendado: string;
-  horaAgendada: ILocalTime;
+  horaAgendada: string;
   primeiroAgendamento?: string;
   revistoria?: boolean;
   status?: StatusAgendamentoEnum;

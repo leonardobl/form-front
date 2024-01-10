@@ -1,4 +1,4 @@
-import { IEnderecoDTO, ILocalTime } from "./agendamento";
+import { IEnderecoDTO } from "./agendamento";
 import { IPageableObject, ISortObject } from "./delivery";
 
 export interface IPageLojaDTO {
@@ -17,10 +17,10 @@ export interface IPageLojaDTO {
 
 export interface ILojaDTO {
   endereco: IEnderecoDTO;
-  horarioFinal: ILocalTime;
-  horarioInicial: ILocalTime;
+  horarioFinal: string;
+  horarioInicial: string;
   nome: string;
   quantidadeVagas: number;
-  tempoMedio: ILocalTime;
+  tempoMedio: string;
   uuid: string;
 }

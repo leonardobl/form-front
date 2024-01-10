@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
 import { removeEmpty } from "../../utils/removeEmpty";
 import { IPageDeliveryDTO } from "../../types/delivery";
-import { ILocalTime } from "../../types/agendamento";
+
 import { IPageRequest } from "../../types/page";
 
 const basePath = "/delivery";
