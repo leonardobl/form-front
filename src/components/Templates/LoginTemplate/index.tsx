@@ -19,10 +19,10 @@ export const LoginTemplate = () => {
   const { isLoad, setIsLoad } = useContextSite();
   const [isDisable, setIsDisable] = useState(false);
 
-  // function handleCpf(e: string) {
-  //   const newCpfValue = maskCpf(e);
-  //   setForm((prev) => ({ ...prev, cpfCNPJ: newCpfValue }));
-  // }
+  function handleCpf(e: string) {
+    const newCpfValue = maskCpf(e);
+    setForm((prev) => ({ ...prev, cpfCNPJ: newCpfValue }));
+  }
 
   function login(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -68,11 +68,9 @@ export const LoginTemplate = () => {
               <label>CPF/CNPJ</label>
               <InputCustom
                 value={form?.cpfCNPJ}
-                type="number"
-                // maxLength={14}
+                maxLength={14}
                 onChange={(e) => {
-                  setForm((prev) => ({ ...prev, cpfCNPJ: e.target.value }));
-                  // handleCpf(e.target.value);
+                  handleCpf(e.target.value);
                 }}
                 required
                 // value={form.email}
