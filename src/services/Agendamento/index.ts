@@ -73,6 +73,6 @@ export class Agendamento {
   ): Promise<AxiosResponse<IAgendamentoDTO>> {
     const { uuidAgendamento, ...rest } = props;
 
-    return ApiBrave.put(`${basePath}/${uuidAgendamento}/reagendar}`, rest);
+    return ApiBrave.put(`${basePath}/${uuidAgendamento}/reagendar`, rest);
   }
 }

@@ -13,8 +13,13 @@ import { ISelectOptions } from "../../../types/inputs";
 import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
-import { Agendamento } from "../../../services/Agendamento";
+import {
+  Agendamento,
+  IReagendamentoProps,
+} from "../../../services/Agendamento";
 import { Delivery } from "../../../services/Delivery";
+import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
+import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const PhysicalTemplate = () => {
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
@@ -22,6 +27,8 @@ export const PhysicalTemplate = () => {
   );
   const { pathname } = useLocation();
   const [session, setSession] = useSessionStorage("agendamento");
+  const [sessionReagendamento, setSessionReagendamento] =
+    useSessionStorage("detalheAgendamento");
   const [token, setToken] = useSessionStorage("@token");
   const [path, setPath] = useState(pathname.split("/"));
   const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>([]);
@@ -29,17 +36,48 @@ export const PhysicalTemplate = () => {
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [date, setDate] = useState<Date>(null);
   const { isLoad, setIsLoad } = useContextSite();
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleReagendamento() {
+    setIsLoad(true);
+    setIsOpen(false);
+
+    const PAYLOAD: IReagendamentoProps = {
+      diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
+      horaAgendada: form.horaAgendada,
+      uuidAgendamento: sessionReagendamento?.uuid,
+    };
+    Agendamento.reagendar(PAYLOAD)
+      .then(() => {
+        toast.success("Reagendamento efetuado com sucesso!");
+        setTimeout(() => {
+          window.open("/", "_self");
+        }, 2000);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+
+    if (sessionReagendamento?.uuid) {
+      setIsOpen(true);
+      return;
+    }
+    setIsLoad(true);
 
     const PAYLOAD: IAgendamentoBasicoForm = {
       ...form,
       tipoAtendimento: TipoAtendimentoEnum[path[path.length - 1].toUpperCase()],
       diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
     };
-
-    setIsLoad(true);
 
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
@@ -241,6 +279,19 @@ export const PhysicalTemplate = () => {
 
         <ButtonCustom typeOfButton="BlueLight">Avançar</ButtonCustom>
       </S.Form>
+      <CustomConfirmModal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+      >
+        <S.ContentModal>
+          <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
+            date?.toLocaleDateString()
+          )} às ${form.horaAgendada}? `}</p>
+          <ButtonCustom typeOfButton="Login" onClick={handleReagendamento}>
+            CONFIRMAR
+          </ButtonCustom>
+        </S.ContentModal>
+      </CustomConfirmModal>
     </S.Container>
   );
 };

@@ -54,3 +54,26 @@ export const Title = styled.h1`
   line-height: 24px;
   letter-spacing: 1.08px;
 `;
+
+export const ContentModal = styled.div`
+  padding: 102px;
+  width: 604px;
+  height: 400px;
+  background: #266bf0;
+
+  p {
+    color: #eee;
+    text-align: center;
+    font-family: "Roboto";
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 42px;
+    margin-bottom: 40px;
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+  }
+`;
