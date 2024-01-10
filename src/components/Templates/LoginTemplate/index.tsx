@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useContextSite } from "../../../context/Context";
-import { maskCpf } from "../../../utils/masks";
+import { maskCpf, removeCaracteres } from "../../../utils/masks";
 
 export const LoginTemplate = () => {
   const [token, setToken] = useSessionStorage("@token");
@@ -29,7 +29,12 @@ export const LoginTemplate = () => {
     setIsLoad(true);
     setIsDisable(true);
 
-    Autenticacao.post(form)
+    const PAYLOAD: IAutenticacaoForm = {
+      cpfCNPJ: removeCaracteres(form.cpfCNPJ),
+      senha: form.senha,
+    };
+
+    Autenticacao.post(PAYLOAD)
       .then(({ data }) => {
         setToken(data.token);
 

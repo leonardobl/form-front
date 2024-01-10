@@ -35,3 +35,10 @@ export function maskMoney(e: number) {
   const formatNumber = new Intl.NumberFormat("pt-BR", options);
   return formatNumber.format(e);
 }
+
+export function removeCaracteres(s: string) {
+  if (!s) return "";
+  const newValue = s.replace(/\D/g, "");
+
+  return newValue;
+}
