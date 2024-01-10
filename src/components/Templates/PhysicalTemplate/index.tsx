@@ -16,7 +16,10 @@ import {
 } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
-import { Agendamento } from "../../../services/Agendamento";
+import {
+  Agendamento,
+  IReagendamentoProps,
+} from "../../../services/Agendamento";
 import { Delivery } from "../../../services/Delivery";
 
 export const PhysicalTemplate = () => {
@@ -34,6 +37,8 @@ export const PhysicalTemplate = () => {
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [date, setDate] = useState<Date>(null);
   const { isLoad, setIsLoad } = useContextSite();
+  const [confirm, setConfirm] = useState(false);
+  const [isOpen, setisOpen] = useState(false);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -44,26 +49,18 @@ export const PhysicalTemplate = () => {
       diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
     };
 
-    setIsLoad(true);
     // if (detalheAgendamento) {
-    //   console.log(detalheAgendamento);
-    //   const PAYLOAD: IReagendamentoForm = {
-    //     bairro,
-    //     cep,
-    //     cidade,
-    //     complemento,
-    //     diaAgendado,
-    //     horaAgendada,
-    //     logradouro,
-    //     nome,
-    //     numero,
-    //     telefone,
-    //     uf,
-    //     uuidDelivery,
-    //     uuidLoja
+    //   setIs
+    //   const PAYLOAD: IReagendamentoProps = {
+    //     diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
+    //     horaAgendada: form.horaAgendada,
+    //     uuidAgendamento: detalheAgendamento?.uuid,
     //   };
     //   Agendamento.reagendar(PAYLOAD)
-    //     .then(() => {})
+    //     .then(() => {
+    //       window.open("/servicos", "_self");
+    //       return
+    //     })
     //     .catch(
     //       ({
     //         response: {
@@ -74,6 +71,8 @@ export const PhysicalTemplate = () => {
     //     .finally(() => setIsLoad(false));
     //   return;
     // }
+
+    setIsLoad(true);
 
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {

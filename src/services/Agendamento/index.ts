@@ -19,7 +19,7 @@ interface IPutAgendamentoProps extends IAgendamentoForm {
   uuid: string;
 }
 
-interface IReagendamentoProps extends IReagendamentoForm {
+export interface IReagendamentoProps extends IReagendamentoForm {
   uuidAgendamento: string;
 }
 
