@@ -11,6 +11,7 @@ import { reverseToBrDate } from "../../../utils/dateTransform";
 import { maskCpf, maskMoney } from "../../../utils/masks";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
+import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
 export const SchedulingDetailTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -133,12 +134,20 @@ export const SchedulingDetailTemplate = () => {
             </S.WrapperBorder>
           </S.Form>
 
-          <S.WrapperBtns>
-            <ButtonCustom typeOfButton="Ghost">REAGENDAR</ButtonCustom>
-            <ButtonCustom typeOfButton="Ghost" onClick={() => setISOpen(true)}>
-              CANCELAR
-            </ButtonCustom>
-          </S.WrapperBtns>
+          {![
+            StatusAgendamentoEnum.CANCELADO,
+            StatusAgendamentoEnum.FINALIZADO,
+          ].includes(agendamento?.status) && (
+            <S.WrapperBtns>
+              <ButtonCustom typeOfButton="Ghost">REAGENDAR</ButtonCustom>
+              <ButtonCustom
+                typeOfButton="Ghost"
+                onClick={() => setISOpen(true)}
+              >
+                CANCELAR
+              </ButtonCustom>
+            </S.WrapperBtns>
+          )}
         </S.Content>
       </S.Container>
       <CustomConfirmModal
