@@ -12,6 +12,7 @@ import { maskCpf, maskMoney } from "../../../utils/masks";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const SchedulingDetailTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -20,6 +21,16 @@ export const SchedulingDetailTemplate = () => {
     {} as IAgendamentoDTO
   );
   const [isOpen, setISOpen] = useState(false);
+  const [session, setSession] = useSessionStorage("detalheAgendamento");
+
+  function onRescheduling() {
+    setIsLoad(true);
+    setSession(agendamento);
+    setTimeout(() => {
+      window.open("/agendamento", "_self");
+      setIsLoad(false);
+    }, 2000);
+  }
 
   useEffect(() => {
     setIsLoad(true);
@@ -139,7 +150,9 @@ export const SchedulingDetailTemplate = () => {
             StatusAgendamentoEnum.FINALIZADO,
           ].includes(agendamento?.status) && (
             <S.WrapperBtns>
-              <ButtonCustom typeOfButton="Ghost">REAGENDAR</ButtonCustom>
+              <ButtonCustom typeOfButton="Ghost" onClick={onRescheduling}>
+                REAGENDAR
+              </ButtonCustom>
               <ButtonCustom
                 typeOfButton="Ghost"
                 onClick={() => setISOpen(true)}

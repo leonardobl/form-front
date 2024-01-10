@@ -6,6 +6,7 @@ import {
   IAgendamentoForm,
   IAtendimentoDomiciliarForm,
   IPageAgendamentoDTO,
+  IReagendamentoForm,
 } from "../../types/agendamento";
 import { IPageRequest } from "../../types/page";
 import { TipoAtendimentoEnum } from "../../enums/tipoAtendimento";
@@ -16,6 +17,10 @@ const basePath = "/agendamento";
 
 interface IPutAgendamentoProps extends IAgendamentoForm {
   uuid: string;
+}
+
+interface IReagendamentoProps extends IReagendamentoForm {
+  uuidAgendamento: string;
 }
 
 export interface IGetAgendamentosProps extends IPageRequest {
@@ -61,5 +66,13 @@ export class Agendamento {
       `${basePath}/${uuid}/atualizar-endereco-atendimento`,
       rest
     );
+  }
+
+  static async reagendar(
+    props: IReagendamentoProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuidAgendamento, ...rest } = props;
+
+    return ApiBrave.put(`${basePath}/${uuidAgendamento}/reagendar}`, rest);
   }
 }

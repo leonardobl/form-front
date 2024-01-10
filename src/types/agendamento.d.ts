@@ -126,3 +126,19 @@ export interface IPageAgendamentoDTO {
   totalElements: number;
   totalPages: number;
 }
+
+export interface IReagendamentoForm {
+  bairro: string;
+  cep: string;
+  cidade: string;
+  complemento: string;
+  diaAgendado: string;
+  horaAgendada: string;
+  logradouro: string;
+  nome: string;
+  numero: string;
+  telefone: string;
+  uf: string;
+  uuidDelivery: string;
+  uuidLoja: string;
+}

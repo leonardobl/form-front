@@ -10,7 +10,10 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { Loja } from "../../../services/Lojas";
 import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
-import { IAgendamentoBasicoForm } from "../../../types/agendamento";
+import {
+  IAgendamentoBasicoForm,
+  IReagendamentoForm,
+} from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { Agendamento } from "../../../services/Agendamento";
@@ -22,6 +25,8 @@ export const PhysicalTemplate = () => {
   );
   const { pathname } = useLocation();
   const [session, setSession] = useSessionStorage("agendamento");
+  const [detalheAgendamento, setDetalheAgendamento] =
+    useSessionStorage("detalheAgendamento");
   const [token, setToken] = useSessionStorage("@token");
   const [path, setPath] = useState(pathname.split("/"));
   const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>([]);
@@ -40,6 +45,36 @@ export const PhysicalTemplate = () => {
     };
 
     setIsLoad(true);
+    // if (detalheAgendamento) {
+    //   console.log(detalheAgendamento);
+    //   const PAYLOAD: IReagendamentoForm = {
+    //     bairro,
+    //     cep,
+    //     cidade,
+    //     complemento,
+    //     diaAgendado,
+    //     horaAgendada,
+    //     logradouro,
+    //     nome,
+    //     numero,
+    //     telefone,
+    //     uf,
+    //     uuidDelivery,
+    //     uuidLoja
+    //   };
+    //   Agendamento.reagendar(PAYLOAD)
+    //     .then(() => {})
+    //     .catch(
+    //       ({
+    //         response: {
+    //           data: { mensagem },
+    //         },
+    //       }) => toast.error(mensagem)
+    //     )
+    //     .finally(() => setIsLoad(false));
+    //   return;
+    // }
+
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
         setSession(data);
