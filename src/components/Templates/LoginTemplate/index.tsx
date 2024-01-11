@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useContextSite } from "../../../context/Context";
 import { maskCpf, removeCaracteres } from "../../../utils/masks";
-import { Agendamento } from "../../../services/Agendamento";
+
 import { Cliente } from "../../../services/Cliente";
 import { IAutenticacaoForm, IDecodedToken } from "../../../types/autenticacao";
 
@@ -30,7 +30,7 @@ export const LoginTemplate = () => {
     setForm((prev) => ({ ...prev, cpfCNPJ: newCpfValue }));
   }
 
-  function login(e: React.SyntheticEvent) {
+  async function login(e: React.SyntheticEvent) {
     e.preventDefault();
     setIsLoad(true);
     setIsDisable(true);
@@ -40,34 +40,40 @@ export const LoginTemplate = () => {
       senha: form.senha,
     };
 
-    Autenticacao.post(PAYLOAD)
+    await Autenticacao.post(PAYLOAD)
       .then(({ data }) => {
         setToken(data.token);
+        return data.token;
+      })
+      .then((token) => {
+        const decoded = jwtDecode<IDecodedToken>(token);
 
-        const decoded = jwtDecode<IDecodedToken>(data.token);
+        decoded?.uuid &&
+          Cliente.getByUsuario({ uuidUsuario: decoded.uuid })
+            .then(({ data }) => {
+              setClienteSession(data);
 
-        Cliente.getByUsuario({ uuidUsuario: decoded?.uuid })
-          .then(({ data }) => {
-            setClienteSession(data);
-          })
-          .catch(
-            ({
-              response: {
-                data: { mensagem },
-              },
-            }) => toast.error(mensagem)
-          );
+              toast.success("Login efetuado com sucesso");
 
-        toast.success("Login efetuado com sucesso");
+              setTimeout(() => {
+                setIsDisable(false);
+                if (agendamento) {
+                  return window.open("/servicos", "_self");
+                }
 
-        setTimeout(() => {
-          setIsDisable(false);
-          if (agendamento) {
-            return window.open("/servicos", "_self");
-          }
-
-          return window.open("/agendamento", "_self");
-        }, 3000);
+                return window.open("/agendamento", "_self");
+              }, 2000);
+            })
+            .catch(
+              ({
+                response: {
+                  data: { mensagem },
+                },
+              }) => {
+                toast.error(mensagem);
+                sessionStorage.removeItem("@token");
+              }
+            );
       })
       .catch(
         ({
@@ -76,10 +82,12 @@ export const LoginTemplate = () => {
           },
         }) => {
           toast.error(mensagem);
-          setIsDisable(false);
         }
       )
-      .finally(() => setIsLoad(false));
+      .finally(() => {
+        setIsLoad(false);
+        setIsDisable(false);
+      });
   }
 
   return (
