@@ -52,7 +52,7 @@ export const SearchVehicleTemplate = () => {
             response: {
               data: { mensagem },
             },
-          }) => toast.error(mensagem)
+          }) => toast.error(mensagem, { autoClose: 4000 })
         )
         .finally(() => setIsLoad(false));
 
@@ -75,7 +75,7 @@ export const SearchVehicleTemplate = () => {
           response: {
             data: { mensagem },
           },
-        }) => toast.error(mensagem)
+        }) => toast.error(mensagem, { autoClose: 4000 })
       )
       .finally(() => setIsLoad(false));
   }

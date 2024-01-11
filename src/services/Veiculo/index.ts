@@ -10,6 +10,14 @@ import { IVeiculoDTO } from "../../types/agendamento";
 const basePath = "/veiculo";
 
 export class Veiculo {
+  static async byId({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IVeiculoDTO>> {
+    return ApiBrave.get(`${basePath}/${uuid}`);
+  }
+
   static async post(props: IVeiculoForm): Promise<AxiosResponse<IVeiculoDTO>> {
     return ApiBrave.post(basePath, props);
   }
