@@ -36,9 +36,14 @@ export function maskMoney(e: number) {
   return formatNumber.format(e);
 }
 
-export function removeCaracteres(s: string) {
+export function removeDigitos(s: string) {
   if (!s) return "";
   const newValue = s.replace(/\D/g, "");
 
   return newValue;
+}
+
+export function removerCaracteresEspeciais(s: string) {
+  if (!s) return;
+  return s.replace(/[^a-zA-Z0-9]/g, "");
 }

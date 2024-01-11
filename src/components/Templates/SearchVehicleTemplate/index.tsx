@@ -6,7 +6,7 @@ import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { toast } from "react-toastify";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
-import { IAgendamentoBasicoForm } from "../../../types/agendamento";
+
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Municipio } from "../../../services/Municipio";
 import { ISelectOptions } from "../../../types/inputs";
@@ -16,13 +16,10 @@ import {
   IConsultaVeiculoPlacaForm,
 } from "../../../types/veiculo";
 import { Veiculo } from "../../../services/Veiculo";
+import { removerCaracteresEspeciais } from "../../../utils/masks";
 
 export const SearchVehicleTemplate = () => {
   const [serviceStorage, setServiceStorage] = useSessionStorage("servico");
-  const [sessionAgendamento, setSessionAgendamento] =
-    useSessionStorage("agendamento");
-
-  const [sessionVehicle, setSessionVeihicle] = useSessionStorage("veiculo");
 
   const [municipiosOptions, setMunicipiosOptions] = useState<ISelectOptions[]>(
     []
@@ -36,28 +33,19 @@ export const SearchVehicleTemplate = () => {
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    const agendamento = sessionAgendamento as IAgendamentoBasicoForm;
+
     setIsLoad(true);
 
     if (serviceStorage === "Emplacamento") {
       const PAYLOAD: IConsultaVeiculoChassiForm = {
         Chassi: form.Chassi,
         CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
-        IdCidadeDetran: form.IdCidadeDetran,
+        IdCidadeDetran: Number(form.IdCidadeDetran),
       };
 
       Veiculo.postByChassi(PAYLOAD)
         .then(({ data }) => {
-          console.log(data);
-
-          setSessionVeihicle(data);
-          // if (agendamento?.tipoAtendimento === "LOJA") {
-          //   return window.open("/pagamento", "_self");
-          // }
-
-          // window.open("/cadastro-endereco", "_self");
-
-          window.open("/informacoes-veiculo", "_self");
+          window.open(`/informacoes-veiculo/${data?.uuid}`, "_self");
         })
         .catch(
           ({
@@ -74,17 +62,13 @@ export const SearchVehicleTemplate = () => {
     const PAYLOAD: IConsultaVeiculoPlacaForm = {
       Placa: form.Placa,
       CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
-      IdCidadeDetran: form.IdCidadeDetran,
+      IdCidadeDetran: Number(form.IdCidadeDetran),
       Renavam: form.Renavam,
     };
 
     Veiculo.postByPlaca(PAYLOAD)
       .then(({ data }) => {
-        if (agendamento?.tipoAtendimento === "LOJA") {
-          return window.open("/pagamento", "_self");
-        }
-
-        window.open("/cadastro-endereco", "_self");
+        window.open(`/informacoes-veiculo/${data?.uuid}`, "_self");
       })
       .catch(
         ({
@@ -151,8 +135,14 @@ export const SearchVehicleTemplate = () => {
               }
               onChange={(e) => {
                 serviceStorage === "Emplacamento"
-                  ? setForm((prev) => ({ ...prev, Chassi: e.target.value }))
-                  : setForm((prev) => ({ ...prev, Placa: e.target.value }));
+                  ? setForm((prev) => ({
+                      ...prev,
+                      Chassi: removerCaracteresEspeciais(e.target.value),
+                    }))
+                  : setForm((prev) => ({
+                      ...prev,
+                      Placa: removerCaracteresEspeciais(e.target.value),
+                    }));
               }}
             />
             {serviceStorage === "Vistoria" && (

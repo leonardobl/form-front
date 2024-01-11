@@ -99,7 +99,7 @@ root.render(
             />
 
             <Route
-              path="informacoes-veiculo"
+              path="informacoes-veiculo/:id"
               element={
                 <ProtectedRoute>
                   <InforVeihicle />

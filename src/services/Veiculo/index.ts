@@ -17,12 +17,12 @@ export class Veiculo {
   static async postByChassi(
     props: IConsultaVeiculoChassiForm
   ): Promise<AxiosResponse<IVeiculoDTO>> {
-    return ApiBrave.post(`${basePath}/consulta-por-chassi`, props);
+    return ApiBrave.post(`${basePath}/consultar-por-chassi`, props);
   }
 
   static async postByPlaca(
     props: IConsultaVeiculoPlacaForm
   ): Promise<AxiosResponse<IVeiculoDTO>> {
-    return ApiBrave.post(`${basePath}/consulta-por-placa`, props);
+    return ApiBrave.post(`${basePath}/consultar-por-placa`, props);
   }
 }

@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useContextSite } from "../../../context/Context";
-import { maskCpf, removeCaracteres } from "../../../utils/masks";
+import { maskCpf, removeDigitos } from "../../../utils/masks";
 
 import { Cliente } from "../../../services/Cliente";
 import { IAutenticacaoForm, IDecodedToken } from "../../../types/autenticacao";
@@ -36,7 +36,7 @@ export const LoginTemplate = () => {
     setIsDisable(true);
 
     const PAYLOAD: IAutenticacaoForm = {
-      cpfCNPJ: removeCaracteres(form.cpfCNPJ),
+      cpfCNPJ: removeDigitos(form.cpfCNPJ),
       senha: form.senha,
     };
 
