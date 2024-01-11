@@ -9,7 +9,7 @@ export const SchedulingTemplate = () => {
 
   function handleClick({ tipoAtendimento }: { tipoAtendimento: string }) {
     setSession(tipoAtendimento);
-    window.open(`/agendamento/${tipoAtendimento}`, "_self");
+    window.open(`/agendamento/${tipoAtendimento.toLowerCase()}`, "_self");
   }
 
   return (
@@ -40,13 +40,13 @@ export const SchedulingTemplate = () => {
         <S.WrapperButtons>
           <ButtonCustom
             typeOfButton="BlueLight"
-            onClick={() => handleClick({ tipoAtendimento: "loja" })}
+            onClick={() => handleClick({ tipoAtendimento: "LOJA" })}
           >
             Loja Física
           </ButtonCustom>
           <ButtonCustom
             typeOfButton="BlueDark"
-            onClick={() => handleClick({ tipoAtendimento: "domicilio" })}
+            onClick={() => handleClick({ tipoAtendimento: "DOMICILIO" })}
           >
             Domicilio
           </ButtonCustom>

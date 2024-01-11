@@ -20,6 +20,7 @@ import { IAutenticacaoForm, IDecodedToken } from "../../../types/autenticacao";
 export const LoginTemplate = () => {
   const [token, setToken] = useSessionStorage("@token");
   const [clienteSession, setClienteSession] = useSessionStorage("cliente");
+  const [usuarioSession, setUsuarioSession] = useSessionStorage("usuario");
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const { isLoad, setIsLoad } = useContextSite();
@@ -51,7 +52,8 @@ export const LoginTemplate = () => {
         decoded?.uuid &&
           Cliente.getByUsuario({ uuidUsuario: decoded.uuid })
             .then(({ data }) => {
-              setClienteSession(data);
+              setClienteSession(data.uuid);
+              setUsuarioSession(decoded.uuid);
 
               toast.success("Login efetuado com sucesso");
 

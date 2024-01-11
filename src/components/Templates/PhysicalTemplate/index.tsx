@@ -47,6 +47,7 @@ export const PhysicalTemplate = () => {
       horaAgendada: form.horaAgendada,
       uuidAgendamento: sessionReagendamento?.uuid,
     };
+
     Agendamento.reagendar(PAYLOAD)
       .then(() => {
         toast.success("Reagendamento efetuado com sucesso!");
@@ -81,7 +82,7 @@ export const PhysicalTemplate = () => {
 
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
-        setSession(data);
+        setSession(data.uuid);
 
         if (token) {
           return window.open("/servicos", "_self");

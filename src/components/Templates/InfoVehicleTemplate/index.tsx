@@ -4,7 +4,6 @@ import * as S from "./styles";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { useParams } from "react-router-dom";
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
@@ -12,7 +11,10 @@ import { IVeiculoDTO } from "../../../types/agendamento";
 
 export const InfoVehicleTemplate = () => {
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
-  const { id } = useParams();
+  const [tipoAgendamento, setTipoAgendamento] =
+    useSessionStorage("tipoAgendamento");
+  const [veiculoSession, setVeiculoSession] = useSessionStorage("veiculo");
+
   const { setIsLoad } = useContextSite();
   const [veiculo, setVeiculo] = useState<IVeiculoDTO>({} as IVeiculoDTO);
 
@@ -24,8 +26,8 @@ export const InfoVehicleTemplate = () => {
 
     Veiculo.post(veiculo)
       .then(() => {
-        if (agendamento?.tipoAtendimento === "LOJA") {
-          window.open(`/pagamento`, "_self");
+        if (tipoAgendamento === "LOJA") {
+          window.open(`/pagamento/${agendamento}`, "_self");
           return;
         }
         window.open("/cadastro-endereco", "_self");
@@ -43,11 +45,11 @@ export const InfoVehicleTemplate = () => {
   }
 
   useEffect(() => {
-    if (!id) return;
+    if (!veiculoSession) return;
 
     setIsLoad(true);
 
-    Veiculo.byId({ uuid: id })
+    Veiculo.byId({ uuid: veiculoSession })
       .then(({ data }) => {
         setVeiculo(data);
       })
@@ -63,7 +65,7 @@ export const InfoVehicleTemplate = () => {
       .finally(() => {
         setIsLoad(false);
       });
-  }, [id]);
+  }, [veiculoSession]);
 
   return (
     <LayoutTemplate>

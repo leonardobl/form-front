@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
 import { IClienteForm } from "../../types/cliente";
+import { IClienteDTO } from "../../types/agendamento";
 
 const basePath = "/cliente";
 
@@ -13,7 +14,7 @@ export class Cliente {
     uuidUsuario,
   }: {
     uuidUsuario: string;
-  }): Promise<AxiosResponse<IClienteForm>> {
+  }): Promise<AxiosResponse<IClienteDTO>> {
     return ApiBrave.get(`${basePath}/usuario/${uuidUsuario}`);
   }
 }

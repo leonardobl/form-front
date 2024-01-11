@@ -19,11 +19,11 @@ export const PaymentTicketTemplate = () => {
   }
 
   useEffect(() => {
-    if (!agendamento?.uuid) return;
+    if (!agendamento) return;
 
     setIsLoad(true);
 
-    Pagamento.post({ uuidAgendamento: agendamento?.uuid })
+    Pagamento.post({ uuidAgendamento: agendamento })
       .then(({ data }) => {
         console.log(data);
       })
@@ -35,7 +35,7 @@ export const PaymentTicketTemplate = () => {
         }) => toast.error(mensagem)
       )
       .finally(() => setIsLoad(false));
-  }, [agendamento?.uuid]);
+  }, [agendamento]);
 
   return (
     <S.Container>

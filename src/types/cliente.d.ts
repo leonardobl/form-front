@@ -10,3 +10,13 @@ export interface IClienteForm {
   telefone?: string;
   tipo: TipoClienteEnum;
 }
+
+export interface IClienteDTO {
+  cpfCnpj: string;
+  email: string;
+  endereco?: IEnderecoDTO;
+  nome: string;
+  uuid: string;
+  telefone: string;
+  tipo: TipoClienteEnum;
+}

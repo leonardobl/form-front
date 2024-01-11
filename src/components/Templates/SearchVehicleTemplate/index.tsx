@@ -20,6 +20,7 @@ import { removerCaracteresEspeciais } from "../../../utils/masks";
 
 export const SearchVehicleTemplate = () => {
   const [serviceStorage, setServiceStorage] = useSessionStorage("servico");
+  const [sessionVeiculo, setSessionVeiculo] = useSessionStorage("veiculo");
 
   const [municipiosOptions, setMunicipiosOptions] = useState<ISelectOptions[]>(
     []
@@ -44,8 +45,10 @@ export const SearchVehicleTemplate = () => {
       };
 
       Veiculo.postByChassi(PAYLOAD)
+
         .then(({ data }) => {
-          window.open(`/informacoes-veiculo/${data?.uuid}`, "_self");
+          setSessionVeiculo(data.uuid);
+          window.open(`/informacoes-veiculo`, "_self");
         })
         .catch(
           ({
@@ -68,7 +71,8 @@ export const SearchVehicleTemplate = () => {
 
     Veiculo.postByPlaca(PAYLOAD)
       .then(({ data }) => {
-        window.open(`/informacoes-veiculo/${data?.uuid}`, "_self");
+        setSessionVeiculo(data.uuid);
+        window.open(`/informacoes-veiculo`, "_self");
       })
       .catch(
         ({

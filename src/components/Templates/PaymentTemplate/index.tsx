@@ -24,10 +24,10 @@ export const PaymentTemplate = () => {
   }
 
   useEffect(() => {
-    if (!agendamento?.uuid) return;
+    if (!agendamento) return;
     setIsLoad(true);
 
-    Pagamento.get({ uuidAgendamento: agendamento?.uuid })
+    Pagamento.get({ uuidAgendamento: agendamento })
       .then(({ data }) => {
         console.log(data);
         setPagamento(data);
@@ -40,7 +40,7 @@ export const PaymentTemplate = () => {
         }) => toast.error(mensagem)
       )
       .finally(() => setIsLoad(false));
-  }, [agendamento?.uuid]);
+  }, [agendamento]);
 
   return (
     <S.Container>
