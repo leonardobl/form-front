@@ -6,14 +6,20 @@ import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
+import { jwtDecode } from "jwt-decode";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useContextSite } from "../../../context/Context";
 import { maskCpf, removeCaracteres } from "../../../utils/masks";
+import { Agendamento } from "../../../services/Agendamento";
+import { Cliente } from "../../../services/Cliente";
+import { IAutenticacaoForm, IDecodedToken } from "../../../types/autenticacao";
 
 export const LoginTemplate = () => {
   const [token, setToken] = useSessionStorage("@token");
+  const [clienteSession, setClienteSession] = useSessionStorage("cliente");
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const { isLoad, setIsLoad } = useContextSite();
@@ -38,7 +44,22 @@ export const LoginTemplate = () => {
       .then(({ data }) => {
         setToken(data.token);
 
+        const decoded = jwtDecode<IDecodedToken>(data.token);
+
+        Cliente.getByUsuario({ uuidUsuario: decoded?.uuid })
+          .then(({ data }) => {
+            setClienteSession(data);
+          })
+          .catch(
+            ({
+              response: {
+                data: { mensagem },
+              },
+            }) => toast.error(mensagem)
+          );
+
         toast.success("Login efetuado com sucesso");
+
         setTimeout(() => {
           setIsDisable(false);
           if (agendamento) {
