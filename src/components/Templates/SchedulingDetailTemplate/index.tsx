@@ -4,7 +4,6 @@ import * as S from "./styles";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
-import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { reverseToBrDate } from "../../../utils/dateTransform";
@@ -16,16 +15,18 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const SchedulingDetailTemplate = () => {
   const { setIsLoad } = useContextSite();
-  const { id } = useParams();
+
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
     {} as IAgendamentoDTO
   );
   const [isOpen, setISOpen] = useState(false);
-  const [session, setSession] = useSessionStorage("detalheAgendamento");
+  const [detalheAgendamento, setDetalheAgendamento] =
+    useSessionStorage("detalheAgendamento");
+  const [reagendamento, setReagendamento] = useSessionStorage("reagendamento");
 
   function onRescheduling() {
     setIsLoad(true);
-    setSession(agendamento);
+    setReagendamento(agendamento?.uuid);
     setTimeout(() => {
       window.open(
         `/agendamento/${agendamento?.tipoAtendimento?.toLowerCase()}`,
@@ -37,8 +38,8 @@ export const SchedulingDetailTemplate = () => {
 
   useEffect(() => {
     setIsLoad(true);
-    if (id) {
-      Agendamento.getById({ uuid: id })
+    if (detalheAgendamento) {
+      Agendamento.getById({ uuid: detalheAgendamento })
         .then(({ data }) => setAgendamento(data))
         .catch(
           ({
@@ -49,7 +50,7 @@ export const SchedulingDetailTemplate = () => {
         )
         .finally(() => setIsLoad(false));
     }
-  }, [id]);
+  }, [detalheAgendamento]);
 
   return (
     <LayoutTemplate>

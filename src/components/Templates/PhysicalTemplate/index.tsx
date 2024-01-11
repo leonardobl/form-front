@@ -20,6 +20,7 @@ import {
 import { Delivery } from "../../../services/Delivery";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { reverseToBrDate } from "../../../utils/dateTransform";
+import { cleanStorage } from "../../../utils/cleanStorage";
 
 export const PhysicalTemplate = () => {
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
@@ -27,8 +28,7 @@ export const PhysicalTemplate = () => {
   );
   const { pathname } = useLocation();
   const [session, setSession] = useSessionStorage("agendamento");
-  const [sessionReagendamento, setSessionReagendamento] =
-    useSessionStorage("detalheAgendamento");
+  const [reagendamento, setReagendamento] = useSessionStorage("reagendamento");
   const [token, setToken] = useSessionStorage("@token");
   const [path, setPath] = useState(pathname.split("/"));
   const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>([]);
@@ -45,12 +45,13 @@ export const PhysicalTemplate = () => {
     const PAYLOAD: IReagendamentoProps = {
       diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
       horaAgendada: form.horaAgendada,
-      uuidAgendamento: sessionReagendamento?.uuid,
+      uuidAgendamento: reagendamento,
     };
 
     Agendamento.reagendar(PAYLOAD)
       .then(() => {
         toast.success("Reagendamento efetuado com sucesso!");
+        cleanStorage();
         setTimeout(() => {
           window.open("/", "_self");
         }, 2000);
@@ -68,7 +69,7 @@ export const PhysicalTemplate = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (sessionReagendamento?.uuid) {
+    if (reagendamento) {
       setIsOpen(true);
       return;
     }

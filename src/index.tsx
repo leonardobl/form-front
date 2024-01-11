@@ -76,7 +76,7 @@ root.render(
                 }
               />
               <Route
-                path="detalhe-agendamento/:id"
+                path="detalhe-agendamento"
                 element={
                   <ProtectedRoute>
                     <SchedulingDetail />

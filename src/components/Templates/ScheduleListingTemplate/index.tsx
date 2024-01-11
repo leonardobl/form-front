@@ -46,6 +46,9 @@ export const ScheduleListingTemplate = () => {
     label: item.split("_").join(" "),
   }));
 
+  const [detalheAgendamento, setDetalheAgendamento] =
+    useSessionStorage("detalheAgendamento");
+
   const colorsStatus: { [key: string]: { color: string } } = {
     INICIADO: {
       color: "#0025A8",
@@ -399,12 +402,13 @@ export const ScheduleListingTemplate = () => {
                   <img
                     alt="icone de visualização"
                     src="/assets/imgs/visualizar-icon.svg"
-                    onClick={() =>
+                    onClick={() => {
+                      setDetalheAgendamento(item.uuid);
                       window.open(
-                        `/meus-agendamentos/detalhe-agendamento/${item.uuid}`,
+                        `/meus-agendamentos/detalhe-agendamento`,
                         "_black"
-                      )
-                    }
+                      );
+                    }}
                   />{" "}
                 </S.ItemGrid>
               </S.GridItem>

@@ -4,6 +4,7 @@ import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { cleanStorage } from "../../../utils/cleanStorage";
 
 export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
@@ -16,10 +17,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   function handleLoginLogout() {
     if (token) {
       sessionStorage.removeItem("@token");
-      sessionStorage.removeItem("tipoAtendimento");
-      sessionStorage.removeItem("agendamento");
-      sessionStorage.removeItem("cliente");
-
+      cleanStorage();
       window.open("/login", "_self");
     }
     window.open("/login-cadastro", "_self");
