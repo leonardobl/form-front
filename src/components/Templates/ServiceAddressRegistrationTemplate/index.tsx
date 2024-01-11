@@ -24,20 +24,7 @@ export const ServiceAddressRegistrationTemplate = () => {
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
-  // const inpSenhaRef = useRef<HTMLInputElement>(null);
-  // const inpConfirSenha = useRef<HTMLInputElement>(null);
-
-  // function checkPass() {
-  //   const pass = inpSenhaRef.current.value;
-  //   const confirm = inpConfirSenha.current.value;
-
-  //   if (pass !== confirm) {
-  //     inpConfirSenha.current.setCustomValidity("As senhas não conferem");
-  //     return;
-  //   }
-
-  //   inpConfirSenha.current.setCustomValidity("");
-  // }
+  const [isDisabled, setIsDisabled] = useState(false);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -93,13 +80,22 @@ export const ServiceAddressRegistrationTemplate = () => {
             setForm((prev) => ({
               ...prev,
               endereco: {
-                logradouro: data.street,
-                bairro: data.neighborhood,
-                cidade: data.city,
-                uf: data.state,
-                cep: newCepValue,
+                logradouro: data.street || "",
+                bairro: data.neighborhood || "",
+                cidade: data.city || "",
+                uf: data.state || "",
+                cep: newCepValue || "",
               },
             }));
+
+            if (data.city !== agendamento?.delivery?.cidade) {
+              toast.error("Endereço fora da cidade escolhida para atendimento");
+              setIsDisabled(true);
+
+              return;
+            }
+
+            setIsDisabled(false);
           })
           .catch((erro) => toast.error("Cep não encontrado"))
           .finally(() => setIsLoad(false));
@@ -284,33 +280,8 @@ export const ServiceAddressRegistrationTemplate = () => {
                 />
               </S.Grid>
 
-              {/* <S.Grid $gridTemplate="1fr 1fr" $gap="0 24px">
-                <label>
-                  Senha <span>*</span>
-                </label>
-                <label>
-                  Confirmar Senha <span>*</span>
-                </label>
-                <InputCustom
-                  required
-                  type="password"
-                  value={form.senha}
-                  ref={inpSenhaRef}
-                  onChange={(e) => {
-                    setForm((prev) => ({ ...prev, senha: e.target.value }));
-                    checkPass();
-                  }}
-                />
-                <InputCustom
-                  ref={inpConfirSenha}
-                  type="password"
-                  required
-                  onChange={checkPass}
-                />
-              </S.Grid> */}
-
               <S.WrapperButton>
-                <ButtonCustom typeOfButton="Login">
+                <ButtonCustom typeOfButton="Login" disabled={isDisabled}>
                   Cadastrar Serviço
                 </ButtonCustom>
               </S.WrapperButton>

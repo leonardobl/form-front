@@ -18,6 +18,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       sessionStorage.removeItem("@token");
       sessionStorage.removeItem("tipoAtendimento");
       sessionStorage.removeItem("agendamento");
+      sessionStorage.removeItem("cliente");
 
       window.open("/login", "_self");
     }

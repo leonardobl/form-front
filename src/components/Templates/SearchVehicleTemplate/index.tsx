@@ -144,7 +144,6 @@ export const SearchVehicleTemplate = () => {
             $gap={serviceStorage === "Emplacamento" ? "0 70px" : "0 24px"}
           >
             <InputCustom
-              type={serviceStorage === "Emplacamento" ? "number" : "text"}
               label={serviceStorage === "Emplacamento" ? "Chassi" : "Placa"}
               required
               value={
