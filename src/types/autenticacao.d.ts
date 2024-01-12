@@ -1,4 +1,4 @@
-import { RolesEnum } from "./roles";
+import { RolesEnum } from "../enums/roles";
 
 interface IAutenticacaoForm {
   cpfCNPJ: string;

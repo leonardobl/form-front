@@ -16,6 +16,7 @@ import { maskCpf, removeDigitos } from "../../../utils/masks";
 
 import { Cliente } from "../../../services/Cliente";
 import { IAutenticacaoForm, IDecodedToken } from "../../../types/autenticacao";
+import { RolesEnum } from "../../../enums/roles";
 
 export const LoginTemplate = () => {
   const [token, setToken] = useSessionStorage("@token");
@@ -59,11 +60,16 @@ export const LoginTemplate = () => {
 
               setTimeout(() => {
                 setIsDisable(false);
-                if (agendamento) {
-                  return window.open("/servicos", "_self");
+
+                if (!decoded?.perfis?.includes(RolesEnum.ROLE_CLIENTE)) {
+                  return window.open("/agendamento", "_self");
                 }
 
-                return window.open("/agendamento", "_self");
+                if (decoded?.perfis?.includes(RolesEnum.ROLE_CLIENTE)) {
+                  return window.open("/meus-agendamentos", "_self");
+                }
+
+                return window.open("/", "_self");
               }, 2000);
             })
             .catch(

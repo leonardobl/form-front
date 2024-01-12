@@ -18,7 +18,8 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
     if (token) {
       sessionStorage.removeItem("@token");
       cleanStorage();
-      window.open("/login", "_self");
+      window.open("/", "_self");
+      return;
     }
     window.open("/login-cadastro", "_self");
   }
