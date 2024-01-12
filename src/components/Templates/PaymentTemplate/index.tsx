@@ -7,14 +7,16 @@ import { toast } from "react-toastify";
 
 import { useContextSite } from "../../../context/Context";
 import { Pagamento } from "../../../services/Pagamento";
-import { IFaturaDTO } from "../../../types/pagamento";
+import { IFaturaDTO, IFaturaResponse } from "../../../types/pagamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const PaymentTemplate = () => {
   const [payment, setPaymento] = useState("");
   const { isLoad, setIsLoad } = useContextSite();
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
-  const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
+  const [pagamento, setPagamento] = useState<IFaturaResponse>(
+    {} as IFaturaResponse
+  );
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -27,7 +29,7 @@ export const PaymentTemplate = () => {
     if (!agendamento) return;
     setIsLoad(true);
 
-    Pagamento.get({ uuidAgendamento: agendamento?.uuid })
+    Pagamento.gerarFatura({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
         console.log(data);
         setPagamento(data);

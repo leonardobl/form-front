@@ -6,12 +6,13 @@ import {
   IFaturaDTO,
   IFaturaResponse,
   IFormStatusPagamento,
+  IReembolsoResponse,
 } from "../../types/pagamento";
 
 const basePath = "/pagamento";
 
 export class Pagamento {
-  static async get({
+  static async consultarFatura({
     uuidAgendamento,
   }: {
     uuidAgendamento: string;
@@ -21,17 +22,37 @@ export class Pagamento {
     );
   }
 
-  static async getStatus({ form }: { form: IFormStatusPagamento }) {
-    return ApiBrave.get(`${basePath}/status-pagamento`);
+  static async cancelarPagamento({
+    uuidAgendamento,
+  }: {
+    uuidAgendamento: string;
+  }): Promise<AxiosResponse<IReembolsoResponse>> {
+    return ApiBrave.put(
+      `${basePath}/agendamento/${uuidAgendamento}/cancelar-fatura`
+    );
   }
 
-  static async post({
+  static async statusPagamento({ form }: { form: IFormStatusPagamento }) {
+    return ApiBrave.get(`${basePath}/status-pagamento`, form);
+  }
+
+  static async gerarFatura({
     uuidAgendamento,
   }: {
     uuidAgendamento: string;
   }): Promise<AxiosResponse<IFaturaResponse>> {
     return ApiBrave.post(
       `${basePath}/agendamento/${uuidAgendamento}/gerar-fatura`
+    );
+  }
+
+  static async reembolso({
+    uuidAgendamento,
+  }: {
+    uuidAgendamento: string;
+  }): Promise<AxiosResponse<IReembolsoResponse>> {
+    return ApiBrave.post(
+      `${basePath}/agendamento/${uuidAgendamento}/reembolsar`
     );
   }
 }

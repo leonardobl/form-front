@@ -7,12 +7,13 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
-import { IVeiculoDTO } from "../../../types/agendamento";
+
+import { IVeiculoDTO, IVeiculoForm } from "../../../types/veiculo";
 
 export const InfoVehicleTemplate = () => {
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const [tipoAgendamento, setTipoAgendamento] =
-    useSessionStorage("tipoAgendamento");
+    useSessionStorage("tipoAtendimento");
   const [veiculoSession, setVeiculoSession] = useSessionStorage("veiculo");
 
   const { setIsLoad } = useContextSite();
@@ -21,27 +22,14 @@ export const InfoVehicleTemplate = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (!veiculo.uuid) return;
     setIsLoad(true);
-
-    Veiculo.post(veiculo)
-      .then(() => {
-        if (tipoAgendamento === "LOJA") {
-          window.open(`/pagamento/${agendamento}`, "_self");
-          return;
-        }
-        window.open("/cadastro-endereco", "_self");
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-        }
-      )
-      .finally(() => setIsLoad(false));
+    setTimeout(() => {
+      if (tipoAgendamento === "LOJA") {
+        window.open(`/pagamento`, "_self");
+        return;
+      }
+      window.open("/cadastro-endereco", "_self");
+    }, 1000);
   }
 
   useEffect(() => {

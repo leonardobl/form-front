@@ -3,9 +3,9 @@ import { ApiBrave } from "../../Apis/Brave";
 import {
   IConsultaVeiculoChassiForm,
   IConsultaVeiculoPlacaForm,
+  IVeiculoDTO,
   IVeiculoForm,
 } from "../../types/veiculo";
-import { IVeiculoDTO } from "../../types/agendamento";
 
 const basePath = "/veiculo";
 

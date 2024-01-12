@@ -83,7 +83,7 @@ export const PhysicalTemplate = () => {
 
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
-        setSession({ uuid: data.uuid, cidade: data.delivery.cidade });
+        setSession({ uuid: data.uuid, cidade: data?.delivery?.cidade });
 
         if (token) {
           return window.open("/servicos", "_self");

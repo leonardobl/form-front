@@ -1,10 +1,12 @@
+import { tipoVeiculoEnum } from "../enums/tipoVeiculo";
+
 export interface IVeiculoForm {
   ano: string;
   chassi: string;
   modelo: string;
   placa: string;
   renavam: string;
-  tipo: string;
+  tipo: tipoVeiculoEnum;
 }
 
 export interface IConsultaVeiculoChassiForm {
@@ -19,7 +21,7 @@ export interface IVeiculoDTO {
   modelo: string;
   placa: string;
   renavam: string;
-  tipo: string;
+  tipo: tipoVeiculoEnum;
   uuid: string;
 }
 

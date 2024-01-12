@@ -85,3 +85,15 @@ export interface IPixResponse {
   qrcode_text: string;
   status: string;
 }
+
+export interface IReembolsoResponse {
+  currency: string;
+  discount_cents: string;
+  due_date: string;
+  email: string;
+  id: string;
+  items_total_cents: number;
+  notification_url: string;
+  return_url: string;
+  status: string;
+}

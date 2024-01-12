@@ -71,16 +71,6 @@ export interface IServicoDTO {
   valorPadrao: number;
 }
 
-export interface IVeiculoDTO {
-  ano: string;
-  chassi: string;
-  modelo: string;
-  placa: string;
-  renavam: string;
-  tipo: TipoServicoEnum;
-  uuid: string;
-}
-
 export interface IAgendamentoBasicoForm {
   diaAgendado: string;
   horaAgendada: string;

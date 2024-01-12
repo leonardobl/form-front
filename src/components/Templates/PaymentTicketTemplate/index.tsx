@@ -23,7 +23,7 @@ export const PaymentTicketTemplate = () => {
 
     setIsLoad(true);
 
-    Pagamento.post({ uuidAgendamento: agendamento?.uuid })
+    Pagamento.consultarFatura({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
         console.log(data);
       })
