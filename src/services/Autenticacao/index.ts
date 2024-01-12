@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { ApiUsuarios } from "../../Apis/Usuarios";
+import { IAutenticacaoForm } from "../../types/autenticacao";
 
 const basePath = "/login";
 
