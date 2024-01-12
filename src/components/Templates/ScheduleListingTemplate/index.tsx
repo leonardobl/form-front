@@ -23,6 +23,7 @@ import {
   reverseToIsoDate,
 } from "../../../utils/dateTransform";
 import { ISelectOptions } from "../../../types/inputs";
+import { removeEmpty } from "../../../utils/removeEmpty";
 
 export const ScheduleListingTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -48,6 +49,8 @@ export const ScheduleListingTemplate = () => {
 
   const [detalheAgendamento, setDetalheAgendamento] =
     useSessionStorage("detalheAgendamento");
+
+  const [sessionClient, setSessionClient] = useSessionStorage("cliente");
 
   const colorsStatus: { [key: string]: { color: string } } = {
     INICIADO: {
@@ -91,7 +94,12 @@ export const ScheduleListingTemplate = () => {
     setDate(null);
     setNumberPage(0);
 
-    Agendamento.get({ size, page: 0 })
+    getAgendamentos({ size, page: 0 });
+  }
+
+  function getAgendamentos(filters: IGetAgendamentosProps) {
+    const filtered = removeEmpty(filters);
+    Agendamento.get({ ...filtered, idCliente: sessionClient?.uuid })
       .then(({ data }) => {
         setAgendamentos(data.content);
 
@@ -136,24 +144,7 @@ export const ScheduleListingTemplate = () => {
   useEffect(() => {
     setIsLoad(true);
 
-    Agendamento.get({ ...formFilter, size, page: numberPage })
-      .then(({ data }) => {
-        setAgendamentos(data.content);
-
-        setPagination({
-          actualPage: data.number,
-          totalPage: data.totalPages,
-          totalRegister: data.totalElements,
-        });
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
-      .finally(() => setIsLoad(false));
+    getAgendamentos({ ...formFilter, size, page: numberPage });
   }, [numberPage]);
 
   function handleSubmit(e: React.SyntheticEvent) {
@@ -168,23 +159,7 @@ export const ScheduleListingTemplate = () => {
 
     setNumberPage(0);
 
-    Agendamento.get({ ...formFilter, size, page: 0 })
-      .then(({ data }) => {
-        setAgendamentos(data.content);
-        setPagination({
-          actualPage: data.number,
-          totalPage: data.totalPages,
-          totalRegister: data.totalElements,
-        });
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
-      .finally(() => setIsLoad(false));
+    getAgendamentos({ ...formFilter, size, page: 0 });
   }
 
   return (

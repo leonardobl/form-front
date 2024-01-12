@@ -17,11 +17,11 @@ export const PaymentPixTemplate = () => {
   }
 
   useEffect(() => {
-    if (!agendamento) return;
+    if (!agendamento?.uuid) return;
 
     setIsLoad(true);
 
-    Pagamento.post({ uuidAgendamento: agendamento })
+    Pagamento.post({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
         console.log(data);
       })

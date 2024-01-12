@@ -32,6 +32,7 @@ export interface IGetAgendamentosProps extends IPageRequest {
   placa?: string;
   renavam?: string;
   statusAgendamento?: StatusAgendamentoEnum;
+  idCliente?: string;
 }
 export class Agendamento {
   static async get(
