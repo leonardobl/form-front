@@ -27,7 +27,7 @@ export const PaymentTemplate = () => {
     if (!agendamento) return;
     setIsLoad(true);
 
-    Pagamento.get({ uuidAgendamento: agendamento })
+    Pagamento.get({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
         console.log(data);
         setPagamento(data);

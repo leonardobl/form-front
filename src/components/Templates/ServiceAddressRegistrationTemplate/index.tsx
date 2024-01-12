@@ -34,7 +34,7 @@ export const ServiceAddressRegistrationTemplate = () => {
     const PAYLOAD = { ...form, uuid: agendamento?.uuid };
 
     Agendamento.putAddress(PAYLOAD)
-      .then(() => {
+      .then(({ data }) => {
         toast.success("Endereco cadastrado com sucesso!");
         setTimeout(() => {
           window.open("/pagamento", "_self");
@@ -88,7 +88,7 @@ export const ServiceAddressRegistrationTemplate = () => {
               },
             }));
 
-            if (data.city !== agendamento?.delivery?.cidade) {
+            if (data.city !== agendamento?.cidade) {
               toast.error("Endereço fora da cidade escolhida para atendimento");
               setIsDisabled(true);
 
