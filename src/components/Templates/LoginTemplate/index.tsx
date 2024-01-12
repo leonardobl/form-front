@@ -52,7 +52,7 @@ export const LoginTemplate = () => {
         decoded?.uuid &&
           Cliente.getByUsuario({ uuidUsuario: decoded.uuid })
             .then(({ data }) => {
-              setClienteSession(data.uuid);
+              setClienteSession({ uuid: data.uuid, role: decoded.perfis });
               setUsuarioSession(decoded.uuid);
 
               toast.success("Login efetuado com sucesso");

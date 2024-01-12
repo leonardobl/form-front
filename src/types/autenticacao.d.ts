@@ -1,3 +1,5 @@
+import { RolesEnum } from "./roles";
+
 interface IAutenticacaoForm {
   cpfCNPJ: string;
   senha: string;
@@ -9,5 +11,6 @@ export interface IDecodedToken {
   uuid: string;
   nome: string;
   type: string;
+  perfis: RolesEnum;
   exp: number;
 }
