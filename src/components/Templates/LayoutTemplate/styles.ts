@@ -174,3 +174,27 @@ export const WrapperSocialIconsFooter = styled.div`
     margin-bottom: 5px;
   }
 `;
+
+export const ButtonMySchedule = styled.button`
+  display: inline-flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  height: 54px;
+  background: linear-gradient(180deg, #0025a8 0%, #00114d 100%);
+
+  color: #fff;
+  text-align: center;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+`;
+
+export const WrapperButtons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0 48px;
+`;

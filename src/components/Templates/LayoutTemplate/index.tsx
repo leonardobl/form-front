@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { cleanStorage } from "../../../utils/cleanStorage";
+import { RolesEnum } from "../../../enums/roles";
 
 export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
   const [token, setToken] = useSessionStorage("@token");
+  const [cliente, setCliente] = useSessionStorage("cliente");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,6 +24,13 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     window.open("/login-cadastro", "_self");
+  }
+
+  function handleMySchedule() {
+    if (cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) && token) {
+      window.open("/meus-agendamentos", "_self");
+      return;
+    }
   }
 
   return (
@@ -61,9 +70,20 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
               Contatos
             </NavHashLink>
           </S.HeaderMenu>
-          <ButtonCustom typeOfButton="Login" onClick={handleLoginLogout}>
-            {token ? "Logout" : "Login"}
-          </ButtonCustom>
+          <S.WrapperButtons>
+            <Link
+              to={
+                cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) &&
+                token &&
+                "/meus-agendamentos"
+              }
+            >
+              <S.ButtonMySchedule>Meus Agendamentos</S.ButtonMySchedule>
+            </Link>
+            <ButtonCustom typeOfButton="Login" onClick={handleLoginLogout}>
+              {token ? "Logout" : "Login"}
+            </ButtonCustom>
+          </S.WrapperButtons>
         </S.HeaderContent>
       </S.header>
       {children}
