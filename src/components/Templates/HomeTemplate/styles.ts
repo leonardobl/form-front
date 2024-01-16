@@ -330,7 +330,7 @@ export const SectionServicesContent = styled.div`
       padding: 0 24px;
 
       > p {
-        display: none;
+        font-size: 16px;
       }
     }
   `}
