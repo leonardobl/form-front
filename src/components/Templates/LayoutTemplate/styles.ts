@@ -120,12 +120,6 @@ export const FooterBarContent = styled.div`
 
 export const FooterContent = styled.div`
   ${({ theme: { space } }) => css`
-    @media (max-width: 500px) {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
     max-width: 1158px;
     margin: 0 auto;
     display: grid;
@@ -142,6 +136,13 @@ export const FooterContent = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: 32px;
+
+    @media (max-width: 500px) {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 32px 0 0;
+    }
   `}
 `;
 
