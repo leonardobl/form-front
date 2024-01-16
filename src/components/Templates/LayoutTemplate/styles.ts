@@ -77,21 +77,14 @@ export const Footer = styled.footer`
 export const FooterBar = styled.div`
   height: 104px;
   border-top: 1px solid #d9d9d9;
+
+  @media (max-width: 500px) {
+    height: 160px;
+  }
 `;
 
 export const FooterBarContent = styled.div`
   ${({ theme: { space } }) => css`
-    @media (max-width: 500px) {
-      flex-direction: column;
-      justify-content: space-around;
-
-      > h3 {
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 600;
-      }
-    }
-
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -109,6 +102,17 @@ export const FooterBarContent = styled.div`
 
       span {
         color: #266bf0;
+      }
+    }
+
+    @media (max-width: 500px) {
+      flex-direction: column;
+      justify-content: center;
+
+      > h3 {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
       }
     }
   `}
