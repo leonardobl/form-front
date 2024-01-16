@@ -10,10 +10,18 @@ export const Container = styled.div`
 export const header = styled.header`
   height: 144px;
   background-color: #266bf0;
+
+  @media (max-width: 500px) {
+    padding: 0 20px;
+  }
 `;
 
 export const HeaderContent = styled.div`
   ${({ theme: { space } }) => css`
+    @media (max-width: 500px) {
+      gap: 0 16px;
+    }
+
     max-width: ${space.medio};
     margin: 0 auto;
     height: 100%;
@@ -24,7 +32,25 @@ export const HeaderContent = styled.div`
   `}
 `;
 
+export const Logo = styled.img`
+  @media (max-width: 500px) {
+    width: 70px;
+  }
+`;
+
+export const MenuMobile = styled.img`
+  @media (max-width: 500px) {
+    display: block;
+  }
+
+  display: none;
+`;
+
 export const HeaderMenu = styled.nav`
+  @media (max-width: 500px) {
+    display: none;
+  }
+
   display: flex;
   gap: 40px;
   align-items: center;
@@ -55,6 +81,17 @@ export const FooterBar = styled.div`
 
 export const FooterBarContent = styled.div`
   ${({ theme: { space } }) => css`
+    @media (max-width: 500px) {
+      flex-direction: column;
+      justify-content: space-around;
+
+      > h3 {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 600;
+      }
+    }
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -79,6 +116,12 @@ export const FooterBarContent = styled.div`
 
 export const FooterContent = styled.div`
   ${({ theme: { space } }) => css`
+    @media (max-width: 500px) {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
     max-width: 1158px;
     margin: 0 auto;
     display: grid;
@@ -98,18 +141,42 @@ export const FooterContent = styled.div`
   `}
 `;
 
-export const FooterFirstDiv = styled.div``;
+export const FooterFirstDiv = styled.div`
+  @media (max-width: 500px) {
+    > img {
+      width: 137px;
+    }
+  }
+`;
 
 export const FooterSecondDiv = styled.div`
+  @media (max-width: 500px) {
+    > div {
+      gap: 0;
+      margin-top: 0;
+
+      > img {
+        width: 32px;
+      }
+
+      > p {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+      }
+    }
+  }
+
   display: flex;
   flex-direction: column;
   align-items: start;
 
-  div {
+  > div {
     display: flex;
     gap: 10px;
     margin-top: 22px;
-    img {
+
+    > img {
       margin-top: -5px;
     }
   }
@@ -135,6 +202,13 @@ export const WrapperThirdDivContent = styled.div`
 `;
 
 export const TitleSectionFooter = styled.h3`
+  @media (max-width: 500px) {
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 16px;
+  }
+
   color: #eee;
   text-align: center;
   font-family: "Poppins";
@@ -176,6 +250,20 @@ export const WrapperSocialIconsFooter = styled.div`
 `;
 
 export const ButtonMySchedule = styled.button`
+  @media (max-width: 500px) {
+    max-width: 105px;
+    height: 28px;
+
+    color: #fff;
+    text-align: center;
+    font-family: "Poppins";
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    white-space: nowrap;
+  }
+
   display: inline-flex;
   padding: 10px;
   justify-content: center;
@@ -194,6 +282,12 @@ export const ButtonMySchedule = styled.button`
 `;
 
 export const WrapperButtons = styled.div`
+  @media (max-width: 500px) {
+    gap: 0 20px;
+    flex: 1;
+    justify-content: space-around;
+  }
+
   display: flex;
   align-items: center;
   gap: 0 48px;

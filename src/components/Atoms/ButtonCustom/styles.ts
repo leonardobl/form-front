@@ -24,6 +24,19 @@ export const Buttongradiente = styled.button<{ $disabled?: boolean }>`
 
 export const ButtonLogin = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
+    @media (max-width: 500px) {
+      display: flex;
+      width: 66px;
+      height: 28px;
+      padding: 0;
+      border-radius: 5px;
+      justify-content: center;
+      align-items: center;
+
+      color: #00186d;
+      font-size: 8px;
+    }
+
     border-radius: 5px;
     background: linear-gradient(181deg, #fff -28.23%, #cacaca 99.08%);
     padding: 15px 75px;

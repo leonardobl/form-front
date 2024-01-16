@@ -38,7 +38,10 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       <S.header id="home">
         <S.HeaderContent>
           <NavHashLink smooth={true} to={"/"}>
-            <img src="/assets/imgs/logo-starcheck01.svg" alt="logo starcheck" />
+            <S.Logo
+              src="/assets/imgs/logo-starcheck01.svg"
+              alt="logo starcheck"
+            />
           </NavHashLink>
 
           <S.HeaderMenu>
@@ -84,6 +87,11 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
               {token ? "Logout" : "Login"}
             </ButtonCustom>
           </S.WrapperButtons>
+
+          <S.MenuMobile
+            src="/assets/imgs/hamburguer.svg"
+            alt="icone de menu hamburguer"
+          />
         </S.HeaderContent>
       </S.header>
       {children}
