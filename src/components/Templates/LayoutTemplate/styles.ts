@@ -12,7 +12,7 @@ export const header = styled.header`
   background-color: #266bf0;
 
   @media (max-width: 500px) {
-    padding: 0 20px;
+    padding: 0 24px;
   }
 `;
 
@@ -34,7 +34,7 @@ export const HeaderContent = styled.div`
 
 export const Logo = styled.img`
   @media (max-width: 500px) {
-    width: 70px;
+    width: 105px;
   }
 `;
 
@@ -251,17 +251,7 @@ export const WrapperSocialIconsFooter = styled.div`
 
 export const ButtonMySchedule = styled.button`
   @media (max-width: 500px) {
-    max-width: 105px;
-    height: 28px;
-
-    color: #fff;
-    text-align: center;
-    font-family: "Poppins";
-    font-size: 8px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
-    white-space: nowrap;
+    display: none;
   }
 
   display: inline-flex;

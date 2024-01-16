@@ -6,16 +6,16 @@ export const Container = styled.div`
 
 export const SectioStarCheckContent = styled.div`
   ${({ theme: { space } }) => css`
-    @media (max-width: 500px) {
-      flex-direction: column;
-      padding: 0 20px;
-    }
-
     max-width: ${space.medio};
     margin: 0 auto;
     display: flex;
     height: 100%;
   `}
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    padding: 0 24px;
+  }
 `;
 
 export const SectioStarCheck = styled.div`
@@ -26,6 +26,7 @@ export const SectioStarCheck = styled.div`
 
     @media (max-width: 500px) {
       background-color: #fff;
+      padding-top: 32px;
     }
   `}
 `;
@@ -39,16 +40,6 @@ export const SectioStarCheckLeftSide = styled.div`
 `;
 
 export const Title = styled.h2`
-  @media (max-width: 500px) {
-    font-size: 36px;
-    line-height: 1;
-    margin-bottom: 24px;
-
-    img {
-      width: 23px;
-    }
-  }
-
   color: #111;
   font-family: "Poppins";
   font-size: 72px;
@@ -59,6 +50,16 @@ export const Title = styled.h2`
 
   span {
     display: block;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 24px;
+
+    img {
+      width: 23px;
+    }
   }
 `;
 
@@ -96,12 +97,12 @@ export const SectioStarCheckLeftSideWrapper = styled.div`
       max-width: 100%;
 
       > p {
-        font-size: 14px !important;
+        font-size: 16px !important;
         line-height: 20px !important;
       }
 
       button {
-        margin: 50px auto 0;
+        margin: 36px auto 40px;
       }
     }
 
@@ -163,8 +164,8 @@ export const SectioStarCheckRightSideWrapper = styled.div`
     }
 
     @media (max-width: 500px) {
-      width: 240px;
-      height: 320px;
+      width: 280px;
+      height: 360px;
 
       margin: 80px auto;
 
@@ -195,7 +196,6 @@ export const SectionAboutContent = styled.div`
     margin: 0 auto;
 
     button {
-      margin: 0 auto;
       display: block;
       margin: 70px auto;
     }
@@ -210,11 +210,11 @@ export const TextBlue = styled.span`
 export const TextDefault = styled.p`
   margin-bottom: 24px;
   color: #2d2d2d;
-  font-family: Roboto;
+  font-family: "Roboto";
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 32px; /* 160% */
+  line-height: 32px;
 `;
 
 export const TextStrong = styled.span`
@@ -322,8 +322,12 @@ export const SectionServicesContent = styled.div`
     margin: 0 auto;
     text-align: center;
 
+    button {
+      margin: 0 auto;
+    }
+
     @media (max-width: 500px) {
-      padding: 0 20px;
+      padding: 0 24px;
 
       > p {
         display: none;
@@ -337,7 +341,7 @@ export const TableService = styled.table`
     background: #00114d;
   }
 
-  tbody tr:nth-child(4) {
+  tbody tr:nth-child(3) {
     background: #00114d;
   }
 
@@ -356,22 +360,6 @@ export const TableService = styled.table`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   td {
-    h2 {
-      color: #eee;
-      font-family: "Poppins";
-      font-size: 32px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 38px;
-
-      display: flex;
-      margin: 0 auto;
-
-      justify-content: center;
-      gap: 16px;
-      align-items: center;
-    }
-
     h3 {
       color: #eee;
       text-align: center;
@@ -420,20 +408,46 @@ export const TableService = styled.table`
   @media (max-width: 500px) {
     width: 100%;
 
-    & td {
+    td > p {
       font-size: 16px;
-
-      h2 {
-        font-size: 20px;
-      }
-
-      h3 {
-        font-size: 32px;
-      }
+      max-width: 110px;
+      text-align: left;
+      margin: 0 auto;
     }
 
-    tbody td:nth-child(1) {
-      font-size: 16px;
+    td > h3 {
+      font-size: 28px;
+      gap: 6px;
+    }
+  }
+`;
+
+export const TableWrapperTitle = styled.div`
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  gap: 0 10px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const TitleTable = styled.h2`
+  color: #eee;
+  font-family: "Poppins";
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 38px;
+
+  @media (max-width: 500px) {
+    font-size: 18px;
+    max-width: 320px;
+    line-height: 1.6;
+    text-align: start;
+    white-space: nowrap;
+
+    span {
+      display: block;
     }
   }
 `;
@@ -441,6 +455,10 @@ export const TableService = styled.table`
 export const SectionLocation = styled.div`
   ${({ theme: { space } }) => css`
     padding: 120px 0;
+
+    @media (max-width: 500px) {
+      padding: 50px 0;
+    }
   `}
 `;
 
@@ -449,6 +467,8 @@ export const SectionLocationContent = styled.div`
     max-width: ${space.medio};
     margin: 0 auto;
     text-align: center;
+
+    padding: 0 24px;
   `}
 `;
 
@@ -534,6 +554,10 @@ export const SectionContact = styled.section`
   padding: 150px 0;
   background: #266bf0;
   min-height: 216px;
+
+  @media (max-width: 500px) {
+    padding: 50px 0;
+  }
 `;
 
 export const SectionContactContent = styled.div`
@@ -569,6 +593,32 @@ export const SectionContactContent = styled.div`
       }
     }
   `}
+
+  @media (max-width: 500px) {
+    padding: 0 24px;
+
+    display: flex;
+    justify-content: center;
+
+    > div {
+      width: 210px;
+    }
+
+    > div + div {
+      margin-top: 16px;
+    }
+
+    h1 {
+      font-size: 36px;
+      text-align: center;
+      width: 100%;
+      margin-bottom: 36px;
+
+      img {
+        width: 26px;
+      }
+    }
+  }
 `;
 
 export const TextRed = styled.span`

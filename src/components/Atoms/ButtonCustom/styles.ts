@@ -2,19 +2,6 @@ import styled, { css } from "styled-components";
 
 export const Buttongradiente = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
-    @media (max-width: 500px) {
-      display: flex;
-      width: 160.185px;
-      height: 40px;
-      padding: 10px 25px;
-      justify-content: center;
-      align-items: center;
-
-      font-size: 12px;
-      letter-spacing: 0.36px;
-      white-space: nowrap;
-    }
-
     display: block;
     padding: 20px 30px;
     border-radius: 5px;
@@ -33,22 +20,36 @@ export const Buttongradiente = styled.button<{ $disabled?: boolean }>`
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
     -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
     -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+
+    @media (max-width: 500px) {
+      display: flex;
+      width: 160px;
+      height: 45px;
+      padding: 10px 25px;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 12px;
+      letter-spacing: 0.36px;
+      white-space: nowrap;
+    }
   `}
 `;
 
 export const ButtonLogin = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
     @media (max-width: 500px) {
+      width: 83px;
+      height: 32px;
+      padding: 15px 50px;
       display: flex;
-      width: 66px;
-      height: 28px;
-      padding: 0;
-      border-radius: 5px;
       justify-content: center;
       align-items: center;
 
-      color: #00186d;
-      font-size: 8px;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px;
     }
 
     border-radius: 5px;

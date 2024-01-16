@@ -134,6 +134,7 @@ export const HomeTemplate = () => {
             </S.SectionCards>
           </S.SectionAboutContent>
         </S.SectionAbout>
+
         <S.SectionServices id="servicos">
           <S.SectionServicesContent>
             <S.Title>
@@ -150,20 +151,24 @@ export const HomeTemplate = () => {
               <thead>
                 <tr>
                   <td colSpan={2}>
-                    <h2>
+                    <S.TableWrapperTitle>
                       <img
                         src="assets/imgs/pin-icon.svg"
                         alt="pin de localização"
                       />
-                      Vistoria de Transferência{" "}
-                      <S.TextBlue>Posto fixo</S.TextBlue>
-                    </h2>
+                      <S.TitleTable>
+                        Vistoria de Transferência{" "}
+                        <S.TextBlue>Posto fixo</S.TextBlue>
+                      </S.TitleTable>
+                    </S.TableWrapperTitle>
                   </td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Carro e Moto</td>
+                  <td>
+                    <p>Carro e Moto</p>
+                  </td>
                   <td>
                     {" "}
                     <h3>
@@ -174,8 +179,10 @@ export const HomeTemplate = () => {
 
                 <tr>
                   <td>
-                    Veículos Grande Porte
-                    <S.TextRed> *</S.TextRed>
+                    <p>
+                      Veículos Grande Porte
+                      <S.TextRed> *</S.TextRed>
+                    </p>
                   </td>
                   <td>
                     {" "}
@@ -186,14 +193,16 @@ export const HomeTemplate = () => {
                 </tr>
                 <tr>
                   <td colSpan={2}>
-                    <h2>
+                    <S.TableWrapperTitle>
                       <img
                         src="assets/imgs/mapa-icon.svg"
                         alt="pin de localização"
                       />
-                      Vistoria de Transferência{" "}
-                      <S.TextBlue>Domicilar</S.TextBlue>
-                    </h2>
+                      <S.TitleTable>
+                        Vistoria de Transferência{" "}
+                        <S.TextBlue>Domicilar</S.TextBlue>
+                      </S.TitleTable>
+                    </S.TableWrapperTitle>
                   </td>
                 </tr>
               </tbody>
@@ -233,7 +242,8 @@ export const HomeTemplate = () => {
             </Link>
           </S.SectionServicesContent>
         </S.SectionServices>
-        {/* <S.SectionLocation id="localizacao">
+
+        <S.SectionLocation id="localizacao">
           <S.SectionLocationContent>
             <S.Title>
               Localização{}{" "}
@@ -432,7 +442,7 @@ export const HomeTemplate = () => {
               <p>(99) 98535-5900</p>
             </div>
           </S.SectionContactContent>
-        </S.SectionContact> */}
+        </S.SectionContact>
       </S.Container>
     </LayoutTemplate>
   );
