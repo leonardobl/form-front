@@ -6,6 +6,11 @@ export const Container = styled.div`
 
 export const SectioStarCheckContent = styled.div`
   ${({ theme: { space } }) => css`
+    @media (max-width: 500px) {
+      flex-direction: column;
+      padding: 0 20px;
+    }
+
     max-width: ${space.medio};
     margin: 0 auto;
     display: flex;
@@ -18,6 +23,10 @@ export const SectioStarCheck = styled.div`
     background: #eee;
     height: 720px;
     padding-top: 90px;
+
+    @media (max-width: 500px) {
+      background-color: #fff;
+    }
   `}
 `;
 
@@ -30,6 +39,16 @@ export const SectioStarCheckLeftSide = styled.div`
 `;
 
 export const Title = styled.h2`
+  @media (max-width: 500px) {
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 24px;
+
+    img {
+      width: 23px;
+    }
+  }
+
   color: #111;
   font-family: "Poppins";
   font-size: 72px;
@@ -73,9 +92,22 @@ export const SectioStarCheckLeftSideWrapper = styled.div`
   ${({ theme: { space } }) => css`
     max-width: 70%;
 
-    p {
+    @media (max-width: 500px) {
+      max-width: 100%;
+
+      > p {
+        font-size: 14px !important;
+        line-height: 20px !important;
+      }
+
+      button {
+        margin: 50px auto 0;
+      }
+    }
+
+    > p {
       color: #2d2d2d;
-      font-family: Roboto;
+      font-family: "Roboto";
       font-size: 20px;
       font-style: normal;
       font-weight: 400;
@@ -129,11 +161,32 @@ export const SectioStarCheckRightSideWrapper = styled.div`
       width: 477px;
       height: 314px;
     }
+
+    @media (max-width: 500px) {
+      width: 240px;
+      height: 320px;
+
+      margin: 80px auto;
+
+      &::before {
+        width: 211.741px;
+        height: 139.2px;
+      }
+
+      &::after {
+        width: 211.741px;
+        height: 139.2px;
+      }
+    }
   `}
 `;
 
 export const SectionAbout = styled.div`
   padding: 120px 0;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const SectionAboutContent = styled.div`
@@ -256,6 +309,10 @@ export const SectionServices = styled.div`
     max-width: ${space.large};
     background-color: #eee;
     padding: 80px 0;
+
+    @media (max-width: 500px) {
+      margin-top: 100px;
+    }
   `}
 `;
 
@@ -264,6 +321,14 @@ export const SectionServicesContent = styled.div`
     max-width: ${space.medio};
     margin: 0 auto;
     text-align: center;
+
+    @media (max-width: 500px) {
+      padding: 0 20px;
+
+      > p {
+        display: none;
+      }
+    }
   `}
 `;
 
@@ -350,6 +415,26 @@ export const TableService = styled.table`
     font-style: normal;
     font-weight: 700;
     line-height: 32px;
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+
+    & td {
+      font-size: 16px;
+
+      h2 {
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 32px;
+      }
+    }
+
+    tbody td:nth-child(1) {
+      font-size: 16px;
+    }
   }
 `;
 

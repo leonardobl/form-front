@@ -43,6 +43,7 @@ export const HomeTemplate = () => {
             </S.SectioStarCheckRightSide>
           </S.SectioStarCheckContent>
         </S.SectioStarCheck>
+
         <S.SectionAbout id="sobre">
           <S.SectionAboutContent>
             <S.Title>
@@ -170,15 +171,7 @@ export const HomeTemplate = () => {
                     </h3>
                   </td>
                 </tr>
-                {/* <tr>
-                  <td>Carro</td>
-                  <td>
-                    {" "}
-                    <h3>
-                      R$ 152 <span>**</span>
-                    </h3>
-                  </td>
-                </tr> */}
+
                 <tr>
                   <td>
                     Veículos Grande Porte
@@ -215,7 +208,6 @@ export const HomeTemplate = () => {
               </tfoot>
             </S.TableService>
 
-            {/* <S.SubTitle>Tipo de Veículo</S.SubTitle> */}
             <S.Textplus>
               <S.TextRed>*</S.TextRed>Ônibus <S.TextBlue>-</S.TextBlue>{" "}
               Micro-ônibus <S.TextBlue>-</S.TextBlue> Reboque{" "}
@@ -241,7 +233,7 @@ export const HomeTemplate = () => {
             </Link>
           </S.SectionServicesContent>
         </S.SectionServices>
-        <S.SectionLocation id="localizacao">
+        {/* <S.SectionLocation id="localizacao">
           <S.SectionLocationContent>
             <S.Title>
               Localização{}{" "}
@@ -440,7 +432,7 @@ export const HomeTemplate = () => {
               <p>(99) 98535-5900</p>
             </div>
           </S.SectionContactContent>
-        </S.SectionContact>
+        </S.SectionContact> */}
       </S.Container>
     </LayoutTemplate>
   );

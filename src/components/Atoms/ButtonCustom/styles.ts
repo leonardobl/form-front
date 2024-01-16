@@ -2,6 +2,20 @@ import styled, { css } from "styled-components";
 
 export const Buttongradiente = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
+    @media (max-width: 500px) {
+      display: flex;
+      width: 160.185px;
+      height: 40px;
+      padding: 10px 25px;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 12px;
+      letter-spacing: 0.36px;
+      white-space: nowrap;
+    }
+
+    display: block;
     padding: 20px 30px;
     border-radius: 5px;
     background: linear-gradient(180deg, #558fff 0%, #002ed1 100%);
