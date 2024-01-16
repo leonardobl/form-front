@@ -597,11 +597,11 @@ export const SectionContactContent = styled.div`
   @media (max-width: 500px) {
     padding: 0 24px;
 
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
 
     > div {
       width: 210px;
+      align-self: center;
     }
 
     > div + div {
