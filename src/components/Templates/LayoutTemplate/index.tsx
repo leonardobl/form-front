@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { useLocation, Link } from "react-router-dom";
@@ -6,11 +6,13 @@ import { NavHashLink } from "react-router-hash-link";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { cleanStorage } from "../../../utils/cleanStorage";
 import { RolesEnum } from "../../../enums/roles";
+import { MenuMobile } from "../../Atoms/MenuMobile";
 
 export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
   const [token, setToken] = useSessionStorage("@token");
   const [cliente, setCliente] = useSessionStorage("cliente");
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,16 +28,10 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
     window.open("/login-cadastro", "_self");
   }
 
-  function handleMySchedule() {
-    if (cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) && token) {
-      window.open("/meus-agendamentos", "_self");
-      return;
-    }
-  }
-
   return (
     <S.Container>
       <S.header id="home">
+        {menuIsOpen && <MenuMobile handleOnChange={setMenuIsOpen} />}
         <S.HeaderContent>
           <NavHashLink smooth={true} to={"/"}>
             <S.Logo
@@ -91,6 +87,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
           <S.MenuMobile
             src="/assets/imgs/hamburguer.svg"
             alt="icone de menu hamburguer"
+            onClick={() => setMenuIsOpen(true)}
           />
         </S.HeaderContent>
       </S.header>
