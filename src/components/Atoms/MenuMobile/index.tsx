@@ -3,6 +3,8 @@ import * as S from "./styles";
 import { useLocation } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 import { IoClose } from "react-icons/io5";
+import { RolesEnum } from "../../../enums/roles";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 interface MenuMobileProps {
   handleOnChange: (e: boolean) => void;
@@ -10,8 +12,16 @@ interface MenuMobileProps {
 
 export const MenuMobile = ({ handleOnChange }: MenuMobileProps) => {
   const { pathname } = useLocation();
+  const [cliente, setCliente] = useSessionStorage("cliente");
+  const [token, setToken] = useSessionStorage("@token");
 
-  function handleClose() {
+  function handleClose({ path }: { path: string }) {
+    if (
+      path === "/meus-agendamentos" &&
+      !cliente?.role?.includes(RolesEnum.ROLE_CLIENTE)
+    ) {
+      return;
+    }
     handleOnChange(false);
   }
   return (
@@ -23,7 +33,7 @@ export const MenuMobile = ({ handleOnChange }: MenuMobileProps) => {
       <S.Ul>
         <li>
           <NavHashLink
-            onClick={handleClose}
+            onClick={() => handleClose({ path: "sobre" })}
             smooth={true}
             to={pathname !== "/" ? "/#sobre" : "#sobre"}
           >
@@ -33,7 +43,7 @@ export const MenuMobile = ({ handleOnChange }: MenuMobileProps) => {
 
         <li>
           <NavHashLink
-            onClick={handleClose}
+            onClick={() => handleClose({ path: "servicos" })}
             smooth={true}
             to={pathname !== "/" ? "/#servicos" : "#servicos"}
           >
@@ -43,7 +53,7 @@ export const MenuMobile = ({ handleOnChange }: MenuMobileProps) => {
 
         <li>
           <NavHashLink
-            onClick={handleClose}
+            onClick={() => handleClose({ path: "localizacao" })}
             smooth={true}
             to={pathname !== "/" ? "/#localizacao" : "#localizacao"}
           >
@@ -53,7 +63,7 @@ export const MenuMobile = ({ handleOnChange }: MenuMobileProps) => {
 
         <li>
           <NavHashLink
-            onClick={handleClose}
+            onClick={() => handleClose({ path: "contato" })}
             smooth={true}
             to={pathname !== "/" ? "/#contato" : "#contato"}
           >
@@ -63,9 +73,13 @@ export const MenuMobile = ({ handleOnChange }: MenuMobileProps) => {
 
         <li>
           <NavHashLink
-            onClick={handleClose}
+            onClick={() => handleClose({ path: "/meus-agendamentos" })}
             smooth={true}
-            to={pathname !== "/" ? "/#contato" : "#contato"}
+            to={
+              cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) &&
+              token &&
+              "/meus-agendamentos"
+            }
           >
             Meus Agendamentos
           </NavHashLink>

@@ -9,6 +9,7 @@ export const Container = styled.div`
   right: 0;
   background-color: #266bf0;
   z-index: 10;
+  min-height: 100dvh;
 `;
 
 export const Ul = styled.ul`
@@ -16,12 +17,12 @@ export const Ul = styled.ul`
     color: #fff;
     font-family: "Roboto";
     font-weight: bold;
-    padding: 20px 0;
+    padding: 25px 20px;
   }
 
   li {
     text-align: center;
-    padding: 20px 0;
+    padding: 25px 0;
   }
 
   li + li {
