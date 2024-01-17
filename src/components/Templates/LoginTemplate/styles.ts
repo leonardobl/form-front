@@ -2,6 +2,10 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   padding: 180px 0;
+
+  @media (max-width: 500px) {
+    padding: 40px 24px;
+  }
 `;
 
 export const Form = styled.form`
@@ -10,6 +14,10 @@ export const Form = styled.form`
   background: #266bf0;
   margin: 0 auto;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const Header = styled.header`
@@ -30,10 +38,22 @@ export const Header = styled.header`
     line-height: 24px;
     letter-spacing: 1.08px;
   }
+
+  @media (max-width: 500px) {
+    h1 {
+      font-size: 20px;
+      line-height: 32px;
+      letter-spacing: 0.6px;
+    }
+  }
 `;
 
 export const FormContent = styled.div`
   padding: 50px 100px;
+
+  @media (max-width: 500px) {
+    padding: 45px 24px;
+  }
 `;
 
 export const Grid = styled.div<{ $gridTemplate: string; $gap?: string }>`
@@ -71,9 +91,24 @@ export const Grid = styled.div<{ $gridTemplate: string; $gap?: string }>`
         color: #ed0000;
       }
     }
+
+    @media (max-width: 500px) {
+      label {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20px; /
+        letter-spacing: 0.48px;
+      }
+    }
   `}
 `;
 
 export const WrapperButton = styled.div`
   text-align: center;
+
+  @media (max-width: 500px) {
+    button {
+      margin: 0 auto;
+    }
+  }
 `;
