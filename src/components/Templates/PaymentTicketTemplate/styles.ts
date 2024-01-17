@@ -2,12 +2,17 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   padding: 180px 0;
+
+  @media (max-width: 500px) {
+    padding: 40px 20px;
+  }
 `;
 
 export const Content = styled.div`
   ${({ theme: { space } }) => css`
-    width: ${space.medio};
+    max-width: ${space.medio};
     margin: 0 auto;
+    width: 100%;
   `}
 `;
 
@@ -20,6 +25,11 @@ export const Title = styled.h1`
   line-height: 24px;
   letter-spacing: 1.08px;
   margin-bottom: 24px;
+
+  @media (max-width: 500px) {
+    font-size: 24px;
+    text-align: center;
+  }
 `;
 
 export const Text = styled.p`
@@ -30,6 +40,12 @@ export const Text = styled.p`
   font-weight: 400;
   line-height: 32px;
   margin-bottom: 32px;
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+  }
 `;
 
 export const TextStrong = styled.span`
@@ -57,11 +73,24 @@ export const Info = styled.div`
       margin-right: 6px;
     }
   }
+
+  @media (max-width: 500px) {
+    padding: 10px 10px;
+
+    p {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
 `;
 
 export const CodBarImg = styled.img`
   margin: 0 auto 30px auto;
   display: block;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const WrapperCod = styled.div`
