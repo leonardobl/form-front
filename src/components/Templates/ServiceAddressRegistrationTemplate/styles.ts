@@ -2,11 +2,19 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   padding: 180px 0;
+
+  @media (max-width: 500px) {
+    padding: 40px 20px;
+  }
 `;
 
 export const Content = styled.div`
   width: 750px;
   margin: 0 auto;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const Header = styled.header`
@@ -27,6 +35,16 @@ export const Header = styled.header`
     font-weight: 700;
     line-height: 24px;
     letter-spacing: 1.08px;
+  }
+
+  @media (max-width: 500px) {
+    h1 {
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 32px;
+      letter-spacing: 0.6px;
+    }
   }
 `;
 
@@ -63,6 +81,10 @@ export const Grid = styled.div<{ $gridTemplate: string; $gap?: string }>`
 
 export const WrapperContentForm = styled.div`
   padding: 70px 100px;
+
+  @media (max-width: 500px) {
+    padding: 25px 20px;
+  }
 `;
 
 export const WrapperButton = styled.div`
