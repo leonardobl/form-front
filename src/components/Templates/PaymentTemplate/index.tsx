@@ -54,26 +54,30 @@ export const PaymentTemplate = () => {
         </S.Text>
 
         <S.WrapperPayments>
-          <PaymentsOptionsContainer
-            name="pagamento"
-            required
-            value="R$ 116.92"
-            handleSelect={(e) => setPaymento(e)}
-            iconLeft="/assets/imgs/pix-icon.svg"
-            textIcon="PIX"
-          />
+          <div>
+            <PaymentsOptionsContainer
+              name="pagamento"
+              required
+              value="R$ 116.92"
+              handleSelect={(e) => setPaymento(e)}
+              iconLeft="/assets/imgs/pix-icon.svg"
+              textIcon="PIX"
+            />
+            <p>Confirmado na hora!</p>
+          </div>
 
-          <PaymentsOptionsContainer
-            required
-            handleSelect={(e) => setPaymento(e)}
-            name="pagamento"
-            value="R$ 118.50"
-            iconLeft="/assets/imgs/cod-barra.svg"
-            textIcon="BOLETO"
-          />
+          <div>
+            <PaymentsOptionsContainer
+              required
+              handleSelect={(e) => setPaymento(e)}
+              name="pagamento"
+              value="R$ 118.50"
+              iconLeft="/assets/imgs/cod-barra.svg"
+              textIcon="BOLETO"
+            />
 
-          <p>Confirmado na hora!</p>
-          <p>Confirmado em até 3 dias úteis!</p>
+            <p>Confirmado em até 3 dias úteis!</p>
+          </div>
         </S.WrapperPayments>
 
         <S.WrapperButton>

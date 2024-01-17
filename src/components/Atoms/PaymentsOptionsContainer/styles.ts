@@ -16,6 +16,10 @@ export const Label = styled.label`
   &:has(> input:checked) {
     outline: 2px solid #266bf0;
   }
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const Input = styled.input`
@@ -31,6 +35,10 @@ export const WrapperLeftContent = styled.div`
 
 export const Icon = styled.img`
   margin-top: -4px;
+
+  @media (max-width: 500px) {
+    width: 30px;
+  }
 `;
 
 export const TextIcon = styled.p`
@@ -41,6 +49,10 @@ export const TextIcon = styled.p`
   font-style: normal;
   font-weight: 700;
   line-height: 38px;
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
 export const Value = styled.p`
   color: #26be51;
@@ -50,4 +62,8 @@ export const Value = styled.p`
   font-style: normal;
   font-weight: 600;
   line-height: 31px;
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+  }
 `;
