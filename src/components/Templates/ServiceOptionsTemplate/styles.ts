@@ -41,13 +41,17 @@ export const WrapperButtons = styled.div`
   gap: 40px;
   justify-content: center;
 
-  /* button {
+  button {
     width: 300px;
     padding: 20px;
-  } */
+  }
 
   @media (max-width: 500px) {
     flex-direction: column;
     align-items: center;
+
+    button {
+      max-width: 173px;
+    }
   }
 `;
