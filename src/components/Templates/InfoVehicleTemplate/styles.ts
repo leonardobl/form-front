@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   ${({ theme: { space } }) => css`
-    padding: 170px 0;
     margin: 0 auto;
     max-width: ${space.large};
     width: 100%;
