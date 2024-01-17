@@ -86,6 +86,20 @@ export const ButtonBlueLight = styled.button<{ $disabled?: boolean }>`
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
     -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
     -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+
+    @media (max-width: 500px) {
+      display: flex;
+      width: 160px;
+      height: 45px;
+
+      justify-content: center;
+      align-items: center;
+
+      font-size: 12px;
+      line-height: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.36px;
+    }
   `}
 `;
 
@@ -108,6 +122,19 @@ export const ButtonBlueDark = styled.button<{ $disabled?: boolean }>`
     box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
     -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
     -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.31);
+
+    @media (max-width: 500px) {
+      display: flex;
+      width: 160px;
+      height: 45px;
+
+      justify-content: center;
+      align-items: center;
+
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: 0.36px;
+    }
   `}
 `;
 

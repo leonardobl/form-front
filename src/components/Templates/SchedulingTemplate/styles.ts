@@ -13,6 +13,13 @@ export const Banner = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center right;
+
+  @media (max-width: 600px) {
+    height: 244px;
+    padding: 32px 24px;
+    background-size: cover;
+    background-position: center;
+  }
 `;
 
 export const BannerLeftSide = styled.div`
@@ -43,6 +50,21 @@ export const BannerLeftSideContent = styled.div`
     font-weight: 400;
     line-height: 32px;
   }
+
+  @media (max-width: 500px) {
+    h1 {
+      font-size: 24px;
+      font-style: normal;
+      line-height: 32px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 16px;
+      width: 230px;
+      line-height: 20px;
+    }
+  }
 `;
 
 export const BannerRightSide = styled.div`
@@ -69,6 +91,15 @@ export const Preference = styled.div`
     margin: auto;
     margin-bottom: 80px;
   }
+
+  @media (max-width: 500px) {
+    padding: 40px 24px;
+
+    p {
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
 `;
 
 export const WrapperButtons = styled.div`
@@ -76,4 +107,16 @@ export const WrapperButtons = styled.div`
   justify-content: center;
   gap: 72px;
   align-items: center;
+
+  @media (max-width: 500px) {
+    display: block;
+
+    button {
+      margin: 0 auto;
+    }
+
+    button + button {
+      margin-top: 32px;
+    }
+  }
 `;
