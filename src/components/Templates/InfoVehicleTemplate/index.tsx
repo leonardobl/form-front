@@ -61,22 +61,34 @@ export const InfoVehicleTemplate = () => {
         <S.Content>
           <h1>Informações do veículo</h1>
           <S.Form onSubmit={handleSubmit}>
-            <S.Grid>
-              <S.TitleItemGrid>Modelo do carro</S.TitleItemGrid>
-              <S.TitleItemGrid>Ano</S.TitleItemGrid>
-              <S.TitleItemGrid>Placa</S.TitleItemGrid>
-              <InputCustom readOnly value={veiculo?.modelo} />
-              <InputCustom readOnly value={veiculo?.ano} />
-              <InputCustom readOnly value={veiculo?.placa} />
-            </S.Grid>
-            <S.Grid>
-              <S.TitleItemGrid>Chassi</S.TitleItemGrid>
-              <S.TitleItemGrid>Renavam</S.TitleItemGrid>
-              <S.TitleItemGrid>Tipo de veículo</S.TitleItemGrid>
-              <InputCustom readOnly value={veiculo?.chassi} />
-              <InputCustom readOnly value={veiculo?.renavam} />
-              <InputCustom readOnly value={veiculo?.tipo} />
-            </S.Grid>
+            <S.FirstGrid>
+              <div>
+                <S.TitleItemGrid>Modelo do carro</S.TitleItemGrid>
+                <InputCustom readOnly value={veiculo?.modelo} />
+              </div>
+              <div>
+                <S.TitleItemGrid>Ano</S.TitleItemGrid>
+                <InputCustom readOnly value={veiculo?.ano} />
+              </div>
+              <div>
+                <S.TitleItemGrid>Placa</S.TitleItemGrid>
+                <InputCustom readOnly value={veiculo?.placa} />
+              </div>
+            </S.FirstGrid>
+            <S.SecondGrid>
+              <div>
+                <S.TitleItemGrid>Chassi</S.TitleItemGrid>
+                <InputCustom readOnly value={veiculo?.chassi} />
+              </div>
+              <div>
+                <S.TitleItemGrid>Renavam</S.TitleItemGrid>
+                <InputCustom readOnly value={veiculo?.renavam} />
+              </div>
+              <div>
+                <S.TitleItemGrid>Tipo de veículo</S.TitleItemGrid>
+                <InputCustom readOnly value={veiculo?.tipo} />
+              </div>
+            </S.SecondGrid>
             <S.WrapperBtn>
               <ButtonCustom typeOfButton="BlueLight">Confirmar</ButtonCustom>
             </S.WrapperBtn>
