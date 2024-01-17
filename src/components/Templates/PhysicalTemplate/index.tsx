@@ -254,7 +254,6 @@ export const PhysicalTemplate = () => {
                 path.includes("loja") ? !form.uuidLoja : !form.uuidDelivery
               }
               excludeDates={diasIndisponiveis}
-              monthsShown={2}
               onChange={(e) => setDate(e)}
               placeholderText="__/__/__"
               selected={date}
