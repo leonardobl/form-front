@@ -38,11 +38,27 @@ export const Buttongradiente = styled.button<{ $disabled?: boolean }>`
 
 export const ButtonLogin = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
+    border-radius: 5px;
+    background: linear-gradient(181deg, #fff -28.23%, #cacaca 99.08%);
+    padding: 15px 75px;
+    cursor: ${$disabled ? "not-allowed" : "pointer"};
+
+    display: block;
+    color: #002ed1;
+    text-align: center;
+    font-family: "Poppins";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+
     @media (max-width: 500px) {
-      width: 83px;
+      width: fit-content;
       height: 32px;
-      padding: 15px 50px;
+
+      padding: 20px 20px;
       display: flex;
+      white-space: nowrap;
       justify-content: center;
       align-items: center;
 
@@ -51,19 +67,6 @@ export const ButtonLogin = styled.button<{ $disabled?: boolean }>`
       font-weight: 500;
       line-height: 24px;
     }
-
-    border-radius: 5px;
-    background: linear-gradient(181deg, #fff -28.23%, #cacaca 99.08%);
-    padding: 15px 75px;
-    cursor: ${$disabled ? "not-allowed" : "pointer"};
-
-    color: #002ed1;
-    text-align: center;
-    font-family: "Poppins";
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
   `}
 `;
 
