@@ -34,4 +34,10 @@ export const Input = styled.input`
   &:focus {
     outline: 1px solid #266bf0;
   }
+
+  @media (max-width: 500px) {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 500;
+  }
 `;

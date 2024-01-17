@@ -154,7 +154,7 @@ export const ButtonGhost = styled.button<{ $disabled?: boolean }>`
 
     color: #266bf0;
     text-align: center;
-    font-family: Roboto;
+    font-family: "Roboto";
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -162,6 +162,21 @@ export const ButtonGhost = styled.button<{ $disabled?: boolean }>`
     text-transform: uppercase;
     border: 1px solid #266bf0;
     border-radius: 5px;
+
+    @media (max-width: 500px) {
+      display: flex;
+      width: 140px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 16px;
+      padding: 0;
+      font-weight: 500;
+      line-height: 20px;
+      white-space: pre-wrap;
+      text-transform: uppercase;
+    }
   `}
 `;
 
