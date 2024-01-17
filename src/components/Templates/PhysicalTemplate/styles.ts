@@ -2,6 +2,10 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   padding: 180px 0;
+
+  @media (max-width: 500px) {
+    padding: 40px 24px;
+  }
 `;
 
 export const Form = styled.form`
@@ -23,6 +27,13 @@ export const Form = styled.form`
       font-weight: 400;
       line-height: 32px;
     }
+    @media (max-width: 500px) {
+      width: 100%;
+
+      p {
+        font-size: 16px;
+      }
+    }
   `}
 `;
 
@@ -30,12 +41,27 @@ export const WrapperInput = styled.div`
   max-width: 400px;
   margin: 40px 0 48px;
   flex: 1;
+
+  @media (max-width: 500px) {
+    width: 100%;
+    margin: 32px 0;
+    flex: 0;
+
+    + div {
+      margin-top: 0;
+    }
+  }
 `;
 
 export const InputsContainer = styled.div`
   display: flex;
   gap: 100px;
   margin-bottom: 50px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 32px;
+  }
 `;
 
 export const TextBlue = styled.span`
@@ -53,6 +79,13 @@ export const Title = styled.h1`
   font-weight: 700;
   line-height: 24px;
   letter-spacing: 1.08px;
+
+  @media (max-width: 500px) {
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.72px;
+    text-align: center;
+  }
 `;
 
 export const ContentModal = styled.div`

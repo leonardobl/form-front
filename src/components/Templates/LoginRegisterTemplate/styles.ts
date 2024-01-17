@@ -20,6 +20,16 @@ export const Container = styled.div`
       font-weight: 700;
     }
   }
+
+  @media (max-width: 500px) {
+    padding: 40px 24px;
+
+    p {
+      font-size: 16px;
+      max-width: 186px;
+      margin: 0 auto;
+    }
+  }
 `;
 
 export const WrapperButtons = styled.div`
@@ -27,4 +37,10 @@ export const WrapperButtons = styled.div`
   display: flex;
   justify-content: center;
   gap: 40px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+  }
 `;
