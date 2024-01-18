@@ -54,27 +54,66 @@ export const Form = styled.form`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
-export const Grid = styled.div<{ $gridTemplate: string; $gap?: string }>`
-  ${({ $gap, $gridTemplate }) => css`
+export const Grid = styled.div`
+  ${() => css`
     display: grid;
-    grid-template-columns: ${$gridTemplate};
-    gap: ${$gap};
-    margin-bottom: 24px;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 24px;
+    grid-template-areas:
+      "nome nome nome nome nome telefone telefone telefone"
+      "cep cep cep cep numero numero numero numero"
+      "rua rua rua rua rua rua rua rua"
+      "bairro bairro bairro bairro complemento complemento complemento complemento"
+      "uf uf uf uf cidade cidade cidade cidade";
 
-    label {
+    > div label {
       color: #eee;
-      padding-bottom: 12px;
       text-align: center;
       font-family: "Poppins";
       font-size: 20px;
       font-style: normal;
       font-weight: 500;
-      line-height: 24px;
       letter-spacing: 0.6px;
 
       span {
         color: #ed0000;
       }
+    }
+
+    div:nth-child(1) {
+      grid-area: nome;
+    }
+
+    div:nth-child(2) {
+      grid-area: telefone;
+    }
+
+    :nth-child(3) {
+      grid-area: cep;
+    }
+
+    :nth-child(4) {
+      grid-area: numero;
+    }
+
+    :nth-child(5) {
+      grid-area: rua;
+    }
+
+    :nth-child(6) {
+      grid-area: bairro;
+    }
+
+    :nth-child(7) {
+      grid-area: complemento;
+    }
+
+    :nth-child(8) {
+      grid-area: uf;
+    }
+
+    :nth-child(9) {
+      grid-area: cidade;
     }
   `}
 `;
@@ -89,9 +128,9 @@ export const WrapperContentForm = styled.div`
 
 export const WrapperButton = styled.div`
   margin-top: 80px;
-  text-align: center;
 
   button {
-    padding: 20px 75px;
+    padding: 20px 40px;
+    margin: 0 auto;
   }
 `;

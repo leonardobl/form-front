@@ -134,150 +134,157 @@ export const ServiceAddressRegistrationTemplate = () => {
               <h1>Endereço de Realização do Serviço</h1>
             </S.Header>
             <S.WrapperContentForm>
-              <S.Grid $gridTemplate="2fr 1fr" $gap="0 24px">
-                <label>
-                  Nome <span>*</span>
-                </label>
-                <label>
-                  Telefone <span>*</span>
-                </label>
+              <S.Grid>
+                <div>
+                  <label>
+                    Nome <span>*</span>
+                  </label>
+                  <InputCustom
+                    required
+                    value={form.nome}
+                    onChange={(e) =>
+                      setForm((prev) => ({ ...prev, nome: e.target.value }))
+                    }
+                  />
+                </div>
 
-                <InputCustom
-                  required
-                  value={form.nome}
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, nome: e.target.value }))
-                  }
-                />
+                <div>
+                  <label>
+                    Telefone <span>*</span>
+                  </label>
+                  <InputCustom
+                    required
+                    value={form.telefone}
+                    maxLength={15}
+                    onChange={(e) => handlePhone(e.target.value)}
+                  />
+                </div>
 
-                <InputCustom
-                  required
-                  value={form.telefone}
-                  maxLength={15}
-                  onChange={(e) => handlePhone(e.target.value)}
-                />
-              </S.Grid>
+                <div>
+                  <label>
+                    CEP <span>*</span>
+                  </label>
+                  <InputCustom
+                    required
+                    maxLength={9}
+                    value={form?.endereco?.cep}
+                    onChange={(e) => handleCep(e.target.value)}
+                  />
+                </div>
 
-              <S.Grid $gridTemplate="1fr 1fr" $gap="0 24px">
-                <label>
-                  CEP <span>*</span>
-                </label>
+                <div>
+                  <label>
+                    Número <span>*</span>
+                  </label>
+                  <InputCustom
+                    required
+                    type="number"
+                    value={form?.endereco?.numero}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        endereco: {
+                          ...prev.endereco,
+                          numero: e.target.value,
+                        },
+                      }))
+                    }
+                  />
+                </div>
 
-                <label>
-                  Número <span>*</span>
-                </label>
-                <InputCustom
-                  required
-                  maxLength={9}
-                  value={form?.endereco?.cep}
-                  onChange={(e) => handleCep(e.target.value)}
-                />
+                <div>
+                  <label>
+                    Endereço (Rua) <span>*</span>
+                  </label>
+                  <InputCustom
+                    placeholder="Rua"
+                    required
+                    value={form?.endereco?.logradouro}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        endereco: {
+                          ...prev.endereco,
+                          logradouro: e.target.value,
+                        },
+                      }))
+                    }
+                  />
+                </div>
 
-                <InputCustom
-                  required
-                  type="number"
-                  value={form?.endereco?.numero}
-                  onChange={(e) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      endereco: {
-                        ...prev.endereco,
-                        numero: e.target.value,
-                      },
-                    }))
-                  }
-                />
-              </S.Grid>
-              <S.Grid $gridTemplate="1fr">
-                <label>
-                  Endereço (Rua) <span>*</span>
-                </label>
-                <InputCustom
-                  placeholder="Rua"
-                  required
-                  value={form?.endereco?.logradouro}
-                  onChange={(e) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      endereco: {
-                        ...prev.endereco,
-                        logradouro: e.target.value,
-                      },
-                    }))
-                  }
-                />
-              </S.Grid>
+                <div>
+                  <label>
+                    Bairro <span>*</span>
+                  </label>
+                  <InputCustom
+                    required
+                    value={form?.endereco?.bairro}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        endereco: { ...prev.endereco, bairro: e.target.value },
+                      }))
+                    }
+                  />
+                </div>
 
-              <S.Grid $gridTemplate="1fr 1fr" $gap="0 24px">
-                <label>
-                  Bairro <span>*</span>
-                </label>
-                <label>Complemento</label>
-                <InputCustom
-                  required
-                  value={form?.endereco?.bairro}
-                  onChange={(e) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      endereco: { ...prev.endereco, bairro: e.target.value },
-                    }))
-                  }
-                />
+                <div>
+                  <label>Complemento</label>
+                  <InputCustom
+                    value={form?.endereco?.complemento}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        endereco: {
+                          ...prev.endereco,
+                          complemento: e.target.value,
+                        },
+                      }))
+                    }
+                  />
+                </div>
 
-                <InputCustom
-                  value={form?.endereco?.complemento}
-                  onChange={(e) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      endereco: {
-                        ...prev.endereco,
-                        complemento: e.target.value,
-                      },
-                    }))
-                  }
-                />
-              </S.Grid>
-
-              <S.Grid $gridTemplate="1fr 1fr" $gap="0 24px">
-                <label>
-                  UF <span>*</span>
-                </label>
-                <label>
-                  Cidade <span>*</span>
-                </label>
-
-                <SimpleSelect
-                  placeholder=""
-                  options={ufOptions}
-                  value={ufOptions.find(
-                    (item) => item.value === form?.endereco?.uf
-                  )}
-                  onChange={(e) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      endereco: { ...prev.endereco, uf: e.value },
-                    }))
-                  }
-                />
-
-                <SimpleSelect
-                  key={`${Math.random()}-${form?.endereco?.uf}`}
-                  required
-                  placeholder=""
-                  value={cidadesOptions.find(
-                    (item) => item.value === form?.endereco?.cidade
-                  )}
-                  options={cidadesOptions}
-                  onChange={(e) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      endereco: {
-                        ...prev.endereco,
-                        cidade: e.value,
-                      },
-                    }))
-                  }
-                />
+                <div>
+                  <label>
+                    UF <span>*</span>
+                  </label>
+                  <SimpleSelect
+                    placeholder=""
+                    options={ufOptions}
+                    value={ufOptions.find(
+                      (item) => item.value === form?.endereco?.uf
+                    )}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        endereco: { ...prev.endereco, uf: e.value },
+                      }))
+                    }
+                  />
+                </div>
+                <div>
+                  <label>
+                    Cidade <span>*</span>
+                  </label>
+                  <SimpleSelect
+                    key={`${Math.random()}-${form?.endereco?.uf}`}
+                    required
+                    placeholder=""
+                    value={cidadesOptions.find(
+                      (item) => item.value === form?.endereco?.cidade
+                    )}
+                    options={cidadesOptions}
+                    onChange={(e) =>
+                      setForm((prev) => ({
+                        ...prev,
+                        endereco: {
+                          ...prev.endereco,
+                          cidade: e.value,
+                        },
+                      }))
+                    }
+                  />
+                </div>
               </S.Grid>
 
               <S.WrapperButton>
