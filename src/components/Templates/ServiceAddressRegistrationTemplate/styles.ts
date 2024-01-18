@@ -74,6 +74,8 @@ export const Grid = styled.div`
       font-style: normal;
       font-weight: 500;
       letter-spacing: 0.6px;
+      display: block;
+      margin-bottom: 16px;
 
       span {
         color: #ed0000;
@@ -115,6 +117,25 @@ export const Grid = styled.div`
     :nth-child(9) {
       grid-area: cidade;
     }
+
+    @media (max-width: 500px) {
+      gap: 12px;
+      grid-template-areas:
+        "nome nome nome nome nome nome nome nome"
+        "telefone telefone telefone telefone telefone telefone telefone telefone"
+        "cep cep cep cep numero numero numero numero"
+        "rua rua rua rua rua rua rua rua"
+        "bairro bairro bairro bairro complemento complemento complemento complemento"
+        "uf uf uf uf cidade cidade cidade cidade";
+
+      div label {
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.48px;
+        width: 100%;
+        margin-bottom: 12px;
+      }
+    }
   `}
 `;
 
@@ -132,5 +153,9 @@ export const WrapperButton = styled.div`
   button {
     padding: 20px 40px;
     margin: 0 auto;
+  }
+
+  @media (max-width: 500px) {
+    margin-top: 40px;
   }
 `;
