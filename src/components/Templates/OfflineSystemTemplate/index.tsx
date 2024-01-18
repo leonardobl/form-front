@@ -16,7 +16,7 @@ export const OfflineSystemTemplate = () => {
           </S.Text>
           <S.WrapperContacts>
             <S.SectionTitle>Contatos</S.SectionTitle>
-            <S.Flex>
+            <S.GridContacts>
               <div>
                 <S.Subtitle>Caxias / MA</S.Subtitle>
                 <S.Subtitle>São Luís / MA</S.Subtitle>
@@ -27,15 +27,16 @@ export const OfflineSystemTemplate = () => {
                 <S.Subtitle>Bacabal / MA</S.Subtitle>
                 <S.Contact>(99) 99128-2316</S.Contact>
               </div>
-            </S.Flex>
-            <div>
-              <S.Subtitle>Balsas / MA</S.Subtitle>
-              <S.Subtitle>Pinheiro / MA</S.Subtitle>
-              <S.Subtitle>Riachão / MA</S.Subtitle>
-              <S.Contact>(99) 98535-5900</S.Contact>
-            </div>
+              <div>
+                <S.Subtitle>Balsas / MA</S.Subtitle>
+                <S.Subtitle>Pinheiro / MA</S.Subtitle>
+                <S.Subtitle>Riachão / MA</S.Subtitle>
+                <S.Contact>(99) 98535-5900</S.Contact>
+              </div>
+            </S.GridContacts>
           </S.WrapperContacts>
-          <S.SectionLocationWrapperCardsMap>
+
+          <S.GridLocalizations>
             <S.SectionLocationCardMap>
               <S.TitleLocalization>
                 <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
@@ -93,8 +94,7 @@ export const OfflineSystemTemplate = () => {
                 <br /> <S.TextStrong>CEP 65200-000</S.TextStrong>
               </p>
             </S.SectionLocationCardMap>
-          </S.SectionLocationWrapperCardsMap>
-          <S.Flex>
+
             <S.SectionLocationCardMap>
               <S.TitleLocalization>
                 <img src="/assets/imgs/pin-blue-icon.svg" alt="pin do mapa" />
@@ -136,7 +136,7 @@ export const OfflineSystemTemplate = () => {
                 <br /> <S.TextStrong>CEP 65990-000</S.TextStrong>
               </p>
             </S.SectionLocationCardMap>
-          </S.Flex>
+          </S.GridLocalizations>
         </S.Content>
       </S.Container>
     </LayoutTemplate>
