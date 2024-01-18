@@ -21,6 +21,7 @@ import { RolesEnum } from "../../../enums/roles";
 export const LoginTemplate = () => {
   const [token, setToken] = useSessionStorage("@token");
   const [clienteSession, setClienteSession] = useSessionStorage("cliente");
+  const [buttonLogin, setButtonLogin] = useSessionStorage("buttonLogin");
   const [usuarioSession, setUsuarioSession] = useSessionStorage("usuario");
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
@@ -61,12 +62,12 @@ export const LoginTemplate = () => {
               setTimeout(() => {
                 setIsDisable(false);
 
-                if (!decoded?.perfis?.includes(RolesEnum.ROLE_CLIENTE)) {
-                  return window.open("/agendamento", "_self");
+                if (buttonLogin) {
+                  return window.open("/meus-agendamentos", "_self");
                 }
 
-                if (decoded?.perfis?.includes(RolesEnum.ROLE_CLIENTE)) {
-                  return window.open("/meus-agendamentos", "_self");
+                if (agendamento) {
+                  return window.open("/servicos", "_self");
                 }
 
                 return window.open("/", "_self");

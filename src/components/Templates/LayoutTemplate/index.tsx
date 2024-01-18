@@ -12,7 +12,17 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
   const [token, setToken] = useSessionStorage("@token");
   const [cliente, setCliente] = useSessionStorage("cliente");
+  const [buttonLogin, setButtonLogin] = useSessionStorage("buttonLogin");
+  const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const isCliente = !!(
+    cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) && token
+  );
+
+  const isAdmGerente = cliente?.role?.some(
+    (regra) =>
+      regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE
+  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,6 +34,10 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       cleanStorage();
       window.open("/", "_self");
       return;
+    }
+
+    if (!agendamento) {
+      setButtonLogin(true);
     }
     window.open("/login-cadastro", "_self");
   }
@@ -70,15 +84,17 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             </NavHashLink>
           </S.HeaderMenu>
           <S.WrapperButtons>
-            <Link
-              to={
-                cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) &&
-                token &&
-                "/meus-agendamentos"
-              }
-            >
-              <S.ButtonMySchedule>Meus Agendamentos</S.ButtonMySchedule>
-            </Link>
+            {isCliente && (
+              <Link to={"/meus-agendamentos"}>
+                <S.ButtonMySchedule>Meus Agendamentos</S.ButtonMySchedule>
+              </Link>
+            )}
+
+            {isAdmGerente && (
+              <Link to={"/meus-agendamentos"}>
+                <S.ButtonMySchedule>Agendamentos</S.ButtonMySchedule>
+              </Link>
+            )}
             <ButtonCustom typeOfButton="Login" onClick={handleLoginLogout}>
               {token ? "Logout" : "Login"}
             </ButtonCustom>

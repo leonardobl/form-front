@@ -7,4 +7,5 @@ export function cleanStorage() {
   sessionStorage.removeItem("cliente");
   sessionStorage.removeItem("veiculo");
   sessionStorage.removeItem("tipoAtendimento");
+  sessionStorage.removeItem("buttonLogin");
 }

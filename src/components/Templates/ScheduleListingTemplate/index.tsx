@@ -24,6 +24,7 @@ import {
 } from "../../../utils/dateTransform";
 import { ISelectOptions } from "../../../types/inputs";
 import { removeEmpty } from "../../../utils/removeEmpty";
+import { RolesEnum } from "../../../enums/roles";
 
 export const ScheduleListingTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -42,6 +43,10 @@ export const ScheduleListingTemplate = () => {
   const size = 5;
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const [numberPage, setNumberPage] = useState(0);
+  const [sessionClient, setSessionClient] = useSessionStorage("cliente");
+
+  const isCliente = sessionClient?.role?.includes(RolesEnum.ROLE_CLIENTE);
+
   const statusOptions = Object.values(StatusAgendamentoEnum).map((item) => ({
     value: item,
     label: item.split("_").join(" "),
@@ -49,8 +54,6 @@ export const ScheduleListingTemplate = () => {
 
   const [detalheAgendamento, setDetalheAgendamento] =
     useSessionStorage("detalheAgendamento");
-
-  const [sessionClient, setSessionClient] = useSessionStorage("cliente");
 
   const colorsStatus: { [key: string]: { color: string } } = {
     INICIADO: {
@@ -99,7 +102,10 @@ export const ScheduleListingTemplate = () => {
 
   function getAgendamentos(filters: IGetAgendamentosProps) {
     const filtered = removeEmpty(filters);
-    Agendamento.get({ ...filtered, idCliente: sessionClient?.uuid })
+
+    const idCliente = isCliente ? sessionClient?.uuid : null;
+
+    Agendamento.get({ ...filtered, idCliente })
       .then(({ data }) => {
         setAgendamentos(data.content);
 
@@ -367,7 +373,7 @@ export const ScheduleListingTemplate = () => {
                   {item.status || "---"}
                 </S.ItemGrid>
                 <S.ItemGrid>
-                  {item.status === "AGENDADO" && (
+                  {item.status === "AGENDADO" && !isCliente && (
                     <ButtonCustom typeOfButton="ScheduleList">
                       INICIAR
                     </ButtonCustom>
