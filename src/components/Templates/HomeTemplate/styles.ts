@@ -473,12 +473,15 @@ export const SectionLocationContent = styled.div`
 `;
 
 export const SectionLocationWrapperCardsMap = styled.div`
-  padding: 80px 0;
-  display: flex;
-  gap: 70px;
-  flex-wrap: wrap;
-  gap: 80px;
-  justify-content: center;
+  ${({ theme: { space } }) => css`
+    max-width: ${space.medio};
+    width: 100%;
+    padding: 80px 0;
+    display: flex;
+    gap: 70px;
+    flex-wrap: wrap;
+    justify-content: center;
+  `}
 `;
 
 export const TitleLocalization = styled.h2`
