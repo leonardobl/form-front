@@ -19,6 +19,7 @@ import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 
 export const InfoVehicleTemplate = () => {
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
+  const [cliente, setCliente] = useSessionStorage("cliente");
   const [tipoAgendamento, setTipoAgendamento] =
     useSessionStorage("tipoAtendimento");
   const [veiculoSession, setVeiculoSession] = useSessionStorage("veiculo");
@@ -43,7 +44,7 @@ export const InfoVehicleTemplate = () => {
           primeiroAgendamento: data.primeiroAgendamento,
           revistoria: data.revistoria,
           status: StatusAgendamentoEnum[data.status],
-          uuidCliente: data?.cliente?.uuid,
+          uuidCliente: cliente?.uuid,
           uuidDelivery: data?.delivery?.uuid,
           uuidLoja: data?.loja?.uuid,
           uuidServico: data?.servico?.uuid,
@@ -52,13 +53,11 @@ export const InfoVehicleTemplate = () => {
 
         Agendamento.put(PAYLOAD)
           .then(() => {
-            setTimeout(() => {
-              if (tipoAgendamento === "LOJA") {
-                window.open(`/pagamento`, "_self");
-                return;
-              }
-              window.open("/cadastro-endereco", "_self");
-            }, 1000);
+            if (tipoAgendamento === "LOJA") {
+              window.open(`/pagamento`, "_self");
+              return;
+            }
+            window.open("/cadastro-endereco", "_self");
           })
           .catch(
             ({
