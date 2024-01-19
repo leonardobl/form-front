@@ -9,6 +9,13 @@ import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
 
 import { IVeiculoDTO, IVeiculoForm } from "../../../types/veiculo";
+import {
+  Agendamento,
+  IPutAgendamentoProps,
+} from "../../../services/Agendamento";
+import { IAgendamentoForm } from "../../../types/agendamento";
+import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 
 export const InfoVehicleTemplate = () => {
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
@@ -21,15 +28,60 @@ export const InfoVehicleTemplate = () => {
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-
     setIsLoad(true);
-    setTimeout(() => {
-      if (tipoAgendamento === "LOJA") {
-        window.open(`/pagamento`, "_self");
-        return;
-      }
-      window.open("/cadastro-endereco", "_self");
-    }, 1000);
+
+    Agendamento.getById({ uuid: agendamento?.uuid })
+      .then(({ data }) => {
+        const PAYLOAD: IPutAgendamentoProps = {
+          uuid: agendamento?.uuid,
+          diaAgendado: data.diaAgendado,
+          horaAgendada: data.horaAgendada,
+          tipoAtendimento: TipoAtendimentoEnum[data.tipoAtendimento],
+          codigoPagamento: data.codigoPagamento,
+          dataPagamento: data.dataPagamento,
+          dataRealizacao: data.dataRealizacao,
+          primeiroAgendamento: data.primeiroAgendamento,
+          revistoria: data.revistoria,
+          status: StatusAgendamentoEnum[data.status],
+          uuidCliente: data?.cliente?.uuid,
+          uuidDelivery: data?.delivery?.uuid,
+          uuidLoja: data?.loja?.uuid,
+          uuidServico: data?.servico?.uuid,
+          uuidVeiculo: veiculoSession,
+        };
+
+        Agendamento.put(PAYLOAD)
+          .then(() => {
+            setTimeout(() => {
+              if (tipoAgendamento === "LOJA") {
+                window.open(`/pagamento`, "_self");
+                return;
+              }
+              window.open("/cadastro-endereco", "_self");
+            }, 1000);
+          })
+          .catch(
+            ({
+              response: {
+                data: { mensagem },
+              },
+            }) => {
+              toast.error(mensagem);
+            }
+          );
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
   }
 
   useEffect(() => {

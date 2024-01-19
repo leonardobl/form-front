@@ -12,10 +12,11 @@ import { IPageRequest } from "../../types/page";
 import { TipoAtendimentoEnum } from "../../enums/tipoAtendimento";
 import { StatusAgendamentoEnum } from "../../enums/statusAgendamento";
 import objectToParams from "../../utils/objectToParams";
+import { removeEmpty } from "../../utils/removeEmpty";
 
 const basePath = "/agendamento";
 
-interface IPutAgendamentoProps extends IAgendamentoForm {
+export interface IPutAgendamentoProps extends IAgendamentoForm {
   uuid: string;
 }
 
@@ -58,7 +59,8 @@ export class Agendamento {
 
   static async put(props: IPutAgendamentoProps) {
     const { uuid, ...rest } = props;
-    return ApiBrave.put(`${basePath}/${uuid}`, rest);
+    const params = removeEmpty(rest);
+    return ApiBrave.put(`${basePath}/${uuid}`, params);
   }
 
   static async putAddress(props: IAtendimentoDomiciliarForm) {
