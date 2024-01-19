@@ -4,7 +4,12 @@ import * as S from "./styles.ts";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { toast } from "react-toastify";
-import { maskCep, maskCpf, maskPhone } from "../../../utils/masks";
+import {
+  maskCep,
+  maskCpf,
+  maskPhone,
+  removerCaracteresEspeciais,
+} from "../../../utils/masks";
 import { ViaCep } from "../../../services/ViaCep";
 import { useContextSite } from "../../../context/Context";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
@@ -27,7 +32,11 @@ export const RegisterTemplate = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    const PAYLOAD: IClienteForm = { ...form, tipo: TipoClienteEnum.PARTICULAR };
+    const PAYLOAD: IClienteForm = {
+      ...form,
+      cpfCnpj: removerCaracteresEspeciais(form.cpfCnpj),
+      tipo: TipoClienteEnum.PARTICULAR,
+    };
 
     setIsLoad(true);
     setIsDisabled(true);
