@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
 import { v4 } from "uuid";
@@ -8,9 +8,11 @@ import { useContextSite } from "../../../context/Context";
 import { Pagamento } from "../../../services/Pagamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { toast } from "react-toastify";
+import { IFaturaDTO } from "../../../types/pagamento";
 
 export const PaymentTicketTemplate = () => {
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
+  const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
 
   const { isLoad, setIsLoad } = useContextSite();
 
@@ -26,6 +28,7 @@ export const PaymentTicketTemplate = () => {
     Pagamento.consultarFatura({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
         console.log(data);
+        setPagamento(data);
       })
       .catch(
         ({
@@ -55,12 +58,12 @@ export const PaymentTicketTemplate = () => {
           </p>
         </S.Info>
         <S.CodBarImg
-          src="/assets/imgs/bar.jpg"
+          src={pagamento?.boleto?.barCode}
           alt="Codigo de barras
         "
         />
         <S.WrapperCod>
-          <PaymentCodContainer value={v4()} />
+          <PaymentCodContainer value={pagamento?.boleto?.barCodeData} />
         </S.WrapperCod>
         <S.WrapperButtons>
           {/* <Link to={"/detalhe-pagamento"}>

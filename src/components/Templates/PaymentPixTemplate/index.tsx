@@ -58,9 +58,9 @@ export const PaymentPixTemplate = () => {
         </S.Info>
 
         <S.WrapperDataPayment>
-          <S.Qrcode src={pagamento.pix.qrcode} />
+          <S.Qrcode src={pagamento?.pix?.qrcode} />
           <S.DataPaymentContent>
-            <PaymentCodContainer value={pagamento.pix.qrcodeText} />
+            <PaymentCodContainer value={pagamento?.pix?.qrcodeText} />
             <S.WrapperButtons>
               {/* <Link to={"/detalhe-pagamento"}>
                 <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
