@@ -132,6 +132,7 @@ export const WrapperButtons = styled.div`
 
 export const Qrcode = styled.img`
   display: block;
+  max-width: 230px;
 
   @media (max-width: 500px) {
     width: 130px;

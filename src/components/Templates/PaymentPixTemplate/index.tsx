@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
@@ -7,10 +7,12 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
 import { Pagamento } from "../../../services/Pagamento";
 import { toast } from "react-toastify";
+import { IFaturaDTO, IFaturaResponse } from "../../../types/pagamento";
 
 export const PaymentPixTemplate = () => {
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const { isLoad, setIsLoad } = useContextSite();
+  const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
 
   function handleTicket() {
     window.open("boleto", "_self");
@@ -24,6 +26,7 @@ export const PaymentPixTemplate = () => {
     Pagamento.consultarFatura({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
         console.log(data);
+        setPagamento(data);
       })
       .catch(
         ({
@@ -55,9 +58,9 @@ export const PaymentPixTemplate = () => {
         </S.Info>
 
         <S.WrapperDataPayment>
-          <S.Qrcode src="/assets/imgs/qrcode.jpg" />
+          <S.Qrcode src={pagamento.pix.qrcode} />
           <S.DataPaymentContent>
-            <PaymentCodContainer value={v4()} />
+            <PaymentCodContainer value={pagamento.pix.qrcodeText} />
             <S.WrapperButtons>
               {/* <Link to={"/detalhe-pagamento"}>
                 <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>

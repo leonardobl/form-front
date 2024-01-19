@@ -35,7 +35,6 @@ export const PaymentTemplate = () => {
 
     Pagamento.gerarFatura({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
-        console.log(data);
         setPagamento(data);
       })
       .catch(
