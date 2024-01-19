@@ -9,6 +9,7 @@ import { useContextSite } from "../../../context/Context";
 import { Pagamento } from "../../../services/Pagamento";
 import { IFaturaDTO, IFaturaResponse } from "../../../types/pagamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { maskMoney } from "../../../utils/masks";
 
 export const PaymentTemplate = () => {
   const [payment, setPaymento] = useState("");
@@ -17,6 +18,9 @@ export const PaymentTemplate = () => {
   const [pagamento, setPagamento] = useState<IFaturaResponse>(
     {} as IFaturaResponse
   );
+
+  const taxaPix = 1.92;
+  const taxaBoleto = 3.5;
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -58,7 +62,7 @@ export const PaymentTemplate = () => {
             <PaymentsOptionsContainer
               name="pagamento"
               required
-              value="R$ 116.92"
+              value={maskMoney(pagamento.items_total_cents + taxaPix)}
               handleSelect={(e) => setPaymento(e)}
               iconLeft="/assets/imgs/pix-icon.svg"
               textIcon="PIX"
@@ -71,7 +75,7 @@ export const PaymentTemplate = () => {
               required
               handleSelect={(e) => setPaymento(e)}
               name="pagamento"
-              value="R$ 118.50"
+              value={maskMoney(pagamento.items_total_cents + taxaBoleto)}
               iconLeft="/assets/imgs/cod-barra.svg"
               textIcon="BOLETO"
             />
