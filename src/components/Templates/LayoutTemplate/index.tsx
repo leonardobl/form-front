@@ -12,7 +12,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
   const [token, setToken] = useSessionStorage("@token");
   const [cliente, setCliente] = useSessionStorage("cliente");
-  const [buttonLogin, setButtonLogin] = useSessionStorage("buttonLogin");
+
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isCliente = !!(
@@ -36,9 +36,6 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       return;
     }
 
-    if (!agendamento) {
-      setButtonLogin(true);
-    }
     window.open("/login-cadastro", "_self");
   }
 

@@ -62,15 +62,11 @@ export const LoginTemplate = () => {
               setTimeout(() => {
                 setIsDisable(false);
 
-                if (buttonLogin) {
-                  return window.open("/meus-agendamentos", "_self");
-                }
-
                 if (agendamento) {
                   return window.open("/servicos", "_self");
                 }
 
-                return window.open("/", "_self");
+                return window.open("/meus-agendamentos", "_self");
               }, 2000);
             })
             .catch(
