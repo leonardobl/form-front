@@ -51,6 +51,19 @@ export const LoginTemplate = () => {
       .then((token) => {
         const decoded = jwtDecode<IDecodedToken>(token);
 
+        const is_high_level = decoded?.perfis?.some(
+          (perfil) =>
+            perfil === RolesEnum.ROLE_ADMIN || perfil === RolesEnum.ROLE_GERENTE
+        );
+
+        if (is_high_level) {
+          toast.success("Login efetuado com sucesso");
+          setTimeout(() => {
+            window.open("/meus-agendamentos", "_self");
+          }, 2000);
+          return;
+        }
+
         decoded?.uuid &&
           Cliente.getByUsuario({ uuidUsuario: decoded.uuid })
             .then(({ data }) => {

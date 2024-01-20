@@ -11,6 +11,6 @@ export interface IDecodedToken {
   uuid: string;
   nome: string;
   type: string;
-  perfis: RolesEnum;
+  perfis: RolesEnum[];
   exp: number;
 }
