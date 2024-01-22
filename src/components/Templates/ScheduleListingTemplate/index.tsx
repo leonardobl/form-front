@@ -41,7 +41,7 @@ export const ScheduleListingTemplate = () => {
   }));
   const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
 
-  const [visao, setVisao] = useState("vistoriado");
+  const [visao, setVisao] = useState("atendente");
   const size = 5;
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const [numberPage, setNumberPage] = useState(0);
@@ -182,56 +182,72 @@ export const ScheduleListingTemplate = () => {
               <S.TitleFilter>Filtro</S.TitleFilter>
             </S.BorderContainer>
             <S.Grid2>
-              <S.SubTitle>Data</S.SubTitle>
-              <S.SubTitle>Status</S.SubTitle>
-              <S.SubTitle>Placa</S.SubTitle>
-              <S.SubTitle>Renavam</S.SubTitle>
-              <InputDate
-                onChange={(e) => {
-                  setDate(e);
-                  setFormFilter((prev) => ({
-                    ...prev,
-                    data: reverseToIsoDate(e?.toLocaleDateString()),
-                  }));
-                }}
-                placeholderText="__/__/__"
-                isClearable
-                selected={date}
-              />
-              <SimpleSelect
-                isClearable
-                placeholder=""
-                value={
-                  statusOptions.find(
-                    (item) => item.value === formFilter?.statusAgendamento
-                  ) || null
-                }
-                onChange={(e) =>
-                  setFormFilter((prev) => ({
-                    ...prev,
-                    statusAgendamento: e?.value,
-                  }))
-                }
-                options={statusOptions}
-              />
-              <InputCustom
-                value={formFilter?.placa}
-                onChange={(e) =>
-                  setFormFilter((prev) => ({ ...prev, placa: e.target.value }))
-                }
-              />
-              <InputCustom
-                type="number"
-                value={formFilter.renavam}
-                onChange={(e) =>
-                  setFormFilter((prev) => ({
-                    ...prev,
-                    renavam: e.target.value,
-                  }))
-                }
-              />
-            </S.Grid2>
-            <S.WrapperButtons>
+              <div>
+                <S.SubTitle>Data</S.SubTitle>
+                <InputDate
+                  label={isMobile ? "Data" : ""}
+                  onChange={(e) => {
+                    setDate(e);
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      data: reverseToIsoDate(e?.toLocaleDateString()),
+                    }));
+                  }}
+                  placeholderText="__/__/__"
+                  isClearable
+                  selected={date}
+                />
+              </div>
+              <div>
+                <S.SubTitle>Status</S.SubTitle>
+                <SimpleSelect
+                  isClearable
+                  label={isMobile ? "Status" : ""}
+                  placeholder=""
+                  value={
+                    statusOptions.find(
+                      (item) => item.value === formFilter?.statusAgendamento
+                    ) || null
+                  }
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      statusAgendamento: e?.value,
+                    }))
+                  }
+                  options={statusOptions}
+                />
+              </div>
+
+              <div>
+                <S.SubTitle>Placa</S.SubTitle>
+                <InputCustom
+                  value={formFilter?.placa}
+                  label={isMobile ? "Placa" : ""}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      placa: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+
+              <div>
+                <S.SubTitle>Renavam</S.SubTitle>
+                <InputCustom
+                  type="number"
+                  label={isMobile ? "Renavam" : ""}
+                  value={formFilter.renavam}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      renavam: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+
               <ButtonCustom
                 typeOfButton="Noborder"
                 onClick={handleClear}
@@ -240,7 +256,7 @@ export const ScheduleListingTemplate = () => {
                 Limpar tudo
               </ButtonCustom>
               <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
-            </S.WrapperButtons>
+            </S.Grid2>
           </S.FormFilter>
         ) : (
           <S.FormFilter onSubmit={handleSubmit}>

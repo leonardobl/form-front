@@ -99,39 +99,42 @@ export const Grid1 = styled.div`
 `;
 
 export const Grid2 = styled.div`
-  padding: 0 60px;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(9, 1fr);
   grid-template-areas:
-    "loja loja cidade cidade data data placa placa renavam renavam"
-    "status status status status status status clean clean filtrar filtrar";
+    "data data status status status placa placa renavam renavam"
+    ". . . . . . . clean filtrar";
   gap: 24px;
   padding-top: 32px;
   align-items: end;
 
   > :nth-child(1) {
-    grid-area: loja;
-  }
-  > :nth-child(2) {
-    grid-area: cidade;
-  }
-  > :nth-child(3) {
     grid-area: data;
   }
-  > :nth-child(4) {
-    grid-area: placa;
-  }
-  > :nth-child(5) {
-    grid-area: renavam;
-  }
-  > :nth-child(6) {
+  > :nth-child(2) {
     grid-area: status;
   }
+  > :nth-child(3) {
+    grid-area: placa;
+  }
+  > :nth-child(4) {
+    grid-area: renavam;
+  }
+
   > :nth-child(7) {
     grid-area: clean;
   }
   > :nth-child(8) {
     grid-area: filtrar;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 6fr);
+    grid-template-areas:
+      "data data" "status status" "placa placa" "renavam renavam"
+      "clean filtrar";
+    gap: 24px 0;
+    padding: 0;
   }
 `;
 
@@ -158,14 +161,6 @@ export const SubTitle = styled.p`
   @media (max-width: 500px) {
     display: none;
   }
-`;
-
-export const WrapperButtons = styled.div`
-  display: flex;
-  margin-top: 30px;
-  gap: 30px;
-  justify-content: end;
-  padding: 0 60px;
 `;
 
 export const TitleGrid = styled.p`
