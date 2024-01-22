@@ -106,6 +106,7 @@ export const Grid2 = styled.div`
     ". . . . . . . clean filtrar";
   gap: 24px;
   padding-top: 32px;
+  padding: 32px 60px 0;
   align-items: end;
 
   > :nth-child(1) {
@@ -135,6 +136,37 @@ export const Grid2 = styled.div`
       "clean filtrar";
     gap: 24px 0;
     padding: 0;
+  }
+`;
+
+export const ItemListagemMobile = styled.div`
+  border-radius: 5px;
+  background: #f7f7f7;
+  padding: 15px 8px;
+  display: flex;
+  gap: 16px;
+
+  & + div {
+    margin-top: 24px;
+  }
+
+  > div {
+    flex: 1;
+
+    h4 {
+      color: #595959;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0.36px;
+      text-transform: uppercase;
+      font-family: "Roboto";
+
+      span {
+        margin-left: 10px;
+      }
+    }
   }
 `;
 

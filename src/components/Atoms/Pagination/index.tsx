@@ -89,7 +89,9 @@ export const Pagination = ({
   return (
     <S.Pagination className={className}>
       <div className={`prev ${selectedElement === 0 ? "disabled" : ""}`}>
-        <span onClick={() => first(0)}>Primeira</span>
+        <span id="btn-first" onClick={() => first(0)}>
+          Primeira
+        </span>
         <span
           onClick={() => prev(selectedElement <= 0 ? 0 : selectedElement - 1)}
         >
@@ -125,7 +127,9 @@ export const Pagination = ({
         >
           Próxima
         </span>
-        <span onClick={() => last(totalPage - 1)}>Última</span>
+        <span id="btn-end" onClick={() => last(totalPage - 1)}>
+          Última
+        </span>
       </div>
     </S.Pagination>
   );

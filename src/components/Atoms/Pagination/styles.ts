@@ -53,6 +53,21 @@ export const Pagination = styled.div`
     opacity: 0.4;
     pointer-events: none;
   }
+
+  @media (max-width: 500px) {
+    flex-direction: row;
+
+    #btn-first {
+      display: none;
+    }
+    #btn-end {
+      display: none;
+    }
+
+    span + span {
+      margin: 0;
+    }
+  }
 `;
 
 export const Buttons = styled.div`
@@ -88,6 +103,13 @@ export const Buttons = styled.div`
 
     :not(.actived):hover {
       background-color: #ebebeb;
+    }
+  }
+
+  @media (max-width: 500px) {
+    button {
+      font-size: 14px;
+      gap: 0.6rem;
     }
   }
 `;

@@ -384,7 +384,42 @@ export const ScheduleListingTemplate = () => {
           </S.FormFilter>
         )}
 
-        {/* {!!agendamentos?.length && (
+        {!!agendamentos?.length && isMobile ? (
+          <>
+            {agendamentos.map((item) => (
+              <S.ItemListagemMobile key={`${Math.random()}`}>
+                <div>
+                  <h4>
+                    {item?.veiculo?.tipo || "---"}
+                    <span>{reverseToBrDate(item?.diaAgendado)}</span>
+                  </h4>
+                  <S.ItemGrid $color={colorsStatus[item?.status].color}>
+                    {item.status || "---"}
+                  </S.ItemGrid>
+                </div>
+                <img
+                  alt="icone de visualização"
+                  src="/assets/imgs/visualizar-icon.svg"
+                  onClick={() => {
+                    setDetalheAgendamento(item.uuid);
+                    window.open(
+                      `/meus-agendamentos/detalhe-agendamento`,
+                      "_black"
+                    );
+                  }}
+                />{" "}
+              </S.ItemListagemMobile>
+            ))}
+            <Pagination
+              maxPageNumbersDisplayed={isMobile ? 3 : 10}
+              key={`${Math.random()} - ${pagination}`}
+              totalPage={pagination.totalPage}
+              totalRegister={pagination.totalPage}
+              actualPage={pagination.actualPage}
+              setNumberPage={setNumberPage}
+            />
+          </>
+        ) : (
           <>
             <S.GridTitles>
               <S.TitleGrid>Tipo</S.TitleGrid>
@@ -442,7 +477,7 @@ export const ScheduleListingTemplate = () => {
               setNumberPage={setNumberPage}
             />
           </>
-        )} */}
+        )}
       </S.Container>
     </LayoutTemplate>
   );
