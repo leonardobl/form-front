@@ -56,62 +56,78 @@ export const SchedulingDetailTemplate = () => {
     <LayoutTemplate>
       <S.Container>
         <S.Content>
-          <S.TItle>Meu agendamento</S.TItle>
+          <S.Title>Meu agendamento</S.Title>
           <S.Text>
             Esses são os dados do seu <S.TextBlue>agendamento</S.TextBlue>!
           </S.Text>
           <S.Form>
             <S.WrapperBorder $borderBottom>
-              <S.Grid $gridTemplate="3fr 1fr 1fr">
-                <S.SubTitle>Status</S.SubTitle>
+              <S.Grid1>
+                <div>
+                  <S.SubTitle>Status</S.SubTitle>
+                  <InputCustom readOnly value={agendamento?.status} />
+                </div>
 
-                <S.SubTitle>Data</S.SubTitle>
-                <S.SubTitle>Horário</S.SubTitle>
+                <div>
+                  <S.SubTitle>Data</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={reverseToBrDate(agendamento?.diaAgendado)}
+                  />
+                </div>
 
-                <InputCustom readOnly value={agendamento?.status} />
-
-                <InputCustom
-                  readOnly
-                  value={reverseToBrDate(agendamento?.diaAgendado)}
-                />
-                <InputCustom readOnly value={agendamento?.horaAgendada} />
-              </S.Grid>
+                <div>
+                  <S.SubTitle>Horário</S.SubTitle>
+                  <InputCustom readOnly value={agendamento?.horaAgendada} />
+                </div>
+              </S.Grid1>
             </S.WrapperBorder>
 
             <S.WrapperBorder $borderBottom>
-              <S.Grid $gridTemplate="8fr 4fr">
-                <S.SubTitle>Cliente</S.SubTitle>
-                <S.SubTitle>CPF/CNPJ</S.SubTitle>
+              <S.Grid2>
+                <div>
+                  <S.SubTitle>Cliente</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={agendamento?.cliente?.nome || "---"}
+                  />
+                </div>
+                <div>
+                  <S.SubTitle>CPF/CNPJ</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={maskCpf(agendamento?.cliente?.cpfCnpj) || "---"}
+                  />
+                </div>
+              </S.Grid2>
 
-                <InputCustom
-                  readOnly
-                  value={agendamento?.cliente?.nome || "---"}
-                />
-                <InputCustom
-                  readOnly
-                  value={maskCpf(agendamento?.cliente?.cpfCnpj) || "---"}
-                />
-              </S.Grid>
+              <S.Grid3>
+                <div>
+                  <S.SubTitle>Modelo do carro</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={agendamento?.veiculo?.modelo || "---"}
+                  />
+                </div>
 
-              <S.Grid $gridTemplate="5fr 2fr 2fr">
-                <S.SubTitle>Modelo do carro</S.SubTitle>
-                <S.SubTitle>Placa</S.SubTitle>
-                <S.SubTitle>Renavam</S.SubTitle>
-                <InputCustom
-                  readOnly
-                  value={agendamento?.veiculo?.modelo || "---"}
-                />
-                <InputCustom
-                  readOnly
-                  value={agendamento?.veiculo?.placa || "---"}
-                />
-                <InputCustom
-                  readOnly
-                  value={agendamento?.veiculo?.renavam || "---"}
-                />
-              </S.Grid>
+                <div>
+                  <S.SubTitle>Placa</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={agendamento?.veiculo?.placa || "---"}
+                  />
+                </div>
 
-              <S.Grid $gridTemplate="1fr">
+                <div>
+                  <S.SubTitle>Renavam</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={agendamento?.veiculo?.renavam || "---"}
+                  />
+                </div>
+              </S.Grid3>
+
+              <S.Grid>
                 <S.SubTitle>Chassi</S.SubTitle>
                 <InputCustom
                   readOnly
@@ -121,21 +137,26 @@ export const SchedulingDetailTemplate = () => {
             </S.WrapperBorder>
 
             <S.WrapperBorder>
-              <S.Grid $gridTemplate="8fr 4fr">
-                <S.SubTitle>Serviço</S.SubTitle>
-                <S.SubTitle>Valor do serviço</S.SubTitle>
+              <S.Grid4>
+                <div>
+                  <S.SubTitle>Serviço</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={agendamento?.servico?.nome || "---"}
+                  />
+                </div>
 
-                <InputCustom
-                  readOnly
-                  value={agendamento?.servico?.nome || "---"}
-                />
-
-                <InputCustom
-                  readOnly
-                  value={maskMoney(agendamento?.servico?.valorPadrao) || "---"}
-                />
-              </S.Grid>
-              <S.Grid $gridTemplate="12fr">
+                <div>
+                  <S.SubTitle>Valor do serviço</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={
+                      maskMoney(agendamento?.servico?.valorPadrao) || "---"
+                    }
+                  />
+                </div>
+              </S.Grid4>
+              <S.Grid>
                 <S.SubTitle>Local de realização da vistoria</S.SubTitle>
                 <InputCustom
                   readOnly
