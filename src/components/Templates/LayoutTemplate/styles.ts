@@ -278,9 +278,10 @@ export const ButtonMySchedule = styled.button`
 
 export const WrapperButtons = styled.div`
   @media (max-width: 500px) {
-    gap: 0 20px;
+    /* gap: 0 20px;
     flex: 1;
-    justify-content: space-around;
+    justify-content: space-around; */
+    display: none;
   }
 
   display: flex;

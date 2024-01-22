@@ -38,6 +38,16 @@ export const MenuMobile = ({ handleOnChange }: MenuMobileProps) => {
           <NavHashLink
             onClick={handleClose}
             smooth={true}
+            to={"/login-cadastro"}
+          >
+            Login
+          </NavHashLink>
+        </li>
+
+        <li>
+          <NavHashLink
+            onClick={handleClose}
+            smooth={true}
             to={pathname !== "/" ? "/#sobre" : "#sobre"}
           >
             Sobre Nós
