@@ -25,6 +25,7 @@ import {
 import { ISelectOptions } from "../../../types/inputs";
 import { removeEmpty } from "../../../utils/removeEmpty";
 import { RolesEnum } from "../../../enums/roles";
+import { useMediaQuery } from "react-responsive";
 
 export const ScheduleListingTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -38,6 +39,7 @@ export const ScheduleListingTemplate = () => {
     value: item,
     label: item,
   }));
+  const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
 
   const [visao, setVisao] = useState("vistoriado");
   const size = 5;
@@ -179,7 +181,7 @@ export const ScheduleListingTemplate = () => {
             <S.BorderContainer>
               <S.TitleFilter>Filtro</S.TitleFilter>
             </S.BorderContainer>
-            <S.Grid gridtemplate="1.6fr 4fr 2fr 4fr" gap="0  24px">
+            <S.Grid2>
               <S.SubTitle>Data</S.SubTitle>
               <S.SubTitle>Status</S.SubTitle>
               <S.SubTitle>Placa</S.SubTitle>
@@ -228,7 +230,7 @@ export const ScheduleListingTemplate = () => {
                   }))
                 }
               />
-            </S.Grid>
+            </S.Grid2>
             <S.WrapperButtons>
               <ButtonCustom
                 typeOfButton="Noborder"
@@ -245,106 +247,128 @@ export const ScheduleListingTemplate = () => {
             <S.BorderContainer>
               <S.TitleFilter>Filtro</S.TitleFilter>
             </S.BorderContainer>
-            <S.Grid gridtemplate="2fr 2fr 1.5fr 2fr 2.6fr" gap="0  24px">
-              <S.SubTitle>Loja</S.SubTitle>
-              <S.SubTitle>Cidade</S.SubTitle>
-              <S.SubTitle>Data</S.SubTitle>
-              <S.SubTitle>Placa</S.SubTitle>
-              <S.SubTitle>Renavam</S.SubTitle>
+            <S.Grid1>
+              <div>
+                <S.SubTitle>Loja</S.SubTitle>
+                <SimpleSelect
+                  options={lojaOptions}
+                  isClearable
+                  placeholder=""
+                  label={isMobile ? "Loja" : ""}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      tipoAtendimento: e?.value,
+                    }))
+                  }
+                  value={
+                    lojaOptions.find(
+                      (item) => item.value === formFilter?.tipoAtendimento
+                    ) || null
+                  }
+                />
+              </div>
 
-              <SimpleSelect
-                options={lojaOptions}
-                isClearable
-                placeholder=""
-                onChange={(e) =>
-                  setFormFilter((prev) => ({
-                    ...prev,
-                    tipoAtendimento: e?.value,
-                  }))
-                }
-                value={
-                  lojaOptions.find(
-                    (item) => item.value === formFilter?.tipoAtendimento
-                  ) || null
-                }
-              />
-              <SimpleSelect
-                isClearable
-                placeholder=""
-                options={cidadeOptions}
-                onChange={(e) =>
-                  setFormFilter((prev) => ({ ...prev, cidade: e?.value }))
-                }
-                value={
-                  cidadeOptions.find(
-                    (item) => item.value === formFilter?.cidade
-                  ) || null
-                }
-              />
-              <InputDate
-                onChange={(e) => {
-                  setDate(e);
-                  setFormFilter((prev) => ({
-                    ...prev,
-                    data: reverseToIsoDate(e?.toLocaleDateString()),
-                  }));
-                }}
-                selected={date}
-                isClearable
-                placeholderText="__/__/__"
-              />
-              <InputCustom
-                value={formFilter.placa}
-                onChange={(e) =>
-                  setFormFilter((prev) => ({ ...prev, placa: e.target.value }))
-                }
-              />
-              <InputCustom
-                type="number"
-                value={formFilter.renavam}
-                onChange={(e) =>
-                  setFormFilter((prev) => ({
-                    ...prev,
-                    renavam: e.target.value,
-                  }))
-                }
-              />
-            </S.Grid>
+              <div>
+                <S.SubTitle>Cidade</S.SubTitle>
+                <SimpleSelect
+                  isClearable
+                  placeholder=""
+                  label={isMobile ? "Cidade" : ""}
+                  options={cidadeOptions}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({ ...prev, cidade: e?.value }))
+                  }
+                  value={
+                    cidadeOptions.find(
+                      (item) => item.value === formFilter?.cidade
+                    ) || null
+                  }
+                />
+              </div>
 
-            <S.Grid gridtemplate="8fr 2fr" gap="0 24px">
-              <S.SubTitle>Status</S.SubTitle>
-              <S.SubTitle></S.SubTitle>
-              <SimpleSelect
-                options={statusOptions}
-                isClearable
-                placeholder=""
-                onChange={(e) =>
-                  setFormFilter((prev) => ({
-                    ...prev,
-                    statusAgendamento: e?.value,
-                  }))
-                }
-                value={
-                  statusOptions.find(
-                    (item) => item.value === formFilter?.statusAgendamento
-                  ) || null
-                }
-              />
-              <S.WrapperBtn>
-                <ButtonCustom
-                  typeOfButton="Noborder"
-                  onClick={handleClear}
-                  type="button"
-                >
-                  Limpar tudo
-                </ButtonCustom>
-                <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
-              </S.WrapperBtn>
-            </S.Grid>
+              <div>
+                <S.SubTitle>Data</S.SubTitle>
+                <InputDate
+                  showIcon={isMobile}
+                  onChange={(e) => {
+                    setDate(e);
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      data: reverseToIsoDate(e?.toLocaleDateString()),
+                    }));
+                  }}
+                  selected={date}
+                  label={isMobile ? "Data" : ""}
+                  isClearable
+                  placeholderText="__/__/__"
+                />
+              </div>
+
+              <div>
+                <S.SubTitle>Placa</S.SubTitle>
+                <InputCustom
+                  label={isMobile ? "Placa" : ""}
+                  value={formFilter.placa}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      placa: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+
+              <div>
+                <S.SubTitle>Renavam</S.SubTitle>
+                <InputCustom
+                  type="number"
+                  label={isMobile ? "Renavam" : ""}
+                  value={formFilter.renavam}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      renavam: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+
+              <div>
+                <S.SubTitle>Status</S.SubTitle>
+
+                <SimpleSelect
+                  options={statusOptions}
+                  isClearable
+                  placeholder=""
+                  label={isMobile ? "Status" : ""}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      statusAgendamento: e?.value,
+                    }))
+                  }
+                  value={
+                    statusOptions.find(
+                      (item) => item.value === formFilter?.statusAgendamento
+                    ) || null
+                  }
+                />
+              </div>
+
+              <ButtonCustom
+                typeOfButton="Noborder"
+                onClick={handleClear}
+                type="button"
+              >
+                Limpar tudo
+              </ButtonCustom>
+              <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
+            </S.Grid1>
           </S.FormFilter>
         )}
 
-        {!!agendamentos?.length && (
+        {/* {!!agendamentos?.length && (
           <>
             <S.GridTitles>
               <S.TitleGrid>Tipo</S.TitleGrid>
@@ -402,7 +426,7 @@ export const ScheduleListingTemplate = () => {
               setNumberPage={setNumberPage}
             />
           </>
-        )}
+        )} */}
       </S.Container>
     </LayoutTemplate>
   );

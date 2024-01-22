@@ -3,9 +3,14 @@ import { darken } from "polished";
 
 export const Container = styled.div`
   ${({ theme: { space } }) => css`
-    width: ${space.medio};
+    width: 100%;
+    max-width: ${space.medio};
     margin: 0 auto;
     padding: 180px 0;
+
+    @media (max-width: 500px) {
+      padding: 40px 20px;
+    }
   `}
 `;
 
@@ -18,28 +23,116 @@ export const Title = styled.h1`
   line-height: 38px;
   letter-spacing: 0.96px;
   margin-bottom: 40px;
+
+  @media (max-width: 500px) {
+    font-size: 20px;
+    margin-bottom: 32px;
+  }
 `;
 
 export const FormFilter = styled.form`
   border: 1px solid #266bf0;
   padding: 35px 0;
   margin-bottom: 80px;
+
+  @media (max-width: 500px) {
+    padding: 16px 20px;
+  }
 `;
 
 export const BorderContainer = styled.div`
   padding: 0 60px;
   border-bottom: 2px solid #cacaca;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
-export const Grid = styled.div<{ gridtemplate: string; gap?: string }>`
-  ${({ gridtemplate, gap }) => css`
-    padding: 0 60px;
-    display: grid;
-    grid-template-columns: ${gridtemplate};
-    gap: ${gap};
-    padding-top: 32px;
-    align-items: end;
-  `}
+export const Grid1 = styled.div`
+  padding: 0 60px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-areas:
+    "loja loja cidade cidade data data placa placa renavam renavam"
+    "status status status status status status clean clean filtrar filtrar";
+  gap: 24px;
+  padding-top: 32px;
+  align-items: end;
+
+  > :nth-child(1) {
+    grid-area: loja;
+  }
+  > :nth-child(2) {
+    grid-area: cidade;
+  }
+  > :nth-child(3) {
+    grid-area: data;
+  }
+  > :nth-child(4) {
+    grid-area: placa;
+  }
+  > :nth-child(5) {
+    grid-area: renavam;
+  }
+  > :nth-child(6) {
+    grid-area: status;
+  }
+  > :nth-child(7) {
+    grid-area: clean;
+  }
+  > :nth-child(8) {
+    grid-area: filtrar;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 6fr);
+    grid-template-areas:
+      "data data" "loja loja" "cidade cidade" "placa placa" "renavam renavam"
+      "status status" "clean filtrar";
+
+    padding: 0;
+    gap: 24px 0;
+
+    align-items: center;
+  }
+`;
+
+export const Grid2 = styled.div`
+  padding: 0 60px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-areas:
+    "loja loja cidade cidade data data placa placa renavam renavam"
+    "status status status status status status clean clean filtrar filtrar";
+  gap: 24px;
+  padding-top: 32px;
+  align-items: end;
+
+  > :nth-child(1) {
+    grid-area: loja;
+  }
+  > :nth-child(2) {
+    grid-area: cidade;
+  }
+  > :nth-child(3) {
+    grid-area: data;
+  }
+  > :nth-child(4) {
+    grid-area: placa;
+  }
+  > :nth-child(5) {
+    grid-area: renavam;
+  }
+  > :nth-child(6) {
+    grid-area: status;
+  }
+  > :nth-child(7) {
+    grid-area: clean;
+  }
+  > :nth-child(8) {
+    grid-area: filtrar;
+  }
 `;
 
 export const TitleFilter = styled.h2`
@@ -61,13 +154,10 @@ export const SubTitle = styled.p`
   line-height: 32px;
   letter-spacing: 0.72px;
   margin-bottom: 14px;
-`;
 
-export const WrapperBtn = styled.div`
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-  gap: 0 40px;
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const WrapperButtons = styled.div`

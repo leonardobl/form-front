@@ -72,8 +72,9 @@ export const ButtonLogin = styled.button<{ $disabled?: boolean }>`
 
 export const ButtonBlueLight = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
-    padding: 20px 75px;
+    padding: 0 50px;
     border-radius: 5px;
+    height: 60px;
     background: #266bf0;
 
     color: #eee;
@@ -94,6 +95,7 @@ export const ButtonBlueLight = styled.button<{ $disabled?: boolean }>`
       display: flex;
       width: 160px;
       height: 45px;
+      padding: 0 40px;
 
       justify-content: center;
       align-items: center;
@@ -108,7 +110,8 @@ export const ButtonBlueLight = styled.button<{ $disabled?: boolean }>`
 
 export const ButtonBlueDark = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
-    padding: 20px 75px;
+    padding: 0 50px;
+    height: 60px;
     border-radius: 5px;
     background: #00186d;
     cursor: ${$disabled ? "not-allowed" : "pointer"};
@@ -214,5 +217,10 @@ export const ButtonNoBorder = styled.button<{ $disabled?: boolean }>`
     line-height: 24px;
     letter-spacing: 0.54px;
     width: max-content;
+
+    @media (max-width: 500px) {
+      font-size: 15px;
+      padding: 10px 10px;
+    }
   `}
 `;
