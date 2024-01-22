@@ -18,6 +18,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const isCliente = !!(
     cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) && token
   );
+  const isOffline = pathname.includes("offline");
 
   const isAdmGerente = cliente?.role?.some(
     (regra) =>
@@ -41,7 +42,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <S.Container>
-      <S.header id="home">
+      <S.header id="home" data-hidden={isOffline}>
         {menuIsOpen && <MenuMobile handleOnChange={setMenuIsOpen} />}
         <S.HeaderContent>
           <NavHashLink smooth={true} to={"/"}>

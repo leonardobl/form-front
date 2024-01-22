@@ -11,6 +11,10 @@ export const header = styled.header`
   height: 144px;
   background-color: #266bf0;
 
+  &[data-hidden="true"] {
+    display: none;
+  }
+
   @media (max-width: 500px) {
     padding: 0 24px;
   }
