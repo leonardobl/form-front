@@ -6,7 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { Theme } from "./Global/Theme";
 import { Home } from "./components/Pages/home";
 import { Scheduling } from "./components/Pages/scheduling";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import { Payment } from "./components/Pages/payment";
 
 import { Physical } from "./components/Pages/physical";
@@ -41,7 +41,9 @@ root.render(
       <ContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Navigate to={"/offline"} />} />
+
+            {/* <Route path="/" element={<Home />} /> */}
 
             <Route path="/offline" element={<OfflineSystem />} />
             <Route
