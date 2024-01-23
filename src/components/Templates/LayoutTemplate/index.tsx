@@ -42,9 +42,9 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <S.Container>
-      <S.header id="home" data-hidden={isOffline}>
+      <S.header id="home">
         {menuIsOpen && <MenuMobile handleOnChange={setMenuIsOpen} />}
-        <S.HeaderContent>
+        <S.HeaderContent data-hidden={isOffline}>
           <NavHashLink smooth={true} to={"/"}>
             <S.Logo
               src="/assets/imgs/logo-starcheck01.svg"
@@ -52,7 +52,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             />
           </NavHashLink>
 
-          <S.HeaderMenu>
+          <S.HeaderMenu data-hidden={isOffline}>
             <NavHashLink
               smooth={true}
               to={pathname !== "/" ? "/#sobre" : "#sobre"}
@@ -81,7 +81,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
               Contatos
             </NavHashLink>
           </S.HeaderMenu>
-          <S.WrapperButtons>
+          <S.WrapperButtons data-hidden={isOffline}>
             {isCliente && (
               <Link to={"/meus-agendamentos"}>
                 <S.ButtonMySchedule>Meus Agendamentos</S.ButtonMySchedule>

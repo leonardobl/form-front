@@ -11,10 +11,6 @@ export const header = styled.header`
   height: 144px;
   background-color: #266bf0;
 
-  &[data-hidden="true"] {
-    display: none;
-  }
-
   @media (max-width: 500px) {
     padding: 0 24px;
   }
@@ -33,6 +29,10 @@ export const HeaderContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &[data-hidden="true"] {
+      justify-content: center;
+    }
   `}
 `;
 
@@ -51,10 +51,6 @@ export const MenuMobile = styled.img`
 `;
 
 export const HeaderMenu = styled.nav`
-  @media (max-width: 500px) {
-    display: none;
-  }
-
   display: flex;
   gap: 40px;
   align-items: center;
@@ -67,6 +63,14 @@ export const HeaderMenu = styled.nav`
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
+  }
+
+  &[data-hidden="true"] {
+    display: none;
+  }
+
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -281,6 +285,10 @@ export const ButtonMySchedule = styled.button`
 `;
 
 export const WrapperButtons = styled.div`
+  &[data-hidden="true"] {
+    display: none;
+  }
+
   @media (max-width: 500px) {
     /* gap: 0 20px;
     flex: 1;
