@@ -65,15 +65,15 @@ export const Form = styled.form`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: minmax(168px, 1fr);
+  grid-template-columns: 170px 1fr;
   gap: 24px;
   grid-template-areas:
-    "status status data horario"
-    "cliente cliente cliente cpf"
-    "modelo modelo placa renavam"
-    "chassi chassi chassi chassi"
-    "servico servico servico valor"
-    "local local local local";
+    "status status status data horario"
+    "cliente cliente cliente cpf cpf"
+    "modelo modelo modelo placa renavam"
+    "chassi chassi chassi chassi chassi"
+    "servico servico servico valor valor"
+    "local local local local local";
 
   > :nth-child(1) {
     grid-area: status;
@@ -120,6 +120,20 @@ export const Grid = styled.div`
   > :nth-child(12) {
     grid-area: local;
   }
+
+  @media (max-width: 500px) {
+    grid-template-areas:
+      "status status"
+      "data horario"
+      "cliente cliente"
+      "cpf cpf"
+      "modelo modelo"
+      "renavam placa"
+      "chassi chassi"
+      "servico servico"
+      "valor valor"
+      "local local";
+  }
 `;
 
 export const SubTitle = styled.h3`
@@ -143,7 +157,9 @@ export const WrapperBtns = styled.div`
   gap: 0 72px;
 
   @media (max-width: 500px) {
-    display: block;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px 0;
   }
 `;
 
