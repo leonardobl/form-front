@@ -123,7 +123,7 @@ export const Contact = styled.p`
 
 export const GridContacts = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(1fr, 220px);
   gap: 80px;
   grid-template-areas: "children1 children2" "children3  children3";
 
