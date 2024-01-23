@@ -61,102 +61,90 @@ export const SchedulingDetailTemplate = () => {
             Esses são os dados do seu <S.TextBlue>agendamento</S.TextBlue>!
           </S.Text>
           <S.Form>
-            <S.WrapperBorder $borderBottom>
-              <S.Grid1>
-                <div>
-                  <S.SubTitle>Status</S.SubTitle>
-                  <InputCustom readOnly value={agendamento?.status} />
-                </div>
+            <S.Grid>
+              <div>
+                <S.SubTitle>Status</S.SubTitle>
+                <InputCustom readOnly value={agendamento?.status} />
+              </div>
 
-                <div>
-                  <S.SubTitle>Data</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={reverseToBrDate(agendamento?.diaAgendado)}
-                  />
-                </div>
+              <div>
+                <S.SubTitle>Data</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={reverseToBrDate(agendamento?.diaAgendado)}
+                />
+              </div>
 
-                <div>
-                  <S.SubTitle>Horário</S.SubTitle>
-                  <InputCustom readOnly value={agendamento?.horaAgendada} />
-                </div>
-              </S.Grid1>
-            </S.WrapperBorder>
+              <div>
+                <S.SubTitle>Horário</S.SubTitle>
+                <InputCustom readOnly value={agendamento?.horaAgendada} />
+              </div>
 
-            <S.WrapperBorder $borderBottom>
-              <S.Grid2>
-                <div>
-                  <S.SubTitle>Cliente</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={agendamento?.cliente?.nome || "---"}
-                  />
-                </div>
-                <div>
-                  <S.SubTitle>CPF/CNPJ</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={maskCpf(agendamento?.cliente?.cpfCnpj) || "---"}
-                  />
-                </div>
-              </S.Grid2>
+              <div>
+                <S.SubTitle>Cliente</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={agendamento?.cliente?.nome || "---"}
+                />
+              </div>
 
-              <S.Grid3>
-                <div>
-                  <S.SubTitle>Modelo do carro</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={agendamento?.veiculo?.modelo || "---"}
-                  />
-                </div>
+              <div>
+                <S.SubTitle>CPF/CNPJ</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={maskCpf(agendamento?.cliente?.cpfCnpj) || "---"}
+                />
+              </div>
 
-                <div>
-                  <S.SubTitle>Placa</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={agendamento?.veiculo?.placa || "---"}
-                  />
-                </div>
+              <div>
+                <S.SubTitle>Modelo do carro</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={agendamento?.veiculo?.modelo || "---"}
+                />
+              </div>
 
-                <div>
-                  <S.SubTitle>Renavam</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={agendamento?.veiculo?.renavam || "---"}
-                  />
-                </div>
-              </S.Grid3>
+              <div>
+                <S.SubTitle>Placa</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={agendamento?.veiculo?.placa || "---"}
+                />
+              </div>
 
-              <S.Grid>
+              <div>
+                <S.SubTitle>Renavam</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={agendamento?.veiculo?.renavam || "---"}
+                />
+              </div>
+
+              <div>
                 <S.SubTitle>Chassi</S.SubTitle>
                 <InputCustom
                   readOnly
                   value={agendamento?.veiculo?.chassi || "---"}
                 />
-              </S.Grid>
-            </S.WrapperBorder>
+              </div>
 
-            <S.WrapperBorder>
-              <S.Grid4>
-                <div>
-                  <S.SubTitle>Serviço</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={agendamento?.servico?.nome || "---"}
-                  />
-                </div>
+              <div>
+                <S.SubTitle>Serviço</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={agendamento?.servico?.nome || "---"}
+                />
+              </div>
 
-                <div>
-                  <S.SubTitle>Valor do serviço</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={
-                      maskMoney(agendamento?.servico?.valorPadrao) || "---"
-                    }
-                  />
-                </div>
-              </S.Grid4>
-              <S.Grid>
+              <div>
+                <S.SubTitle>Valor do serviço</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={maskMoney(agendamento?.servico?.valorPadrao) || "---"}
+                />
+              </div>
+
+              <div>
                 <S.SubTitle>Local de realização da vistoria</S.SubTitle>
                 <InputCustom
                   readOnly
@@ -166,8 +154,8 @@ export const SchedulingDetailTemplate = () => {
                       : "---"
                   }
                 />
-              </S.Grid>
-            </S.WrapperBorder>
+              </div>
+            </S.Grid>
           </S.Form>
 
           {![

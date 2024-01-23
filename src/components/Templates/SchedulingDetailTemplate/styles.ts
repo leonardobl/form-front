@@ -55,7 +55,7 @@ export const Form = styled.form`
   padding: 40px 80px;
   width: 100%;
   max-width: 1150px;
-  margin: 0 auto;
+  margin: 0 auto 80px;
 
   @media (max-width: 500px) {
     padding: 20px 20px;
@@ -65,54 +65,60 @@ export const Form = styled.form`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
-`;
+  grid-template-columns: minmax(168px, 1fr);
+  gap: 24px;
+  grid-template-areas:
+    "status status data horario"
+    "cliente cliente cliente cpf"
+    "modelo modelo placa renavam"
+    "chassi chassi chassi chassi"
+    "servico servico servico valor"
+    "local local local local";
 
-export const Grid1 = styled.div`
-  display: grid;
-  grid-template-columns: 4fr 2fr 2fr;
-  padding: 16px 0;
-  gap: 0 30px;
-
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-    gap: 16px 0;
+  > :nth-child(1) {
+    grid-area: status;
   }
-`;
 
-export const Grid2 = styled.div`
-  display: grid;
-  grid-template-columns: 8fr 4fr;
-  padding: 16px 0;
-  gap: 0 30px;
-
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-    gap: 16px 0;
+  > :nth-child(2) {
+    grid-area: data;
   }
-`;
 
-export const Grid3 = styled.div`
-  display: grid;
-  grid-template-columns: 5fr 2fr 2fr;
-  padding: 16px 0;
-  gap: 0 30px;
-
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-    gap: 16px 0;
+  > :nth-child(3) {
+    grid-area: horario;
   }
-`;
 
-export const Grid4 = styled.div`
-  display: grid;
-  grid-template-columns: 8fr 4fr;
-  padding: 16px 0;
-  gap: 0 30px;
+  > :nth-child(4) {
+    grid-area: cliente;
+  }
 
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-    gap: 16px 0;
+  > :nth-child(5) {
+    grid-area: cpf;
+  }
+
+  > :nth-child(6) {
+    grid-area: modelo;
+  }
+
+  > :nth-child(7) {
+    grid-area: placa;
+  }
+
+  > :nth-child(8) {
+    grid-area: renavam;
+  }
+
+  > :nth-child(9) {
+    grid-area: chassi;
+  }
+
+  > :nth-child(10) {
+    grid-area: servico;
+  }
+  > :nth-child(11) {
+    grid-area: valor;
+  }
+  > :nth-child(12) {
+    grid-area: local;
   }
 `;
 
@@ -129,17 +135,6 @@ export const SubTitle = styled.h3`
   @media (max-width: 500px) {
     font-size: 16px;
   }
-`;
-
-export const WrapperBorder = styled.div<{ $borderBottom?: boolean }>`
-  ${({ $borderBottom }) => css`
-    padding-top: 40px;
-    border-bottom: ${$borderBottom ? "1px solid #cacaca" : "none"};
-
-    @media (max-width: 500px) {
-      border-bottom: none;
-    }
-  `}
 `;
 
 export const WrapperBtns = styled.div`
