@@ -41,7 +41,7 @@ export const ScheduleListingTemplate = () => {
   }));
   const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
 
-  const [visao, setVisao] = useState("atendente");
+  const [visao, setVisao] = useState("vistoriador");
   const size = 5;
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const [numberPage, setNumberPage] = useState(0);
@@ -186,6 +186,7 @@ export const ScheduleListingTemplate = () => {
                 <S.SubTitle>Data</S.SubTitle>
                 <InputDate
                   label={isMobile ? "Data" : ""}
+                  showIcon={isMobile}
                   onChange={(e) => {
                     setDate(e);
                     setFormFilter((prev) => ({
