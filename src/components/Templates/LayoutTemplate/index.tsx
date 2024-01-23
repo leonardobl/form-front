@@ -98,11 +98,13 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
             </ButtonCustom>
           </S.WrapperButtons>
 
-          <S.MenuMobile
-            src="/assets/imgs/hamburguer.svg"
-            alt="icone de menu hamburguer"
-            onClick={() => setMenuIsOpen(true)}
-          />
+          {!isOffline && (
+            <S.MenuMobile
+              src="/assets/imgs/hamburguer.svg"
+              alt="icone de menu hamburguer"
+              onClick={() => setMenuIsOpen(true)}
+            />
+          )}
         </S.HeaderContent>
       </S.header>
       {children}
