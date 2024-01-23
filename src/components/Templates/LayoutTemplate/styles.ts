@@ -195,7 +195,9 @@ export const FooterSecondDiv = styled.div`
   }
 `;
 
-export const FooterThirdDiv = styled.div``;
+export const FooterThirdDiv = styled.div`
+  width: fit-content;
+`;
 
 export const WrapperThirdDivContent = styled.div`
   display: grid;
@@ -251,10 +253,14 @@ export const WrapperSocialIconsFooter = styled.div`
   gap: 14px;
   margin: 18px 0;
 
-  justify-content: center;
+  width: fit-content;
 
   img {
     display: block;
+  }
+
+  :nth-child(1) {
+    margin-left: -6px;
   }
 
   :nth-child(2) {
