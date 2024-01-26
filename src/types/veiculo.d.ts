@@ -13,6 +13,7 @@ export interface IConsultaVeiculoChassiForm {
   Chassi: string;
   CnpjECV: string;
   IdCidadeDetran: number;
+  uuidAgendamento?: string;
 }
 
 export interface IVeiculoDTO {
@@ -30,6 +31,7 @@ export interface IConsultaVeiculoPlacaForm {
   IdCidadeDetran: number;
   Placa: string;
   Renavam: string;
+  uuidAgendamento?: string;
 }
 
 export interface IConsultaUnionProps {

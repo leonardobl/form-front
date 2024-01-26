@@ -21,6 +21,8 @@ import { removerCaracteresEspeciais } from "../../../utils/masks";
 export const SearchVehicleTemplate = () => {
   const [serviceStorage, setServiceStorage] = useSessionStorage("servico");
   const [sessionVeiculo, setSessionVeiculo] = useSessionStorage("veiculo");
+  const [sessionAgendamento, setSessionAgendamento] =
+    useSessionStorage("agendamento");
 
   const [municipiosOptions, setMunicipiosOptions] = useState<ISelectOptions[]>(
     []
@@ -40,8 +42,11 @@ export const SearchVehicleTemplate = () => {
     if (serviceStorage === "Emplacamento") {
       const PAYLOAD: IConsultaVeiculoChassiForm = {
         Chassi: form.Chassi,
-        CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
-        IdCidadeDetran: Number(form.IdCidadeDetran),
+        CnpjECV: null,
+        // CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
+        // IdCidadeDetran: Number(form.IdCidadeDetran),
+        IdCidadeDetran: null,
+        uuidAgendamento: sessionAgendamento?.uuid,
       };
 
       Veiculo.postByChassi(PAYLOAD)
@@ -64,9 +69,12 @@ export const SearchVehicleTemplate = () => {
 
     const PAYLOAD: IConsultaVeiculoPlacaForm = {
       Placa: form.Placa,
-      CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
-      IdCidadeDetran: Number(form.IdCidadeDetran),
+      CnpjECV: null,
+      // CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
+      // IdCidadeDetran: Number(form.IdCidadeDetran),
+      IdCidadeDetran: null,
       Renavam: form.Renavam,
+      uuidAgendamento: sessionAgendamento?.uuid,
     };
 
     Veiculo.postByPlaca(PAYLOAD)
