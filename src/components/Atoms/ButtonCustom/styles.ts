@@ -8,6 +8,7 @@ export const Buttongradiente = styled.button<{ $disabled?: boolean }>`
     background: linear-gradient(180deg, #558fff 0%, #002ed1 100%);
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
     cursor: ${$disabled ? "not-allowed" : "pointer"};
+    text-transform: uppercase;
 
     color: #eee;
     font-family: "Poppins";
@@ -76,6 +77,7 @@ export const ButtonBlueLight = styled.button<{ $disabled?: boolean }>`
     border-radius: 5px;
     height: 60px;
     background: #266bf0;
+    text-transform: uppercase;
 
     color: #eee;
     text-align: center;
@@ -112,6 +114,7 @@ export const ButtonBlueDark = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
     padding: 0 50px;
     height: 60px;
+    text-transform: uppercase;
     border-radius: 5px;
     background: #00186d;
     cursor: ${$disabled ? "not-allowed" : "pointer"};
