@@ -132,6 +132,7 @@ export const FooterContent = styled.div`
     margin: 0 auto;
     display: grid;
     padding: 100px 0;
+    width: 100%;
     grid-template-columns: repeat(3, 1fr);
 
     gap: 100px;
@@ -148,8 +149,8 @@ export const FooterContent = styled.div`
     @media (max-width: 500px) {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      padding: 32px 0 0;
+      gap: 16px 0;
+      padding: 32px 0 16px;
     }
   `}
 `;
