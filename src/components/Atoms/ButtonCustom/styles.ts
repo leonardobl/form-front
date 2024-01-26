@@ -14,7 +14,7 @@ export const Buttongradiente = styled.button<{ $disabled?: boolean }>`
     font-family: "Poppins";
     font-size: 24px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 36px;
     letter-spacing: 0.72px;
 
