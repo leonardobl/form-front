@@ -44,7 +44,7 @@ export const ButtonLogin = styled.button<{ $disabled?: boolean }>`
     cursor: ${$disabled ? "not-allowed" : "pointer"};
 
     display: block;
-    color: #002ed1;
+    color: #00186d;
     text-align: center;
     font-family: "Poppins";
     font-size: 20px;
