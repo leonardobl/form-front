@@ -187,7 +187,6 @@ export const FooterSecondDiv = styled.div`
   > div {
     display: flex;
     gap: 10px;
-    margin-top: 22px;
 
     > img {
       margin-top: -5px;
@@ -221,9 +220,9 @@ export const TitleSectionFooter = styled.h3`
     font-size: 20px;
     text-align: center;
     width: 100%;
-    margin-top: 16px;
   }
 
+  margin-bottom: 20px;
   color: #eee;
   text-align: center;
   font-family: "Poppins";
@@ -251,7 +250,7 @@ export const WrapperSocialIconsFooter = styled.div`
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: 18px 0;
+  /* margin: 18px 0; */
 
   width: fit-content;
 
