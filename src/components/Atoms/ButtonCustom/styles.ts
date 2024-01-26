@@ -121,7 +121,7 @@ export const ButtonBlueDark = styled.button<{ $disabled?: boolean }>`
     font-family: "Poppins";
     font-size: 24px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 32px;
     letter-spacing: 1.44px;
 

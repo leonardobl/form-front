@@ -41,9 +41,9 @@ root.render(
       <ContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to={"/offline"} />} />
+            {/* <Route path="/" element={<Navigate to={"/offline"} />} /> */}
 
-            {/* <Route path="/" element={<Home />} /> */}
+            <Route path="/" element={<Home />} />
 
             <Route path="/offline" element={<OfflineSystem />} />
             <Route

@@ -48,7 +48,7 @@ export const SchedulingTemplate = () => {
             typeOfButton="BlueDark"
             onClick={() => handleClick({ tipoAtendimento: "DOMICILIO" })}
           >
-            Domicilio
+            domicílio
           </ButtonCustom>
         </S.WrapperButtons>
       </S.Preference>
