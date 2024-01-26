@@ -12,6 +12,7 @@ import { ButtonCustom } from "../../Atoms/ButtonCustom";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { OrdemServico } from "../../../services/OrdemServico";
 
 export const SchedulingDetailTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -23,6 +24,7 @@ export const SchedulingDetailTemplate = () => {
   const [detalheAgendamento, setDetalheAgendamento] =
     useSessionStorage("detalheAgendamento");
   const [reagendamento, setReagendamento] = useSessionStorage("reagendamento");
+  const [urlLaudo, setUrlLaudo] = useState<string>("");
 
   function onRescheduling() {
     setIsLoad(true);
@@ -51,6 +53,20 @@ export const SchedulingDetailTemplate = () => {
         .finally(() => setIsLoad(false));
     }
   }, [detalheAgendamento]);
+
+  useEffect(() => {
+    if (agendamento?.status === StatusAgendamentoEnum.FINALIZADO) {
+      OrdemServico.getUrlLaudo({ uuidAgendamento: agendamento?.uuid })
+      .then(({ data }) => setUrlLaudo(data))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+    }
+  }, [agendamento]);
 
   return (
     <LayoutTemplate>
@@ -155,6 +171,16 @@ export const SchedulingDetailTemplate = () => {
                   }
                 />
               </div>
+              {[StatusAgendamentoEnum.FINALIZADO].includes(agendamento?.status) && (
+                <div>
+                  <S.SubTitle>Link do Laudo</S.SubTitle>
+                  <InputCustom
+                    readOnly
+                    value={urlLaudo}
+                  />
+                </div>
+              )}
+              
             </S.Grid>
           </S.Form>
 
