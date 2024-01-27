@@ -471,7 +471,7 @@ export const ScheduleListingTemplate = () => {
                     <ButtonCustom 
                       typeOfButton="ScheduleList" 
                       onClick={() => {
-                        
+                        iniciarVistoria(item.uuid);
                     }}>
                       INICIAR
                     </ButtonCustom>
