@@ -107,8 +107,7 @@ export const ScheduleListingTemplate = () => {
       .then(({data}) => {
         setDetalheAgendamento(data.uuid);
         window.open(
-          `/meus-agendamentos/detalhe-agendamento`,
-          "_black"
+          `/meus-agendamentos/detalhe-agendamento`, "_self"
         );
       })
       .catch(
