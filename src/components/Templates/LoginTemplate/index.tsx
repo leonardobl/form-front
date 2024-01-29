@@ -58,6 +58,7 @@ export const LoginTemplate = () => {
 
         if (is_high_level) {
           toast.success("Login efetuado com sucesso");
+          setClienteSession({ role: decoded.perfis });
           setTimeout(() => {
             window.open("/meus-agendamentos", "_self");
           }, 2000);

@@ -28,6 +28,7 @@ import { ServiceAddressRegistration } from "./components/Pages/ serviceAddressRe
 import { ScheduleListing } from "./components/Pages/scheduleListing";
 import { OfflineSystem } from "./components/Pages/ offlineSystem";
 import { InforVeihicle } from "./components/Pages/infoVehicle";
+import { ProtectedClientRoute } from "./components/Atoms/ProtectedClientRoute";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -59,7 +60,9 @@ root.render(
               path="servicos"
               element={
                 <ProtectedRoute>
-                  <ServiceOptions />
+                  <ProtectedClientRoute>
+                    <ServiceOptions />
+                  </ProtectedClientRoute>
                 </ProtectedRoute>
               }
             />
@@ -88,8 +91,22 @@ root.render(
             </Route>
             <Route path="agendamento" element={<PageLayoutTemplate />}>
               <Route index element={<Scheduling />} />
-              <Route path="loja" element={<Physical />} />
-              <Route path="domicilio" element={<Physical />} />
+              <Route
+                path="loja"
+                element={
+                  <ProtectedClientRoute>
+                    <Physical />
+                  </ProtectedClientRoute>
+                }
+              />
+              <Route
+                path="domicilio"
+                element={
+                  <ProtectedClientRoute>
+                    <Physical />
+                  </ProtectedClientRoute>
+                }
+              />
             </Route>
             <Route
               path="buscar-veiculo"
