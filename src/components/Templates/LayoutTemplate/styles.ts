@@ -269,9 +269,7 @@ export const WrapperSocialIconsFooter = styled.div`
 `;
 
 export const ButtonMySchedule = styled.button`
-  @media (max-width: 500px) {
-    display: none;
-  }
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.4);
 
   display: inline-flex;
   padding: 10px;
@@ -288,6 +286,10 @@ export const ButtonMySchedule = styled.button`
   font-style: normal;
   font-weight: 500;
   line-height: 24px;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const WrapperButtons = styled.div`
