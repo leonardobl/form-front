@@ -460,13 +460,13 @@ export const ScheduleListingTemplate = () => {
                   </S.ItemGrid>
                   <S.ItemGrid>
                     {item.status === "AGENDADO" && !isCliente && (
-                      <Button
+                      <S.ButtonStart
                         onClick={() => {
                           iniciarVistoria(item.uuid);
                         }}
                       >
                         INICIAR
-                      </Button>
+                      </S.ButtonStart>
                     )}
                   </S.ItemGrid>
                   <S.ItemGrid>

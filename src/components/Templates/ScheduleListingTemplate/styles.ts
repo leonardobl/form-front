@@ -170,6 +170,24 @@ export const ItemListagemMobile = styled.div`
   }
 `;
 
+export const ButtonStart = styled.button`
+  color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins";
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: 0.24px;
+
+  border-radius: 5px;
+  background: #266bf0;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 0 6px;
+`;
+
 export const TitleFilter = styled.h2`
   color: #2d2d2d;
   font-family: "Roboto";
@@ -234,7 +252,7 @@ export const ItemGrid = styled.p<{ $color?: string }>`
     font-family: "Roboto";
     font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: ${$color ? 700 : 400};
     line-height: 24px;
     letter-spacing: 0.36px;
     text-transform: uppercase;
