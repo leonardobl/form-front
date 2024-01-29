@@ -10,7 +10,7 @@ const basePath = "/municipio";
 
 interface IMunicipioProps extends IPageRequest {
   estado?: EstadosEnum;
-  nome: string;
+  nome?: string;
 }
 
 export class Municipio {

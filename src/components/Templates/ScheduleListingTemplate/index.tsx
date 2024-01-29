@@ -145,7 +145,7 @@ export const ScheduleListingTemplate = () => {
   useEffect(() => {
     setIsLoad(true);
 
-    Municipio.get()
+    Municipio.get({ size: 300 })
       .then(({ data }) => {
         const options = data.content.map((item) => ({
           value: item.nome.toUpperCase(),
