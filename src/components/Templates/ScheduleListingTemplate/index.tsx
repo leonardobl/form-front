@@ -40,7 +40,7 @@ export const ScheduleListingTemplate = () => {
     label: item,
   }));
   const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
-
+  const [cont, setCont] = useState(0);
   const [visao, setVisao] = useState("vistoriador");
   const size = 5;
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
@@ -106,7 +106,8 @@ export const ScheduleListingTemplate = () => {
     Agendamento.iniciar({ uuid: uuidAgendamento })
       .then(({ data }) => {
         setDetalheAgendamento(data.uuid);
-        window.open(`/meus-agendamentos/detalhe-agendamento`, "_self");
+        setCont((prev) => ++prev);
+        window.open(`/meus-agendamentos/detalhe-agendamento`, "_black");
       })
       .catch(
         ({
@@ -168,7 +169,7 @@ export const ScheduleListingTemplate = () => {
     setIsLoad(true);
 
     getAgendamentos({ ...formFilter, size, page: numberPage });
-  }, [numberPage]);
+  }, [numberPage, cont]);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
