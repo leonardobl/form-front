@@ -23,15 +23,14 @@ export const Button = styled.button<{ $disabled?: boolean }>`
     font-weight: 600;
     line-height: 32px;
     letter-spacing: 0.6px;
+    text-transform: uppercase;
 
     &[data-variant-degrade="true"] {
       background: linear-gradient(180deg, #558fff 0%, #002ed1 100%);
-      text-transform: uppercase;
     }
 
     &[data-variant-dark="true"] {
       background: #00186d;
-      text-transform: uppercase;
     }
 
     &[data-variant-login="true"] {
@@ -42,6 +41,7 @@ export const Button = styled.button<{ $disabled?: boolean }>`
       font-style: normal;
       font-weight: 600;
       min-width: 200px;
+      text-transform: none;
     }
 
     &[data-variant-border="true"] {
@@ -50,7 +50,6 @@ export const Button = styled.button<{ $disabled?: boolean }>`
       font-style: normal;
       font-weight: 700;
       line-height: 22px;
-      text-transform: uppercase;
       background: transparent;
       box-shadow: none;
       border: 2px solid #266bf0;
@@ -68,6 +67,7 @@ export const Button = styled.button<{ $disabled?: boolean }>`
       line-height: 24px;
       letter-spacing: 0.48px;
       border: none;
+      text-transform: none;
       background: none;
       min-width: fit-content;
       box-shadow: none;
