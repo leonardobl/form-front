@@ -13,6 +13,7 @@ export const ProtectedClientRoute = ({
 }) => {
   // const { isAuth } = useContextSite();
   const [cliente] = useSessionStorage("cliente");
+  const [token] = useSessionStorage("@token");
 
   function handleRedirect() {
     toast.info(
@@ -26,7 +27,9 @@ export const ProtectedClientRoute = ({
     !cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) && handleRedirect();
   }, [cliente]);
 
-  return cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) ? (
+  return !token ? (
+    children
+  ) : cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) ? (
     children
   ) : (
     <Navigate to={"/agendamento"} />
