@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { Link } from "react-router-dom";
 
 export const LoginRegisterTemplate = () => {
@@ -14,10 +14,10 @@ export const LoginRegisterTemplate = () => {
         </p>
         <S.WrapperButtons>
           <Link to={"/login"}>
-            <ButtonCustom typeOfButton="BlueLight">LOGIN</ButtonCustom>
+            <Button>LOGIN</Button>
           </Link>
           <Link to={"/cadastro-acesso"}>
-            <ButtonCustom typeOfButton="BlueDark">CADASTRO</ButtonCustom>
+            <Button data-variant-dark>CADASTRO</Button>
           </Link>
         </S.WrapperButtons>
       </S.Container>

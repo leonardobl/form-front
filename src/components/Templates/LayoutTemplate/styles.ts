@@ -278,7 +278,7 @@ export const ButtonMySchedule = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  height: 54px;
+  height: 44px;
   background: linear-gradient(180deg, #0025a8 0%, #00114d 100%);
 
   color: #fff;
@@ -305,4 +305,21 @@ export const WrapperButtons = styled.div`
   display: flex;
   align-items: center;
   gap: 0 48px;
+`;
+
+export const ButtonLogin = styled.button`
+  background: linear-gradient(181deg, #fff -28.23%, #cacaca 99.08%);
+  color: #00186d;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  min-width: 150px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  font-family: "Poppins";
 `;

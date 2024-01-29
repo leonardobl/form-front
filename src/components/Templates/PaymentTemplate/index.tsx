@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { PaymentsOptionsContainer } from "../../Atoms/PaymentsOptionsContainer";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { toast } from "react-toastify";
 
 import { useContextSite } from "../../../context/Context";
@@ -84,7 +84,7 @@ export const PaymentTemplate = () => {
         </S.WrapperPayments>
 
         <S.WrapperButton>
-          <ButtonCustom typeOfButton="BlueLight">Gerar pagamento</ButtonCustom>
+          <Button>Gerar pagamento</Button>
         </S.WrapperButton>
       </S.Form>
       <S.TextFooter>

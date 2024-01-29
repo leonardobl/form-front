@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
 import { v4 } from "uuid";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { Link } from "react-router-dom";
 import { useContextSite } from "../../../context/Context";
 import { Pagamento } from "../../../services/Pagamento";
@@ -69,9 +69,9 @@ export const PaymentTicketTemplate = () => {
           {/* <Link to={"/detalhe-pagamento"}>
             <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
           </Link> */}
-          <ButtonCustom typeOfButton="Ghost" onClick={handlePix}>
+          <Button data-variant-border onClick={handlePix}>
             ALTERAR PARA PIX
-          </ButtonCustom>
+          </Button>
         </S.WrapperButtons>
       </S.Content>
     </S.Container>

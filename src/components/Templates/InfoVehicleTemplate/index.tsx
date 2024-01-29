@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
@@ -141,7 +141,7 @@ export const InfoVehicleTemplate = () => {
               </div>
             </S.SecondGrid>
             <S.WrapperBtn>
-              <ButtonCustom typeOfButton="BlueLight">Confirmar</ButtonCustom>
+              <Button>Confirmar</Button>
             </S.WrapperBtn>
           </S.Form>
         </S.Content>

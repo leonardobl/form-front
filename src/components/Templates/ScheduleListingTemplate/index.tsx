@@ -6,7 +6,7 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { Pagination } from "../../Atoms/Pagination";
 import { useContextSite } from "../../../context/Context";
 import {
@@ -103,12 +103,10 @@ export const ScheduleListingTemplate = () => {
   }
 
   function iniciarVistoria(uuidAgendamento: string) {
-    Agendamento.iniciar({uuid: uuidAgendamento})
-      .then(({data}) => {
+    Agendamento.iniciar({ uuid: uuidAgendamento })
+      .then(({ data }) => {
         setDetalheAgendamento(data.uuid);
-        window.open(
-          `/meus-agendamentos/detalhe-agendamento`, "_self"
-        );
+        window.open(`/meus-agendamentos/detalhe-agendamento`, "_self");
       })
       .catch(
         ({
@@ -116,7 +114,7 @@ export const ScheduleListingTemplate = () => {
             data: { mensagem },
           },
         }) => toast.error(mensagem)
-      )
+      );
   }
 
   function getAgendamentos(filters: IGetAgendamentosProps) {
@@ -266,14 +264,10 @@ export const ScheduleListingTemplate = () => {
                 />
               </div>
 
-              <ButtonCustom
-                typeOfButton="Noborder"
-                onClick={handleClear}
-                type="button"
-              >
+              <Button data-variant-ghost onClick={handleClear} type="button">
                 Limpar tudo
-              </ButtonCustom>
-              <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
+              </Button>
+              <Button>Buscar</Button>
             </S.Grid2>
           </S.FormFilter>
         ) : (
@@ -390,93 +384,28 @@ export const ScheduleListingTemplate = () => {
                 />
               </div>
 
-              <ButtonCustom
-                typeOfButton="Noborder"
-                onClick={handleClear}
-                type="button"
-              >
+              <Button data-variant-ghost onClick={handleClear} type="button">
                 Limpar tudo
-              </ButtonCustom>
-              <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
+              </Button>
+              <Button>Buscar</Button>
             </S.Grid1>
           </S.FormFilter>
         )}
 
-        {!!agendamentos?.length && isMobile ? (
-          <>
-            {agendamentos.map((item) => (
-              <S.ItemListagemMobile key={`${Math.random()}`}>
-                <div>
-                  <h4>
-                    {item?.veiculo?.tipo || "---"}
-                    <span>{reverseToBrDate(item?.diaAgendado)}</span>
-                  </h4>
-                  <S.ItemGrid $color={colorsStatus[item?.status].color}>
-                    {item.status || "---"}
-                  </S.ItemGrid>
-                </div>
-                <img
-                  alt="icone de visualização"
-                  src="/assets/imgs/visualizar-icon.svg"
-                  onClick={() => {
-                    setDetalheAgendamento(item.uuid);
-                    window.open(
-                      `/meus-agendamentos/detalhe-agendamento`,
-                      "_black"
-                    );
-                  }}
-                />{" "}
-              </S.ItemListagemMobile>
-            ))}
-            <Pagination
-              maxPageNumbersDisplayed={isMobile ? 3 : 10}
-              key={`${Math.random()} - ${pagination}`}
-              totalPage={pagination.totalPage}
-              totalRegister={pagination.totalPage}
-              actualPage={pagination.actualPage}
-              setNumberPage={setNumberPage}
-            />
-          </>
-        ) : (
-          <>
-            <S.GridTitles>
-              <S.TitleGrid>Tipo</S.TitleGrid>
-              <S.TitleGrid>Veículo</S.TitleGrid>
-              <S.TitleGrid>Loja</S.TitleGrid>
-              <S.TitleGrid>Cidade</S.TitleGrid>
-              <S.TitleGrid>Data / Hora</S.TitleGrid>
-              <S.TitleGrid>Status</S.TitleGrid>
-              <S.TitleGrid></S.TitleGrid>
-              <S.TitleGrid></S.TitleGrid>
-            </S.GridTitles>
-            {agendamentos.map((item) => (
-              <S.GridItem key={`${Math.random()}-${item}`}>
-                <S.ItemGrid>{item?.tipoAtendimento || "---"}</S.ItemGrid>
-                <S.ItemGrid>{item?.veiculo?.tipo || "---"}</S.ItemGrid>
-                <S.ItemGrid>{item?.loja?.nome || "---"}</S.ItemGrid>
-                <S.ItemGrid>{item?.loja?.endereco?.cidade || "---"}</S.ItemGrid>
-                <S.ItemGrid>
-                  {item?.diaAgendado && item?.horaAgendada
-                    ? `${reverseToBrDate(item?.diaAgendado)} - ${
-                        item?.horaAgendada
-                      }`
-                    : "---"}
-                </S.ItemGrid>
-                <S.ItemGrid $color={colorsStatus[item?.status].color}>
-                  {item.status || "---"}
-                </S.ItemGrid>
-                <S.ItemGrid>
-                  {item.status === "AGENDADO" && !isCliente && (
-                    <ButtonCustom 
-                      typeOfButton="ScheduleList" 
-                      onClick={() => {
-                        iniciarVistoria(item.uuid);
-                    }}>
-                      INICIAR
-                    </ButtonCustom>
-                  )}
-                </S.ItemGrid>
-                <S.ItemGrid>
+        {!!agendamentos?.length ? (
+          isMobile ? (
+            <>
+              {agendamentos.map((item) => (
+                <S.ItemListagemMobile key={`${Math.random()}`}>
+                  <div>
+                    <h4>
+                      {item?.veiculo?.tipo || "---"}
+                      <span>{reverseToBrDate(item?.diaAgendado)}</span>
+                    </h4>
+                    <S.ItemGrid $color={colorsStatus[item?.status].color}>
+                      {item.status || "---"}
+                    </S.ItemGrid>
+                  </div>
                   <img
                     alt="icone de visualização"
                     src="/assets/imgs/visualizar-icon.svg"
@@ -488,18 +417,83 @@ export const ScheduleListingTemplate = () => {
                       );
                     }}
                   />{" "}
-                </S.ItemGrid>
-              </S.GridItem>
-            ))}
-            <Pagination
-              key={`${Math.random()} - ${pagination}`}
-              totalPage={pagination.totalPage}
-              totalRegister={pagination.totalPage}
-              actualPage={pagination.actualPage}
-              setNumberPage={setNumberPage}
-            />
-          </>
-        )}
+                </S.ItemListagemMobile>
+              ))}
+              <Pagination
+                maxPageNumbersDisplayed={isMobile ? 3 : 10}
+                key={`${Math.random()} - ${pagination}`}
+                totalPage={pagination.totalPage}
+                totalRegister={pagination.totalPage}
+                actualPage={pagination.actualPage}
+                setNumberPage={setNumberPage}
+              />
+            </>
+          ) : (
+            <>
+              <S.GridTitles>
+                <S.TitleGrid>Tipo</S.TitleGrid>
+                <S.TitleGrid>Veículo</S.TitleGrid>
+                <S.TitleGrid>Loja</S.TitleGrid>
+                <S.TitleGrid>Cidade</S.TitleGrid>
+                <S.TitleGrid>Data / Hora</S.TitleGrid>
+                <S.TitleGrid>Status</S.TitleGrid>
+                <S.TitleGrid></S.TitleGrid>
+                <S.TitleGrid></S.TitleGrid>
+              </S.GridTitles>
+              {agendamentos.map((item) => (
+                <S.GridItem key={`${Math.random()}-${item}`}>
+                  <S.ItemGrid>{item?.tipoAtendimento || "---"}</S.ItemGrid>
+                  <S.ItemGrid>{item?.veiculo?.tipo || "---"}</S.ItemGrid>
+                  <S.ItemGrid>{item?.loja?.nome || "---"}</S.ItemGrid>
+                  <S.ItemGrid>
+                    {item?.loja?.endereco?.cidade || "---"}
+                  </S.ItemGrid>
+                  <S.ItemGrid>
+                    {item?.diaAgendado && item?.horaAgendada
+                      ? `${reverseToBrDate(item?.diaAgendado)} - ${
+                          item?.horaAgendada
+                        }`
+                      : "---"}
+                  </S.ItemGrid>
+                  <S.ItemGrid $color={colorsStatus[item?.status].color}>
+                    {item.status || "---"}
+                  </S.ItemGrid>
+                  <S.ItemGrid>
+                    {item.status === "AGENDADO" && !isCliente && (
+                      <Button
+                        onClick={() => {
+                          iniciarVistoria(item.uuid);
+                        }}
+                      >
+                        INICIAR
+                      </Button>
+                    )}
+                  </S.ItemGrid>
+                  <S.ItemGrid>
+                    <img
+                      alt="icone de visualização"
+                      src="/assets/imgs/visualizar-icon.svg"
+                      onClick={() => {
+                        setDetalheAgendamento(item.uuid);
+                        window.open(
+                          `/meus-agendamentos/detalhe-agendamento`,
+                          "_black"
+                        );
+                      }}
+                    />{" "}
+                  </S.ItemGrid>
+                </S.GridItem>
+              ))}
+              <Pagination
+                key={`${Math.random()} - ${pagination}`}
+                totalPage={pagination.totalPage}
+                totalRegister={pagination.totalPage}
+                actualPage={pagination.actualPage}
+                setNumberPage={setNumberPage}
+              />
+            </>
+          )
+        ) : null}
       </S.Container>
     </LayoutTemplate>
   );

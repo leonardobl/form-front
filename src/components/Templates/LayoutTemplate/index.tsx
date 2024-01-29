@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styles";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { useLocation, Link } from "react-router-dom";
 import { NavHashLink } from "react-router-hash-link";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
@@ -93,9 +93,9 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
                 <S.ButtonMySchedule>Agendamentos</S.ButtonMySchedule>
               </Link>
             )}
-            <ButtonCustom typeOfButton="Login" onClick={handleLoginLogout}>
+            <S.ButtonLogin onClick={handleLoginLogout}>
               {token ? "Logout" : "Login"}
-            </ButtonCustom>
+            </S.ButtonLogin>
           </S.WrapperButtons>
 
           {!isOffline && (

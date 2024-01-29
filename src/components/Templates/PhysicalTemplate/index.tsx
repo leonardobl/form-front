@@ -5,7 +5,7 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 
 import { addDays } from "date-fns";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { Loja } from "../../../services/Lojas";
 import { toast } from "react-toastify";
@@ -278,7 +278,7 @@ export const PhysicalTemplate = () => {
           </S.WrapperInput>
         </S.InputsContainer>
 
-        <ButtonCustom typeOfButton="BlueLight">Avançar</ButtonCustom>
+        <Button>Avançar</Button>
       </S.Form>
       <CustomConfirmModal
         isOpen={isOpen}
@@ -288,9 +288,7 @@ export const PhysicalTemplate = () => {
           <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
             date?.toLocaleDateString()
           )} às ${form.horaAgendada}? `}</p>
-          <ButtonCustom typeOfButton="Login" onClick={handleReagendamento}>
-            CONFIRMAR
-          </ButtonCustom>
+          <Button onClick={handleReagendamento}>CONFIRMAR</Button>
         </S.ContentModal>
       </CustomConfirmModal>
     </S.Container>

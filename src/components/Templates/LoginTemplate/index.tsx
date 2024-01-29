@@ -3,7 +3,7 @@ import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
 
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 import { jwtDecode } from "jwt-decode";
@@ -146,9 +146,9 @@ export const LoginTemplate = () => {
             </S.Grid>
 
             <S.WrapperButton>
-              <ButtonCustom typeOfButton="Login" disabled={isDisable}>
+              <Button data-variant-login disabled={isDisable}>
                 Login
-              </ButtonCustom>
+              </Button>
             </S.WrapperButton>
           </S.FormContent>
         </S.Form>

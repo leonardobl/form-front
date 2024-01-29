@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { LayoutTemplate } from "../LayoutTemplate";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { toast } from "react-toastify";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
@@ -141,9 +141,7 @@ export const SearchVehicleTemplate = () => {
             </S.Text>
           )}
           <S.WrapperInputs
-            $gridColumns={
-              serviceStorage === "Emplacamento" ? "1fr 1fr" : "1fr 1fr 1fr"
-            }
+            $gridColumns={serviceStorage === "Emplacamento" ? "1fr" : "1fr 1fr"}
             $gap={serviceStorage === "Emplacamento" ? "0 70px" : "0 24px"}
           >
             <InputCustom
@@ -189,7 +187,7 @@ export const SearchVehicleTemplate = () => {
             /> */}
           </S.WrapperInputs>
           <S.WrapperButton>
-            <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
+            <Button>Buscar</Button>
           </S.WrapperButton>
         </S.Form>
       </S.Container>

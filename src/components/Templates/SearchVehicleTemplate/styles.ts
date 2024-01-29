@@ -1,3 +1,4 @@
+import { Button } from "../../Atoms/Button/index";
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
@@ -80,7 +81,9 @@ export const WrapperInputs = styled.div<{ $gridColumns: string; $gap: string }>`
 `;
 
 export const WrapperButton = styled.div`
-  text-align: end;
+  > button {
+    margin: 0 auto;
+  }
 
   @media (max-width: 500px) {
     button {

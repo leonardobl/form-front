@@ -1,7 +1,7 @@
 import React from "react";
 
 import * as S from "./styles";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const SchedulingTemplate = () => {
@@ -38,18 +38,15 @@ export const SchedulingTemplate = () => {
         </p>
 
         <S.WrapperButtons>
-          <ButtonCustom
-            typeOfButton="BlueLight"
-            onClick={() => handleClick({ tipoAtendimento: "LOJA" })}
-          >
+          <Button onClick={() => handleClick({ tipoAtendimento: "LOJA" })}>
             Loja Física
-          </ButtonCustom>
-          <ButtonCustom
-            typeOfButton="BlueDark"
+          </Button>
+          <Button
+            data-variant-dark
             onClick={() => handleClick({ tipoAtendimento: "DOMICILIO" })}
           >
             domicílio
-          </ButtonCustom>
+          </Button>
         </S.WrapperButtons>
       </S.Preference>
     </S.Container>

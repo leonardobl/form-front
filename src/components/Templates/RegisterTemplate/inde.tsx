@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles.ts";
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { toast } from "react-toastify";
 import {
   maskCep,
@@ -337,9 +337,9 @@ export const RegisterTemplate = () => {
                 />
               </S.Grid>
               <S.WrapperButton>
-                <ButtonCustom typeOfButton="Login" disabled={isDisabled}>
+                <Button data-variant-login disabled={isDisabled}>
                   Criar Conta
-                </ButtonCustom>
+                </Button>
               </S.WrapperButton>
             </S.WrapperContentForm>
           </S.Form>

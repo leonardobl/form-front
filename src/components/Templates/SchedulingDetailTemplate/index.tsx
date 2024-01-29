@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { reverseToBrDate } from "../../../utils/dateTransform";
 import { maskCpf, maskMoney } from "../../../utils/masks";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
@@ -57,14 +57,14 @@ export const SchedulingDetailTemplate = () => {
   useEffect(() => {
     if (agendamento?.status === StatusAgendamentoEnum.FINALIZADO) {
       OrdemServico.getUrlLaudo({ uuidAgendamento: agendamento?.uuid })
-      .then(({ data }) => setUrlLaudo(data))
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
+        .then(({ data }) => setUrlLaudo(data))
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
     }
   }, [agendamento]);
 
@@ -171,16 +171,14 @@ export const SchedulingDetailTemplate = () => {
                   }
                 />
               </div>
-              {[StatusAgendamentoEnum.FINALIZADO].includes(agendamento?.status) && (
+              {[StatusAgendamentoEnum.FINALIZADO].includes(
+                agendamento?.status
+              ) && (
                 <div>
                   <S.SubTitle>Link do Laudo</S.SubTitle>
-                  <InputCustom
-                    readOnly
-                    value={urlLaudo}
-                  />
+                  <InputCustom readOnly value={urlLaudo} />
                 </div>
               )}
-              
             </S.Grid>
           </S.Form>
 
@@ -189,15 +187,12 @@ export const SchedulingDetailTemplate = () => {
             StatusAgendamentoEnum.FINALIZADO,
           ].includes(agendamento?.status) && (
             <S.WrapperBtns>
-              <ButtonCustom typeOfButton="Ghost" onClick={onRescheduling}>
+              <Button data-variant-border onClick={onRescheduling}>
                 REAGENDAR
-              </ButtonCustom>
-              <ButtonCustom
-                typeOfButton="Ghost"
-                onClick={() => setISOpen(true)}
-              >
+              </Button>
+              <Button data-variant-border onClick={() => setISOpen(true)}>
                 CANCELAR
-              </ButtonCustom>
+              </Button>
             </S.WrapperBtns>
           )}
         </S.Content>
@@ -208,9 +203,9 @@ export const SchedulingDetailTemplate = () => {
       >
         <S.ModalContent>
           <p>Tem certeza que deseja cancelar sua vistoria?</p>
-          <ButtonCustom typeOfButton="Login" onClick={() => setISOpen(false)}>
+          <Button data-variant-login onClick={() => setISOpen(false)}>
             CONFIRMAR
-          </ButtonCustom>
+          </Button>
         </S.ModalContent>
       </CustomConfirmModal>
     </LayoutTemplate>

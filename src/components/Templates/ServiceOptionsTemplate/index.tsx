@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const ServiceOptionsTemplate = () => {
@@ -19,18 +19,12 @@ export const ServiceOptionsTemplate = () => {
           Escolha qual <span>serviço</span> você deseja realizar.
         </p>
         <S.WrapperButtons>
-          <ButtonCustom
-            typeOfButton="BlueLight"
-            onClick={() => handleClick("Emplacamento")}
-          >
+          <Button onClick={() => handleClick("Emplacamento")}>
             1° EMPLACAMENTO
-          </ButtonCustom>
-          <ButtonCustom
-            typeOfButton="BlueDark"
-            onClick={() => handleClick("Vistoria")}
-          >
+          </Button>
+          <Button data-variant-dark onClick={() => handleClick("Vistoria")}>
             VISTORIA
-          </ButtonCustom>
+          </Button>
         </S.WrapperButtons>
       </S.Container>
     </LayoutTemplate>

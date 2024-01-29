@@ -1,5 +1,5 @@
 import { InputCustom } from "../../Atoms/Inputs/InputCustom";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { toast } from "react-toastify";
 import { maskCep, maskPhone } from "../../../utils/masks";
 import { ViaCep } from "../../../services/ViaCep";
@@ -288,9 +288,9 @@ export const ServiceAddressRegistrationTemplate = () => {
               </S.Grid>
 
               <S.WrapperButton>
-                <ButtonCustom typeOfButton="Login" disabled={isDisabled}>
+                <Button data-variant-login disabled={isDisabled}>
                   Cadastrar Serviço
-                </ButtonCustom>
+                </Button>
               </S.WrapperButton>
             </S.WrapperContentForm>
           </S.Form>

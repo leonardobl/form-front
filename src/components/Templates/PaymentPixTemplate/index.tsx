@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styles";
-import { ButtonCustom } from "../../Atoms/ButtonCustom";
+import { Button } from "../../Atoms/Button";
 import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
 import { v4 } from "uuid";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
@@ -65,9 +65,9 @@ export const PaymentPixTemplate = () => {
               {/* <Link to={"/detalhe-pagamento"}>
                 <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
               </Link> */}
-              <ButtonCustom typeOfButton="Ghost" onClick={handleTicket}>
+              <Button data-variant-border onClick={handleTicket}>
                 ALTERAR PARA BOLETO
-              </ButtonCustom>
+              </Button>
             </S.WrapperButtons>
           </S.DataPaymentContent>
         </S.WrapperDataPayment>

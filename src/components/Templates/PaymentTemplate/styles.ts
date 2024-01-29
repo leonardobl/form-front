@@ -98,12 +98,15 @@ export const WrapperPayments = styled.div`
 
 export const WrapperButton = styled.div`
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 120px;
+
+  > button {
+    margin: 50px auto 120px;
+  }
 
   @media (max-width: 500px) {
-    width: fit-content;
-    margin: 32px auto 40px;
+    > button {
+      margin: 32px auto 40px;
+    }
   }
 `;
 
