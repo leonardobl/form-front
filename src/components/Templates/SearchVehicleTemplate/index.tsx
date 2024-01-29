@@ -21,6 +21,8 @@ import { removerCaracteresEspeciais } from "../../../utils/masks";
 export const SearchVehicleTemplate = () => {
   const [serviceStorage, setServiceStorage] = useSessionStorage("servico");
   const [sessionVeiculo, setSessionVeiculo] = useSessionStorage("veiculo");
+  const [sessionAgendamento, setSessionAgendamento] =
+    useSessionStorage("agendamento");
 
   const [municipiosOptions, setMunicipiosOptions] = useState<ISelectOptions[]>(
     []
@@ -38,10 +40,17 @@ export const SearchVehicleTemplate = () => {
     setIsLoad(true);
 
     if (serviceStorage === "Emplacamento") {
+      // const PAYLOAD: IConsultaVeiculoChassiForm = {
+      //   Chassi: form.Chassi,
+      //   CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
+      //   IdCidadeDetran: Number(form.IdCidadeDetran),
+      // };
+
       const PAYLOAD: IConsultaVeiculoChassiForm = {
         Chassi: form.Chassi,
-        CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
-        IdCidadeDetran: Number(form.IdCidadeDetran),
+        CnpjECV: null,
+        IdCidadeDetran: null,
+        uuidAgendamento: sessionAgendamento?.uuid,
       };
 
       Veiculo.postByChassi(PAYLOAD)
@@ -62,11 +71,18 @@ export const SearchVehicleTemplate = () => {
       return;
     }
 
+    // const PAYLOAD: IConsultaVeiculoPlacaForm = {
+    //   Placa: form.Placa,
+    //   CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
+    //   IdCidadeDetran: Number(form.IdCidadeDetran),
+    //   Renavam: form.Renavam,
+    // };
     const PAYLOAD: IConsultaVeiculoPlacaForm = {
       Placa: form.Placa,
-      CnpjECV: process.env.REACT_APP_BRAVE_CNPJ_ECV,
-      IdCidadeDetran: Number(form.IdCidadeDetran),
+      CnpjECV: null,
+      IdCidadeDetran: null,
       Renavam: form.Renavam,
+      uuidAgendamento: sessionAgendamento?.uuid,
     };
 
     Veiculo.postByPlaca(PAYLOAD)
@@ -114,15 +130,14 @@ export const SearchVehicleTemplate = () => {
 
           {serviceStorage === "Emplacamento" ? (
             <S.Text>
-              Digite a <S.TextBlue>chassi</S.TextBlue> e{" "}
-              <S.TextBlue>cidade</S.TextBlue> do veículo para consultar os
-              dados.
+              Digite o <S.TextBlue>chassi</S.TextBlue> do veículo para consultar
+              os dados.
             </S.Text>
           ) : (
             <S.Text>
               Digite a <S.TextBlue>placa</S.TextBlue> e{" "}
-              <S.TextBlue>renavam</S.TextBlue> e <S.TextBlue>cidade</S.TextBlue>{" "}
-              do veículo para consultar os dados.
+              <S.TextBlue>renavam</S.TextBlue> do veículo para consultar os
+              dados.
             </S.Text>
           )}
           <S.WrapperInputs
@@ -161,7 +176,7 @@ export const SearchVehicleTemplate = () => {
               />
             )}
 
-            <SimpleSelect
+            {/* <SimpleSelect
               required
               label="Cidade"
               options={municipiosOptions}
@@ -171,7 +186,7 @@ export const SearchVehicleTemplate = () => {
               value={municipiosOptions.find(
                 (item) => item.value === form?.IdCidadeDetran
               )}
-            />
+            /> */}
           </S.WrapperInputs>
           <S.WrapperButton>
             <ButtonCustom typeOfButton="BlueLight">Buscar</ButtonCustom>
