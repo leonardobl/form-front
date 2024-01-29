@@ -183,4 +183,15 @@ export const ModalContent = styled.div`
     margin: 0 auto;
     display: block;
   }
+
+  @media (max-width: 500px) {
+    padding: 32px 48px;
+
+    p {
+      font-size: 18px;
+      line-height: 24px;
+      max-width: 200px;
+      margin: 0 auto 24px;
+    }
+  }
 `;
