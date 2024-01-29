@@ -102,6 +102,23 @@ export const ScheduleListingTemplate = () => {
     getAgendamentos({ size, page: 0 });
   }
 
+  function iniciarVistoria(uuidAgendamento: string) {
+    Agendamento.iniciar({uuid: uuidAgendamento})
+      .then(({data}) => {
+        setDetalheAgendamento(data.uuid);
+        window.open(
+          `/meus-agendamentos/detalhe-agendamento`, "_self"
+        );
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+  }
+
   function getAgendamentos(filters: IGetAgendamentosProps) {
     const filtered = removeEmpty(filters);
 
@@ -450,7 +467,11 @@ export const ScheduleListingTemplate = () => {
                 </S.ItemGrid>
                 <S.ItemGrid>
                   {item.status === "AGENDADO" && !isCliente && (
-                    <ButtonCustom typeOfButton="ScheduleList">
+                    <ButtonCustom 
+                      typeOfButton="ScheduleList" 
+                      onClick={() => {
+                        iniciarVistoria(item.uuid);
+                    }}>
                       INICIAR
                     </ButtonCustom>
                   )}
