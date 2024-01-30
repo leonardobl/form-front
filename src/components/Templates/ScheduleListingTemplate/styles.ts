@@ -55,7 +55,7 @@ export const Grid1 = styled.div`
   grid-template-columns: repeat(10, 1fr);
   grid-template-areas:
     "loja loja cidade cidade data data placa placa renavam renavam"
-    "status status status status status status clean clean filtrar filtrar";
+    "status status status chassi chassi chassi clean clean filtrar filtrar";
   gap: 24px;
   padding-top: 32px;
   align-items: end;
@@ -78,10 +78,14 @@ export const Grid1 = styled.div`
   > :nth-child(6) {
     grid-area: status;
   }
+
   > :nth-child(7) {
-    grid-area: clean;
+    grid-area: chassi;
   }
   > :nth-child(8) {
+    grid-area: clean;
+  }
+  > :nth-child(9) {
     grid-area: filtrar;
   }
 
@@ -100,12 +104,11 @@ export const Grid1 = styled.div`
 
 export const Grid2 = styled.div`
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(5, minmax(120px, 1fr));
   grid-template-areas:
-    "data data status status status placa placa renavam renavam"
-    ". . . . . . . clean filtrar";
+    "data status status placa renavam renavam"
+    "chassi chassi chassi chassi clean filtrar";
   gap: 24px;
-  padding-top: 32px;
   padding: 32px 60px 0;
   align-items: end;
 
@@ -121,11 +124,13 @@ export const Grid2 = styled.div`
   > :nth-child(4) {
     grid-area: renavam;
   }
-
-  > :nth-child(7) {
+  > :nth-child(5) {
+    grid-area: chassi;
+  }
+  > :nth-child(6) {
     grid-area: clean;
   }
-  > :nth-child(8) {
+  > :nth-child(7) {
     grid-area: filtrar;
   }
 

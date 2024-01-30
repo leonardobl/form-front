@@ -32,6 +32,7 @@ export interface IGetAgendamentosProps extends IPageRequest {
   data?: string;
   placa?: string;
   renavam?: string;
+  chassi?: string;
   statusAgendamento?: StatusAgendamentoEnum;
   idCliente?: string;
 }
@@ -79,9 +80,11 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuidAgendamento}/reagendar`, rest);
   }
 
-  static async iniciar({uuid,
+  static async iniciar({
+    uuid,
   }: {
-    uuid: string;}): Promise<AxiosResponse<IAgendamentoDTO>> {
-      return ApiBrave.put(`${basePath}/${uuid}/iniciar`);
-    }
+    uuid: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.put(`${basePath}/${uuid}/iniciar`);
+  }
 }

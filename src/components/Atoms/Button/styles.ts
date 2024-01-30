@@ -71,6 +71,7 @@ export const Button = styled.button<{ $disabled?: boolean }>`
       background: none;
       min-width: fit-content;
       box-shadow: none;
+      white-space: nowrap;
     }
 
     @media (max-width: 500px) {

@@ -265,10 +265,27 @@ export const ScheduleListingTemplate = () => {
                 />
               </div>
 
-              <Button data-variant-ghost onClick={handleClear} type="button">
-                Limpar tudo
-              </Button>
-              <Button>Buscar</Button>
+              <div>
+                <S.SubTitle>Chassi</S.SubTitle>
+                <InputCustom
+                  value={formFilter?.chassi}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      chassi: e?.target?.value,
+                    }))
+                  }
+                />
+              </div>
+
+              <div>
+                <Button data-variant-ghost onClick={handleClear} type="button">
+                  Limpar tudo
+                </Button>
+              </div>
+              <div>
+                <Button>Buscar</Button>
+              </div>
             </S.Grid2>
           </S.FormFilter>
         ) : (
@@ -381,6 +398,19 @@ export const ScheduleListingTemplate = () => {
                     statusOptions.find(
                       (item) => item.value === formFilter?.statusAgendamento
                     ) || null
+                  }
+                />
+              </div>
+
+              <div>
+                <S.SubTitle>Chassi</S.SubTitle>
+                <InputCustom
+                  value={formFilter?.chassi}
+                  onChange={(e) =>
+                    setFormFilter((prev) => ({
+                      ...prev,
+                      chassi: e?.target?.value,
+                    }))
                   }
                 />
               </div>
