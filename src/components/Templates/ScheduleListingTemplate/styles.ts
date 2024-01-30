@@ -93,7 +93,7 @@ export const Grid1 = styled.div`
     grid-template-columns: repeat(2, 6fr);
     grid-template-areas:
       "data data" "loja loja" "cidade cidade" "placa placa" "renavam renavam"
-      "status status" "clean filtrar";
+      "status status" "chassi chassi" "clean filtrar";
 
     padding: 0;
     gap: 24px 0;
@@ -137,7 +137,7 @@ export const Grid2 = styled.div`
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, 6fr);
     grid-template-areas:
-      "data data" "status status" "placa placa" "renavam renavam"
+      "data data" "status status" "placa placa" "renavam renavam" "chassi chassi"
       "clean filtrar";
     gap: 24px 0;
     padding: 0;
