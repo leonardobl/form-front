@@ -7,7 +7,7 @@ import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { reverseToBrDate } from "../../../utils/dateTransform";
-import { maskCpf, maskMoney } from "../../../utils/masks";
+import { maskCnpj, maskCpf, maskMoney } from "../../../utils/masks";
 import { Button } from "../../Atoms/Button";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
@@ -108,7 +108,11 @@ export const SchedulingDetailTemplate = () => {
                 <S.SubTitle>CPF/CNPJ</S.SubTitle>
                 <InputCustom
                   readOnly
-                  value={maskCpf(agendamento?.cliente?.cpfCnpj) || "---"}
+                  value={
+                    agendamento?.cliente?.cpfCnpj?.length > 11
+                      ? maskCnpj(agendamento?.cliente?.cpfCnpj)
+                      : maskCpf(agendamento?.cliente?.cpfCnpj)
+                  }
                 />
               </div>
 
@@ -172,7 +176,9 @@ export const SchedulingDetailTemplate = () => {
                 <S.SubTitle>Valor do serviço</S.SubTitle>
                 <InputCustom
                   readOnly
-                  value={maskMoney(agendamento?.servico?.valorPadrao/100) || "---"}
+                  value={
+                    maskMoney(agendamento?.servico?.valorPadrao / 100) || "---"
+                  }
                 />
               </div>
 
