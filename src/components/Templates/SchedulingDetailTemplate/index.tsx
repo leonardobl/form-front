@@ -189,6 +189,8 @@ export const SchedulingDetailTemplate = () => {
                   value={
                     agendamento?.loja?.endereco
                       ? `${agendamento?.loja?.endereco?.logradouro} - ${agendamento?.loja?.endereco?.bairro}, ${agendamento?.loja?.endereco?.cidade} - ${agendamento?.loja?.endereco?.uf}`
+                      : agendamento?.atendimentoDomiciliar?.endereco
+                      ? `${agendamento?.atendimentoDomiciliar?.endereco?.logradouro}, ${agendamento?.atendimentoDomiciliar?.endereco?.numero ? `${agendamento?.atendimentoDomiciliar?.endereco?.numero},` : ""} ${agendamento?.atendimentoDomiciliar?.endereco?.complemento ? `${agendamento?.atendimentoDomiciliar?.endereco?.complemento}` : ""} - ${agendamento?.atendimentoDomiciliar?.endereco?.bairro}, ${agendamento?.atendimentoDomiciliar?.endereco?.cidade}/${agendamento?.atendimentoDomiciliar?.endereco?.uf}`
                       : "---"
                   }
                 />

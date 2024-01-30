@@ -10,6 +10,7 @@ export interface IAgendamentoDTO {
   dataPagamento: string;
   dataRealizacao: string;
   delivery: IDeliveryDTO;
+  atendimentoDomiciliar: IAtendimentoDomiciliarDTO;
   diaAgendado: string;
   horaAgendada: string;
   loja: ILojaDTO;
@@ -101,6 +102,12 @@ export interface IAtendimentoDomiciliarForm {
   nome: string;
   telefone: string;
   uuid: string;
+}
+
+export interface IAtendimentoDomiciliarDTO {
+  nome: string;
+  telefone: string;
+  endereco: IEnderecoDTO;
 }
 
 export interface IPageAgendamentoDTO {
