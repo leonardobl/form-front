@@ -87,7 +87,7 @@ export const PaymentTemplate = () => {
         </S.WrapperPayments>
 
         <S.WrapperButton>
-          <Button>Gerar pagamento</Button>
+          <Button>AVANÇAR</Button>
         </S.WrapperButton>
       </S.Form>
       <S.TextFooter>
