@@ -70,10 +70,12 @@ export const Grid = styled.div`
   grid-template-areas:
     "status status status data horario"
     "cliente cliente cliente cpf cpf"
+    "telefone telefone email email email"
     "modelo modelo modelo placa renavam"
     "chassi chassi chassi chassi chassi"
     "servico servico servico valor valor"
-    "local local local local local";
+    "local local local local local"
+    "laudo laudo laudo laudo laudo";
 
   > :nth-child(1) {
     grid-area: status;
@@ -96,29 +98,40 @@ export const Grid = styled.div`
   }
 
   > :nth-child(6) {
-    grid-area: modelo;
+    grid-area: telefone;
   }
 
   > :nth-child(7) {
-    grid-area: placa;
+    grid-area: email;
   }
 
   > :nth-child(8) {
-    grid-area: renavam;
+    grid-area: modelo;
   }
 
   > :nth-child(9) {
-    grid-area: chassi;
+    grid-area: placa;
   }
 
   > :nth-child(10) {
+    grid-area: renavam;
+  }
+
+  > :nth-child(11) {
+    grid-area: chassi;
+  }
+
+  > :nth-child(12) {
     grid-area: servico;
   }
-  > :nth-child(11) {
+  > :nth-child(13) {
     grid-area: valor;
   }
-  > :nth-child(12) {
+  > :nth-child(14) {
     grid-area: local;
+  }
+  > :nth-child(15) {
+    grid-area: laudo;
   }
 
   @media (max-width: 500px) {
@@ -127,12 +140,15 @@ export const Grid = styled.div`
       "data horario"
       "cliente cliente"
       "cpf cpf"
+      "telefone telefone"
+      "email email"
       "modelo modelo"
       "renavam placa"
       "chassi chassi"
       "servico servico"
       "valor valor"
       "local local";
+      "laudo laudo"
   }
 `;
 
