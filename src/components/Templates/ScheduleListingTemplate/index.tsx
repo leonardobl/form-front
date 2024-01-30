@@ -92,6 +92,7 @@ export const ScheduleListingTemplate = () => {
       placa: "",
       renavam: "",
       veiculo: "",
+      chassi: "",
       statusAgendamento: null,
       tipoAtendimento: null,
     });
