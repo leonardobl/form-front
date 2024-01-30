@@ -25,7 +25,6 @@ export const PaymentPixTemplate = () => {
 
     Pagamento.consultarFatura({ uuidAgendamento: agendamento?.uuid })
       .then(({ data }) => {
-        console.log(data);
         setPagamento(data);
       })
       .catch(

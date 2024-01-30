@@ -3,6 +3,7 @@ import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
 import { TipoClienteEnum } from "../enums/tipoCliente";
 import { TipoServicoEnum } from "../enums/tipoServico";
 import { IPageableObject, ISortObject } from "./delivery";
+import { IFaturaDTO } from "./pagamento";
 
 export interface IAgendamentoDTO {
   cliente: IClienteDTO;
@@ -14,6 +15,7 @@ export interface IAgendamentoDTO {
   diaAgendado: string;
   horaAgendada: string;
   loja: ILojaDTO;
+  fatura: IFaturaDTO;
   primeiroAgendamento: string;
   revistoria: boolean;
   servico: IServicoDTO;

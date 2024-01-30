@@ -6,17 +6,18 @@ import { Button } from "../../Atoms/Button";
 import { toast } from "react-toastify";
 
 import { useContextSite } from "../../../context/Context";
-import { Pagamento } from "../../../services/Pagamento";
-import { IFaturaDTO, IFaturaResponse } from "../../../types/pagamento";
+
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { maskMoney } from "../../../utils/masks";
+import { Agendamento } from "../../../services/Agendamento";
+import { IAgendamentoDTO } from "../../../types/agendamento";
 
 export const PaymentTemplate = () => {
   const [payment, setPaymento] = useState("");
   const { isLoad, setIsLoad } = useContextSite();
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
-  const [pagamento, setPagamento] = useState<IFaturaResponse>(
-    {} as IFaturaResponse
+  const [pagamento, setPagamento] = useState<IAgendamentoDTO>(
+    {} as IAgendamentoDTO
   );
 
   const taxaPix = 1.92;
@@ -33,18 +34,18 @@ export const PaymentTemplate = () => {
     if (!agendamento) return;
     setIsLoad(true);
 
-    // Pagamento.gerarFatura({ uuidAgendamento: agendamento?.uuid })
-    //   .then(({ data }) => {
-    //     setPagamento(data);
-    //   })
-    //   .catch(
-    //     ({
-    //       response: {
-    //         data: { mensagem },
-    //       },
-    //     }) => toast.error(mensagem)
-    //   )
-    //   .finally(() => setIsLoad(false));
+    Agendamento.getById({ uuid: agendamento?.uuid })
+      .then(({ data }) => {
+        setPagamento(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
   }, [agendamento]);
 
   return (
@@ -61,7 +62,7 @@ export const PaymentTemplate = () => {
             <PaymentsOptionsContainer
               name="pagamento"
               required
-              value={maskMoney(pagamento?.items_total_cents / 100 + taxaPix)}
+              value={maskMoney(pagamento?.fatura?.valorTotal / 100 + taxaPix)}
               handleSelect={(e) => setPaymento(e)}
               iconLeft="/assets/imgs/pix-icon.svg"
               textIcon="PIX"
@@ -74,7 +75,9 @@ export const PaymentTemplate = () => {
               required
               handleSelect={(e) => setPaymento(e)}
               name="pagamento"
-              value={maskMoney(pagamento?.items_total_cents / 100 + taxaBoleto)}
+              value={maskMoney(
+                pagamento?.fatura?.valorTotal / 100 + taxaBoleto
+              )}
               iconLeft="/assets/imgs/cod-barra.svg"
               textIcon="BOLETO"
             />
