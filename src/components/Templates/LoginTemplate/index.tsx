@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useContextSite } from "../../../context/Context";
-import { maskCpf, removeDigitos } from "../../../utils/masks";
+import { maskCnpj, maskCpf, removeDigitos } from "../../../utils/masks";
 
 import { Cliente } from "../../../services/Cliente";
 import { IAutenticacaoForm, IDecodedToken } from "../../../types/autenticacao";
@@ -29,8 +29,16 @@ export const LoginTemplate = () => {
   const [isDisable, setIsDisable] = useState(false);
 
   function handleCpf(e: string) {
-    const newCpfValue = maskCpf(e);
-    setForm((prev) => ({ ...prev, cpfCNPJ: newCpfValue }));
+    let newValue = "";
+
+    if (e.length > 14) {
+      newValue = maskCnpj(e);
+      setForm((prev) => ({ ...prev, cpfCNPJ: newValue }));
+
+      return;
+    }
+    newValue = maskCpf(e);
+    setForm((prev) => ({ ...prev, cpfCNPJ: newValue }));
   }
 
   async function login(e: React.SyntheticEvent) {
@@ -121,15 +129,11 @@ export const LoginTemplate = () => {
               <label>CPF/CNPJ</label>
               <InputCustom
                 value={form?.cpfCNPJ}
-                maxLength={14}
+                maxLength={18}
                 onChange={(e) => {
                   handleCpf(e.target.value);
                 }}
                 required
-                // value={form.email}
-                // onChange={(e) =>
-                //   setForm((prev) => ({ ...prev, email: e.target.value }))
-                // }
               />
             </S.Grid>
 
