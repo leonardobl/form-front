@@ -41,7 +41,7 @@ export const ScheduleListingTemplate = () => {
   }));
   const isMobile = useMediaQuery({ query: "(max-width: 500px)" });
   const [cont, setCont] = useState(0);
-  const [visao, setVisao] = useState("atendente");
+  const [visao, setVisao] = useState("vistoriador");
   const size = 5;
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const [numberPage, setNumberPage] = useState(0);
