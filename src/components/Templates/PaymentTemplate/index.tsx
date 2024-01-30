@@ -61,7 +61,7 @@ export const PaymentTemplate = () => {
             <PaymentsOptionsContainer
               name="pagamento"
               required
-              value={maskMoney(pagamento?.items_total_cents + taxaPix)}
+              value={maskMoney((pagamento?.items_total_cents/100) + taxaPix)}
               handleSelect={(e) => setPaymento(e)}
               iconLeft="/assets/imgs/pix-icon.svg"
               textIcon="PIX"
@@ -74,7 +74,7 @@ export const PaymentTemplate = () => {
               required
               handleSelect={(e) => setPaymento(e)}
               name="pagamento"
-              value={maskMoney(pagamento?.items_total_cents + taxaBoleto)}
+              value={maskMoney((pagamento?.items_total_cents/100) + taxaBoleto)}
               iconLeft="/assets/imgs/cod-barra.svg"
               textIcon="BOLETO"
             />
