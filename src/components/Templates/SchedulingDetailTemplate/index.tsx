@@ -113,6 +113,22 @@ export const SchedulingDetailTemplate = () => {
               </div>
 
               <div>
+                <S.SubTitle>Telefone</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={agendamento?.cliente?.telefone || "---"}
+                />
+              </div>
+
+              <div>
+                <S.SubTitle>Email</S.SubTitle>
+                <InputCustom
+                  readOnly
+                  value={agendamento?.cliente?.email || "---"}
+                />
+              </div>
+
+              <div>
                 <S.SubTitle>Modelo do carro</S.SubTitle>
                 <InputCustom
                   readOnly
@@ -156,7 +172,7 @@ export const SchedulingDetailTemplate = () => {
                 <S.SubTitle>Valor do serviço</S.SubTitle>
                 <InputCustom
                   readOnly
-                  value={maskMoney(agendamento?.servico?.valorPadrao) || "---"}
+                  value={maskMoney(agendamento?.servico?.valorPadrao/100) || "---"}
                 />
               </div>
 
@@ -175,7 +191,7 @@ export const SchedulingDetailTemplate = () => {
                 agendamento?.status
               ) && (
                 <div>
-                  <S.SubTitle>Link do Laudo</S.SubTitle>
+                  <S.SubTitle>URL do laudo</S.SubTitle>
                   <InputCustom readOnly value={urlLaudo} />
                 </div>
               )}
