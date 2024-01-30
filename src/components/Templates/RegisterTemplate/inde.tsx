@@ -6,6 +6,7 @@ import { Button } from "../../Atoms/Button";
 import { toast } from "react-toastify";
 import {
   maskCep,
+  maskCnpj,
   maskCpf,
   maskPhone,
   removerCaracteresEspeciais,
@@ -74,8 +75,16 @@ export const RegisterTemplate = () => {
   }
 
   function handleCpf(e: string) {
-    const newCpfValue = maskCpf(e);
-    setForm((prev) => ({ ...prev, cpfCnpj: newCpfValue }));
+    let newvalue = "";
+
+    if (e?.length > 14) {
+      newvalue = maskCnpj(e);
+      setForm((prev) => ({ ...prev, cpfCnpj: newvalue }));
+      return;
+    }
+
+    newvalue = maskCpf(e);
+    setForm((prev) => ({ ...prev, cpfCnpj: newvalue }));
   }
 
   useEffect(() => {
@@ -162,13 +171,13 @@ export const RegisterTemplate = () => {
               </S.Grid>
               <S.Grid $gridTemplate="1fr 1fr" $gap="0 24px">
                 <label>
-                  CPF <span>*</span>
+                  CPF/CNPJ <span>*</span>
                 </label>
                 <label>Telefone</label>
                 <InputCustom
                   required
                   value={form.cpfCnpj}
-                  maxLength={14}
+                  maxLength={18}
                   onChange={(e) => handleCpf(e.target.value)}
                 />
                 <InputCustom
