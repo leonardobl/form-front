@@ -16,6 +16,10 @@ export const PaymentTicketTemplate = () => {
 
   const { isLoad, setIsLoad } = useContextSite();
 
+  function acessarFatura() {
+    window.open(agendamento?.fatura?.url, "_blank")
+  }
+
   function handlePix() {
     window.open("pix", "_self");
   }
@@ -65,10 +69,14 @@ export const PaymentTicketTemplate = () => {
         <S.WrapperCod>
           <PaymentCodContainer value={pagamento?.boleto?.barCodeData} />
         </S.WrapperCod>
+        
         <S.WrapperButtons>
           {/* <Link to={"/detalhe-pagamento"}>
             <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
           </Link> */}
+          <Button data-variant-border onClick={acessarFatura}>
+            VER FATURA
+          </Button>
           <Button data-variant-border onClick={handlePix}>
             ALTERAR PARA PIX
           </Button>

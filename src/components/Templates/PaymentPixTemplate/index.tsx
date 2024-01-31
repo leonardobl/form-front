@@ -14,6 +14,10 @@ export const PaymentPixTemplate = () => {
   const { isLoad, setIsLoad } = useContextSite();
   const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
 
+  function acessarFatura() {
+    window.open(agendamento?.fatura?.url, "_blank")
+  }
+  
   function handleTicket() {
     window.open("boleto", "_self");
   }
@@ -64,6 +68,9 @@ export const PaymentPixTemplate = () => {
               {/* <Link to={"/detalhe-pagamento"}>
                 <ButtonCustom typeOfButton="Ghost">VER FATURA</ButtonCustom>
               </Link> */}
+              <Button data-variant-border onClick={acessarFatura}>
+                VER FATURA
+              </Button>
               <Button data-variant-border onClick={handleTicket}>
                 ALTERAR PARA BOLETO
               </Button>

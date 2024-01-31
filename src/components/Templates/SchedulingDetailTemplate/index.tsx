@@ -23,6 +23,7 @@ export const SchedulingDetailTemplate = () => {
   const [isOpen, setISOpen] = useState(false);
   const [detalheAgendamento, setDetalheAgendamento] =
     useSessionStorage("detalheAgendamento");
+  const [schedule, setSchedule] = useSessionStorage("agendamento")
   const [reagendamento, setReagendamento] = useSessionStorage("reagendamento");
   const [urlLaudo, setUrlLaudo] = useState<string>("");
 
@@ -36,6 +37,16 @@ export const SchedulingDetailTemplate = () => {
       );
       setIsLoad(false);
     }, 1000);
+  }
+
+  function acessarBoleto() {
+    setSchedule(agendamento);
+    window.open("../pagamento/boleto", "_self");
+  }
+
+  function acessarPix() {
+    setSchedule(agendamento);
+    window.open("../pagamento/pix", "_self");
   }
 
   useEffect(() => {
@@ -217,6 +228,16 @@ export const SchedulingDetailTemplate = () => {
               <Button data-variant-border onClick={() => setISOpen(true)}>
                 CANCELAR
               </Button>
+              {agendamento?.status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&(
+                <>
+                <Button data-variant-border onClick={acessarBoleto}>
+                  VERIFICAR BOLETO
+                </Button>
+                <Button data-variant-border onClick={acessarPix}>
+                  VERIFICAR PIX
+                </Button>
+                </>
+              )}
             </S.WrapperBtns>
           )}
         </S.Content>
