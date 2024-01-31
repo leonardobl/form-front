@@ -2,6 +2,7 @@ import { StatusAgendamentoEnum } from "../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
 import { TipoClienteEnum } from "../enums/tipoCliente";
 import { TipoServicoEnum } from "../enums/tipoServico";
+import { tipoVeiculoEnum } from "../enums/tipoVeiculo";
 import { IPageableObject, ISortObject } from "./delivery";
 import { IFaturaDTO } from "./pagamento";
 
@@ -23,6 +24,16 @@ export interface IAgendamentoDTO {
   tipoAtendimento: TipoAtendimentoEnum;
   uuid: string;
   veiculo: IVeiculoDTO;
+}
+
+export interface IVeiculoDTO {
+  uuid: string;
+  modelo: string;
+  ano: string;
+  renavam: string;
+  placa: string;
+  chassi: string;
+  tipo: tipoVeiculoEnum;
 }
 
 export interface IClienteDTO {

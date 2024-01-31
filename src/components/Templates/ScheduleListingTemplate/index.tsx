@@ -297,7 +297,7 @@ export const ScheduleListingTemplate = () => {
             </S.BorderContainer>
             <S.Grid1>
               <div>
-                <S.SubTitle>Loja</S.SubTitle>
+                <S.SubTitle>Tipo</S.SubTitle>
                 <SimpleSelect
                   options={lojaOptions}
                   isClearable
@@ -466,8 +466,8 @@ export const ScheduleListingTemplate = () => {
             <>
               <S.GridTitles>
                 <S.TitleGrid>Tipo</S.TitleGrid>
-                <S.TitleGrid>Veículo</S.TitleGrid>
-                <S.TitleGrid>Loja</S.TitleGrid>
+                <S.TitleGrid>Placa</S.TitleGrid>
+                <S.TitleGrid>Chassi</S.TitleGrid>
                 <S.TitleGrid>Cidade</S.TitleGrid>
                 <S.TitleGrid>Data / Hora</S.TitleGrid>
                 <S.TitleGrid>Status</S.TitleGrid>
@@ -477,10 +477,10 @@ export const ScheduleListingTemplate = () => {
               {agendamentos.map((item) => (
                 <S.GridItem key={`${Math.random()}-${item}`}>
                   <S.ItemGrid>{item?.tipoAtendimento || "---"}</S.ItemGrid>
-                  <S.ItemGrid>{item?.veiculo?.tipo || "---"}</S.ItemGrid>
-                  <S.ItemGrid>{item?.loja?.nome || "---"}</S.ItemGrid>
+                  <S.ItemGrid>{item?.veiculo?.placa || "---"}</S.ItemGrid>
+                  <S.ItemGrid>{item?.veiculo?.chassi || "---"}</S.ItemGrid>
                   <S.ItemGrid>
-                    {item?.loja?.endereco?.cidade || "---"}
+                    {item?.loja?.endereco ? item?.loja?.endereco?.cidade : item?.delivery?.cidade ? item?.delivery?.cidade : "---"}
                   </S.ItemGrid>
                   <S.ItemGrid>
                     {item?.diaAgendado && item?.horaAgendada
