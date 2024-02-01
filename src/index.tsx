@@ -29,7 +29,7 @@ import { ScheduleListing } from "./components/Pages/scheduleListing";
 import { OfflineSystem } from "./components/Pages/ offlineSystem";
 import { InforVeihicle } from "./components/Pages/infoVehicle";
 import { ProtectedClientRoute } from "./components/Atoms/ProtectedClientRoute";
-import { NotFound } from "./components/Pages/NotFound";
+import { NotFound } from "./components/Pages/notFound";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
