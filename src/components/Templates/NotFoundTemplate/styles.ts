@@ -11,6 +11,10 @@ export const Header = styled.header`
   height: 144px;
   background-color: #266bf0;
   width: 100%;
+
+  @media (max-width: 500px) {
+    height: 94px;
+  }
 `;
 
 export const HeaderContent = styled.div`
@@ -29,11 +33,21 @@ export const HeaderContent = styled.div`
       width: 160px;
       cursor: pointer;
     }
+
+    @media (max-width: 500px) {
+      > img {
+        width: 110px;
+      }
+    }
   `}
 `;
 
 export const Content = styled.div`
   padding: 172px 20px;
+
+  @media (max-width: 500px) {
+    padding: 32px 20px;
+  }
 `;
 
 export const Card = styled.div`
@@ -79,5 +93,27 @@ export const Card = styled.div`
 
   button {
     margin: 0 auto;
+  }
+
+  @media (max-width: 500px) {
+    padding: 24px;
+    height: fit-content;
+
+    h1 {
+      font-size: 96px;
+      margin-bottom: 14px;
+      line-height: 96px;
+    }
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      line-height: 32px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 24px;
+    }
   }
 `;
