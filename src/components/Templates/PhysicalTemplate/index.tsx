@@ -46,14 +46,16 @@ export const PhysicalTemplate = () => {
       diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
       horaAgendada: form.horaAgendada,
       uuidAgendamento: reagendamento,
+      uuidLoja: form.uuidLoja,
+      uuidDelivery: form.uuidDelivery
     };
 
     Agendamento.reagendar(PAYLOAD)
       .then(() => {
         toast.success("Reagendamento efetuado com sucesso!");
-        cleanStorage();
+        // cleanStorage();
         setTimeout(() => {
-          window.open("/", "_self");
+          window.open("/meus-agendamentos/detalhe-agendamento", "_self");
         }, 2000);
       })
       .catch(

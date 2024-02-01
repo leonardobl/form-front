@@ -39,6 +39,20 @@ export const SchedulingDetailTemplate = () => {
     }, 1000);
   }
 
+  function cancelarAgendamento() {
+    setIsLoad(true);
+    Agendamento.cancelar({ uuid: detalheAgendamento })
+    .then(({ data }) => setAgendamento(data))
+    .catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => toast.error(mensagem)
+    )
+    .finally(() => setIsLoad(false));
+  };
+
   function acessarBoleto() {
     setSchedule(agendamento);
     window.open("../pagamento/boleto", "_self");
@@ -188,7 +202,7 @@ export const SchedulingDetailTemplate = () => {
                 <InputCustom
                   readOnly
                   value={
-                    maskMoney(agendamento?.servico?.valorPadrao / 100) || "---"
+                    maskMoney(agendamento?.fatura?.valorTotal / 100) || "---"
                   }
                 />
               </div>
@@ -219,6 +233,7 @@ export const SchedulingDetailTemplate = () => {
 
           {![
             StatusAgendamentoEnum.CANCELADO,
+            StatusAgendamentoEnum.INICIADO,
             StatusAgendamentoEnum.FINALIZADO,
           ].includes(agendamento?.status) && (
             <S.WrapperBtns>
@@ -248,7 +263,10 @@ export const SchedulingDetailTemplate = () => {
       >
         <S.ModalContent>
           <p>Tem certeza que deseja cancelar sua vistoria?</p>
-          <Button data-variant-login onClick={() => setISOpen(false)}>
+          <Button data-variant-login onClick={() => {
+            setISOpen(false);
+            cancelarAgendamento();
+          }}>
             CONFIRMAR
           </Button>
         </S.ModalContent>

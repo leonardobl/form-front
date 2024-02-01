@@ -87,4 +87,12 @@ export class Agendamento {
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuid}/iniciar`);
   }
+
+  static async cancelar({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.put(`${basePath}/${uuid}/cancelar`);
+  }
 }
