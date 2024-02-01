@@ -306,9 +306,11 @@ export const Card = styled.div`
 
 export const SectionServices = styled.div`
   ${({ theme: { space } }) => css`
-    max-width: ${space.large};
+    /* max-width: ${space.large}; */
     background-color: #eee;
     padding: 80px 0;
+    margin: 0 auto;
+    width: 100%;
 
     @media (max-width: 500px) {
       margin-top: 100px;

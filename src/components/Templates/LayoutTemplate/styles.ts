@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   ${({ theme: { space } }) => css`
-    max-width: ${space.large};
+    /* max-width: ${space.large}; */
     margin: 0 auto;
   `}
 `;
