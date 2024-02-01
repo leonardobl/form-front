@@ -65,7 +65,7 @@ export const Form = styled.form`
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: 170px 1fr;
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px;
   grid-template-areas:
     "status status status data horario"
@@ -135,6 +135,7 @@ export const Grid = styled.div`
   }
 
   @media (max-width: 500px) {
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "status status"
       "data horario"
@@ -148,7 +149,6 @@ export const Grid = styled.div`
       "servico servico"
       "valor valor"
       "local local";
-      "laudo laudo"
   }
 `;
 
