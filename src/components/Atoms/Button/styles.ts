@@ -76,9 +76,13 @@ export const Button = styled.button<{ $disabled?: boolean }>`
 
     @media (max-width: 500px) {
       min-width: 160px;
-      font-size: 12px;
+      font-size: 16px;
       height: 45px;
       padding: 0 10px;
+
+      &[data-variant-login="true"] {
+        min-width: 160px;
+      }
     }
   `}
 `;

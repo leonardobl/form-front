@@ -27,15 +27,21 @@ export const SchedulingTemplate = () => {
               <S.TitleBlue>endereço de sua preferência</S.TitleBlue>.
             </p>
             <S.WrapperButtons>
-              <Button onClick={() => handleClick({ tipoAtendimento: "LOJA" })}>
-                Loja Física
-              </Button>
-              <Button
-                data-variant-login
-                onClick={() => handleClick({ tipoAtendimento: "DOMICILIO" })}
-              >
-                DOMICÍLIO
-              </Button>
+              <div>
+                <Button
+                  onClick={() => handleClick({ tipoAtendimento: "LOJA" })}
+                >
+                  Loja Física
+                </Button>
+              </div>
+              <div>
+                <Button
+                  data-variant-login
+                  onClick={() => handleClick({ tipoAtendimento: "DOMICILIO" })}
+                >
+                  DOMICÍLIO
+                </Button>
+              </div>
             </S.WrapperButtons>
           </S.BannerLeftSideContent>
         </S.BannerLeftSide>

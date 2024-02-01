@@ -4,35 +4,46 @@ export const Container = styled.div`
   ${({ theme: { space } }) => css`
     max-width: ${space.large};
     margin: 0 auto;
+
+    background-image: url("/assets/imgs/fundo.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    @media (max-width: 500px) {
+      background-image: url("/assets/imgs/fundo-mobile.svg");
+    }
   `}
 `;
 
 export const Banner = styled.div`
-  height: 720px;
-  display: flex;
-  background-image: url("/assets/imgs/fundo.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center right;
+  ${({ theme: { space } }) => css`
+    height: 720px;
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    max-width: ${space.medio};
 
-  @media (max-width: 600px) {
-    height: 244px;
-    padding: 32px 24px;
-    background-size: cover;
-    background-position: center;
-  }
+    @media (max-width: 600px) {
+      height: 330px;
+      padding: 32px 24px;
+    }
+  `}
 `;
 
 export const BannerLeftSide = styled.div`
-  flex: 1;
-
+  width: 53%;
   display: flex;
   justify-content: end;
   align-items: center;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export const BannerLeftSideContent = styled.div`
-  max-width: 620px;
+  width: 100%;
   h1 {
     color: #eee;
     font-family: "Poppins";
@@ -60,13 +71,11 @@ export const BannerLeftSideContent = styled.div`
       font-size: 24px;
       font-style: normal;
       line-height: 32px;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
     p {
-      font-size: 16px;
-      width: 230px;
-      line-height: 20px;
+      display: none;
     }
   }
 `;
@@ -81,19 +90,12 @@ export const TitleBlue = styled.span`
 
 export const WrapperButtons = styled.div`
   display: flex;
-  justify-content: center;
   gap: 72px;
   align-items: center;
 
   @media (max-width: 500px) {
-    display: block;
-
-    button {
-      margin: 0 auto;
-    }
-
-    button + button {
-      margin-top: 32px;
-    }
+    flex-direction: column;
+    gap: 20px 0;
+    align-items: start;
   }
 `;
