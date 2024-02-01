@@ -44,12 +44,15 @@ export const BannerLeftSideContent = styled.div`
   }
 
   p {
+    font-family: Roboto;
     color: #eee;
-    font-family: "Roboto";
-    font-size: 20px;
-    font-style: normal;
+    font-size: 24px;
     font-weight: 400;
     line-height: 32px;
+    letter-spacing: 0em;
+    text-align: left;
+    max-width: 620px;
+    margin-bottom: 64px;
   }
 
   @media (max-width: 500px) {
@@ -74,33 +77,6 @@ export const BannerRightSide = styled.div`
 
 export const TitleBlue = styled.span`
   color: #266bf0;
-`;
-
-export const Preference = styled.div`
-  padding: 180px 0;
-
-  p {
-    color: #2d2d2d;
-    text-align: center;
-    font-family: "Roboto";
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 32px;
-    max-width: 750px;
-    display: block;
-    margin: auto;
-    margin-bottom: 80px;
-  }
-
-  @media (max-width: 500px) {
-    padding: 40px 24px;
-
-    p {
-      font-size: 16px;
-      line-height: 20px;
-    }
-  }
 `;
 
 export const WrapperButtons = styled.div`

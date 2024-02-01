@@ -22,33 +22,25 @@ export const SchedulingTemplate = () => {
             </h1>
 
             <p>
-              Agende sua vistoria de <S.TitleBlue>forma rápida</S.TitleBlue> e
-              <S.TitleBlue> fácil.</S.TitleBlue> Não perca tempo e garanta sua
-              segurança!
+              Escolha onde você deseja executar sua vistoria veicular, na{" "}
+              <S.TitleBlue>loja física</S.TitleBlue> ou em{" "}
+              <S.TitleBlue>endereço de sua preferência</S.TitleBlue>.
             </p>
+            <S.WrapperButtons>
+              <Button onClick={() => handleClick({ tipoAtendimento: "LOJA" })}>
+                Loja Física
+              </Button>
+              <Button
+                data-variant-login
+                onClick={() => handleClick({ tipoAtendimento: "DOMICILIO" })}
+              >
+                DOMICÍLIO
+              </Button>
+            </S.WrapperButtons>
           </S.BannerLeftSideContent>
         </S.BannerLeftSide>
         <S.BannerRightSide></S.BannerRightSide>
       </S.Banner>
-      <S.Preference>
-        <p>
-          Escolha onde você deseja executar sua vistoria veicular, na{" "}
-          <S.TitleBlue>loja física</S.TitleBlue> ou em{" "}
-          <S.TitleBlue>endereço de sua preferência.</S.TitleBlue>
-        </p>
-
-        <S.WrapperButtons>
-          <Button onClick={() => handleClick({ tipoAtendimento: "LOJA" })}>
-            Loja Física
-          </Button>
-          <Button
-            data-variant-dark
-            onClick={() => handleClick({ tipoAtendimento: "DOMICILIO" })}
-          >
-            domicílio
-          </Button>
-        </S.WrapperButtons>
-      </S.Preference>
     </S.Container>
   );
 };
