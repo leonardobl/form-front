@@ -22,11 +22,10 @@ export const Title = styled.h1`
   font-weight: 700;
   line-height: 38px;
   letter-spacing: 0.96px;
-  margin-bottom: 40px;
 
   @media (max-width: 500px) {
     font-size: 20px;
-    margin-bottom: 32px;
+    line-height: 24px;
   }
 `;
 
@@ -266,4 +265,46 @@ export const ItemGrid = styled.p<{ $color?: string }>`
       cursor: pointer;
     }
   `}
+`;
+
+export const WrapperTitle = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  justify-content: space-between;
+
+  @media (max-width: 500px) {
+    margin-bottom: 32px;
+    gap: 0 20px;
+  }
+`;
+
+export const Filter = styled.button`
+  width: 120px;
+  height: 32px;
+  border-radius: 5px;
+  background-color: #cacaca;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  color: #00186d;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-image: url("/assets/imgs/filter.svg");
+    left: 6px;
+  }
+
+  @media (min-width: 501px) {
+    display: none;
+  }
 `;

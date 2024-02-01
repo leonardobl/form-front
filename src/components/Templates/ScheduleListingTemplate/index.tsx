@@ -48,7 +48,7 @@ export const ScheduleListingTemplate = () => {
   const [sessionClient, setSessionClient] = useSessionStorage("cliente");
 
   const isCliente = sessionClient?.role?.includes(RolesEnum.ROLE_CLIENTE);
-
+  const [isOpen, setIsOpen] = useState(false);
   const statusOptions = Object.values(StatusAgendamentoEnum).map((item) => ({
     value: item,
     label: item.split("_").join(" "),
@@ -79,6 +79,7 @@ export const ScheduleListingTemplate = () => {
   };
 
   function handleClear() {
+    setIsOpen(false);
     const values = Object.values(formFilter).some(
       (item) => item || typeof item === "number"
     );
@@ -190,241 +191,257 @@ export const ScheduleListingTemplate = () => {
   return (
     <LayoutTemplate>
       <S.Container>
-        <S.Title>
-          {visao === "atendente" ? "Agendamentos" : "Meus agendamentos"}
-        </S.Title>
-        {visao === "atendente" ? (
-          <S.FormFilter onSubmit={handleSubmit}>
-            <S.BorderContainer>
-              <S.TitleFilter>Filtro</S.TitleFilter>
-            </S.BorderContainer>
-            <S.Grid2>
-              <div>
-                <S.SubTitle>Data</S.SubTitle>
-                <InputDate
-                  label={isMobile ? "Data" : ""}
-                  showIcon={isMobile}
-                  onChange={(e) => {
-                    setDate(e);
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      data: reverseToIsoDate(e?.toLocaleDateString()),
-                    }));
-                  }}
-                  placeholderText="__/__/__"
-                  isClearable
-                  selected={date}
-                />
-              </div>
-              <div>
-                <S.SubTitle>Status</S.SubTitle>
-                <SimpleSelect
-                  isClearable
-                  label={isMobile ? "Status" : ""}
-                  placeholder=""
-                  value={
-                    statusOptions.find(
-                      (item) => item.value === formFilter?.statusAgendamento
-                    ) || null
-                  }
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      statusAgendamento: e?.value,
-                    }))
-                  }
-                  options={statusOptions}
-                />
-              </div>
+        <S.WrapperTitle>
+          <S.Title>
+            {visao === "atendente" ? "Agendamentos" : "Meus agendamentos"}
+          </S.Title>
 
-              <div>
-                <S.SubTitle>Placa</S.SubTitle>
-                <InputCustom
-                  value={formFilter?.placa}
-                  label={isMobile ? "Placa" : ""}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      placa: e.target.value,
-                    }))
-                  }
-                />
-              </div>
+          {!isOpen && (
+            <S.Filter onClick={() => setIsOpen(true)}>Filtrar</S.Filter>
+          )}
+        </S.WrapperTitle>
+        {visao === "atendente"
+          ? isOpen && (
+              <S.FormFilter onSubmit={handleSubmit}>
+                <S.BorderContainer>
+                  <S.TitleFilter>Filtro</S.TitleFilter>
+                </S.BorderContainer>
+                <S.Grid2>
+                  <div>
+                    <S.SubTitle>Data</S.SubTitle>
+                    <InputDate
+                      label={isMobile ? "Data" : ""}
+                      showIcon={isMobile}
+                      onChange={(e) => {
+                        setDate(e);
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          data: reverseToIsoDate(e?.toLocaleDateString()),
+                        }));
+                      }}
+                      placeholderText="__/__/__"
+                      isClearable
+                      selected={date}
+                    />
+                  </div>
+                  <div>
+                    <S.SubTitle>Status</S.SubTitle>
+                    <SimpleSelect
+                      isClearable
+                      label={isMobile ? "Status" : ""}
+                      placeholder=""
+                      value={
+                        statusOptions.find(
+                          (item) => item.value === formFilter?.statusAgendamento
+                        ) || null
+                      }
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          statusAgendamento: e?.value,
+                        }))
+                      }
+                      options={statusOptions}
+                    />
+                  </div>
 
-              <div>
-                <S.SubTitle>Renavam</S.SubTitle>
-                <InputCustom
-                  type="number"
-                  label={isMobile ? "Renavam" : ""}
-                  value={formFilter.renavam}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      renavam: e.target.value,
-                    }))
-                  }
-                />
-              </div>
+                  <div>
+                    <S.SubTitle>Placa</S.SubTitle>
+                    <InputCustom
+                      value={formFilter?.placa}
+                      label={isMobile ? "Placa" : ""}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          placa: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
 
-              <div>
-                <S.SubTitle>Chassi</S.SubTitle>
-                <InputCustom
-                  label={isMobile ? "Chassi" : ""}
-                  value={formFilter?.chassi}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      chassi: e?.target?.value,
-                    }))
-                  }
-                />
-              </div>
+                  <div>
+                    <S.SubTitle>Renavam</S.SubTitle>
+                    <InputCustom
+                      type="number"
+                      label={isMobile ? "Renavam" : ""}
+                      value={formFilter.renavam}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          renavam: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
 
-              <div>
-                <Button data-variant-ghost onClick={handleClear} type="button">
-                  Limpar tudo
-                </Button>
-              </div>
-              <div>
-                <Button>Buscar</Button>
-              </div>
-            </S.Grid2>
-          </S.FormFilter>
-        ) : (
-          <S.FormFilter onSubmit={handleSubmit}>
-            <S.BorderContainer>
-              <S.TitleFilter>Filtro</S.TitleFilter>
-            </S.BorderContainer>
-            <S.Grid1>
-              <div>
-                <S.SubTitle>Tipo</S.SubTitle>
-                <SimpleSelect
-                  options={lojaOptions}
-                  isClearable
-                  placeholder=""
-                  label={isMobile ? "Loja" : ""}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      tipoAtendimento: e?.value,
-                    }))
-                  }
-                  value={
-                    lojaOptions.find(
-                      (item) => item.value === formFilter?.tipoAtendimento
-                    ) || null
-                  }
-                />
-              </div>
+                  <div>
+                    <S.SubTitle>Chassi</S.SubTitle>
+                    <InputCustom
+                      label={isMobile ? "Chassi" : ""}
+                      value={formFilter?.chassi}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          chassi: e?.target?.value,
+                        }))
+                      }
+                    />
+                  </div>
 
-              <div>
-                <S.SubTitle>Cidade</S.SubTitle>
-                <SimpleSelect
-                  isClearable
-                  placeholder=""
-                  label={isMobile ? "Cidade" : ""}
-                  options={cidadeOptions}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({ ...prev, cidade: e?.value }))
-                  }
-                  value={
-                    cidadeOptions.find(
-                      (item) => item.value === formFilter?.cidade
-                    ) || null
-                  }
-                />
-              </div>
+                  <div>
+                    <Button
+                      data-variant-ghost
+                      onClick={handleClear}
+                      type="button"
+                    >
+                      Limpar tudo
+                    </Button>
+                  </div>
+                  <div>
+                    <Button>Buscar</Button>
+                  </div>
+                </S.Grid2>
+              </S.FormFilter>
+            )
+          : isOpen && (
+              <S.FormFilter onSubmit={handleSubmit}>
+                <S.BorderContainer>
+                  <S.TitleFilter>Filtro</S.TitleFilter>
+                </S.BorderContainer>
+                <S.Grid1>
+                  <div>
+                    <S.SubTitle>Tipo</S.SubTitle>
+                    <SimpleSelect
+                      options={lojaOptions}
+                      isClearable
+                      placeholder=""
+                      label={isMobile ? "Loja" : ""}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          tipoAtendimento: e?.value,
+                        }))
+                      }
+                      value={
+                        lojaOptions.find(
+                          (item) => item.value === formFilter?.tipoAtendimento
+                        ) || null
+                      }
+                    />
+                  </div>
 
-              <div>
-                <S.SubTitle>Data</S.SubTitle>
-                <InputDate
-                  showIcon={isMobile}
-                  onChange={(e) => {
-                    setDate(e);
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      data: reverseToIsoDate(e?.toLocaleDateString()),
-                    }));
-                  }}
-                  selected={date}
-                  label={isMobile ? "Data" : ""}
-                  isClearable
-                  placeholderText="__/__/__"
-                />
-              </div>
+                  <div>
+                    <S.SubTitle>Cidade</S.SubTitle>
+                    <SimpleSelect
+                      isClearable
+                      placeholder=""
+                      label={isMobile ? "Cidade" : ""}
+                      options={cidadeOptions}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({ ...prev, cidade: e?.value }))
+                      }
+                      value={
+                        cidadeOptions.find(
+                          (item) => item.value === formFilter?.cidade
+                        ) || null
+                      }
+                    />
+                  </div>
 
-              <div>
-                <S.SubTitle>Placa</S.SubTitle>
-                <InputCustom
-                  label={isMobile ? "Placa" : ""}
-                  value={formFilter.placa}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      placa: e.target.value,
-                    }))
-                  }
-                />
-              </div>
+                  <div>
+                    <S.SubTitle>Data</S.SubTitle>
+                    <InputDate
+                      showIcon={isMobile}
+                      onChange={(e) => {
+                        setDate(e);
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          data: reverseToIsoDate(e?.toLocaleDateString()),
+                        }));
+                      }}
+                      selected={date}
+                      label={isMobile ? "Data" : ""}
+                      isClearable
+                      placeholderText="__/__/__"
+                    />
+                  </div>
 
-              <div>
-                <S.SubTitle>Renavam</S.SubTitle>
-                <InputCustom
-                  type="number"
-                  label={isMobile ? "Renavam" : ""}
-                  value={formFilter.renavam}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      renavam: e.target.value,
-                    }))
-                  }
-                />
-              </div>
+                  <div>
+                    <S.SubTitle>Placa</S.SubTitle>
+                    <InputCustom
+                      label={isMobile ? "Placa" : ""}
+                      value={formFilter.placa}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          placa: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
 
-              <div>
-                <S.SubTitle>Status</S.SubTitle>
+                  <div>
+                    <S.SubTitle>Renavam</S.SubTitle>
+                    <InputCustom
+                      type="number"
+                      label={isMobile ? "Renavam" : ""}
+                      value={formFilter.renavam}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          renavam: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
 
-                <SimpleSelect
-                  options={statusOptions}
-                  isClearable
-                  placeholder=""
-                  label={isMobile ? "Status" : ""}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      statusAgendamento: e?.value,
-                    }))
-                  }
-                  value={
-                    statusOptions.find(
-                      (item) => item.value === formFilter?.statusAgendamento
-                    ) || null
-                  }
-                />
-              </div>
+                  <div>
+                    <S.SubTitle>Status</S.SubTitle>
 
-              <div>
-                <S.SubTitle>Chassi</S.SubTitle>
-                <InputCustom
-                  label={isMobile ? "Chassi" : ""}
-                  value={formFilter?.chassi}
-                  onChange={(e) =>
-                    setFormFilter((prev) => ({
-                      ...prev,
-                      chassi: e?.target?.value,
-                    }))
-                  }
-                />
-              </div>
+                    <SimpleSelect
+                      options={statusOptions}
+                      isClearable
+                      placeholder=""
+                      label={isMobile ? "Status" : ""}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          statusAgendamento: e?.value,
+                        }))
+                      }
+                      value={
+                        statusOptions.find(
+                          (item) => item.value === formFilter?.statusAgendamento
+                        ) || null
+                      }
+                    />
+                  </div>
 
-              <Button data-variant-ghost onClick={handleClear} type="button">
-                Limpar tudo
-              </Button>
-              <Button>Buscar</Button>
-            </S.Grid1>
-          </S.FormFilter>
-        )}
+                  <div>
+                    <S.SubTitle>Chassi</S.SubTitle>
+                    <InputCustom
+                      label={isMobile ? "Chassi" : ""}
+                      value={formFilter?.chassi}
+                      onChange={(e) =>
+                        setFormFilter((prev) => ({
+                          ...prev,
+                          chassi: e?.target?.value,
+                        }))
+                      }
+                    />
+                  </div>
+
+                  <Button
+                    data-variant-ghost
+                    onClick={handleClear}
+                    type="button"
+                  >
+                    Limpar tudo
+                  </Button>
+                  <Button>Buscar</Button>
+                </S.Grid1>
+              </S.FormFilter>
+            )}
 
         {!!agendamentos?.length ? (
           isMobile ? (
@@ -480,7 +497,11 @@ export const ScheduleListingTemplate = () => {
                   <S.ItemGrid>{item?.veiculo?.placa || "---"}</S.ItemGrid>
                   <S.ItemGrid>{item?.veiculo?.chassi || "---"}</S.ItemGrid>
                   <S.ItemGrid>
-                    {item?.loja?.endereco ? item?.loja?.endereco?.cidade : item?.delivery?.cidade ? item?.delivery?.cidade : "---"}
+                    {item?.loja?.endereco
+                      ? item?.loja?.endereco?.cidade
+                      : item?.delivery?.cidade
+                      ? item?.delivery?.cidade
+                      : "---"}
                   </S.ItemGrid>
                   <S.ItemGrid>
                     {item?.diaAgendado && item?.horaAgendada
