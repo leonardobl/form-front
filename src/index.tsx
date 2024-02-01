@@ -29,6 +29,7 @@ import { ScheduleListing } from "./components/Pages/scheduleListing";
 import { OfflineSystem } from "./components/Pages/ offlineSystem";
 import { InforVeihicle } from "./components/Pages/infoVehicle";
 import { ProtectedClientRoute } from "./components/Atoms/ProtectedClientRoute";
+import { NotFound } from "./components/Pages/NotFound";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -45,6 +46,7 @@ root.render(
             {/*<Route path="/" element={<Navigate to={"/offline"} />} />*/}
 
             <Route path="/" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
 
             <Route path="/offline" element={<OfflineSystem />} />
             <Route

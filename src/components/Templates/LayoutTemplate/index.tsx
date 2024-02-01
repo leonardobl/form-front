@@ -45,12 +45,19 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       <S.header id="home">
         {menuIsOpen && <MenuMobile handleOnChange={setMenuIsOpen} />}
         <S.HeaderContent data-hidden={isOffline}>
-          <NavHashLink smooth={true} to={"/"}>
+          {isOffline ? (
             <S.Logo
               src="/assets/imgs/logo-starcheck01.svg"
               alt="logo starcheck"
             />
-          </NavHashLink>
+          ) : (
+            <NavHashLink smooth={true} to={"/"}>
+              <S.Logo
+                src="/assets/imgs/logo-starcheck01.svg"
+                alt="logo starcheck"
+              />
+            </NavHashLink>
+          )}
 
           <S.HeaderMenu data-hidden={isOffline}>
             <NavHashLink
@@ -111,12 +118,7 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
       <S.Footer>
         <S.FooterContent>
           <S.FooterFirstDiv>
-            <NavHashLink to={"/"}>
-              <img
-                src="/assets/imgs/logo-starcheck02.svg"
-                alt="logo starcheck"
-              />
-            </NavHashLink>
+            <img src="/assets/imgs/logo-starcheck02.svg" alt="logo starcheck" />
           </S.FooterFirstDiv>
           <S.FooterSecondDiv>
             <S.TitleSectionFooter>Fale conosco</S.TitleSectionFooter>
