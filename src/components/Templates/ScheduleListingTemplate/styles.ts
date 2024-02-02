@@ -304,7 +304,7 @@ export const Filter = styled.button`
     left: 6px;
   }
 
-  @media (min-width: 501px) {
-    display: none;
-  }
+  // @media (max-width: 501px) {
+  //   display: none;
+  // }
 `;
