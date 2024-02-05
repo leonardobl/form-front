@@ -56,6 +56,8 @@ export const Button = styled.button<{ $disabled?: boolean }>`
       min-width: 160px;
       max-width: 160px;
       padding: 10px;
+
+      font-family: Roboto;
     }
 
     &[data-variant-ghost="true"] {
