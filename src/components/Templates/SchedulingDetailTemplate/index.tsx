@@ -13,6 +13,8 @@ import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { OrdemServico } from "../../../services/OrdemServico";
+import { removeUndercore } from "../../../utils/removeUndercore";
+import { RolesEnum } from "../../../enums/roles";
 
 export const SchedulingDetailTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -23,9 +25,10 @@ export const SchedulingDetailTemplate = () => {
   const [isOpen, setISOpen] = useState(false);
   const [detalheAgendamento, setDetalheAgendamento] =
     useSessionStorage("detalheAgendamento");
-  const [schedule, setSchedule] = useSessionStorage("agendamento")
+  const [schedule, setSchedule] = useSessionStorage("agendamento");
   const [reagendamento, setReagendamento] = useSessionStorage("reagendamento");
   const [urlLaudo, setUrlLaudo] = useState<string>("");
+  const [sessionCliente, setSessionCliente] = useSessionStorage("cliente");
 
   function onRescheduling() {
     setIsLoad(true);
@@ -42,16 +45,16 @@ export const SchedulingDetailTemplate = () => {
   function cancelarAgendamento() {
     setIsLoad(true);
     Agendamento.cancelar({ uuid: detalheAgendamento })
-    .then(({ data }) => setAgendamento(data))
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    )
-    .finally(() => setIsLoad(false));
-  };
+      .then(({ data }) => setAgendamento(data))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
 
   function acessarBoleto() {
     setSchedule(agendamento);
@@ -105,7 +108,10 @@ export const SchedulingDetailTemplate = () => {
             <S.Grid>
               <div>
                 <S.SubTitle>Status</S.SubTitle>
-                <InputCustom readOnly value={agendamento?.status} />
+                <InputCustom
+                  readOnly
+                  value={removeUndercore(agendamento?.status)}
+                />
               </div>
 
               <div>
@@ -215,7 +221,23 @@ export const SchedulingDetailTemplate = () => {
                     agendamento?.loja?.endereco
                       ? `${agendamento?.loja?.endereco?.logradouro} - ${agendamento?.loja?.endereco?.bairro}, ${agendamento?.loja?.endereco?.cidade} - ${agendamento?.loja?.endereco?.uf}`
                       : agendamento?.atendimentoDomiciliar?.endereco
-                      ? `${agendamento?.atendimentoDomiciliar?.endereco?.logradouro}, ${agendamento?.atendimentoDomiciliar?.endereco?.numero ? `${agendamento?.atendimentoDomiciliar?.endereco?.numero},` : ""} ${agendamento?.atendimentoDomiciliar?.endereco?.complemento ? `${agendamento?.atendimentoDomiciliar?.endereco?.complemento}` : ""} - ${agendamento?.atendimentoDomiciliar?.endereco?.bairro}, ${agendamento?.atendimentoDomiciliar?.endereco?.cidade}/${agendamento?.atendimentoDomiciliar?.endereco?.uf}`
+                      ? `${
+                          agendamento?.atendimentoDomiciliar?.endereco
+                            ?.logradouro
+                        }, ${
+                          agendamento?.atendimentoDomiciliar?.endereco?.numero
+                            ? `${agendamento?.atendimentoDomiciliar?.endereco?.numero},`
+                            : ""
+                        } ${
+                          agendamento?.atendimentoDomiciliar?.endereco
+                            ?.complemento
+                            ? `${agendamento?.atendimentoDomiciliar?.endereco?.complemento}`
+                            : ""
+                        } - ${
+                          agendamento?.atendimentoDomiciliar?.endereco?.bairro
+                        }, ${
+                          agendamento?.atendimentoDomiciliar?.endereco?.cidade
+                        }/${agendamento?.atendimentoDomiciliar?.endereco?.uf}`
                       : "---"
                   }
                 />
@@ -237,20 +259,31 @@ export const SchedulingDetailTemplate = () => {
             StatusAgendamentoEnum.FINALIZADO,
           ].includes(agendamento?.status) && (
             <S.WrapperBtns>
+              {agendamento.status ===
+                StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&
+                [RolesEnum.ROLE_ADMIN, RolesEnum.CONFIRMAR_PAGAMENTO].every(
+                  (role) => sessionCliente?.role?.includes(role)
+                ) && (
+                  <Button data-variant-border onClick={onRescheduling}>
+                    confirmar pagamento
+                  </Button>
+                )}
+
               <Button data-variant-border onClick={onRescheduling}>
                 REAGENDAR
               </Button>
               <Button data-variant-border onClick={() => setISOpen(true)}>
                 CANCELAR
               </Button>
-              {agendamento?.status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&(
+              {agendamento?.status ===
+                StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO && (
                 <>
-                <Button data-variant-border onClick={acessarBoleto}>
-                  VERIFICAR BOLETO
-                </Button>
-                <Button data-variant-border onClick={acessarPix}>
-                  VERIFICAR PIX
-                </Button>
+                  <Button data-variant-border onClick={acessarBoleto}>
+                    VERIFICAR BOLETO
+                  </Button>
+                  <Button data-variant-border onClick={acessarPix}>
+                    VERIFICAR PIX
+                  </Button>
                 </>
               )}
             </S.WrapperBtns>
@@ -263,10 +296,13 @@ export const SchedulingDetailTemplate = () => {
       >
         <S.ModalContent>
           <p>Tem certeza que deseja cancelar sua vistoria?</p>
-          <Button data-variant-login onClick={() => {
-            setISOpen(false);
-            cancelarAgendamento();
-          }}>
+          <Button
+            data-variant-login
+            onClick={() => {
+              setISOpen(false);
+              cancelarAgendamento();
+            }}
+          >
             CONFIRMAR
           </Button>
         </S.ModalContent>
