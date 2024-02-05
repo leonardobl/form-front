@@ -48,7 +48,7 @@ export const ScheduleListingTemplate = () => {
   const [sessionClient, setSessionClient] = useSessionStorage("cliente");
 
   const isCliente = sessionClient?.role?.includes(RolesEnum.ROLE_CLIENTE);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(isMobile ? false : true);
   const statusOptions = Object.values(StatusAgendamentoEnum).map((item) => ({
     value: item,
     label: item.split("_").join(" "),
@@ -79,7 +79,7 @@ export const ScheduleListingTemplate = () => {
   };
 
   function handleClear() {
-    setIsOpen(false);
+    isMobile && setIsOpen(false);
     const values = Object.values(formFilter).some(
       (item) => item || typeof item === "number"
     );
