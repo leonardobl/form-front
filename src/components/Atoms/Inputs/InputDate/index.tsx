@@ -7,6 +7,7 @@ import ReactDatePicker, { registerLocale } from "react-datepicker";
 
 interface InputDateProps extends ReactDatePickerProps {
   label?: string;
+  isLoading?: boolean;
 }
 
 export const InputDate = (props: InputDateProps) => {
@@ -20,9 +21,13 @@ export const InputDate = (props: InputDateProps) => {
           <S.Required $isRequired={!!props.required}>*</S.Required>
         </S.Label>
       )}
-
+      {props.isLoading && (
+        <S.ImgLoad src="/assets/imgs/dots-load.svg" alt="svg load" />
+      )}
       <DatePicker
         {...props}
+        disabled={props.isLoading ? true : props.disabled}
+        placeholderText={props.isLoading ? "" : props.placeholderText}
         renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
           <div className="react-datepicker__navigation_wrapper">
             <button

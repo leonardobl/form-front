@@ -20,7 +20,6 @@ import {
 import { Delivery } from "../../../services/Delivery";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { reverseToBrDate } from "../../../utils/dateTransform";
-import { cleanStorage } from "../../../utils/cleanStorage";
 
 export const PhysicalTemplate = () => {
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
@@ -37,6 +36,7 @@ export const PhysicalTemplate = () => {
   const [date, setDate] = useState<Date>(null);
   const { isLoad, setIsLoad } = useContextSite();
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleReagendamento() {
     setIsLoad(true);
@@ -47,7 +47,7 @@ export const PhysicalTemplate = () => {
       horaAgendada: form.horaAgendada,
       uuidAgendamento: reagendamento,
       uuidLoja: form.uuidLoja,
-      uuidDelivery: form.uuidDelivery
+      uuidDelivery: form.uuidDelivery,
     };
 
     Agendamento.reagendar(PAYLOAD)
@@ -148,6 +148,7 @@ export const PhysicalTemplate = () => {
   useEffect(() => {
     setDate(null);
     if (form?.uuidLoja) {
+      setIsLoading(true);
       Loja.getDiasIndisponiveis({ uuidLoja: form.uuidLoja })
         .then(({ data }) => {
           const options = data.map((item) => addDays(new Date(item), 1));
@@ -160,7 +161,8 @@ export const PhysicalTemplate = () => {
               data: { mensagem },
             },
           }) => toast.error(mensagem)
-        );
+        )
+        .finally(() => setIsLoading(false));
     }
 
     if (form.uuidDelivery) {
@@ -248,6 +250,7 @@ export const PhysicalTemplate = () => {
         <S.InputsContainer>
           <S.WrapperInput>
             <InputDate
+              isLoading={isLoading}
               minDate={new Date()}
               showIcon={true}
               label="Data"

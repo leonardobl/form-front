@@ -60,6 +60,7 @@ export const Container = styled.div<{ $showIcon: boolean }>`
 
         &:disabled {
           border: 1px solid rgb(230, 230, 230);
+          cursor: not-allowed;
         }
       }
     }
@@ -93,4 +94,15 @@ export const Label = styled.label`
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
+`;
+
+export const ImgLoad = styled.img`
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  display: block;
+  right: 50%;
 `;
