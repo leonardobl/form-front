@@ -24,7 +24,7 @@ export const InfoVehicleTemplate = () => {
     useSessionStorage("tipoAtendimento");
   const [veiculoSession, setVeiculoSession] = useSessionStorage("veiculo");
 
-  const { setIsLoad } = useContextSite();
+  const { isLoad, setIsLoad } = useContextSite();
   const [veiculo, setVeiculo] = useState<IVeiculoDTO>({} as IVeiculoDTO);
 
   function handleSubmit(e: React.SyntheticEvent) {
@@ -141,7 +141,7 @@ export const InfoVehicleTemplate = () => {
               </div>
             </S.SecondGrid>
             <S.WrapperBtn>
-              <Button>Confirmar</Button>
+              <Button disabled={isLoad}>Confirmar</Button>
             </S.WrapperBtn>
           </S.Form>
         </S.Content>
