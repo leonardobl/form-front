@@ -14,7 +14,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   ${({ theme: { space } }) => css`
-    padding: 180px 0;
+    padding: 140px 0;
     margin: 0 auto;
     max-width: ${space.medio};
     width: 100%;

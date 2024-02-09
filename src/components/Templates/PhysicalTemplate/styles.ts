@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-  padding: 180px 0;
+  padding: 140px 0;
 
   @media (max-width: 500px) {
     padding: 40px 24px;
@@ -56,7 +56,7 @@ export const WrapperInput = styled.div`
 export const InputsContainer = styled.div`
   display: flex;
   gap: 100px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 
   @media (max-width: 500px) {
     flex-direction: column;

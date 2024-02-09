@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 180px;
+  padding: 140px 0;
   display: flex;
   justify-content: center;
   flex-direction: column;

@@ -4,21 +4,24 @@ export const Button = styled.button<{ $disabled?: boolean }>`
   ${({ $disabled }) => css`
     cursor: ${$disabled ? "not-allowed" : "pointer"};
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: center;
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.4);
 
     border-radius: 5px;
     background: #266bf0;
-    height: 60px;
-    min-width: 240px;
+    height: 56px;
+    max-width: 200px;
+    min-width: 200px;
     padding: 0 20px;
     font-family: Poppins;
+    white-space: nowrap;
 
     color: #eee;
     text-align: center;
     font-family: "Poppins";
-    font-size: 20px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 600;
     line-height: 32px;
@@ -27,6 +30,8 @@ export const Button = styled.button<{ $disabled?: boolean }>`
 
     &[data-variant-degrade="true"] {
       background: linear-gradient(180deg, #558fff 0%, #002ed1 100%);
+      max-width: 250px;
+      min-width: 250px;
     }
 
     &[data-variant-dark="true"] {
@@ -37,10 +42,9 @@ export const Button = styled.button<{ $disabled?: boolean }>`
       background: linear-gradient(181deg, #fff -28.23%, #cacaca 99.08%);
       color: #00186d;
       text-align: center;
-      font-size: 16px;
+      font-size: 18px;
       font-style: normal;
       font-weight: 600;
-      min-width: 200px;
       text-transform: none;
     }
 
@@ -53,8 +57,9 @@ export const Button = styled.button<{ $disabled?: boolean }>`
       background: transparent;
       box-shadow: none;
       border: 2px solid #266bf0;
-      min-width: 160px;
-      max-width: 160px;
+      max-width: 200px;
+      max-width: 200px;
+      white-space: normal;
       padding: 10px;
 
       font-family: Roboto;
@@ -63,7 +68,7 @@ export const Button = styled.button<{ $disabled?: boolean }>`
     &[data-variant-ghost="true"] {
       color: #717171;
       text-align: center;
-      font-size: 16px;
+      font-size: 18px;
       font-style: normal;
       font-weight: 600;
       line-height: 24px;
@@ -71,19 +76,19 @@ export const Button = styled.button<{ $disabled?: boolean }>`
       border: none;
       text-transform: none;
       background: none;
-      min-width: fit-content;
+      max-width: fit-content;
       box-shadow: none;
       white-space: nowrap;
     }
 
     @media (max-width: 500px) {
-      min-width: 160px;
+      max-width: 160px;
       font-size: 16px;
       height: 45px;
       padding: 0 10px;
 
       &[data-variant-login="true"] {
-        min-width: 160px;
+        max-width: 160px;
       }
     }
   `}
