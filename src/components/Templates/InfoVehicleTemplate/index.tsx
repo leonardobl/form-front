@@ -23,6 +23,8 @@ export const InfoVehicleTemplate = () => {
   const [tipoAgendamento, setTipoAgendamento] =
     useSessionStorage("tipoAtendimento");
   const [veiculoSession, setVeiculoSession] = useSessionStorage("veiculo");
+  const [sessionRevistoria, setSessionRevistoria] =
+    useSessionStorage("revistoria");
 
   const { isLoad, setIsLoad } = useContextSite();
   const [veiculo, setVeiculo] = useState<IVeiculoDTO>({} as IVeiculoDTO);
@@ -54,9 +56,15 @@ export const InfoVehicleTemplate = () => {
         Agendamento.put(PAYLOAD)
           .then(() => {
             if (tipoAgendamento === "LOJA") {
+              if (PAYLOAD.revistoria) {
+                setSessionRevistoria(true);
+                window.open("/meus-agendamentos/detalhe-agendamento", "_self");
+                return;
+              }
               window.open(`/pagamento`, "_self");
               return;
             }
+
             window.open("/cadastro-endereco", "_self");
           })
           .catch(

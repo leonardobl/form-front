@@ -25,6 +25,8 @@ export const ServiceAddressRegistrationTemplate = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const [isDisabled, setIsDisabled] = useState(false);
+  const [sessionRevistoria, setSessionRevistoria] =
+    useSessionStorage("revistoria");
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -37,7 +39,9 @@ export const ServiceAddressRegistrationTemplate = () => {
       .then(({ data }) => {
         toast.success("Endereco cadastrado com sucesso!");
         setTimeout(() => {
-          window.open("/pagamento", "_self");
+          sessionRevistoria
+            ? window.open("/meus-agendamentos/detalhe-agendamento", "_self")
+            : window.open("/pagamento", "_self");
         }, 3000);
       })
       .catch(
