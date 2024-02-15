@@ -28,6 +28,8 @@ export const InfoVehicleTemplate = () => {
 
   const { isLoad, setIsLoad } = useContextSite();
   const [veiculo, setVeiculo] = useState<IVeiculoDTO>({} as IVeiculoDTO);
+  const [detalheAgendamento, setDetalheAgendamento] =
+    useSessionStorage("detalheAgendamento");
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -58,6 +60,7 @@ export const InfoVehicleTemplate = () => {
             if (tipoAgendamento === "LOJA") {
               if (PAYLOAD.revistoria) {
                 setSessionRevistoria(true);
+                setDetalheAgendamento(PAYLOAD.uuid);
                 window.open("/meus-agendamentos/detalhe-agendamento", "_self");
                 return;
               }
