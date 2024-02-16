@@ -26,6 +26,7 @@ import { ISelectOptions } from "../../../types/inputs";
 import { removeEmpty } from "../../../utils/removeEmpty";
 import { RolesEnum } from "../../../enums/roles";
 import { useMediaQuery } from "react-responsive";
+import { removeUndercore } from "../../../utils/removeUndercore";
 
 export const ScheduleListingTemplate = () => {
   const { setIsLoad } = useContextSite();
@@ -511,7 +512,7 @@ export const ScheduleListingTemplate = () => {
                       : "---"}
                   </S.ItemGrid>
                   <S.ItemGrid $color={colorsStatus[item?.status].color}>
-                    {item.status || "---"}
+                    {removeUndercore(item.status) || "---"}
                   </S.ItemGrid>
                   <S.ItemGrid>
                     {item.status === "AGENDADO" && !isCliente && (

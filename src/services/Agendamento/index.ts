@@ -95,4 +95,9 @@ export class Agendamento {
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuid}/cancelar`);
   }
+
+  static async confirmarPagamento({uuid}:{uuid:string;}): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.put(`${basePath}/${uuid}/confirmacao-manual`);
+  }
+
 }

@@ -20,9 +20,6 @@ export const PaymentTemplate = () => {
     {} as IAgendamentoDTO
   );
 
-  const taxaPix = 1.92;
-  const taxaBoleto = 3.5;
-
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
@@ -62,7 +59,7 @@ export const PaymentTemplate = () => {
             <PaymentsOptionsContainer
               name="pagamento"
               required
-              value={maskMoney(pagamento?.fatura?.valorTotal / 100 + taxaPix)}
+              value={maskMoney(pagamento?.fatura?.valorTotal / 100)}
               handleSelect={(e) => setPaymento(e)}
               iconLeft="/assets/imgs/pix-icon.svg"
               textIcon="PIX"
@@ -75,9 +72,7 @@ export const PaymentTemplate = () => {
               required
               handleSelect={(e) => setPaymento(e)}
               name="pagamento"
-              value={maskMoney(
-                pagamento?.fatura?.valorTotal / 100 + taxaBoleto
-              )}
+              value={maskMoney(pagamento?.fatura?.valorTotal / 100)}
               iconLeft="/assets/imgs/cod-barra.svg"
               textIcon="BOLETO"
             />
