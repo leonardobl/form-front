@@ -56,6 +56,20 @@ export const SchedulingDetailTemplate = () => {
       .finally(() => setIsLoad(false));
   }
 
+  function confirmarPagamento() {
+    setIsLoad(true);
+    Agendamento.confirmarPagamento({ uuid: detalheAgendamento })
+    .then(({ data }) => setAgendamento(data))
+    .catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => toast.error(mensagem)
+    )
+    .finally(() => setIsLoad(false));
+  }
+
   function acessarBoleto() {
     setSchedule(agendamento);
     window.open("../pagamento/boleto", "_self");
@@ -261,11 +275,11 @@ export const SchedulingDetailTemplate = () => {
             <S.WrapperBtns>
               {agendamento.status ===
                 StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&
-                [RolesEnum.ROLE_ADMIN, RolesEnum.CONFIRMAR_PAGAMENTO].every(
+                [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_SUPORTE].some(
                   (role) => sessionCliente?.role?.includes(role)
                 ) && (
-                  <Button data-variant-border onClick={onRescheduling}>
-                    confirmar pagamento
+                  <Button data-variant-border onClick={confirmarPagamento}>
+                    CONFIRMAR PAGAMENTO
                   </Button>
                 )}
 
