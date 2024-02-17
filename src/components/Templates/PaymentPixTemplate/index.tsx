@@ -15,9 +15,12 @@ export const PaymentPixTemplate = () => {
   const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
 
   function acessarFatura() {
-    window.open(`${agendamento?.fatura?.url ? agendamento?.fatura?.url : pagamento?.url}`, "_blank")
+    window.open(
+      `${agendamento?.fatura?.url ? agendamento?.fatura?.url : pagamento?.url}`,
+      "_blank"
+    );
   }
-  
+
   function handleTicket() {
     window.open("boleto", "_self");
   }

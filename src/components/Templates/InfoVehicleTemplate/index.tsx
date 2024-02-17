@@ -57,10 +57,13 @@ export const InfoVehicleTemplate = () => {
 
         Agendamento.put(PAYLOAD)
           .then(() => {
+            if (PAYLOAD.revistoria) {
+              setSessionRevistoria(true);
+              setDetalheAgendamento(PAYLOAD.uuid);
+            }
+
             if (tipoAgendamento === "LOJA") {
               if (PAYLOAD.revistoria) {
-                setSessionRevistoria(true);
-                setDetalheAgendamento(PAYLOAD.uuid);
                 window.open("/meus-agendamentos/detalhe-agendamento", "_self");
                 return;
               }
