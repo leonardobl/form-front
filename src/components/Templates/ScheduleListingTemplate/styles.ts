@@ -308,3 +308,9 @@ export const Filter = styled.button`
     display: none;
   }
 `;
+
+export const WrapperStatus = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;

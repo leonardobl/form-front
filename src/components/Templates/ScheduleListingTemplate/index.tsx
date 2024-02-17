@@ -454,9 +454,24 @@ export const ScheduleListingTemplate = () => {
                       {item?.veiculo?.tipo || "---"}
                       <span>{reverseToBrDate(item?.diaAgendado)}</span>
                     </h4>
-                    <S.ItemGrid $color={colorsStatus[item?.status].color}>
-                      {item.status || "---"}
-                    </S.ItemGrid>
+
+                    <S.WrapperStatus>
+                      <S.ItemGrid $color={colorsStatus[item?.status].color}>
+                        {item.status || "---"}
+                      </S.ItemGrid>
+
+                      <S.ItemGrid>
+                        {item.status === "AGENDADO" && !isCliente && (
+                          <S.ButtonStart
+                            onClick={() => {
+                              iniciarVistoria(item.uuid);
+                            }}
+                          >
+                            INICIAR
+                          </S.ButtonStart>
+                        )}
+                      </S.ItemGrid>
+                    </S.WrapperStatus>
                   </div>
                   <img
                     alt="icone de visualização"
