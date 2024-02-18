@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import * as S from "./styles";
 import { Button } from "../../Atoms/Button";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { useSearchParams } from "react-router-dom";
 
 export const SchedulingTemplate = () => {
   const [session, setSession] = useSessionStorage("tipoAtendimento");
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleClick({ tipoAtendimento }: { tipoAtendimento: string }) {
     setSession(tipoAtendimento);
     window.open(`/agendamento/${tipoAtendimento.toLowerCase()}`, "_self");
   }
+
+  useEffect(() => {
+    console.log(searchParams.get("projeto"));
+  }, [searchParams]);
 
   return (
     <S.Container>
