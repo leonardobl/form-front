@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import { GlobalStyles } from "./Global/GlobalStyles";
 import { ThemeProvider } from "styled-components";
-import { Theme } from "./Global/Theme";
+import { Theme } from "./Global/StarCheckTheme";
 import { Home } from "./components/Pages/home";
 import { Scheduling } from "./components/Pages/scheduling";
 import { Route, Routes, BrowserRouter } from "react-router-dom";

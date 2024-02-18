@@ -1,6 +1,6 @@
 import "styled-components";
 
-import { Theme } from "../Global/Theme";
+import { Theme } from "../Global/StarCheckTheme";
 
 export type ITheme = typeof Theme;
 

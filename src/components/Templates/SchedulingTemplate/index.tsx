@@ -4,9 +4,12 @@ import * as S from "./styles";
 import { Button } from "../../Atoms/Button";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useSearchParams } from "react-router-dom";
+import { useContextSite } from "../../../context/Context";
+import { ProjetosEnum } from "../../../enums/projetosEnum";
 
 export const SchedulingTemplate = () => {
   const [session, setSession] = useSessionStorage("tipoAtendimento");
+  const { project, setProject } = useContextSite();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -16,7 +19,8 @@ export const SchedulingTemplate = () => {
   }
 
   useEffect(() => {
-    console.log(searchParams.get("projeto"));
+    const projeto = searchParams.get("projeto");
+    projeto && setProject(ProjetosEnum[projeto.toUpperCase()]);
   }, [searchParams]);
 
   return (
