@@ -1,4 +1,4 @@
-export const Theme = {
+export const VLX_VISTORIAS = {
   name: "VLX_VISTORIAS",
   colors: {
     primary: "#0C0C0C",

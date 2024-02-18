@@ -1,4 +1,4 @@
-export const Theme = {
+export const STARCHECK = {
   name: "STARCHECK",
   colors: {
     primary: "#2D2D2D",

@@ -1,4 +1,4 @@
-export const Theme = {
+export const TOKYO = {
   name: "TOKYO",
   colors: {
     primary: "#FFFFFF",

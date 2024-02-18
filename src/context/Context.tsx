@@ -12,11 +12,16 @@ import { Loading } from "../components/Atoms/Loading";
 import { useSessionStorage } from "../hooks/useSessionStorage";
 import { ProjetosEnum } from "../enums/projetosEnum";
 
+import { TOKYO } from "../Global/TokyoTheme";
+import { STARCHECK } from "../Global/StarCheckTheme";
+import { LOG_VISTORIAS } from "../Global/LogTheme";
+import { VLX_VISTORIAS } from "../Global/VlxTheme";
+
 type ContextSite = {
   isLoad: boolean;
   setIsLoad: Dispatch<SetStateAction<boolean>>;
   project: ProjetosEnum;
-  setProject: Dispatch<SetStateAction<ProjetosEnum>>;
+  setProject(e: ProjetosEnum): void;
   // setIsLoad: (value: boolean) => void;
 };
 
@@ -24,11 +29,18 @@ type Props = {
   children: ReactNode;
 };
 
+export const Themes = {
+  TOKYO: TOKYO,
+  STARCHECK: STARCHECK,
+  LOG_VISTORIAS: LOG_VISTORIAS,
+  VLX_VISTORIAS: VLX_VISTORIAS,
+};
+
 export const Context = createContext({} as ContextSite);
 
 export function ContextProvider({ children }: Props) {
   const [isLoad, setIsLoad] = useState(false);
-  const [project, setProject] = useState<ProjetosEnum>(ProjetosEnum.STARCHECK);
+  const [project, setProject] = useState(ProjetosEnum.STARCHECK);
 
   return (
     <Context.Provider

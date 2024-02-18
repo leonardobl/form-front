@@ -1,4 +1,4 @@
-export const Theme = {
+export const LOG_VISTORIAS = {
   name: "LOG_VISTORIAS",
   colors: {
     primary: "#111111",

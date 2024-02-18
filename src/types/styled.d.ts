@@ -1,8 +1,8 @@
 import "styled-components";
 
-import { Theme } from "../Global/StarCheckTheme";
+import { STARCHECK } from "../Global/StarCheckTheme";
 
-export type ITheme = typeof Theme;
+export type ITheme = typeof STARCHECK;
 
 declare module "styled-components" {
   export interface DefaultTheme extends ITheme {}

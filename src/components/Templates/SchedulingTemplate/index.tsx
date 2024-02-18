@@ -9,7 +9,7 @@ import { ProjetosEnum } from "../../../enums/projetosEnum";
 
 export const SchedulingTemplate = () => {
   const [session, setSession] = useSessionStorage("tipoAtendimento");
-  const { project, setProject } = useContextSite();
+  const { setProject, project } = useContextSite();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
