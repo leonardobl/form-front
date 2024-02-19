@@ -1,6 +1,0 @@
-export enum ProjetosEnum {
-  STARCHECK = "STARCHECK",
-  LOG_VISTORIAS = "LOG_VISTORIAS",
-  VLX_VISTORIAS = "VLX_VISTORIAS",
-  TOKYO = "TOKYO",
-}

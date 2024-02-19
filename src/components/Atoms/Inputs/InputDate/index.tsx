@@ -7,31 +7,23 @@ import ReactDatePicker, { registerLocale } from "react-datepicker";
 
 interface InputDateProps extends ReactDatePickerProps {
   label?: string;
-  isLoading?: boolean;
 }
 
 export const InputDate = (props: InputDateProps) => {
   registerLocale("ptBR", ptBR);
 
   return (
-    <S.Container $showIcon={props.showIcon}>
+    <S.Container>
       {props.label && (
         <S.Label>
           {props.label}
           <S.Required $isRequired={!!props.required}>*</S.Required>
         </S.Label>
       )}
-      {props.isLoading && (
-        <S.ImgLoad src="/assets/imgs/dots-load.svg" alt="svg load" />
-      )}
       <DatePicker
-        {...props}
-        disabled={props.isLoading ? true : props.disabled}
-        placeholderText={props.isLoading ? "" : props.placeholderText}
         renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
           <div className="react-datepicker__navigation_wrapper">
             <button
-              type="button"
               aria-label="Previous Month"
               className={
                 "react-datepicker__navigation react-datepicker__navigation--previous"
@@ -53,7 +45,6 @@ export const InputDate = (props: InputDateProps) => {
               })}
             </span>
             <button
-              type="button"
               aria-label="Next Month"
               className={
                 "react-datepicker__navigation react-datepicker__navigation--next"
@@ -74,7 +65,6 @@ export const InputDate = (props: InputDateProps) => {
         locale={"ptBR"}
         icon={
           <svg
-            className="icon"
             xmlns="http://www.w3.org/2000/svg"
             width="22"
             height="22"
@@ -106,6 +96,7 @@ export const InputDate = (props: InputDateProps) => {
             </defs>
           </svg>
         }
+        {...props}
       />
     </S.Container>
   );
