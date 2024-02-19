@@ -34,10 +34,7 @@ export const SchedulingDetailTemplate = () => {
     setIsLoad(true);
     setReagendamento(agendamento?.uuid);
     setTimeout(() => {
-      window.open(
-        `/agendamento/${agendamento?.tipoAtendimento?.toLowerCase()}`,
-        "_self"
-      );
+      window.open(`/${agendamento?.tipoAtendimento?.toLowerCase()}`, "_self");
       setIsLoad(false);
     }, 1000);
   }
@@ -59,15 +56,15 @@ export const SchedulingDetailTemplate = () => {
   function confirmarPagamento() {
     setIsLoad(true);
     Agendamento.confirmarPagamento({ uuid: detalheAgendamento })
-    .then(({ data }) => setAgendamento(data))
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    )
-    .finally(() => setIsLoad(false));
+      .then(({ data }) => setAgendamento(data))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
   }
 
   function acessarBoleto() {
@@ -275,8 +272,8 @@ export const SchedulingDetailTemplate = () => {
             <S.WrapperBtns>
               {agendamento.status ===
                 StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&
-                [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_SUPORTE].some(
-                  (role) => sessionCliente?.role?.includes(role)
+                [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_SUPORTE].some((role) =>
+                  sessionCliente?.role?.includes(role)
                 ) && (
                   <Button data-variant-border onClick={confirmarPagamento}>
                     CONFIRMAR PAGAMENTO

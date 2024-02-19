@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./Global/GlobalStyles";
 import { ContextProvider, Themes } from "./context/Context";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./components/Pages/home";
+
 import { NotFound } from "./components/Pages/notFound";
 import { OfflineSystem } from "./components/Pages/ offlineSystem";
 import { ProtectedRoute } from "./components/Atoms/ProtectedRoute";
@@ -33,12 +33,6 @@ export const App = () => {
   const [theme, setTheme] = useState<DefaultTheme>(STARCHECK);
   const { project } = useContextSite();
 
-  useEffect(() => {
-    project && setTheme(Themes[project]);
-
-    console.log(project);
-  }, [project]);
-
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer autoClose={2000} />
@@ -48,7 +42,8 @@ export const App = () => {
           <Routes>
             {/*<Route path="/" element={<Navigate to={"/offline"} />} />*/}
 
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
+
             <Route path="*" element={<NotFound />} />
 
             <Route path="/offline" element={<OfflineSystem />} />
@@ -94,7 +89,7 @@ export const App = () => {
                 }
               />
             </Route>
-            <Route path="agendamento" element={<PageLayoutTemplate />}>
+            <Route path="/" element={<PageLayoutTemplate />}>
               <Route index element={<Scheduling />} />
               <Route
                 path="loja"

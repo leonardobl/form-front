@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LayoutTemplate } from "../LayoutTemplate";
+
 import * as S from "./styles";
 import { PaymentsOptionsContainer } from "../../Atoms/PaymentsOptionsContainer";
 import { Button } from "../../Atoms/Button";

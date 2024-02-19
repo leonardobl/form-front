@@ -3,25 +3,14 @@ import React, { useEffect } from "react";
 import * as S from "./styles";
 import { Button } from "../../Atoms/Button";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { useSearchParams } from "react-router-dom";
-import { useContextSite } from "../../../context/Context";
-import { ProjetosEnum } from "../../../enums/projetosEnum";
 
 export const SchedulingTemplate = () => {
   const [session, setSession] = useSessionStorage("tipoAtendimento");
-  const { setProject, project } = useContextSite();
-
-  const [searchParams, setSearchParams] = useSearchParams();
 
   function handleClick({ tipoAtendimento }: { tipoAtendimento: string }) {
     setSession(tipoAtendimento);
-    window.open(`/agendamento/${tipoAtendimento.toLowerCase()}`, "_self");
+    window.open(`/${tipoAtendimento.toLowerCase()}`, "_self");
   }
-
-  useEffect(() => {
-    const projeto = searchParams.get("projeto");
-    projeto && setProject(ProjetosEnum[projeto.toUpperCase()]);
-  }, [searchParams]);
 
   return (
     <S.Container>

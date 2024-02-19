@@ -13,7 +13,7 @@ import {
   Agendamento,
   IPutAgendamentoProps,
 } from "../../../services/Agendamento";
-import { IAgendamentoForm } from "../../../types/agendamento";
+
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 

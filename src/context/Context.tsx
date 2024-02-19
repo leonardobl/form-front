@@ -20,8 +20,8 @@ import { VLX_VISTORIAS } from "../Global/VlxTheme";
 type ContextSite = {
   isLoad: boolean;
   setIsLoad: Dispatch<SetStateAction<boolean>>;
-  project: ProjetosEnum;
-  setProject(e: ProjetosEnum): void;
+  project: string;
+  setProject(e: string): void;
   // setIsLoad: (value: boolean) => void;
 };
 
@@ -40,7 +40,7 @@ export const Context = createContext({} as ContextSite);
 
 export function ContextProvider({ children }: Props) {
   const [isLoad, setIsLoad] = useState(false);
-  const [project, setProject] = useState(ProjetosEnum.STARCHECK);
+  const [project, setProject] = useState("starcheck");
 
   return (
     <Context.Provider

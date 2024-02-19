@@ -8,13 +8,14 @@ import { cleanStorage } from "../../../utils/cleanStorage";
 import { RolesEnum } from "../../../enums/roles";
 import { MenuMobile } from "../../Atoms/MenuMobile";
 import { Footer } from "../../Molecules/Footer";
+import { useContextSite } from "../../../context/Context";
 
 export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
   const { pathname } = useLocation();
   const [token, setToken] = useSessionStorage("@token");
   const [cliente, setCliente] = useSessionStorage("cliente");
+  const { project } = useContextSite();
 
-  const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const isCliente = !!(
     cliente?.role?.includes(RolesEnum.ROLE_CLIENTE) && token
@@ -48,13 +49,13 @@ export const LayoutTemplate = ({ children }: { children: React.ReactNode }) => {
         <S.HeaderContent data-hidden={isOffline}>
           {isOffline ? (
             <S.Logo
-              src="/assets/imgs/logo-starcheck01.svg"
+              src={`/assets/imgs/logo-${project}.svg`}
               alt="logo starcheck"
             />
           ) : (
             <NavHashLink smooth={true} to={"/"}>
               <S.Logo
-                src="/assets/imgs/logo-starcheck01.svg"
+                src={`/assets/imgs/logo-${project}.svg`}
                 alt="logo starcheck"
               />
             </NavHashLink>
