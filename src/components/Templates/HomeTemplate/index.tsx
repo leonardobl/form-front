@@ -3,6 +3,7 @@ import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Input } from "../../Atoms/Inputs/Input";
+import { InputDate } from "../../Atoms/Inputs/InputDate";
 
 const teste = [
   { value: "teste1", label: "Teste1" },
@@ -19,8 +20,12 @@ export const HomeTemplate = () => {
         <br />
         <br />
         <S.Wrapper>
-          <div>
+          {/* <div>
             <SimpleSelect required options={teste} label="Loja" />
+          </div> */}
+
+          <div>
+            <InputDate label="data" required onChange={() => ""} />
           </div>
           <div>
             <Input required label="Nome" type="password" />

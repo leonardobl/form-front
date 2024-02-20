@@ -7,20 +7,34 @@ import ReactDatePicker, { registerLocale } from "react-datepicker";
 
 interface InputDateProps extends ReactDatePickerProps {
   label?: string;
+  isLoading?: boolean;
 }
 
 export const InputDate = (props: InputDateProps) => {
   registerLocale("ptBR", ptBR);
 
+  const [value, setValue] = useState<Date | null>();
+
   return (
-    <S.Container>
+    <S.Container $showIcon={props.showIcon}>
       {props.label && (
         <S.Label>
           {props.label}
           <S.Required $isRequired={!!props.required}>*</S.Required>
         </S.Label>
       )}
+      {props.isLoading && (
+        <S.ImgLoad src="/assets/imgs/dots-load.svg" alt="svg load" />
+      )}
       <DatePicker
+        {...props}
+        disabled={props.isLoading ? true : props.disabled}
+        placeholderText={props.isLoading ? "" : props.placeholderText}
+        // selected={value ? value : props.selected}
+        onChange={(e, v) => {
+          props.onChange(e, v);
+          setValue(e);
+        }}
         renderCustomHeader={({ monthDate, decreaseMonth, increaseMonth }) => (
           <div className="react-datepicker__navigation_wrapper">
             <button
@@ -66,37 +80,24 @@ export const InputDate = (props: InputDateProps) => {
         icon={
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 22 22"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
             fill="none"
           >
-            <g clip-path="url(#clip0_265_3920)">
+            <g clip-path="url(#clip0_582_3361)">
               <path
-                d="M11 9.38235C14.5588 9.38235 18.1176 9.38235 21.6765 9.38235C22 9.38235 22 9.38235 22 9.70588C22 12.9412 22 16.3382 22 19.5735C22 20.8676 21.0294 22 19.5735 22C13.75 22 8.08823 22 2.26471 22C0.970588 22 0 21.0294 0 19.7353C0 16.5 0 13.1029 0 9.86765C0 9.54412 0 9.54412 0.323529 9.54412C3.88235 9.38235 7.44118 9.38235 11 9.38235Z"
-                fill="#00186D"
-              />
-              <path
-                d="M16.5 2.42647C17.6324 2.42647 18.6029 2.42647 19.7353 2.42647C21.0294 2.42647 22 3.39706 22 4.69118C22 5.66177 22 6.63236 22 7.60294C22 7.76471 22 7.92647 21.6765 7.92647C14.5588 7.92647 7.44118 7.92647 0.161765 7.92647C0 7.92647 0 7.76471 0 7.60294C0 6.63236 0 5.5 0 4.52942C0 3.39706 0.970588 2.26471 2.26471 2.26471C3.39706 2.26471 4.52941 2.26471 5.5 2.26471C5.5 3.2353 5.5 4.36765 5.5 5.33824C5.5 5.82353 5.82353 6.14706 6.30882 6.14706C6.79412 6.14706 7.11765 5.82353 7.11765 5.33824C7.11765 4.36765 7.11765 3.2353 7.11765 2.26471C9.70588 2.26471 12.2941 2.26471 14.8824 2.26471C14.8824 3.2353 14.8824 4.20589 14.8824 5.33824C14.8824 5.5 14.8824 5.66177 15.0441 5.82353C15.2059 6.14706 15.5294 6.14706 15.8529 6.14706C16.1765 5.9853 16.3382 5.82353 16.3382 5.33824C16.5 4.36765 16.5 3.39706 16.5 2.42647Z"
-                fill="#00186D"
-              />
-              <path
-                d="M5.5 2.42647C5.5 1.94118 5.5 1.29412 5.5 0.808824C5.5 0.323529 5.82353 0 6.30882 0C6.79412 0 7.11765 0.323529 7.11765 0.808824C7.11765 1.29412 7.11765 1.94118 7.11765 2.42647C6.63235 2.42647 5.98529 2.42647 5.5 2.42647Z"
-                fill="#00186D"
-              />
-              <path
-                d="M14.8823 2.42647C14.8823 1.94118 14.8823 1.45588 14.8823 0.970588C14.8823 0.323529 15.2059 0 15.6911 0C16.1764 0 16.5 0.323529 16.5 0.808824C16.5 1.29412 16.5 1.77941 16.5 2.26471C16.0147 2.42647 15.5294 2.42647 14.8823 2.42647Z"
-                fill="#00186D"
+                d="M7.5 12H4.5V9H7.5V12ZM13.5 9H10.5V12H13.5V9ZM19.5 9H16.5V12H19.5V9ZM7.5 13.5H4.5V16.5H7.5V13.5ZM13.5 13.5H10.5V16.5H13.5V13.5ZM19.5 13.5H16.5V16.5H19.5V13.5ZM7.5 18H4.5V21H7.5V18ZM13.5 18H10.5V21H13.5V18ZM6 4.5C6.82837 4.5 7.5 3.82908 7.5 3V1.5C7.5 0.670875 6.82837 0 6 0C5.17163 0 4.5 0.670922 4.5 1.5V3C4.5 3.82912 5.17163 4.5 6 4.5ZM24 3V24H0V3H3.75C3.75 4.24073 4.75927 5.25 6 5.25C7.24073 5.25 8.25 4.24073 8.25 3H15.75C15.75 4.24073 16.7593 5.25 18 5.25C19.2407 5.25 20.25 4.24073 20.25 3H24ZM22.5 7.5H1.5V22.5H22.5V7.5ZM18 4.5C18.8291 4.5 19.5 3.82908 19.5 3V1.5C19.5 0.670875 18.8291 0 18 0C17.1709 0 16.5 0.670922 16.5 1.5V3C16.5 3.82912 17.1709 4.5 18 4.5Z"
+                fill="#50D05D"
               />
             </g>
             <defs>
-              <clipPath id="clip0_265_3920">
-                <rect width="22" height="22" fill="white" />
+              <clipPath id="clip0_582_3361">
+                <rect width="24" height="24" fill="white" />
               </clipPath>
             </defs>
           </svg>
         }
-        {...props}
       />
     </S.Container>
   );
