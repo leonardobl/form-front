@@ -61,6 +61,14 @@ export const Container = styled.div<{ $showIcon: boolean }>`
         }
       }
     }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px #fff inset !important;
+      -webkit-text-fill-color: #111 !important;
+    }
   `}
 `;
 

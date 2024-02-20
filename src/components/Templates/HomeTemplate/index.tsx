@@ -4,6 +4,7 @@ import * as S from "./styles";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Input } from "../../Atoms/Inputs/Input";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
+import { Button } from "../../Atoms/Button";
 
 const teste = [
   { value: "teste1", label: "Teste1" },
@@ -20,10 +21,6 @@ export const HomeTemplate = () => {
         <br />
         <br />
         <S.Wrapper>
-          {/* <div>
-            <SimpleSelect required options={teste} label="Loja" />
-          </div> */}
-
           <div>
             <InputDate label="data" required onChange={() => ""} />
           </div>
@@ -31,6 +28,7 @@ export const HomeTemplate = () => {
             <Input required label="Nome" type="password" />
           </div>
         </S.Wrapper>
+        <Button disabled>Click</Button>
       </S.Container>
     </LayoutTemplate>
   );
