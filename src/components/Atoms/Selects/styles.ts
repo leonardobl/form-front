@@ -7,7 +7,7 @@ export const Container = styled.div<{ $isLabel: boolean }>`
     position: relative;
 
     input {
-      height: 36px;
+      height: 42px;
     }
 
     .css-1u9des2-indicatorSeparator {
