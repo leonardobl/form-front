@@ -1,9 +1,9 @@
 import { createTheme } from "@mui/material";
 
-export const logTheme = createTheme({
+export const muiTheme = createTheme({
   palette: {
     primary: {
-      main: "#3F504C",
+      main: "#12D1A7",
     },
   },
 });

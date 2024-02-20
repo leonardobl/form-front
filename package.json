@@ -20,6 +20,7 @@
     "@types/react-router-hash-link": "^2.4.9",
     "add": "^2.0.6",
     "axios": "^1.6.2",
+    "polished": "^4.3.1",
     "react": "^18.2.0",
     "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",

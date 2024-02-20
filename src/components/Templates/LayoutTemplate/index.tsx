@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -16,8 +16,7 @@ import { useSearchParams } from "react-router-dom";
 import { mainListItems, secondaryListItems } from "../../Atoms/ListItems";
 
 import * as S from "./styles";
-import { starcheckTheme } from "../../../themes/starcheck";
-import { logTheme } from "../../../themes/log";
+import { muiTheme } from "../../../themes/muiTheme";
 
 const drawerWidth: number = 240;
 
@@ -73,26 +72,16 @@ interface ILayoutProps {
   children: React.ReactNode;
 }
 
-const Themes = {
-  log: logTheme,
-  starcheck: starcheckTheme,
-};
-
 export function LayoutTemplate({ children }: ILayoutProps) {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  const [theme, setTheme] = React.useState(starcheckTheme);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
-  React.useEffect(() => {
-    const params = searchParams.get("loja");
-    params && setTheme(Themes[params]);
-  }, [searchParams]);
-
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={muiTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
