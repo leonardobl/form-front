@@ -11,6 +11,7 @@ import { Residence } from "./components/Pages/Residence";
 import "react-toastify/dist/ReactToastify.css";
 import { LoginRegister } from "./components/Pages/LoginRegister";
 import { Login } from "./components/Pages/Login";
+import { UserRegistration } from "./components/Pages/UserRegistration";
 
 export const App = () => {
   return (
@@ -23,8 +24,9 @@ export const App = () => {
             <Route index element={<Home />} />
             <Route path="/loja" element={<Store />} />
             <Route path="/domicilio" element={<Residence />} />
-            <Route path="/login-cadastro" element={<LoginRegister />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/login-cadastro" element={<LoginRegister />} />
+            <Route path="/cadastro-usuario" element={<UserRegistration />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>

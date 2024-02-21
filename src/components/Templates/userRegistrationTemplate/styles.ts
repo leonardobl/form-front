@@ -1,0 +1,80 @@
+import styled, { css } from "styled-components";
+
+export const Container = styled.div`
+  ${({ theme: { padding } }) => css`
+    padding: ${padding.primary} 0;
+    width: 100%;
+
+    > h1 {
+      text-align: center;
+    }
+  `}
+`;
+
+export const Form = styled.form`
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px 43px;
+  grid-template-areas: "nome nome" "email telefone" "cpf cep" "rua numero" "complemento bairro" "cidade uf" "senha confirmacao" "buttom buttom";
+
+  > :nth-child(1) {
+    grid-area: nome;
+  }
+
+  > :nth-child(2) {
+    grid-area: email;
+  }
+
+  > :nth-child(3) {
+    grid-area: telefone;
+  }
+
+  > :nth-child(4) {
+    grid-area: cpf;
+  }
+
+  > :nth-child(5) {
+    grid-area: cep;
+  }
+
+  > :nth-child(6) {
+    grid-area: rua;
+  }
+
+  > :nth-child(7) {
+    grid-area: numero;
+  }
+
+  > :nth-child(8) {
+    grid-area: complemento;
+  }
+
+  > :nth-child(9) {
+    grid-area: bairro;
+  }
+
+  > :nth-child(10) {
+    grid-area: cidade;
+  }
+
+  > :nth-child(11) {
+    grid-area: uf;
+  }
+
+  > :nth-child(12) {
+    grid-area: senha;
+  }
+
+  > :nth-child(13) {
+    grid-area: confirmacao;
+  }
+
+  > :nth-child(14) {
+    grid-area: buttom;
+    margin: 0 auto;
+  }
+`;

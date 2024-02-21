@@ -20,6 +20,7 @@ export const LoginTemplate = () => {
               label="CPF/ CNPJ"
               required
               fullWidth
+              inputProps={{ maxLength: "18" }}
               variant="standard"
               value={form?.cpfCNPJ}
               onChange={(e) => {

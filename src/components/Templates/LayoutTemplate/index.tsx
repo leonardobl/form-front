@@ -84,7 +84,7 @@ export function LayoutTemplate({ children }: ILayoutProps) {
 
   return (
     <ThemeProvider theme={muiTheme}>
-      <Box sx={{ display: "flex" }} maxWidth={"1600px"}>
+      <Box sx={{ display: "flex" }}>
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
@@ -159,10 +159,7 @@ export function LayoutTemplate({ children }: ILayoutProps) {
           }}
         >
           <Toolbar />
-          <Container
-            style={{ padding: 0, margin: "10px 0 0", minHeight: "80vh" }}
-            maxWidth={"xl"}
-          >
+          <Container style={{ padding: 0, margin: "10px 0 0" }} maxWidth={"xl"}>
             {children}
             <Outlet />
           </Container>
