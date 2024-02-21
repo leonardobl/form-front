@@ -7,6 +7,9 @@ import { Home } from "./components/Pages/home";
 import { Theme } from "./Global/Theme";
 import { GlobalStyles } from "./Global/GlobalStyles";
 import { Store } from "./components/Pages/Store";
+import { Residence } from "./components/Pages/Residence";
+import "react-toastify/dist/ReactToastify.css";
+import { LoginRegister } from "./components/Pages/LoginRegister";
 
 export const App = () => {
   return (
@@ -18,7 +21,8 @@ export const App = () => {
           <Routes>
             <Route index element={<Home />} />
             <Route path="/loja" element={<Store />} />
-            <Route path="/domicilio" element={<Home />} />
+            <Route path="/domicilio" element={<Residence />} />
+            <Route path="/login-cadastro" element={<LoginRegister />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>

@@ -59,6 +59,10 @@ export const Container = styled.div<{ $showIcon: boolean }>`
           /* outline: 1px solid #12d1a7; */
           outline: none;
         }
+
+        &:disabled {
+          cursor: not-allowed;
+        }
       }
     }
 

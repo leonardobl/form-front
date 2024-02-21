@@ -6,40 +6,40 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Text } from "../../Atoms/Text";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { Button } from "../../Atoms/Button";
-import { useStore } from "./useStore";
+import { useResidence } from "./useResidence";
 import { ISelectOptions } from "../../../types/inputs";
 
-export const StoreTemplate = () => {
+export const ResidenceTemplate = () => {
   const {
-    lojasOptions,
-    date,
+    cidadesOptions,
     form,
     setForm,
-    setDate,
-    diasIndisponiveis,
-    isLoading,
-    horariosOptions,
-    modalIsOpen,
+    date,
     handleSubmit,
-  } = useStore();
+    setDate,
+    isLoading,
+    modalIsOpen,
+    horariosOptions,
+    diasIndisponiveis,
+  } = useResidence();
 
   return (
     <LayoutTemplate>
       <S.Container>
-        <Title className="title">Loja Física</Title>
+        <Title className="title">Domicílio</Title>
         <S.Form onSubmit={handleSubmit}>
           <S.GridWrapper>
             <div>
               <SimpleSelect
                 required
-                label="Loja"
-                options={lojasOptions}
+                label="Cidade"
+                options={cidadesOptions}
                 placeholder={"Selecione a uma das nossas unidades"}
-                value={lojasOptions?.find(
-                  (item) => item.value === form.uuidLoja
+                value={cidadesOptions.find(
+                  (item) => item.value === form.uuidDelivery
                 )}
                 onChange={(e: ISelectOptions) => {
-                  setForm((prev) => ({ ...prev, uuidLoja: e?.value }));
+                  setForm((prev) => ({ ...prev, uuidDelivery: e?.value }));
                 }}
               />
             </div>
@@ -56,7 +56,7 @@ export const StoreTemplate = () => {
                 minDate={new Date()}
                 label="Data"
                 required
-                disabled={!!!form?.uuidLoja}
+                disabled={!!!form?.uuidDelivery}
                 excludeDates={diasIndisponiveis}
                 onChange={(e) => {
                   setDate(e);

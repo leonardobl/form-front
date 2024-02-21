@@ -160,7 +160,7 @@ export function LayoutTemplate({ children }: ILayoutProps) {
         >
           <Toolbar />
           <Container
-            style={{ padding: 0, margin: "60px 0 0", minHeight: "80vh" }}
+            style={{ padding: 0, margin: "10px 0 0", minHeight: "80vh" }}
             maxWidth={"xl"}
           >
             {children}

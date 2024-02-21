@@ -5,8 +5,8 @@ export function Loading() {
   return (
     <S.Wrapper>
       <S.WrapperImgs>
-        <S.ImgLogo src={"/assets/imgs/escudo.svg"} alt="logo" />
-        <S.ImgLoad src={"/assets/imgs/load.svg"} alt="Loagin" />
+        {/* <S.ImgLogo src={"/assets/imgs/escudo.svg"} alt="logo" /> */}
+        <S.ImgLoad src={"/assets/svgs/load.svg"} alt="Loagin" />
       </S.WrapperImgs>
       <span>Carregando...</span>
     </S.Wrapper>
