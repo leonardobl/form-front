@@ -3,7 +3,7 @@ import * as S from "./styles";
 import DatePicker, { ReactDatePickerProps } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ptBR from "date-fns/locale/pt-BR";
-import ReactDatePicker, { registerLocale } from "react-datepicker";
+import { registerLocale } from "react-datepicker";
 
 interface InputDateProps extends ReactDatePickerProps {
   label?: string;
