@@ -20,6 +20,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         // match with the menu
         borderRadius: 30,
         letterSpacing: 1,
+
         padding: "0 20px",
         fontFamily: "Mulish",
         // color: state.isSelected ? "red" : "blue",
@@ -44,6 +45,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         ...base,
         // kill the white space on first and last option
         // padding: 0,
+
         borderRadius: 30,
         borderColor: "#12D1A7",
       }),
@@ -57,6 +59,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         color: "#111",
         fontWeight: 600,
         letterSpacing: 1,
+        zindex: 2,
         padding: "10px 20px",
         cursor: "pointer",
         // paddingLeft: "20px",

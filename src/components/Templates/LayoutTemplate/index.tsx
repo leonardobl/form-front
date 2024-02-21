@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { useSearchParams } from "react-router-dom";
+import { Outlet, useSearchParams } from "react-router-dom";
 
 import { mainListItems, secondaryListItems } from "../../Atoms/ListItems";
 
@@ -69,7 +69,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 interface ILayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export function LayoutTemplate({ children }: ILayoutProps) {
@@ -84,7 +84,7 @@ export function LayoutTemplate({ children }: ILayoutProps) {
 
   return (
     <ThemeProvider theme={muiTheme}>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex" }} maxWidth={"1600px"}>
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
@@ -113,7 +113,11 @@ export function LayoutTemplate({ children }: ILayoutProps) {
                 src="/assets/svgs/logo-starcheck.svg"
                 alt="logo empresa"
               />
-              <S.IconHome src="/assets/svgs/icone-home.svg" alt="icone home" />
+              <S.IconHome
+                src="/assets/svgs/icone-home.svg"
+                alt="icone home"
+                onClick={() => window.open("/", "_self")}
+              />
             </S.FlexWrapperIcons>
           </Toolbar>
         </AppBar>
@@ -155,8 +159,12 @@ export function LayoutTemplate({ children }: ILayoutProps) {
           }}
         >
           <Toolbar />
-          <Container style={{ padding: 0, margin: "60px 0 0" }} maxWidth={"xl"}>
+          <Container
+            style={{ padding: 0, margin: "60px 0 0", minHeight: "80vh" }}
+            maxWidth={"xl"}
+          >
             {children}
+            <Outlet />
           </Container>
           <S.LogoMapa src="/assets/svgs/logo-mapa.svg" alt="logo mapa" />
         </Box>

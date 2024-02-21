@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./components/Pages/home";
 import { Theme } from "./Global/Theme";
 import { GlobalStyles } from "./Global/GlobalStyles";
+import { Store } from "./components/Pages/Store";
 
 export const App = () => {
   return (
@@ -15,7 +16,9 @@ export const App = () => {
       <ContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route index element={<Home />} />
+            <Route path="/loja" element={<Store />} />
+            <Route path="/domicilio" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>

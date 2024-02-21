@@ -11,15 +11,17 @@ import { Loading } from "../components/Atoms/Loading";
 import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
 
 interface IAtendimentoProps {
-  tipoAtendimento: TipoAtendimentoEnum;
-  reAgendamento: boolean;
+  tipoAtendimento?: TipoAtendimentoEnum;
+  reAgendamento?: boolean;
+  uuid?: string;
+  cidade?: string;
 }
 
 type ContextSite = {
   isLoad: boolean;
   setIsLoad: Dispatch<SetStateAction<boolean>>;
-  tipoAtendimento: IAtendimentoProps;
-  setTipoAtendimento: (t: IAtendimentoProps) => void;
+  agendamentoContext: IAtendimentoProps;
+  setAgendamentoContext: (t: IAtendimentoProps) => void;
 };
 
 type Props = {
@@ -30,17 +32,16 @@ export const Context = createContext({} as ContextSite);
 
 export function ContextProvider({ children }: Props) {
   const [isLoad, setIsLoad] = useState(false);
-  const [tipoAtendimento, setTipoAtendimento] = useState<IAtendimentoProps>(
-    {} as IAtendimentoProps
-  );
+  const [agendamentoContext, setAgendamentoContext] =
+    useState<IAtendimentoProps>({} as IAtendimentoProps);
 
   return (
     <Context.Provider
       value={{
         isLoad,
         setIsLoad,
-        tipoAtendimento,
-        setTipoAtendimento,
+        agendamentoContext,
+        setAgendamentoContext,
       }}
     >
       {children}

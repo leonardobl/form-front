@@ -7,20 +7,15 @@ import { useContextSite } from "../../../context/Context";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 
 export const HomeTemplate = () => {
-  const { tipoAtendimento, setTipoAtendimento } = useContextSite();
+  const { agendamentoContext, setAgendamentoContext } = useContextSite();
 
   function handleClick({
-    tipoAtendimentoValue,
+    tipoAtendimento,
   }: {
-    tipoAtendimentoValue: TipoAtendimentoEnum;
+    tipoAtendimento: TipoAtendimentoEnum;
   }) {
-    const values = {
-      ...tipoAtendimento,
-      tipoAtendimento: tipoAtendimentoValue,
-    };
-
-    setTipoAtendimento(values);
-    window.open(`/${tipoAtendimentoValue.toLowerCase()}`, "_self");
+    setAgendamentoContext({ tipoAtendimento });
+    window.open(`/${tipoAtendimento.toLowerCase()}`, "_self");
   }
 
   return (
@@ -36,7 +31,7 @@ export const HomeTemplate = () => {
           <S.FlexWrapper>
             <Button
               onClick={() =>
-                handleClick({ tipoAtendimentoValue: TipoAtendimentoEnum.LOJA })
+                handleClick({ tipoAtendimento: TipoAtendimentoEnum.LOJA })
               }
             >
               Loja Física
@@ -44,7 +39,7 @@ export const HomeTemplate = () => {
             <Button
               onClick={() =>
                 handleClick({
-                  tipoAtendimentoValue: TipoAtendimentoEnum.DOMICILIO,
+                  tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
                 })
               }
             >

@@ -24,7 +24,7 @@ export const InputDate = (props: InputDateProps) => {
         </S.Label>
       )}
       {props.isLoading && (
-        <S.ImgLoad src="/assets/imgs/dots-load.svg" alt="svg load" />
+        <S.ImgLoad src="/assets/svgs/dots-load.svg" alt="svg load" />
       )}
       <DatePicker
         {...props}

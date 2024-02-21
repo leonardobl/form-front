@@ -29,7 +29,8 @@ export const Container = styled.div<{ $isLabel: boolean }>`
       border-color: #12d1a7;
     }
 
-    .css-lm8j94-menu {
+    .css-lm8j94-menu,
+    .css-gfh3go-menu {
       z-index: 2;
     }
 

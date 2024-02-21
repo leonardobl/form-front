@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { pxToRem } from "../../../utils/pxToRem";
 
 export const IconLogo = styled.img`
@@ -8,6 +8,7 @@ export const IconLogo = styled.img`
 export const IconHome = styled.img`
   display: block;
   width: ${pxToRem(30)};
+  cursor: pointer;
 `;
 export const IconMenu = styled.img`
   display: block;
@@ -20,8 +21,11 @@ export const LogoMapa = styled.img`
 `;
 
 export const FlexWrapperIcons = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  ${({ theme: { space } }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: ${space.large};
+  `}
 `;

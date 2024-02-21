@@ -9,8 +9,8 @@ export const Theme = {
     secondary: "#6FA599",
   },
   space: {
-    large: "1600px",
-    medio: "1158px",
+    large: "100rem", //1600px
+    medio: "75rem", // 1200px
   },
   padding: {
     secundary: "12.5rem",
