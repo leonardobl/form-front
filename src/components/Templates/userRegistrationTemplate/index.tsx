@@ -15,6 +15,11 @@ export const UserRegistrationTemplate = () => {
     handleCep,
     cidadesOptions,
     ufOptions,
+    cepLoad,
+    checkPass,
+    handleSubmit,
+    inpConfirSenha,
+    inpSenhaRef,
   } = useUserRegistration();
 
   return (
@@ -28,7 +33,7 @@ export const UserRegistrationTemplate = () => {
               variant="standard"
               label="Nome Completo"
               required
-              value={form.nome}
+              value={form?.nome}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, nome: e.target.value }))
               }
@@ -41,7 +46,7 @@ export const UserRegistrationTemplate = () => {
               variant="standard"
               label="E-mail"
               type="email"
-              value={form.email}
+              value={form?.email}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, email: e.target.value }))
               }
@@ -53,7 +58,7 @@ export const UserRegistrationTemplate = () => {
               fullWidth
               variant="standard"
               label="Telefone"
-              value={form.telefone}
+              value={form?.telefone}
               inputProps={{ maxLength: "15" }}
               onChange={(e) => handlePhone(e.target.value)}
             />
@@ -65,7 +70,7 @@ export const UserRegistrationTemplate = () => {
               variant="standard"
               label="CPF/CNPJ"
               required
-              value={form.cpfCnpj}
+              value={form?.cpfCnpj}
               onChange={(e) => handleCpf(e.target.value)}
               inputProps={{ maxLength: "18" }}
             />
@@ -88,6 +93,7 @@ export const UserRegistrationTemplate = () => {
               fullWidth
               variant="standard"
               label="Endereço (Rua)"
+              key={`${Math.random()} - ${cepLoad}`}
               required
               value={form?.endereco?.logradouro}
               onChange={(e) =>
@@ -146,6 +152,7 @@ export const UserRegistrationTemplate = () => {
               variant="standard"
               label="Bairro"
               required
+              key={`${Math.random()} - ${cepLoad}`}
               value={form?.endereco?.bairro}
               onChange={(e) =>
                 setForm((prev) => ({
@@ -158,39 +165,80 @@ export const UserRegistrationTemplate = () => {
 
           <div>
             <Select
+              fullWidth
+              variant="standard"
+              label="UF"
+              key={`${Math.random()} - ${cepLoad}`}
+              required
+              value={form?.endereco?.uf}
+              defaultValue={form?.endereco?.uf}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  endereco: { ...prev.endereco, uf: e.target.value },
+                }))
+              }
+            >
+              {ufOptions.map((item) => (
+                <MenuItem key={`${Math.random()}`} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
+
+          <div>
+            <Select
               key={`${Math.random()}-${form?.endereco?.uf}`}
               fullWidth
               variant="standard"
               label="Cidade"
               required
-              // value={cidadesOptions.find(
-              //   (item) => item.value === form?.endereco?.cidade
-              // )}
+              value={form?.endereco?.cidade}
+              defaultValue={form?.endereco?.cidade}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  endereco: {
+                    ...prev.endereco,
+                    cidade: e?.target.value,
+                  },
+                }))
+              }
             >
               {cidadesOptions.map((item) => (
-                <MenuItem value={item.value}>{item.label}</MenuItem>
+                <MenuItem key={`${Math.random()}`} value={item.value}>
+                  {item.label}
+                </MenuItem>
               ))}
             </Select>
-          </div>
-
-          <div>
-            <Select fullWidth variant="standard" label="UF" required>
-              {ufOptions.map((item) => (
-                <MenuItem value={item.value}>{item.label}</MenuItem>
-              ))}
-            </Select>
-          </div>
-
-          <div>
-            <TextField fullWidth variant="standard" label="Senha" required />
           </div>
 
           <div>
             <TextField
               fullWidth
               variant="standard"
+              label="Senha"
+              required
+              type="password"
+              value={form?.senha}
+              ref={inpSenhaRef}
+              onChange={(e) => {
+                setForm((prev) => ({ ...prev, senha: e.target.value }));
+                checkPass && checkPass();
+              }}
+            />
+          </div>
+
+          <div>
+            <TextField
+              fullWidth
+              type="password"
+              variant="standard"
               label="Confirmar Senha"
               required
+              ref={inpConfirSenha}
+              onChange={(e) => checkPass && checkPass()}
             />
           </div>
 

@@ -21,6 +21,7 @@ export const useUserRegistration = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
+  const [cepLoad, setCepLoad] = useState(false);
 
   const inpSenhaRef = useRef<HTMLInputElement>(null);
   const inpConfirSenha = useRef<HTMLInputElement>(null);
@@ -33,6 +34,9 @@ export const useUserRegistration = () => {
       cpfCnpj: removerCaracteresEspeciais(form.cpfCnpj),
       tipo: TipoClienteEnum.PARTICULAR,
     };
+
+    console.log(PAYLOAD);
+    return;
 
     setIsLoad(true);
     setIsDisabled(true);
@@ -53,15 +57,15 @@ export const useUserRegistration = () => {
   }
 
   function checkPass() {
-    const pass = inpSenhaRef.current.value;
-    const confirm = inpConfirSenha.current.value;
+    const pass = inpSenhaRef?.current?.value;
+    const confirm = inpConfirSenha?.current?.value;
 
     if (pass !== confirm) {
       inpConfirSenha.current.setCustomValidity("As senhas não conferem");
       return;
     }
 
-    inpConfirSenha.current.setCustomValidity("");
+    inpConfirSenha?.current?.setCustomValidity("");
   }
 
   function handlePhone(e: string) {
@@ -100,6 +104,7 @@ export const useUserRegistration = () => {
     const newCepValue = maskCep(e);
 
     if (newCepValue.length === 9) {
+      setCepLoad(true);
       setIsLoad(true);
       setTimeout(() => {
         ViaCep.get(e)
@@ -116,7 +121,10 @@ export const useUserRegistration = () => {
             }));
           })
           .catch((erro) => toast.error("Cep não encontrado"))
-          .finally(() => setIsLoad(false));
+          .finally(() => {
+            setIsLoad(false);
+            setCepLoad(false);
+          });
       }, 1000);
 
       return;
@@ -151,5 +159,10 @@ export const useUserRegistration = () => {
     handleCep,
     cidadesOptions,
     ufOptions,
+    cepLoad,
+    checkPass,
+    handleSubmit,
+    inpSenhaRef,
+    inpConfirSenha,
   };
 };

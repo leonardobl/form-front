@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { pxToRem } from "../../../utils/pxToRem";
 
 export const Container = styled.div`
   ${({ theme: { padding } }) => css`
@@ -13,13 +14,13 @@ export const Container = styled.div`
 
 export const Form = styled.form`
   width: 100%;
-  max-width: 550px;
+  max-width: ${pxToRem(626)};
   margin: 0 auto;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 48px 43px;
-  grid-template-areas: "nome nome" "email telefone" "cpf cep" "rua numero" "complemento bairro" "cidade uf" "senha confirmacao" "buttom buttom";
+  gap: ${pxToRem(48)} ${pxToRem(46)};
+  grid-template-areas: "nome nome" "email telefone" "cpf cep" "rua numero" "complemento bairro" "uf cidade" "senha confirmacao" "buttom buttom";
 
   > :nth-child(1) {
     grid-area: nome;
@@ -58,11 +59,11 @@ export const Form = styled.form`
   }
 
   > :nth-child(10) {
-    grid-area: cidade;
+    grid-area: uf;
   }
 
-  > :nth-child(11) {
-    grid-area: uf;
+  > :nth-child(101) {
+    grid-area: cidade;
   }
 
   > :nth-child(12) {
