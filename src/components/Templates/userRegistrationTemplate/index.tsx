@@ -26,7 +26,7 @@ export const UserRegistrationTemplate = () => {
     <LayoutTemplate>
       <S.Container>
         <Title>CADASTRO</Title>
-        <S.Form>
+        <S.Form onSubmit={handleSubmit}>
           <div>
             <TextField
               fullWidth
@@ -170,8 +170,7 @@ export const UserRegistrationTemplate = () => {
               label="UF"
               key={`${Math.random()} - ${cepLoad}`}
               required
-              value={form?.endereco?.uf}
-              defaultValue={form?.endereco?.uf}
+              value={form?.endereco?.uf || ""}
               onChange={(e) =>
                 setForm((prev) => ({
                   ...prev,
@@ -194,14 +193,13 @@ export const UserRegistrationTemplate = () => {
               variant="standard"
               label="Cidade"
               required
-              value={form?.endereco?.cidade}
-              defaultValue={form?.endereco?.cidade}
+              value={form?.endereco?.cidade || ""}
               onChange={(e) =>
                 setForm((prev) => ({
                   ...prev,
                   endereco: {
                     ...prev.endereco,
-                    cidade: e?.target.value,
+                    cidade: e?.target?.value,
                   },
                 }))
               }
@@ -222,7 +220,7 @@ export const UserRegistrationTemplate = () => {
               required
               type="password"
               value={form?.senha}
-              ref={inpSenhaRef}
+              inputRef={inpSenhaRef}
               onChange={(e) => {
                 setForm((prev) => ({ ...prev, senha: e.target.value }));
                 checkPass && checkPass();
@@ -237,7 +235,7 @@ export const UserRegistrationTemplate = () => {
               variant="standard"
               label="Confirmar Senha"
               required
-              ref={inpConfirSenha}
+              inputRef={inpConfirSenha}
               onChange={(e) => checkPass && checkPass()}
             />
           </div>
