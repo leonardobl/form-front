@@ -1,25 +1,19 @@
 export const Theme = {
   colors: {
-    c12: "#000000",
-    c11: "#111111",
-    c10: "#2D2D2D",
-    c09: "#404040",
-    c08: "#595959",
-    c07: "#717171",
-    c06: "#9C9C9C",
-    c05: "#B2B2B2",
-    c04: "#CCCCCC",
-    c03: "#DEDEDE",
-    c02: "#EEEEEE",
-    c01: "#F7F7F7",
-    w: "#FFFFFF",
-    a4: "#01114C",
-    a3: "#00186E",
-    a2: "#0029BF",
-    a1: "#286BED",
+    main: "#20332F",
+    primary: "#12D1A7",
+  },
+  bgColor: {
+    main: "#12D1A7",
+    primary: "#55FAD6",
+    secondary: "#6FA599",
   },
   space: {
     large: "1600px",
     medio: "1158px",
+  },
+  padding: {
+    secundary: "12.5rem",
+    primary: "7.5rem",
   },
 };

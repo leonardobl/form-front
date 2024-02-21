@@ -1,10 +1,26 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { pxToRem } from "../../../utils/pxToRem";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  ${({ theme: { padding } }) => css`
+    padding-top: ${padding.secundary};
+    padding-bottom: ${padding.secundary};
+    width: 100%;
+
+    .text {
+      max-width: ${pxToRem(620)};
+      margin-bottom: ${pxToRem(48)};
+    }
+  `}
+`;
+
 export const Wrapper = styled.div`
-  display: flex;
+  margin: 0 auto;
+  width: fit-content;
+`;
 
-  > div {
-    flex: 1;
-  }
+export const FlexWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0 ${pxToRem(62)};
 `;

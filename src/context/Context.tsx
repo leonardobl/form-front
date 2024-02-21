@@ -7,14 +7,19 @@ import {
   useState,
 } from "react";
 
-import { IAuth } from "./types";
 import { Loading } from "../components/Atoms/Loading";
-import { useSessionStorage } from "../hooks/useSessionStorage";
+import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
+
+interface IAtendimentoProps {
+  tipoAtendimento: TipoAtendimentoEnum;
+  reAgendamento: boolean;
+}
 
 type ContextSite = {
   isLoad: boolean;
   setIsLoad: Dispatch<SetStateAction<boolean>>;
-  // setIsLoad: (value: boolean) => void;
+  tipoAtendimento: IAtendimentoProps;
+  setTipoAtendimento: (t: IAtendimentoProps) => void;
 };
 
 type Props = {
@@ -25,12 +30,17 @@ export const Context = createContext({} as ContextSite);
 
 export function ContextProvider({ children }: Props) {
   const [isLoad, setIsLoad] = useState(false);
+  const [tipoAtendimento, setTipoAtendimento] = useState<IAtendimentoProps>(
+    {} as IAtendimentoProps
+  );
 
   return (
     <Context.Provider
       value={{
         isLoad,
         setIsLoad,
+        tipoAtendimento,
+        setTipoAtendimento,
       }}
     >
       {children}

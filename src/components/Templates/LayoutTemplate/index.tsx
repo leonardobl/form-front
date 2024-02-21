@@ -75,20 +75,21 @@ interface ILayoutProps {
 export function LayoutTemplate({ children }: ILayoutProps) {
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
+    if (!visible) return;
     setOpen(!open);
   };
+  const [visible, setVisible] = React.useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <ThemeProvider theme={muiTheme}>
       <Box sx={{ display: "flex" }}>
-        <CssBaseline />
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
               pr: "24px",
-              height: "130px",
+              height: "90px",
             }}
           >
             <IconButton
@@ -101,32 +102,45 @@ export function LayoutTemplate({ children }: ILayoutProps) {
                 ...(open && { display: "none" }),
               }}
             >
-              <MenuIcon />
+              <S.IconMenu
+                src="/assets/svgs/menuHamburguer.svg"
+                alt="icone menu"
+              />
             </IconButton>
-            <S.Logo src="/assets/svgs/logo-starcheck.svg" />
+
+            <S.FlexWrapperIcons>
+              <S.IconLogo
+                src="/assets/svgs/logo-starcheck.svg"
+                alt="logo empresa"
+              />
+              <S.IconHome src="/assets/svgs/icone-home.svg" alt="icone home" />
+            </S.FlexWrapperIcons>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-              height: "130px",
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            {mainListItems}
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
-          </List>
-        </Drawer>
+
+        {visible && (
+          <Drawer variant="permanent" open={open}>
+            <Toolbar
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                px: [1],
+                height: "90px",
+              }}
+            >
+              <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+              </IconButton>
+            </Toolbar>
+            <Divider />
+            <List component="nav">
+              {mainListItems}
+              <Divider sx={{ my: 1 }} />
+              {secondaryListItems}
+            </List>
+          </Drawer>
+        )}
         <Box
           component="main"
           sx={{
@@ -137,12 +151,14 @@ export function LayoutTemplate({ children }: ILayoutProps) {
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",
+            padding: "16px",
           }}
         >
           <Toolbar />
           <Container style={{ padding: 0, margin: "60px 0 0" }} maxWidth={"xl"}>
             {children}
           </Container>
+          <S.LogoMapa src="/assets/svgs/logo-mapa.svg" alt="logo mapa" />
         </Box>
       </Box>
     </ThemeProvider>
