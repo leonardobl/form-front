@@ -42,7 +42,7 @@ export const useResidence = () => {
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
         setAgendamentoContext({
-          uuid: data.uuid,
+          uuidAgendamento: data.uuid,
           cidade: data?.delivery?.cidade,
         });
 

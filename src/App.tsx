@@ -10,6 +10,7 @@ import { Store } from "./components/Pages/Store";
 import { Residence } from "./components/Pages/Residence";
 import "react-toastify/dist/ReactToastify.css";
 import { LoginRegister } from "./components/Pages/LoginRegister";
+import { Login } from "./components/Pages/Login";
 
 export const App = () => {
   return (
@@ -23,6 +24,7 @@ export const App = () => {
             <Route path="/loja" element={<Store />} />
             <Route path="/domicilio" element={<Residence />} />
             <Route path="/login-cadastro" element={<LoginRegister />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
       </ContextProvider>
