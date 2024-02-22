@@ -2,7 +2,13 @@ import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title/styles";
-import { MenuItem, Select, TextField } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { Button } from "../../Atoms/Button";
 import { useUserRegistration } from "./useUserRegistration";
 
@@ -115,6 +121,15 @@ export const UserRegistrationTemplate = () => {
               label="Número"
               required
               type="number"
+              sx={{
+                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                  {
+                    display: "none",
+                  },
+                "& input[type=number]": {
+                  MozAppearance: "textfield",
+                },
+              }}
               value={form?.endereco?.numero}
               onChange={(e) =>
                 setForm((prev) => ({
@@ -164,12 +179,13 @@ export const UserRegistrationTemplate = () => {
           </div>
 
           <div>
-            <Select
+            <TextField
               fullWidth
               variant="standard"
               label="UF"
-              key={`${Math.random()} - ${cepLoad}`}
               required
+              select
+              key={`${Math.random()} - ${cepLoad}`}
               value={form?.endereco?.uf || ""}
               onChange={(e) =>
                 setForm((prev) => ({
@@ -183,16 +199,17 @@ export const UserRegistrationTemplate = () => {
                   {item.label}
                 </MenuItem>
               ))}
-            </Select>
+            </TextField>
           </div>
 
           <div>
-            <Select
-              key={`${Math.random()}-${form?.endereco?.uf}`}
+            <TextField
               fullWidth
               variant="standard"
               label="Cidade"
               required
+              select
+              key={`${Math.random()} - ${cepLoad}`}
               value={form?.endereco?.cidade || ""}
               onChange={(e) =>
                 setForm((prev) => ({
@@ -209,7 +226,7 @@ export const UserRegistrationTemplate = () => {
                   {item.label}
                 </MenuItem>
               ))}
-            </Select>
+            </TextField>
           </div>
 
           <div>
