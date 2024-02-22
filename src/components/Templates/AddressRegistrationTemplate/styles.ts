@@ -21,7 +21,7 @@ export const Form = styled.form`
 export const GridWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: ${pxToRem(48)} ${pxToRem(40)};
+  gap: ${pxToRem(48)} ${pxToRem(16)};
   grid-template-areas: "nome nome nome nome" "telefone cep rua rua" "numero complemento complemento complemento" "bairro bairro uf cidade" "button button button button";
 
   > :nth-child(1) {

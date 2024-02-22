@@ -46,13 +46,13 @@ export const Input = styled.input<{ $typeInput?: string }>`
   ${({ $typeInput }) => css`
     width: 100%;
     height: 56px;
-    border-radius: 25px;
+    border-radius: 10px;
     border: 1px solid #12d1a7;
     background-color: #fff;
     padding: ${$typeInput === "password" ? "0 40px 0 20px" : "0 20px"};
     font-size: 18px;
     font-family: "Mulish";
-    font-weight: 600;
+    font-weight: 400;
     color: #111;
     letter-spacing: 1;
 

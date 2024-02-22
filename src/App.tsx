@@ -18,6 +18,11 @@ import { License } from "./components/Pages/License";
 import { Survey } from "./components/Pages/Survey";
 import { Vehicle } from "./components/Pages/Vehicle";
 import { AddressRegistration } from "./components/Pages/AddressRegistration";
+import { ProtectedRoute } from "./components/Atoms/ProtectedRoute";
+import { ProtectedClientRoute } from "./components/Atoms/ProtectedClientRoute";
+import { Payment } from "./components/Pages/Payment";
+import { Pix } from "./components/Pages/Pix";
+import { Ticket } from "./components/Pages/Ticket";
 
 export const App = () => {
   return (
@@ -28,12 +33,35 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route index element={<Home />} />
-            <Route path="/loja" element={<Store />} />
-            <Route path="/domicilio" element={<Residence />} />
+            <Route
+              path="/loja"
+              element={
+                <ProtectedClientRoute>
+                  <Store />
+                </ProtectedClientRoute>
+              }
+            />
+            <Route
+              path="/domicilio"
+              element={
+                <ProtectedClientRoute>
+                  <Residence />
+                </ProtectedClientRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/login-cadastro" element={<LoginRegister />} />
             <Route path="/cadastro-usuario" element={<UserRegistration />} />
-            <Route path="/servicos" element={<LayoutTemplate />}>
+            <Route
+              path="/servicos"
+              element={
+                <ProtectedRoute>
+                  <ProtectedClientRoute>
+                    <LayoutTemplate />
+                  </ProtectedClientRoute>
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Services />} />
               <Route
                 path="cadastro-endereco"
@@ -42,6 +70,25 @@ export const App = () => {
               <Route path="emplacamento" element={<License />} />
               <Route path="vistoria" element={<Survey />} />
               <Route path="veiculo" element={<Vehicle />} />
+            </Route>
+            <Route
+              path="/pagamento"
+              element={
+                <ProtectedRoute>
+                  <LayoutTemplate />
+                </ProtectedRoute>
+              }
+            >
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <Payment />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="pix" element={<Pix />} />
+              <Route path="boleto" element={<Ticket />} />
             </Route>
           </Routes>
         </BrowserRouter>

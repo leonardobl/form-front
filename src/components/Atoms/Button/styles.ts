@@ -4,7 +4,7 @@ export const Button = styled.button`
   width: 128px;
   height: 44px;
 
-  border-radius: 40px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

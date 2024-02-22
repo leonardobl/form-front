@@ -46,7 +46,7 @@ export const Container = styled.div<{ $showIcon?: boolean }>`
         width: 100%;
         height: 56px;
         background-color: #fff;
-        border-radius: 30px;
+        border-radius: 10px;
         border: 1px solid #12d1a7;
         padding: 0 30px;
         color: #111;

@@ -18,7 +18,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         ...base,
         background: "#fff",
         // match with the menu
-        borderRadius: 30,
+        borderRadius: 10,
         letterSpacing: 1,
 
         padding: "0 20px",
@@ -46,7 +46,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         // kill the white space on first and last option
         // padding: 0,
 
-        borderRadius: 30,
+        borderRadius: 10,
         borderColor: "#12D1A7",
       }),
       singleValue: (provided: any, state: any) => ({
@@ -82,7 +82,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
           {...props}
           name={props.name}
           ref={ref}
-          theme={(theme) => ({ ...theme, borderRadius: 30 })}
+          theme={(theme) => ({ ...theme, borderRadius: 10 })}
           styles={customStyles}
         />
       </S.Container>
