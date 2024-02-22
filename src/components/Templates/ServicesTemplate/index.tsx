@@ -2,8 +2,17 @@ import React from "react";
 import * as S from "./styles";
 import { Text } from "../../Atoms/Text/styles";
 import { Button } from "../../Atoms/Button";
+import { useContextSite } from "../../../context/Context";
+import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 
 export const ServicesTemplate = () => {
+  const { setAgendamentoContext } = useContextSite();
+
+  function handleClick({ servico }: { servico: OpcoesServicosEnum }) {
+    setAgendamentoContext({ servico });
+    window.open(`/servicos/${servico.toLowerCase()}`, "_self");
+  }
+
   return (
     <S.Container>
       <Text>
@@ -12,8 +21,18 @@ export const ServicesTemplate = () => {
       </Text>
 
       <S.FlexWrapper>
-        <Button>1° Emplacamento</Button>
-        <Button>Vistoria</Button>
+        <Button
+          onClick={() =>
+            handleClick({ servico: OpcoesServicosEnum.EMPLACAMENTO })
+          }
+        >
+          1° Emplacamento
+        </Button>
+        <Button
+          onClick={() => handleClick({ servico: OpcoesServicosEnum.VISTORIA })}
+        >
+          Vistoria
+        </Button>
       </S.FlexWrapper>
     </S.Container>
   );

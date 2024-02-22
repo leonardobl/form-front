@@ -10,6 +10,7 @@ import {
 import { Loading } from "../components/Atoms/Loading";
 import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
 import { RolesEnum } from "../enums/roles";
+import { OpcoesServicosEnum } from "../enums/opcoesServicos";
 
 interface IAtendimentoProps {
   tipoAtendimento?: TipoAtendimentoEnum;
@@ -19,6 +20,7 @@ interface IAtendimentoProps {
   roles?: RolesEnum[];
   uuidCliente?: string;
   uuidUsuario?: string;
+  servico?: OpcoesServicosEnum;
 }
 
 type ContextSite = {
