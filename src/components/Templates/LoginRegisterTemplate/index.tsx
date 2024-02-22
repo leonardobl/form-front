@@ -3,6 +3,7 @@ import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { Text } from "../../Atoms/Text/styles";
 import { Button } from "../../Atoms/Button";
+import { Link } from "react-router-dom";
 
 export const LoginRegisterTemplate = () => {
   return (
@@ -15,10 +16,12 @@ export const LoginRegisterTemplate = () => {
         </Text>
 
         <S.FlexWrapper>
-          <Button onClick={() => window.open("/login", "_self")}>Login</Button>
-          <Button onClick={() => window.open("/cadastro-usuario", "_self")}>
-            Cadastro
-          </Button>
+          <Link to={"/login"}>
+            <Button>Login</Button>
+          </Link>
+          <Link to={"/cadastro-usuario"}>
+            <Button>Cadastro</Button>
+          </Link>
         </S.FlexWrapper>
       </S.Container>
     </LayoutTemplate>

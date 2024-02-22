@@ -4,14 +4,10 @@ import { Text } from "../../Atoms/Text/styles";
 import { Button } from "../../Atoms/Button";
 import { useContextSite } from "../../../context/Context";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
+import { Link } from "react-router-dom";
 
 export const ServicesTemplate = () => {
   const { agendamentoContext, setAgendamentoContext } = useContextSite();
-
-  function handleClick({ servico }: { servico: OpcoesServicosEnum }) {
-    setAgendamentoContext({ ...agendamentoContext, servico });
-    window.open(`/servicos/${servico.toLowerCase()}`, "_self");
-  }
 
   return (
     <S.Container>
@@ -21,18 +17,30 @@ export const ServicesTemplate = () => {
       </Text>
 
       <S.FlexWrapper>
-        <Button
-          onClick={() =>
-            handleClick({ servico: OpcoesServicosEnum.EMPLACAMENTO })
-          }
-        >
-          1° Emplacamento
-        </Button>
-        <Button
-          onClick={() => handleClick({ servico: OpcoesServicosEnum.VISTORIA })}
-        >
-          Vistoria
-        </Button>
+        <Link to={"/servicos/emplacamento"}>
+          <Button
+            onClick={() =>
+              setAgendamentoContext({
+                ...agendamentoContext,
+                servico: OpcoesServicosEnum.EMPLACAMENTO,
+              })
+            }
+          >
+            1° Emplacamento
+          </Button>
+        </Link>
+        <Link to={"/servicos/vistoria"}>
+          <Button
+            onClick={() =>
+              setAgendamentoContext({
+                ...agendamentoContext,
+                servico: OpcoesServicosEnum.VISTORIA,
+              })
+            }
+          >
+            Vistoria
+          </Button>
+        </Link>
       </S.FlexWrapper>
     </S.Container>
   );

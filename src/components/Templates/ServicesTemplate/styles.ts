@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { pxToRem } from "../../../utils/pxToRem";
 
 export const Container = styled.div`
   ${({ theme: { padding } }) => css`
@@ -6,7 +7,7 @@ export const Container = styled.div`
     width: 100%;
 
     > p {
-      margin-bottom: 48px;
+      margin-bottom: ${pxToRem(48)};
     }
   `}
 `;
@@ -14,9 +15,17 @@ export const Container = styled.div`
 export const FlexWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 0 62px;
+  gap: 0 ${pxToRem(62)};
+
+  > a {
+    width: ${pxToRem(154)};
+
+    > button {
+      width: 100%;
+    }
+  }
 
   > button {
-    width: 154px;
+    width: ${pxToRem(154)};
   }
 `;

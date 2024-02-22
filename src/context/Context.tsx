@@ -4,6 +4,7 @@ import {
   ReactNode,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -12,23 +13,35 @@ import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
 import { RolesEnum } from "../enums/roles";
 import { OpcoesServicosEnum } from "../enums/opcoesServicos";
 
-interface IAtendimentoProps {
-  tipoAtendimento?: TipoAtendimentoEnum;
-  reAgendamento?: boolean;
-  uuidAgendamento?: string;
-  cidade?: string;
-  roles?: RolesEnum[];
-  uuidCliente?: string;
-  uuidUsuario?: string;
-  uuidVeiculo?: string;
-  servico?: OpcoesServicosEnum;
+export interface IAtendimentoContextProps {
+  tipoAtendimento: TipoAtendimentoEnum;
+  revistoria: boolean;
+  cidade: string;
+  roles: RolesEnum[];
+  uuidAgendamento: string;
+  uuidCliente: string;
+  uuidUsuario: string;
+  uuidVeiculo: string;
+  servico: OpcoesServicosEnum;
 }
+
+const DefaultValues: IAtendimentoContextProps = {
+  cidade: "",
+  revistoria: false,
+  roles: null,
+  servico: null,
+  tipoAtendimento: null,
+  uuidAgendamento: "",
+  uuidCliente: "",
+  uuidUsuario: "",
+  uuidVeiculo: "",
+};
 
 type ContextSite = {
   isLoad: boolean;
   setIsLoad: Dispatch<SetStateAction<boolean>>;
-  agendamentoContext: IAtendimentoProps;
-  setAgendamentoContext: (t: IAtendimentoProps) => void;
+  agendamentoContext: IAtendimentoContextProps;
+  setAgendamentoContext: (t: IAtendimentoContextProps) => void;
 };
 
 type Props = {
@@ -40,7 +53,11 @@ export const Context = createContext({} as ContextSite);
 export function ContextProvider({ children }: Props) {
   const [isLoad, setIsLoad] = useState(false);
   const [agendamentoContext, setAgendamentoContext] =
-    useState<IAtendimentoProps>({} as IAtendimentoProps);
+    useState<IAtendimentoContextProps>(DefaultValues);
+
+  useEffect(() => {
+    console.log(agendamentoContext);
+  }, [agendamentoContext]);
 
   return (
     <Context.Provider

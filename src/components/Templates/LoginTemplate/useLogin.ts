@@ -8,6 +8,7 @@ import { Cliente } from "../../../services/Cliente";
 import { useContextSite } from "../../../context/Context";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
@@ -15,17 +16,18 @@ export const useLogin = () => {
     useContextSite();
   const [isDisable, setIsDisable] = useState(false);
   const [token, setToken] = useSessionStorage("@token");
+  const navigate = useNavigate();
 
   function handleCpf(e: string) {
     let newValue = "";
 
     if (e.length > 14) {
-      newValue = maskCnpj(e);
+      newValue = maskCnpj(e) as string;
       setForm((prev) => ({ ...prev, cpfCNPJ: newValue }));
 
       return;
     }
-    newValue = maskCpf(e);
+    newValue = maskCpf(e) as string;
     setForm((prev) => ({ ...prev, cpfCNPJ: newValue }));
   }
 
@@ -59,7 +61,7 @@ export const useLogin = () => {
             roles: decoded.perfis,
           });
           setTimeout(() => {
-            window.open("/meus-agendamentos", "_self");
+            navigate("/meus-agendamentos");
           }, 2000);
           return;
         }
@@ -80,10 +82,12 @@ export const useLogin = () => {
                 setIsDisable(false);
 
                 if (agendamentoContext?.uuidAgendamento) {
-                  return window.open("/servicos", "_self");
+                  navigate("/servicos");
+                  return;
                 }
 
-                return window.open("/meus-agendamentos", "_self");
+                navigate("/meus-agendamentos");
+                return;
               }, 2000);
             })
             .catch(

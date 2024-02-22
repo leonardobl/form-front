@@ -14,17 +14,19 @@ import { TipoClienteEnum } from "../../../enums/tipoCliente";
 import { IClienteForm } from "../../../types/cliente";
 import { ISelectOptions } from "../../../types/inputs";
 import { useContextSite } from "../../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 export const useUserRegistration = () => {
   const [form, setForm] = useState<IClienteForm>({} as IClienteForm);
   const { setIsLoad } = useContextSite();
-  const [isDisabled, setIsDisabled] = useState(false);
+
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [cepLoad, setCepLoad] = useState(false);
 
   const inpSenhaRef = useRef<HTMLInputElement>(null);
   const inpConfirSenha = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -36,20 +38,18 @@ export const useUserRegistration = () => {
     };
 
     setIsLoad(true);
-    setIsDisabled(true);
 
     Cliente.post(PAYLOAD)
       .then(() => {
         setIsLoad(false);
         toast.success("Cadastro realizado com sucesso!");
         setTimeout(() => {
-          window.open("/login", "_self");
+          navigate("/login");
         }, 3000);
       })
       .catch((error) => toast.error(error?.message))
       .finally(() => {
         setIsLoad(false);
-        setIsDisabled(false);
       });
   }
 

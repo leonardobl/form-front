@@ -11,8 +11,8 @@ export interface IVeiculoForm {
 
 export interface IConsultaVeiculoChassiForm {
   Chassi: string;
-  CnpjECV?: string;
-  IdCidadeDetran?: number;
+  CnpjECV?: string | null;
+  IdCidadeDetran?: number | null;
   uuidAgendamento: string;
 }
 

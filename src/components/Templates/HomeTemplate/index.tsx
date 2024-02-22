@@ -5,18 +5,10 @@ import { Button } from "../../Atoms/Button";
 import { Text } from "../../Atoms/Text";
 import { useContextSite } from "../../../context/Context";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { Link } from "react-router-dom";
 
 export const HomeTemplate = () => {
   const { agendamentoContext, setAgendamentoContext } = useContextSite();
-
-  function handleClick({
-    tipoAtendimento,
-  }: {
-    tipoAtendimento: TipoAtendimentoEnum;
-  }) {
-    setAgendamentoContext({ ...agendamentoContext, tipoAtendimento });
-    window.open(`/${tipoAtendimento.toLowerCase()}`, "_self");
-  }
 
   return (
     <LayoutTemplate>
@@ -29,22 +21,30 @@ export const HomeTemplate = () => {
           </Text>
 
           <S.FlexWrapper>
-            <Button
-              onClick={() =>
-                handleClick({ tipoAtendimento: TipoAtendimentoEnum.LOJA })
-              }
-            >
-              Loja Física
-            </Button>
-            <Button
-              onClick={() =>
-                handleClick({
-                  tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
-                })
-              }
-            >
-              Domicílio
-            </Button>
+            <Link to={`/${TipoAtendimentoEnum.LOJA.toLowerCase()}`}>
+              <Button
+                onClick={() =>
+                  setAgendamentoContext({
+                    ...agendamentoContext,
+                    tipoAtendimento: TipoAtendimentoEnum.LOJA,
+                  })
+                }
+              >
+                Loja Física
+              </Button>
+            </Link>
+            <Link to={`/${TipoAtendimentoEnum.DOMICILIO.toLowerCase()}`}>
+              <Button
+                onClick={() =>
+                  setAgendamentoContext({
+                    ...agendamentoContext,
+                    tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
+                  })
+                }
+              >
+                Domicílio
+              </Button>
+            </Link>
           </S.FlexWrapper>
         </S.Wrapper>
       </S.Container>

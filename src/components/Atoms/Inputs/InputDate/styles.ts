@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div<{ $showIcon: boolean }>`
+export const Container = styled.div<{ $showIcon?: boolean }>`
   ${({ $showIcon }) => css`
     position: relative;
 

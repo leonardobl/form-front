@@ -8,6 +8,7 @@ import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { addDays } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 export const useStore = () => {
   const [token] = useSessionStorage("@token");
@@ -22,6 +23,8 @@ export const useStore = () => {
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
     {} as IAgendamentoBasicoForm
   );
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setDate(null);
@@ -69,7 +72,7 @@ export const useStore = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoContext?.reAgendamento) {
+    if (agendamentoContext?.revistoria) {
       setModalIsOpen(true);
       return;
     }
@@ -86,14 +89,14 @@ export const useStore = () => {
         setAgendamentoContext({
           ...agendamentoContext,
           uuidAgendamento: data.uuid,
-          cidade: data?.delivery?.cidade,
         });
 
         if (token) {
-          return window.open("/servicos", "_self");
+          navigate("/servicos");
+          return;
         }
 
-        window.open("/login-cadastro", "_self");
+        navigate("/login-cadastro");
       })
       .catch(
         ({

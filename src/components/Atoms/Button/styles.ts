@@ -14,6 +14,7 @@ export const Button = styled.button`
   font-family: Mulish;
   font-size: 16px;
   font-weight: 700;
+  white-space: nowrap;
   line-height: 24px;
   letter-spacing: 0em;
   text-align: center;

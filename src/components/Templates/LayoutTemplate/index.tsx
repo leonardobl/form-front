@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { Outlet, useSearchParams } from "react-router-dom";
+import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
 
 import { mainListItems, secondaryListItems } from "../../Atoms/ListItems";
 
@@ -79,6 +79,7 @@ export function LayoutTemplate({ children }: ILayoutProps) {
     setOpen(!open);
   };
   const [visible, setVisible] = React.useState(false);
+  const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -116,7 +117,7 @@ export function LayoutTemplate({ children }: ILayoutProps) {
               <S.IconHome
                 src="/assets/svgs/icone-home.svg"
                 alt="icone home"
-                onClick={() => window.open("/", "_self")}
+                onClick={() => navigate("/")}
               />
             </S.FlexWrapperIcons>
           </Toolbar>

@@ -8,7 +8,7 @@ export function maskCpf(v: string) {
   return v;
 }
 
-export function maskCnpj(v) {
+export function maskCnpj(v: string) {
   if (!v) return;
   v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
   v = v.replace(/^(\d{2})(\d)/, "$1.$2"); //Coloca ponto entre o segundo e o terceiro dígitos

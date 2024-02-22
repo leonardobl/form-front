@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Loja } from "../../../services/Lojas";
 import { ISelectOptions } from "../../../types/inputs";
 import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
@@ -9,6 +8,7 @@ import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { addDays } from "date-fns";
 import { Delivery } from "../../../services/Delivery";
+import { useNavigate } from "react-router-dom";
 
 export const useResidence = () => {
   const [token] = useSessionStorage("@token");
@@ -16,18 +16,19 @@ export const useResidence = () => {
     useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
-  const [date, setDate] = useState<Date>(null);
+  const [date, setDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
     {} as IAgendamentoBasicoForm
   );
+  const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoContext?.reAgendamento) {
+    if (agendamentoContext?.revistoria) {
       setModalIsOpen(true);
       return;
     }
@@ -48,10 +49,11 @@ export const useResidence = () => {
         });
 
         if (token) {
-          return window.open("/servicos", "_self");
+          navigate("/servicos");
+          return;
         }
 
-        window.open("/login-cadastro", "_self");
+        navigate("/login-cadastro");
       })
       .catch(
         ({

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IConsultaUnionProps,
   IConsultaVeiculoPlacaForm,
@@ -6,6 +6,7 @@ import {
 import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 export const useSurvey = () => {
   const { setIsLoad, agendamentoContext, setAgendamentoContext } =
@@ -14,6 +15,7 @@ export const useSurvey = () => {
   const [form, setForm] = useState<IConsultaUnionProps>(
     {} as IConsultaUnionProps
   );
+  const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -34,7 +36,7 @@ export const useSurvey = () => {
           ...agendamentoContext,
           uuidVeiculo: data.uuid,
         });
-        window.open(`/servicos/veiculo`, "_self");
+        navigate(`/servicos/veiculo`);
       })
       .catch(
         ({
@@ -45,6 +47,10 @@ export const useSurvey = () => {
       )
       .finally(() => setIsLoad(false));
   }
+
+  useEffect(() => {
+    console.log(agendamentoContext);
+  }, [agendamentoContext]);
 
   return { form, setForm, handleSubmit };
 };

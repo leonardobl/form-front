@@ -6,6 +6,7 @@ import {
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const useLicense = () => {
   const { setIsLoad, agendamentoContext, setAgendamentoContext } =
@@ -13,6 +14,7 @@ export const useLicense = () => {
   const [form, setForm] = useState<IConsultaUnionProps>(
     {} as IConsultaUnionProps
   );
+  const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -20,7 +22,7 @@ export const useLicense = () => {
     setIsLoad(true);
 
     const PAYLOAD: IConsultaVeiculoChassiForm = {
-      Chassi: form.Chassi,
+      Chassi: form?.Chassi as string,
       CnpjECV: null,
       IdCidadeDetran: null,
       uuidAgendamento: agendamentoContext?.uuidAgendamento,
@@ -33,7 +35,7 @@ export const useLicense = () => {
           ...agendamentoContext,
           uuidVeiculo: data.uuid,
         });
-        window.open(`/servicos/veiculo`, "_self");
+        navigate(`/servicos/veiculo`);
       })
       .catch(
         ({
