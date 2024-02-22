@@ -54,7 +54,10 @@ export const useLogin = () => {
 
         if (is_high_level) {
           toast.success("Login efetuado com sucesso");
-          setAgendamentoContext({ roles: decoded.perfis });
+          setAgendamentoContext({
+            ...agendamentoContext,
+            roles: decoded.perfis,
+          });
           setTimeout(() => {
             window.open("/meus-agendamentos", "_self");
           }, 2000);
@@ -65,6 +68,7 @@ export const useLogin = () => {
           Cliente.getByUsuario({ uuidUsuario: decoded.uuid })
             .then(({ data }) => {
               setAgendamentoContext({
+                ...agendamentoContext,
                 uuidUsuario: decoded.uuid,
                 uuidCliente: data.uuid,
                 roles: decoded.perfis,

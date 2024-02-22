@@ -20,6 +20,7 @@ interface IAtendimentoProps {
   roles?: RolesEnum[];
   uuidCliente?: string;
   uuidUsuario?: string;
+  uuidVeiculo?: string;
   servico?: OpcoesServicosEnum;
 }
 

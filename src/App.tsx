@@ -14,6 +14,7 @@ import { Login } from "./components/Pages/Login";
 import { UserRegistration } from "./components/Pages/UserRegistration";
 import { Services } from "./components/Pages/Services";
 import { LayoutTemplate } from "./components/Templates/LayoutTemplate";
+import { License } from "./components/Pages/License";
 
 export const App = () => {
   return (
@@ -31,6 +32,7 @@ export const App = () => {
             <Route path="/cadastro-usuario" element={<UserRegistration />} />
             <Route path="/servicos" element={<LayoutTemplate />}>
               <Route index element={<Services />} />
+              <Route path="emplacamento" element={<License />} />
             </Route>
           </Routes>
         </BrowserRouter>

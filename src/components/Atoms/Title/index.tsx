@@ -1,6 +1,8 @@
-import React from "react";
+import React, { ComponentProps } from "react";
 import * as S from "./styles";
 
-export const Title = () => {
-  return <S.Title />;
+interface ITitleProps extends ComponentProps<"h1"> {}
+
+export const Title = (props: ITitleProps) => {
+  return <S.Title {...props} />;
 };

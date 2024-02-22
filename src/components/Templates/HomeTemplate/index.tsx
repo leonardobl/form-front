@@ -14,7 +14,7 @@ export const HomeTemplate = () => {
   }: {
     tipoAtendimento: TipoAtendimentoEnum;
   }) {
-    setAgendamentoContext({ tipoAtendimento });
+    setAgendamentoContext({ ...agendamentoContext, tipoAtendimento });
     window.open(`/${tipoAtendimento.toLowerCase()}`, "_self");
   }
 

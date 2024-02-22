@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { Title } from "../../Atoms/Title/styles";
+import { Title } from "../../Atoms/Title";
 import { TextField } from "@mui/material";
 import { Button } from "../../Atoms/Button";
 import { useLogin } from "./useLogin";

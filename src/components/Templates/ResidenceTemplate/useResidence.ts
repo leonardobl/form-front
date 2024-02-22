@@ -42,6 +42,7 @@ export const useResidence = () => {
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
         setAgendamentoContext({
+          ...agendamentoContext,
           uuidAgendamento: data.uuid,
           cidade: data?.delivery?.cidade,
         });
@@ -66,6 +67,7 @@ export const useResidence = () => {
     setDate(null);
 
     if (form?.uuidDelivery) {
+      setIsLoading(true);
       Delivery.getDiasIndisponiveis({ uuidDelivery: form.uuidDelivery })
         .then(({ data }) => {
           const options = data.map((item) => addDays(new Date(item), 1));
@@ -77,7 +79,8 @@ export const useResidence = () => {
               data: { mensagem },
             },
           }) => toast.error(mensagem)
-        );
+        )
+        .finally(() => setIsLoading(false));
     }
   }, [form?.uuidDelivery]);
 

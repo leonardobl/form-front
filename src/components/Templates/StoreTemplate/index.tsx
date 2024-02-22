@@ -1,13 +1,13 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { Title } from "../../Atoms/Title/styles";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Text } from "../../Atoms/Text";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { Button } from "../../Atoms/Button";
 import { useStore } from "./useStore";
 import { ISelectOptions } from "../../../types/inputs";
+import { Title } from "../../Atoms/Title";
 
 export const StoreTemplate = () => {
   const {

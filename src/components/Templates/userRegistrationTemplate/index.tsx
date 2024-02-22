@@ -1,7 +1,6 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { Title } from "../../Atoms/Title/styles";
 import {
   FormControl,
   InputLabel,
@@ -11,6 +10,7 @@ import {
 } from "@mui/material";
 import { Button } from "../../Atoms/Button";
 import { useUserRegistration } from "./useUserRegistration";
+import { Title } from "../../Atoms/Title";
 
 export const UserRegistrationTemplate = () => {
   const {
