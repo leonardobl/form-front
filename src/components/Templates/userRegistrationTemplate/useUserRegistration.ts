@@ -35,9 +35,6 @@ export const useUserRegistration = () => {
       tipo: TipoClienteEnum.PARTICULAR,
     };
 
-    console.log(PAYLOAD);
-    return;
-
     setIsLoad(true);
     setIsDisabled(true);
 

@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { LoginRegister } from "./components/Pages/LoginRegister";
 import { Login } from "./components/Pages/Login";
 import { UserRegistration } from "./components/Pages/UserRegistration";
+import { Services } from "./components/Pages/Services";
+import { LayoutTemplate } from "./components/Templates/LayoutTemplate";
 
 export const App = () => {
   return (
@@ -27,6 +29,9 @@ export const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/login-cadastro" element={<LoginRegister />} />
             <Route path="/cadastro-usuario" element={<UserRegistration />} />
+            <Route path="/servicos" element={<LayoutTemplate />}>
+              <Route index element={<Services />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </ContextProvider>
