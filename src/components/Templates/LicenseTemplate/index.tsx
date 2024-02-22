@@ -18,7 +18,7 @@ export const LicenseTemplate = () => {
         consultar os dados.
       </Text>
 
-      <S.form onSubmit={handleSubmit}>
+      <S.Form onSubmit={handleSubmit}>
         <Input
           label="Chassi"
           required
@@ -31,7 +31,7 @@ export const LicenseTemplate = () => {
           }}
         />
         <Button>Buscar</Button>
-      </S.form>
+      </S.Form>
     </S.Container>
   );
 };

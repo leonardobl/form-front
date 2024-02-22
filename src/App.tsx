@@ -15,6 +15,7 @@ import { UserRegistration } from "./components/Pages/UserRegistration";
 import { Services } from "./components/Pages/Services";
 import { LayoutTemplate } from "./components/Templates/LayoutTemplate";
 import { License } from "./components/Pages/License";
+import { Survey } from "./components/Pages/Survey";
 
 export const App = () => {
   return (
@@ -33,6 +34,7 @@ export const App = () => {
             <Route path="/servicos" element={<LayoutTemplate />}>
               <Route index element={<Services />} />
               <Route path="emplacamento" element={<License />} />
+              <Route path="vistoria" element={<Survey />} />
             </Route>
           </Routes>
         </BrowserRouter>

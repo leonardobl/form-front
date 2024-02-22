@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import {
   IConsultaUnionProps,
-  IConsultaVeiculoChassiForm,
+  IConsultaVeiculoPlacaForm,
 } from "../../../types/veiculo";
-import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
+import { useContextSite } from "../../../context/Context";
 
-export const useLicense = () => {
+export const useSurvey = () => {
   const { setIsLoad, agendamentoContext, setAgendamentoContext } =
     useContextSite();
+
   const [form, setForm] = useState<IConsultaUnionProps>(
     {} as IConsultaUnionProps
   );
@@ -19,15 +20,15 @@ export const useLicense = () => {
 
     setIsLoad(true);
 
-    const PAYLOAD: IConsultaVeiculoChassiForm = {
-      Chassi: form.Chassi,
+    const PAYLOAD: IConsultaVeiculoPlacaForm = {
+      Placa: form.Placa,
       CnpjECV: null,
       IdCidadeDetran: null,
+      Renavam: form.Renavam,
       uuidAgendamento: agendamentoContext?.uuidAgendamento,
     };
 
-    Veiculo.postByChassi(PAYLOAD)
-
+    Veiculo.postByPlaca(PAYLOAD)
       .then(({ data }) => {
         setAgendamentoContext({
           ...agendamentoContext,
@@ -40,7 +41,7 @@ export const useLicense = () => {
           response: {
             data: { mensagem },
           },
-        }) => toast.error(mensagem, { autoClose: 3000 })
+        }) => toast.error(mensagem, { autoClose: 4000 })
       )
       .finally(() => setIsLoad(false));
   }

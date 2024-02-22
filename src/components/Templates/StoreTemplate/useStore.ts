@@ -84,6 +84,7 @@ export const useStore = () => {
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
         setAgendamentoContext({
+          ...agendamentoContext,
           uuidAgendamento: data.uuid,
           cidade: data?.delivery?.cidade,
         });

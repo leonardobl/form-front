@@ -6,10 +6,10 @@ import { useContextSite } from "../../../context/Context";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 
 export const ServicesTemplate = () => {
-  const { setAgendamentoContext } = useContextSite();
+  const { agendamentoContext, setAgendamentoContext } = useContextSite();
 
   function handleClick({ servico }: { servico: OpcoesServicosEnum }) {
-    setAgendamentoContext({ servico });
+    setAgendamentoContext({ ...agendamentoContext, servico });
     window.open(`/servicos/${servico.toLowerCase()}`, "_self");
   }
 
