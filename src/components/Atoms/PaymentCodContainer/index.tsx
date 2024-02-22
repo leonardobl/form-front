@@ -17,7 +17,7 @@ export const PaymentCodContainer = ({ value }: PaymentCodContainerProps) => {
       <S.Input value={value} readOnly />
       <img
         alt="icone copia e cola"
-        src={"/assets/imgs/copy.svg"}
+        src={"/assets/svgs/copy.svg"}
         onClick={() => copyToClipboard(value)}
       />
     </S.Container>

@@ -28,7 +28,7 @@ export interface IAtendimentoContextProps {
 const DefaultValues: IAtendimentoContextProps = {
   cidade: "",
   revistoria: false,
-  roles: null,
+  roles: [],
   servico: null,
   tipoAtendimento: null,
   uuidAgendamento: "",

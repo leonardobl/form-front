@@ -24,9 +24,10 @@ export const ProtectedClientRoute = ({
 
   useEffect(() => {
     if (!agendamentoContext?.roles?.length) return;
+
     !agendamentoContext?.roles?.includes(RolesEnum.ROLE_CLIENTE) &&
       handleRedirect();
-  }, [agendamentoContext]);
+  }, []);
 
   return !token ? (
     children

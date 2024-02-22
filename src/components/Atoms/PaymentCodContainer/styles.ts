@@ -13,32 +13,32 @@ export const Container = styled.div`
 `;
 
 export const Input = styled.input`
-  width: 400px;
-  height: 55px;
+  width: 474px;
+  height: 56px;
 
-  border-radius: 25px;
-  border: 1px solid #50d05d;
-  background: transparent;
+  border-radius: 10px;
+  /* border: 1px solid #50d05d; */
+  background: #e1f2ee;
 
   display: flex;
   padding: 0 50px 0 20px;
 
   align-items: center;
-  color: #fff;
-  font-family: "Lato";
-  font-size: 24px;
+  color: #20332f;
+  font-family: Mulish;
+  font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: 32px;
+  line-height: 24px;
 
   &:focus {
-    outline: 1px solid #50d05d;
+    /* outline: 1px solid #50d05d; */
+    outline: none;
   }
 
   @media (max-width: 500px) {
     max-width: 400px;
     width: 100%;
-
     font-size: 16px;
   }
 `;
