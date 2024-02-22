@@ -63,7 +63,7 @@ export const useVehicle = () => {
               return;
             }
 
-            navigate("/cadastro-endereco");
+            navigate("/servicos/cadastro-endereco");
           })
           .catch(
             ({
