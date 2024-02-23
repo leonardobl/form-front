@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useResidence = () => {
   const [token] = useSessionStorage("@token");
-  const { setIsLoad, agendamentoContext, setAgendamentoContext } =
-    useContextSite();
+  const { setIsLoad } = useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
   const [date, setDate] = useState<Date | null>(null);
@@ -24,11 +23,13 @@ export const useResidence = () => {
     {} as IAgendamentoBasicoForm
   );
   const navigate = useNavigate();
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoContext?.revistoria) {
+    if (agendamentoSession?.revistoria) {
       setModalIsOpen(true);
       return;
     }
@@ -42,8 +43,8 @@ export const useResidence = () => {
 
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
-        setAgendamentoContext({
-          ...agendamentoContext,
+        setAgendamentoSession({
+          ...agendamentoSession,
           uuidAgendamento: data.uuid,
           cidade: data?.delivery?.cidade,
         });

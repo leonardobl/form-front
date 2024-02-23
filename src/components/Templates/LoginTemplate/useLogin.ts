@@ -12,10 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
-  const { isLoad, setIsLoad, setAgendamentoContext, agendamentoContext } =
-    useContextSite();
+  const { isLoad, setIsLoad } = useContextSite();
   const [isDisable, setIsDisable] = useState(false);
   const [token, setToken] = useSessionStorage("@token");
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
+
   const navigate = useNavigate();
 
   function handleCpf(e: string) {
@@ -56,8 +58,8 @@ export const useLogin = () => {
 
         if (is_high_level) {
           toast.success("Login efetuado com sucesso");
-          setAgendamentoContext({
-            ...agendamentoContext,
+          setAgendamentoSession({
+            ...agendamentoSession,
             roles: decoded.perfis,
           });
           setTimeout(() => {
@@ -69,8 +71,8 @@ export const useLogin = () => {
         decoded?.uuid &&
           Cliente.getByUsuario({ uuidUsuario: decoded.uuid })
             .then(({ data }) => {
-              setAgendamentoContext({
-                ...agendamentoContext,
+              setAgendamentoSession({
+                ...agendamentoSession,
                 uuidUsuario: decoded.uuid,
                 uuidCliente: data.uuid,
                 roles: decoded.perfis,
@@ -81,7 +83,7 @@ export const useLogin = () => {
               setTimeout(() => {
                 setIsDisable(false);
 
-                if (agendamentoContext?.uuidAgendamento) {
+                if (agendamentoSession?.uuidAgendamento) {
                   navigate("/servicos");
                   return;
                 }

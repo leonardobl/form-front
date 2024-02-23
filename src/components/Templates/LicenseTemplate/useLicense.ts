@@ -7,13 +7,17 @@ import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useLicense = () => {
-  const { setIsLoad, agendamentoContext, setAgendamentoContext } =
-    useContextSite();
+  const { setIsLoad } = useContextSite();
   const [form, setForm] = useState<IConsultaUnionProps>(
     {} as IConsultaUnionProps
   );
+
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
+
   const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
@@ -25,16 +29,17 @@ export const useLicense = () => {
       Chassi: form?.Chassi as string,
       CnpjECV: null,
       IdCidadeDetran: null,
-      uuidAgendamento: agendamentoContext?.uuidAgendamento,
+      uuidAgendamento: agendamentoSession?.uuidAgendamento,
     };
 
     Veiculo.postByChassi(PAYLOAD)
 
       .then(({ data }) => {
-        setAgendamentoContext({
-          ...agendamentoContext,
+        setAgendamentoSession({
+          ...agendamentoSession,
           uuidVeiculo: data.uuid,
         });
+
         navigate(`/servicos/veiculo`);
       })
       .catch(

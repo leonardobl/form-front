@@ -10,21 +10,23 @@ import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
 import { IVeiculoDTO } from "../../../types/agendamento";
 import { useNavigate } from "react-router-dom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useVehicle = () => {
-  const { isLoad, setIsLoad, agendamentoContext, setAgendamentoContext } =
-    useContextSite();
+  const { isLoad, setIsLoad } = useContextSite();
   const [form, setForm] = useState<IVeiculoDTO>({} as IVeiculoDTO);
   const navigate = useNavigate();
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     setIsLoad(true);
 
-    Agendamento.getById({ uuid: agendamentoContext?.uuidAgendamento })
+    Agendamento.getById({ uuid: agendamentoSession?.uuidAgendamento })
       .then(({ data }) => {
         const PAYLOAD: IPutAgendamentoProps = {
-          uuid: agendamentoContext?.uuidAgendamento,
+          uuid: agendamentoSession?.uuidAgendamento,
           diaAgendado: data.diaAgendado,
           horaAgendada: data.horaAgendada,
           tipoAtendimento: TipoAtendimentoEnum[data.tipoAtendimento],
@@ -34,25 +36,25 @@ export const useVehicle = () => {
           primeiroAgendamento: data.primeiroAgendamento,
           revistoria: data.revistoria,
           status: StatusAgendamentoEnum[data.status],
-          uuidCliente: agendamentoContext?.uuidCliente,
+          uuidCliente: agendamentoSession?.uuidCliente,
           uuidDelivery: data?.delivery?.uuid,
           uuidLoja: data?.loja?.uuid,
           uuidServico: data?.servico?.uuid,
-          uuidVeiculo: agendamentoContext?.uuidVeiculo,
+          uuidVeiculo: agendamentoSession?.uuidVeiculo,
         };
 
         Agendamento.put(PAYLOAD)
           .then(() => {
             if (PAYLOAD.revistoria) {
-              setAgendamentoContext({
-                ...agendamentoContext,
+              setAgendamentoSession({
+                ...agendamentoSession,
                 revistoria: true,
                 uuidAgendamento: PAYLOAD.uuid,
               });
             }
 
             if (
-              agendamentoContext?.tipoAtendimento === TipoAtendimentoEnum.LOJA
+              agendamentoSession?.tipoAtendimento === TipoAtendimentoEnum.LOJA
             ) {
               if (PAYLOAD.revistoria) {
                 navigate(`/meus-agendamentos/agendamento?id=${PAYLOAD.uuid}`);
@@ -90,11 +92,11 @@ export const useVehicle = () => {
   }
 
   useEffect(() => {
-    if (!agendamentoContext?.uuidVeiculo) return;
+    if (!agendamentoSession?.uuidVeiculo) return;
 
     setIsLoad(true);
 
-    Veiculo.byId({ uuid: agendamentoContext?.uuidVeiculo })
+    Veiculo.byId({ uuid: agendamentoSession?.uuidVeiculo })
       .then(({ data }) => {
         setForm(data);
       })
@@ -110,7 +112,7 @@ export const useVehicle = () => {
       .finally(() => {
         setIsLoad(false);
       });
-  }, [agendamentoContext?.uuidVeiculo]);
+  }, [agendamentoSession?.uuidVeiculo]);
 
   return { handleSubmit, isLoad, form };
 };

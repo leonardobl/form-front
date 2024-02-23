@@ -5,9 +5,11 @@ import { Button } from "../../Atoms/Button";
 import { useContextSite } from "../../../context/Context";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { Link } from "react-router-dom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const ServicesTemplate = () => {
-  const { agendamentoContext, setAgendamentoContext } = useContextSite();
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   return (
     <S.Container>
@@ -20,8 +22,8 @@ export const ServicesTemplate = () => {
         <Link to={"/servicos/emplacamento"}>
           <Button
             onClick={() =>
-              setAgendamentoContext({
-                ...agendamentoContext,
+              setAgendamentoSession({
+                ...agendamentoSession,
                 servico: OpcoesServicosEnum.EMPLACAMENTO,
               })
             }
@@ -32,8 +34,8 @@ export const ServicesTemplate = () => {
         <Link to={"/servicos/vistoria"}>
           <Button
             onClick={() =>
-              setAgendamentoContext({
-                ...agendamentoContext,
+              setAgendamentoSession({
+                ...agendamentoSession,
                 servico: OpcoesServicosEnum.VISTORIA,
               })
             }

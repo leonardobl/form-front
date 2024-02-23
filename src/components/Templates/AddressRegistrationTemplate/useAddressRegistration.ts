@@ -8,13 +8,16 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { maskCep, maskPhone } from "../../../utils/masks";
 import { ViaCep } from "../../../services/ViaCep";
+import { IAgendamentoSessionProps } from "../../../types/agendamentoSession";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useAddressRegistration = () => {
   const [form, setForm] = useState<IAtendimentoDomiciliarForm>(
     {} as IAtendimentoDomiciliarForm
   );
-  const { isLoad, setIsLoad, agendamentoContext, setAgendamentoContext } =
-    useContextSite();
+  const { isLoad, setIsLoad } = useContextSite();
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
   const [isDisabled, setIsDisabled] = useState(false);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const navigate = useNavigate();
@@ -25,15 +28,15 @@ export const useAddressRegistration = () => {
 
     setIsLoad(true);
 
-    const PAYLOAD = { ...form, uuid: agendamentoContext?.uuidAgendamento };
+    const PAYLOAD = { ...form, uuid: agendamentoSession?.uuidAgendamento };
 
     Agendamento.putAddress(PAYLOAD)
       .then(({ data }) => {
         toast.success("Endereco cadastrado com sucesso!");
         setTimeout(() => {
-          if (agendamentoContext?.revistoria) {
-            setAgendamentoContext({
-              ...agendamentoContext,
+          if (agendamentoSession?.revistoria) {
+            setAgendamentoSession({
+              ...agendamentoSession,
               uuidAgendamento: PAYLOAD.uuid,
             });
             navigate(`/meus-agendamentos/agendamento?${PAYLOAD.uuid}`);
@@ -91,7 +94,7 @@ export const useAddressRegistration = () => {
               },
             }));
 
-            if (data.city !== agendamentoContext?.cidade) {
+            if (data.city !== agendamentoSession?.cidade) {
               toast.error("Endereço fora da cidade escolhida para atendimento");
               setIsDisabled(true);
 

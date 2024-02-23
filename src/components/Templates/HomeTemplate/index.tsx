@@ -3,12 +3,13 @@ import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { Button } from "../../Atoms/Button";
 import { Text } from "../../Atoms/Text";
-import { useContextSite } from "../../../context/Context";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { Link } from "react-router-dom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const HomeTemplate = () => {
-  const { agendamentoContext, setAgendamentoContext } = useContextSite();
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   return (
     <LayoutTemplate>
@@ -24,8 +25,8 @@ export const HomeTemplate = () => {
             <Link to={`/${TipoAtendimentoEnum.LOJA.toLowerCase()}`}>
               <Button
                 onClick={() =>
-                  setAgendamentoContext({
-                    ...agendamentoContext,
+                  setAgendamentoSession({
+                    ...agendamentoSession,
                     tipoAtendimento: TipoAtendimentoEnum.LOJA,
                   })
                 }
@@ -36,8 +37,8 @@ export const HomeTemplate = () => {
             <Link to={`/${TipoAtendimentoEnum.DOMICILIO.toLowerCase()}`}>
               <Button
                 onClick={() =>
-                  setAgendamentoContext({
-                    ...agendamentoContext,
+                  setAgendamentoSession({
+                    ...agendamentoSession,
                     tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
                   })
                 }

@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useStore = () => {
   const [token] = useSessionStorage("@token");
-  const { setIsLoad, agendamentoContext, setAgendamentoContext } =
-    useContextSite();
+  const { setIsLoad } = useContextSite();
   const [lojasOptions, setLojasOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
   const [date, setDate] = useState<Date>(null);
@@ -23,6 +22,8 @@ export const useStore = () => {
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
     {} as IAgendamentoBasicoForm
   );
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   const navigate = useNavigate();
 
@@ -72,7 +73,7 @@ export const useStore = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoContext?.revistoria) {
+    if (agendamentoSession?.revistoria) {
       setModalIsOpen(true);
       return;
     }
@@ -86,8 +87,8 @@ export const useStore = () => {
 
     Agendamento.post(PAYLOAD)
       .then(({ data }) => {
-        setAgendamentoContext({
-          ...agendamentoContext,
+        setAgendamentoSession({
+          ...agendamentoSession,
           uuidAgendamento: data.uuid,
         });
 

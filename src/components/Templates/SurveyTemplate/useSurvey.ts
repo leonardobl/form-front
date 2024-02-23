@@ -7,10 +7,12 @@ import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
 import { useNavigate } from "react-router-dom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useSurvey = () => {
-  const { setIsLoad, agendamentoContext, setAgendamentoContext } =
-    useContextSite();
+  const { setIsLoad } = useContextSite();
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   const [form, setForm] = useState<IConsultaUnionProps>(
     {} as IConsultaUnionProps
@@ -27,13 +29,13 @@ export const useSurvey = () => {
       CnpjECV: null,
       IdCidadeDetran: null,
       Renavam: form.Renavam,
-      uuidAgendamento: agendamentoContext?.uuidAgendamento,
+      uuidAgendamento: agendamentoSession?.uuidAgendamento,
     };
 
     Veiculo.postByPlaca(PAYLOAD)
       .then(({ data }) => {
-        setAgendamentoContext({
-          ...agendamentoContext,
+        setAgendamentoSession({
+          ...agendamentoSession,
           uuidVeiculo: data.uuid,
         });
         navigate(`/servicos/veiculo`);
@@ -47,10 +49,6 @@ export const useSurvey = () => {
       )
       .finally(() => setIsLoad(false));
   }
-
-  useEffect(() => {
-    console.log(agendamentoContext);
-  }, [agendamentoContext]);
 
   return { form, setForm, handleSubmit };
 };

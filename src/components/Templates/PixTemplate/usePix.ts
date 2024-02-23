@@ -3,11 +3,14 @@ import { useContextSite } from "../../../context/Context";
 import { IFaturaDTO } from "../../../types/pagamento";
 import { Pagamento } from "../../../services/Pagamento";
 import { toast } from "react-toastify";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const usePix = () => {
-  const { setIsLoad, agendamentoContext, setAgendamentoContext } =
-    useContextSite();
+  const { setIsLoad } = useContextSite();
   const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
+
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   // function acessarFatura() {
   //   window.open(
@@ -17,12 +20,12 @@ export const usePix = () => {
   // }
 
   useEffect(() => {
-    if (!agendamentoContext?.uuidAgendamento) return;
+    if (!agendamentoSession?.uuidAgendamento) return;
 
     setIsLoad(true);
 
     Pagamento.consultarFatura({
-      uuidAgendamento: agendamentoContext?.uuidAgendamento,
+      uuidAgendamento: agendamentoSession?.uuidAgendamento,
     })
       .then(({ data }) => {
         setPagamento(data);
@@ -35,7 +38,7 @@ export const usePix = () => {
         }) => toast.error(mensagem)
       )
       .finally(() => setIsLoad(false));
-  }, [agendamentoContext?.uuidAgendamento]);
+  }, [agendamentoSession?.uuidAgendamento]);
 
   return { pagamento };
 };
