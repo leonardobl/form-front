@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 10;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   justify-content: center;
