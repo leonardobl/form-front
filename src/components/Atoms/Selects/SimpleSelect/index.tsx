@@ -40,6 +40,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         width: "100%",
         // kill the gap
         // marginTop: 0,
+        zIndex: 2,
       }),
       menuList: (base: any, state: any) => ({
         ...base,

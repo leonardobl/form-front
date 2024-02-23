@@ -1,16 +1,13 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
+
 import { Button } from "../../Atoms/Button";
 import { useUserRegistration } from "./useUserRegistration";
 import { Title } from "../../Atoms/Title";
+import { Input } from "../../Atoms/Inputs/Input";
+import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const UserRegistrationTemplate = () => {
   const {
@@ -34,9 +31,7 @@ export const UserRegistrationTemplate = () => {
         <Title>CADASTRO</Title>
         <S.Form onSubmit={handleSubmit}>
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="Nome Completo"
               required
               value={form?.nome}
@@ -47,9 +42,7 @@ export const UserRegistrationTemplate = () => {
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="E-mail"
               type="email"
               value={form?.email}
@@ -60,46 +53,37 @@ export const UserRegistrationTemplate = () => {
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="Telefone"
               value={form?.telefone}
-              inputProps={{ maxLength: "15" }}
+              maxLength={15}
               onChange={(e) => handlePhone(e.target.value)}
             />
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="CPF/CNPJ"
               required
               value={form?.cpfCnpj}
               onChange={(e) => handleCpf(e.target.value)}
-              inputProps={{ maxLength: "18" }}
+              maxLength={18}
             />
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="CEP"
               required
-              inputProps={{ maxLength: "9" }}
+              maxLength={9}
               value={form?.endereco?.cep}
               onChange={(e) => handleCep(e.target.value)}
             />
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="Endereço (Rua)"
-              key={`${Math.random()} - ${cepLoad}`}
               required
               value={form?.endereco?.logradouro}
               onChange={(e) =>
@@ -115,21 +99,10 @@ export const UserRegistrationTemplate = () => {
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="Número"
               required
               type="number"
-              sx={{
-                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
-                  {
-                    display: "none",
-                  },
-                "& input[type=number]": {
-                  MozAppearance: "textfield",
-                },
-              }}
               value={form?.endereco?.numero}
               onChange={(e) =>
                 setForm((prev) => ({
@@ -144,9 +117,7 @@ export const UserRegistrationTemplate = () => {
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="Complemento"
               value={form?.endereco?.complemento}
               onChange={(e) =>
@@ -162,12 +133,9 @@ export const UserRegistrationTemplate = () => {
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="Bairro"
               required
-              key={`${Math.random()} - ${cepLoad}`}
               value={form?.endereco?.bairro}
               onChange={(e) =>
                 setForm((prev) => ({
@@ -179,65 +147,49 @@ export const UserRegistrationTemplate = () => {
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <SimpleSelect
               label="UF"
               required
-              select
               key={`${Math.random()} - ${cepLoad}`}
-              value={form?.endereco?.uf || ""}
-              onChange={(e) =>
+              value={ufOptions.find((_) => _.value === form?.endereco?.uf)}
+              options={ufOptions}
+              onChange={(e: ISelectOptions) =>
                 setForm((prev) => ({
                   ...prev,
-                  endereco: { ...prev.endereco, uf: e.target.value },
+                  endereco: { ...prev.endereco, uf: e.value },
                 }))
               }
-            >
-              {ufOptions.map((item) => (
-                <MenuItem key={`${Math.random()}`} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
+            />
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <SimpleSelect
               label="Cidade"
               required
-              select
               key={`${Math.random()} - ${cepLoad}`}
-              value={form?.endereco?.cidade || ""}
-              onChange={(e) =>
+              value={cidadesOptions.find(
+                (_) => _.value === form?.endereco?.cidade
+              )}
+              options={cidadesOptions}
+              onChange={(e: ISelectOptions) =>
                 setForm((prev) => ({
                   ...prev,
                   endereco: {
                     ...prev.endereco,
-                    cidade: e?.target?.value,
+                    cidade: e?.value,
                   },
                 }))
               }
-            >
-              {cidadesOptions.map((item) => (
-                <MenuItem key={`${Math.random()}`} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </TextField>
+            />
           </div>
 
           <div>
-            <TextField
-              fullWidth
-              variant="standard"
+            <Input
               label="Senha"
               required
               type="password"
               value={form?.senha}
-              inputRef={inpSenhaRef}
+              ref={inpSenhaRef}
               onChange={(e) => {
                 setForm((prev) => ({ ...prev, senha: e.target.value }));
                 checkPass && checkPass();
@@ -246,13 +198,11 @@ export const UserRegistrationTemplate = () => {
           </div>
 
           <div>
-            <TextField
-              fullWidth
+            <Input
               type="password"
-              variant="standard"
               label="Confirmar Senha"
               required
-              inputRef={inpConfirSenha}
+              ref={inpConfirSenha}
               onChange={(e) => checkPass && checkPass()}
             />
           </div>

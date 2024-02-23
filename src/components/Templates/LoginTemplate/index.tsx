@@ -2,9 +2,9 @@ import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
-import { TextField } from "@mui/material";
 import { Button } from "../../Atoms/Button";
 import { useLogin } from "./useLogin";
+import { Input } from "../../Atoms/Inputs/Input";
 
 export const LoginTemplate = () => {
   const { form, setForm, handleCpf, handleSubmit } = useLogin();
@@ -16,12 +16,10 @@ export const LoginTemplate = () => {
 
         <S.Form onSubmit={handleSubmit}>
           <div>
-            <TextField
+            <Input
               label="CPF/ CNPJ"
               required
-              fullWidth
-              inputProps={{ maxLength: "18" }}
-              variant="standard"
+              maxLength={18}
               value={form?.cpfCNPJ}
               onChange={(e) => {
                 handleCpf(e.target.value);
@@ -29,11 +27,9 @@ export const LoginTemplate = () => {
             />
           </div>
           <div>
-            <TextField
+            <Input
               label="Senha"
               required
-              fullWidth
-              variant="standard"
               type="password"
               value={form.senha}
               onChange={(e) =>

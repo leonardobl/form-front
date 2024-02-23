@@ -19,7 +19,7 @@ export const Form = styled.form`
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: ${pxToRem(48)} ${pxToRem(46)};
+  gap: ${pxToRem(48)} ${pxToRem(16)};
   grid-template-areas: "nome nome" "email telefone" "cpf cep" "rua numero" "complemento bairro" "uf cidade" "senha confirmacao" "buttom buttom";
 
   > :nth-child(1) {
