@@ -17,6 +17,7 @@ import { mainListItems, secondaryListItems } from "../../Atoms/ListItems";
 
 import * as S from "./styles";
 import { muiTheme } from "../../../themes/muiTheme";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 const drawerWidth: number = 240;
 
@@ -74,11 +75,12 @@ interface ILayoutProps {
 
 export function LayoutTemplate({ children }: ILayoutProps) {
   const [open, setOpen] = React.useState(false);
+  const [token] = useSessionStorage("@token");
   const toggleDrawer = () => {
     if (!visible) return;
     setOpen(!open);
   };
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState(token ? true : false);
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();

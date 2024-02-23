@@ -31,14 +31,14 @@ export const ButtonOptions = ({
   handleTicket,
 }: IButtonOptions) => {
   const { setIsLoad } = useContextSite();
-  const [reagendamento, setReagendamento] = useSessionStorage("reagendamento");
+  // const [reagendamento, setReagendamento] = useSessionStorage("reagendamento");
   const [isOpen, setISOpen] = useState(false);
   const [sessionCliente, setSessionCliente] = useSessionStorage("cliente");
   const navigate = useNavigate();
 
   function onRescheduling() {
     setIsLoad(true);
-    setReagendamento(uuidAgendamento);
+    // setReagendamento(uuidAgendamento);
     setTimeout(() => {
       navigate(`/${tipoAtendimento?.toLowerCase()}`);
       setIsLoad(false);
