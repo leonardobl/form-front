@@ -1,11 +1,10 @@
 import React from "react";
 import * as S from "./styles";
-import { Text } from "../../Atoms/Text/styles";
 import { Button } from "../../Atoms/Button";
-import { useContextSite } from "../../../context/Context";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { Link } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { Text } from "../../Atoms/Text";
 
 export const ServicesTemplate = () => {
   const [agendamentoSession, setAgendamentoSession] =

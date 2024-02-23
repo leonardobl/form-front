@@ -4,7 +4,7 @@ export const Label = styled.label`
   padding: 0 20px;
   width: 278px;
   height: 56px;
-  border-radius: 25px;
+  border-radius: 10px;
   /* border: 1px solid #50d05d; */
   background: #6fa599;
   box-shadow: 0px 4px 4px 0px #00000040;

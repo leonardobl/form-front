@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { Text } from "../../Atoms/Text/styles";
+import { Text } from "../../Atoms/Text";
 import { Button } from "../../Atoms/Button";
 import { Link } from "react-router-dom";
 

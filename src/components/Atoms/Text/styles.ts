@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Text = styled.p`
+export const MyText = styled.p`
   ${({ theme: { colors } }) => css`
     font-size: 24px;
     font-weight: 400;

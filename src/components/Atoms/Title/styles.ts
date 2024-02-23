@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Title = styled.h1`
+export const MyTitle = styled.h1`
   ${({ theme: { colors } }) => css`
     font-family: Mulish;
     font-size: 32px;

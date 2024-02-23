@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   position: relative;
-  width: fit-content;
+  width: 100%;
+  display: block;
 
   img {
     position: absolute;
@@ -13,7 +14,7 @@ export const Container = styled.div`
 `;
 
 export const Input = styled.input`
-  width: 474px;
+  width: 100%;
   height: 56px;
 
   border-radius: 10px;
