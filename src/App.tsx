@@ -24,6 +24,7 @@ import { Payment } from "./components/Pages/Payment";
 import { Pix } from "./components/Pages/Pix";
 import { Ticket } from "./components/Pages/Ticket";
 import { Schedules } from "./components/Pages/Schedules";
+import { ScheduleDetail } from "./components/Pages/ScheduleDetail";
 
 export const App = () => {
   return (
@@ -101,6 +102,7 @@ export const App = () => {
               }
             >
               <Route index element={<Schedules />} />
+              <Route path="agendamento" element={<ScheduleDetail />} />
             </Route>
           </Routes>
         </BrowserRouter>

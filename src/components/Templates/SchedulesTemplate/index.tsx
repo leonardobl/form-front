@@ -193,7 +193,7 @@ export const SchedulesTemplate = () => {
               onClick={() =>
                 window.open(
                   `/meus-agendamentos/agendamento?id=${item?.uuid}`,
-                  "_black"
+                  "_blanck"
                 )
               }
             />
