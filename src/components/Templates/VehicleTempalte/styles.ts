@@ -15,7 +15,7 @@ export const Form = styled.form`
   width: 100%;
   max-width: ${pxToRem(952)};
   margin: 0 auto;
-  background: rgba(18, 209, 167, 0.09);
+
   border-radius: ${pxToRem(5)};
   padding: ${pxToRem(32)} ${pxToRem(20)};
 
@@ -28,7 +28,7 @@ export const GridWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas: "modelo modelo ano placa" "renavam tipo chassi chassi";
-  gap: ${pxToRem(32)};
+  gap: ${pxToRem(32)} ${pxToRem(16)};
   margin-bottom: 48px;
 
   > :nth-child(1) {

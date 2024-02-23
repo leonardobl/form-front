@@ -4,6 +4,10 @@ export const Container = styled.div<{ $showIcon?: boolean }>`
   ${({ $showIcon }) => css`
     position: relative;
 
+    .react-datepicker-popper {
+      z-index: 2;
+    }
+
     .react-datepicker__navigation_wrapper {
       display: grid;
       grid-template-columns: 0.2fr 1fr 0.3fr;
@@ -37,7 +41,7 @@ export const Container = styled.div<{ $showIcon?: boolean }>`
         position: absolute;
         font-weight: 900;
         right: ${$showIcon ? "50px" : "10px"};
-        bottom: 16px;
+        bottom: 20px;
       }
     }
 

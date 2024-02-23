@@ -23,6 +23,7 @@ import { ProtectedClientRoute } from "./components/Atoms/ProtectedClientRoute";
 import { Payment } from "./components/Pages/Payment";
 import { Pix } from "./components/Pages/Pix";
 import { Ticket } from "./components/Pages/Ticket";
+import { Schedules } from "./components/Pages/Schedules";
 
 export const App = () => {
   return (
@@ -89,6 +90,17 @@ export const App = () => {
               />
               <Route path="pix" element={<Pix />} />
               <Route path="boleto" element={<Ticket />} />
+            </Route>
+
+            <Route
+              path="meus-agendamentos"
+              element={
+                <ProtectedRoute>
+                  <LayoutTemplate />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Schedules />} />
             </Route>
           </Routes>
         </BrowserRouter>
