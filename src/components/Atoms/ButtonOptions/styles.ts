@@ -145,19 +145,25 @@ export const ArrowDown = styled.img`
 `;
 
 export const ModalContent = styled.div`
-  padding: 102px 132px;
-  background: #50d05d;
+  /* padding: 102px 132px; */
+  background: #6fa599;
+  width: 506px;
+  height: 328px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   p {
-    color: #111111;
-    font-family: Lato;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 42px;
-    letter-spacing: 0em;
+    color: #fff;
     text-align: center;
-    max-width: 475px;
-    margin-bottom: 40px;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    max-width: 270px;
+    margin-bottom: 32px;
   }
 
   button {
