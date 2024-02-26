@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 import { ContextProvider } from "./context/Context";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "./components/Pages/home";
 import { Theme } from "./Global/Theme";
 import { GlobalStyles } from "./Global/GlobalStyles";
@@ -34,63 +34,60 @@ export const App = () => {
       <ContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route index element={<Home />} />
-            <Route
-              path="/loja"
-              element={
-                <ProtectedClientRoute>
-                  <Store />
-                </ProtectedClientRoute>
-              }
-            />
-            <Route
-              path="/domicilio"
-              element={
-                <ProtectedClientRoute>
-                  <Residence />
-                </ProtectedClientRoute>
-              }
-            />
-            <Route path="/login" element={<Login />} />
-            <Route path="/login-cadastro" element={<LoginRegister />} />
-            <Route path="/cadastro-usuario" element={<UserRegistration />} />
-            <Route
-              path="/servicos"
-              element={
-                <ProtectedRoute>
-                  <ProtectedClientRoute>
-                    <LayoutTemplate />
-                  </ProtectedClientRoute>
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Services />} />
+            <Route path="/" element={<Navigate to={"/agendamento"} />} />
+
+            <Route path="/agendamento" element={<LayoutTemplate />}>
+              <Route index element={<Home />} />
               <Route
-                path="cadastro-endereco"
-                element={<AddressRegistration />}
-              />
-              <Route path="emplacamento" element={<License />} />
-              <Route path="vistoria" element={<Survey />} />
-              <Route path="veiculo" element={<Vehicle />} />
-            </Route>
-            <Route
-              path="/pagamento"
-              element={
-                <ProtectedRoute>
-                  <LayoutTemplate />
-                </ProtectedRoute>
-              }
-            >
-              <Route
-                index
+                path="loja"
                 element={
-                  <ProtectedRoute>
-                    <Payment />
-                  </ProtectedRoute>
+                  <ProtectedClientRoute>
+                    <Store />
+                  </ProtectedClientRoute>
                 }
               />
-              <Route path="pix" element={<Pix />} />
-              <Route path="boleto" element={<Ticket />} />
+              <Route
+                path="domicilio"
+                element={
+                  <ProtectedClientRoute>
+                    <Residence />
+                  </ProtectedClientRoute>
+                }
+              />
+            </Route>
+
+            <Route
+              path="/agendamento/:uuidAgendamento?"
+              element={<LayoutTemplate />}
+            >
+              <Route path="login" element={<Login />} />
+              <Route path="login-cadastro" element={<LoginRegister />} />
+              <Route path="cadastro-usuario" element={<UserRegistration />} />
+
+              <Route path="servicos">
+                <Route index element={<Services />} />
+
+                <Route
+                  path="cadastro-endereco"
+                  element={<AddressRegistration />}
+                />
+                <Route path="emplacamento" element={<License />} />
+                <Route path="vistoria" element={<Survey />} />
+                <Route path="veiculo" element={<Vehicle />} />
+              </Route>
+
+              <Route path="pagamento">
+                <Route
+                  index
+                  element={
+                    <ProtectedRoute>
+                      <Payment />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="pix" element={<Pix />} />
+                <Route path="boleto" element={<Ticket />} />
+              </Route>
             </Route>
 
             <Route

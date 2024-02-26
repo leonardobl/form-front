@@ -1,45 +1,30 @@
-import React, { ComponentProps, useEffect, useState } from "react";
+import React, { ComponentProps, useEffect } from "react";
 import * as S from "./styles";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { Outlet } from "react-router-dom";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { Button } from "../../Atoms/Button";
-import { useContextSite } from "../../../context/Context";
+import { useLayout } from "./useLayout";
 
 interface LayoutTemplateProps extends ComponentProps<"div"> {
   children?: React.ReactNode;
 }
 
 export const LayoutTemplate = (props: LayoutTemplateProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const [token] = useSessionStorage("@token");
-  const { pathname } = useLocation();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const { setIsLoad } = useContextSite();
+  const {
+    handleLogin,
+    logout,
+    pathname,
+    menuOpen,
+    setMenuOpen,
+    token,
+    modalIsOpen,
+    navigate,
+    setModalIsOpen,
+  } = useLayout();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
-  function handleLogin() {
-    if (token) {
-      setModalIsOpen(true);
-      return;
-    }
-    navigate("/login");
-  }
-
-  function logout() {
-    setIsLoad(true);
-    setModalIsOpen(false);
-
-    setTimeout(() => {
-      sessionStorage.removeItem("@token");
-      setIsLoad(false);
-      navigate("/");
-    }, 2000);
-  }
 
   return (
     <S.Container {...props}>
@@ -59,15 +44,20 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                 {token ? "Logout" : "Login"}
               </button>
             </div>
-            <div>
-              <button>Meu Perfil</button>
-            </div>
-            <div>
-              <button>Agendamentos</button>
-            </div>
-            <div>
-              <button>Novo Agendamento</button>
-            </div>
+
+            {token && (
+              <>
+                <div>
+                  <button>Meu Perfil</button>
+                </div>
+                <div>
+                  <button>Agendamentos</button>
+                </div>
+                <div>
+                  <button>Novo Agendamento</button>
+                </div>
+              </>
+            )}
           </S.WrapperButton>
         </S.MainMenu>
       </S.WrapperMainMenu>

@@ -9,7 +9,7 @@ import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
 import { IVeiculoDTO } from "../../../types/agendamento";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useVehicle = () => {
@@ -18,15 +18,16 @@ export const useVehicle = () => {
   const navigate = useNavigate();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
+  const params = useParams();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     setIsLoad(true);
 
-    Agendamento.getById({ uuid: agendamentoSession?.uuidAgendamento })
+    Agendamento.getById({ uuid: params?.uuidAgendamento })
       .then(({ data }) => {
         const PAYLOAD: IPutAgendamentoProps = {
-          uuid: agendamentoSession?.uuidAgendamento,
+          uuid: params?.uuidAgendamento,
           diaAgendado: data.diaAgendado,
           horaAgendada: data.horaAgendada,
           tipoAtendimento: TipoAtendimentoEnum[data.tipoAtendimento],
@@ -61,11 +62,13 @@ export const useVehicle = () => {
                 return;
               }
 
-              navigate(`/pagamento`);
+              navigate(`/agendamento/${params.uuidAgendamento}/pagamento`);
               return;
             }
 
-            navigate("/servicos/cadastro-endereco");
+            navigate(
+              `/agendamento/${params.uuidAgendamento}/servicos/cadastro-endereco`
+            );
           })
           .catch(
             ({

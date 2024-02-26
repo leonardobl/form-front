@@ -97,7 +97,7 @@ export const useStore = () => {
           return;
         }
 
-        navigate("/login-cadastro");
+        navigate(`/agendamento/${data.uuid}/login-cadastro`);
       })
       .catch(
         ({

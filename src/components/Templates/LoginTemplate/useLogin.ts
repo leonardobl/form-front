@@ -8,13 +8,14 @@ import { Cliente } from "../../../services/Cliente";
 import { useContextSite } from "../../../context/Context";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const useLogin = () => {
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
   const { isLoad, setIsLoad } = useContextSite();
   const [isDisable, setIsDisable] = useState(false);
   const [token, setToken] = useSessionStorage("@token");
+  const params = useParams();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
 
@@ -84,7 +85,7 @@ export const useLogin = () => {
                 setIsDisable(false);
 
                 if (agendamentoSession?.uuidAgendamento) {
-                  navigate("/servicos");
+                  navigate(`/agendamento/${params.uuidAgendamento}/servicos`);
                   return;
                 }
 

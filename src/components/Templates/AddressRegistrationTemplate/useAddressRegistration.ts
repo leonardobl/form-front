@@ -5,7 +5,7 @@ import { ISelectOptions } from "../../../types/inputs";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { maskCep, maskPhone } from "../../../utils/masks";
 import { ViaCep } from "../../../services/ViaCep";
 import { IAgendamentoSessionProps } from "../../../types/agendamentoSession";
@@ -22,13 +22,14 @@ export const useAddressRegistration = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const navigate = useNavigate();
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
+  const params = useParams();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
     setIsLoad(true);
 
-    const PAYLOAD = { ...form, uuid: agendamentoSession?.uuidAgendamento };
+    const PAYLOAD = { ...form, uuid: params?.uuidAgendamento };
 
     Agendamento.putAddress(PAYLOAD)
       .then(({ data }) => {
@@ -43,7 +44,7 @@ export const useAddressRegistration = () => {
             return;
           }
 
-          navigate("/pagamento");
+          navigate(`/agendamento/${params.uuidAgendamento}/pagamento`);
         }, 3000);
       })
       .catch(

@@ -10,39 +10,37 @@ export const LoginTemplate = () => {
   const { form, setForm, handleCpf, handleSubmit } = useLogin();
 
   return (
-    <LayoutTemplate>
-      <S.Container>
-        <Title className="title">LOGIN</Title>
+    <S.Container>
+      <Title className="title">LOGIN</Title>
 
-        <S.Form onSubmit={handleSubmit}>
-          <div>
-            <Input
-              label="CPF/ CNPJ"
-              required
-              maxLength={18}
-              value={form?.cpfCNPJ}
-              onChange={(e) => {
-                handleCpf(e.target.value);
-              }}
-            />
-          </div>
-          <div>
-            <Input
-              label="Senha"
-              required
-              type="password"
-              value={form.senha}
-              onChange={(e) =>
-                setForm((prev) => ({ ...prev, senha: e.target.value }))
-              }
-            />
-          </div>
+      <S.Form onSubmit={handleSubmit}>
+        <div>
+          <Input
+            label="CPF/ CNPJ"
+            required
+            maxLength={18}
+            value={form?.cpfCNPJ}
+            onChange={(e) => {
+              handleCpf(e.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <Input
+            label="Senha"
+            required
+            type="password"
+            value={form.senha}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, senha: e.target.value }))
+            }
+          />
+        </div>
 
-          <a href="#">Esqueceu sua senha?</a>
+        <a href="#">Esqueceu sua senha?</a>
 
-          <Button>Entrar</Button>
-        </S.Form>
-      </S.Container>
-    </LayoutTemplate>
+        <Button>Entrar</Button>
+      </S.Form>
+    </S.Container>
   );
 };

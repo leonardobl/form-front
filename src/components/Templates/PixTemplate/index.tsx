@@ -6,9 +6,12 @@ import { PaymentCodContainer } from "../../Atoms/PaymentCodContainer";
 import { Button } from "../../Atoms/Button";
 import { usePix } from "./usePix";
 import { maskMoney } from "../../../utils/masks";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const PixTemplate = () => {
   const { pagamento } = usePix();
+  const navigate = useNavigate();
+  const params = useParams();
 
   return (
     <S.Container>
@@ -42,7 +45,15 @@ export const PixTemplate = () => {
           <Button>VER FATURA</Button>
         </div>
         <div>
-          <Button>ALTERAR PARA BOLETO</Button>
+          <Button
+            onClick={() =>
+              navigate(
+                `/agendamento/${params.uuidAgendamento}/pagamento/boleto`
+              )
+            }
+          >
+            ALTERAR PARA BOLETO
+          </Button>
         </div>
       </S.GridWrapper>
     </S.Container>

@@ -12,43 +12,43 @@ export const HomeTemplate = () => {
     useSessionStorage("agendamentoSession");
 
   return (
-    <LayoutTemplate>
-      <S.Container>
-        <S.Wrapper>
-          <Text className="text">
-            Escolha onde você deseja executar sua vistoria veicular, na{" "}
-            <span className="textStrong">loja física</span> ou em{" "}
-            <span className="textStrong">endereço de sua preferência</span>.
-          </Text>
+    <S.Container>
+      <S.Wrapper>
+        <Text className="text">
+          Escolha onde você deseja executar sua vistoria veicular, na{" "}
+          <span className="textStrong">loja física</span> ou em{" "}
+          <span className="textStrong">endereço de sua preferência</span>.
+        </Text>
 
-          <S.FlexWrapper>
-            <Link to={`/${TipoAtendimentoEnum.LOJA.toLowerCase()}`}>
-              <Button
-                onClick={() =>
-                  setAgendamentoSession({
-                    ...agendamentoSession,
-                    tipoAtendimento: TipoAtendimentoEnum.LOJA,
-                  })
-                }
-              >
-                Loja Física
-              </Button>
-            </Link>
-            <Link to={`/${TipoAtendimentoEnum.DOMICILIO.toLowerCase()}`}>
-              <Button
-                onClick={() =>
-                  setAgendamentoSession({
-                    ...agendamentoSession,
-                    tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
-                  })
-                }
-              >
-                Domicílio
-              </Button>
-            </Link>
-          </S.FlexWrapper>
-        </S.Wrapper>
-      </S.Container>
-    </LayoutTemplate>
+        <S.FlexWrapper>
+          <Link to={`/agendamento/${TipoAtendimentoEnum.LOJA.toLowerCase()}`}>
+            <Button
+              onClick={() =>
+                setAgendamentoSession({
+                  ...agendamentoSession,
+                  tipoAtendimento: TipoAtendimentoEnum.LOJA,
+                })
+              }
+            >
+              Loja Física
+            </Button>
+          </Link>
+          <Link
+            to={`/agendamento/${TipoAtendimentoEnum.DOMICILIO.toLowerCase()}`}
+          >
+            <Button
+              onClick={() =>
+                setAgendamentoSession({
+                  ...agendamentoSession,
+                  tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
+                })
+              }
+            >
+              Domicílio
+            </Button>
+          </Link>
+        </S.FlexWrapper>
+      </S.Wrapper>
+    </S.Container>
   );
 };

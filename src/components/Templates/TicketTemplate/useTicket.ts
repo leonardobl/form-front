@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useContextSite } from "../../../context/Context";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { IFaturaDTO } from "../../../types/pagamento";
+import { useContextSite } from "../../../context/Context";
 import { Pagamento } from "../../../services/Pagamento";
 import { toast } from "react-toastify";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useParams } from "react-router-dom";
 
-export const usePix = () => {
-  const { setIsLoad } = useContextSite();
-  const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
+export const useTicket = () => {
+  const [agendamento, setAgendamento] = useSessionStorage("agendamento");
   const params = useParams();
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
+  const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
 
-  // function acessarFatura() {
-  //   window.open(
-  //     `${agendamento?.fatura?.url ? agendamento?.fatura?.url : pagamento?.url}`,
-  //     "_blank"
-  //   );
-  // }
+  const { isLoad, setIsLoad } = useContextSite();
+
+  function acessarFatura() {
+    window.open(
+      `${agendamento?.fatura?.url ? agendamento?.fatura?.url : pagamento?.url}`,
+      "_blank"
+    );
+  }
 
   useEffect(() => {
     if (!params?.uuidAgendamento) return;
 
     setIsLoad(true);
 
-    Pagamento.consultarFatura({
-      uuidAgendamento: params?.uuidAgendamento,
-    })
+    Pagamento.consultarFatura({ uuidAgendamento: params?.uuidAgendamento })
       .then(({ data }) => {
+        console.log(data);
         setPagamento(data);
       })
       .catch(

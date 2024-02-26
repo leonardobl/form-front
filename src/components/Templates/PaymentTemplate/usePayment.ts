@@ -5,9 +5,10 @@ import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const usePayment = () => {
+  const params = useParams();
   const [payment, setPayment] = useState<FormaPagamentoEnum>();
   // const [pagamento, setPagamento] = useState<IAgendamentoDTO>(
   //   {} as IAgendamentoDTO
@@ -18,7 +19,11 @@ export const usePayment = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    navigate(`/pagamento/${payment.toLowerCase()}`);
+    navigate(
+      `/agendamento/${
+        params.uuidAgendamento
+      }/pagamento/${payment.toLowerCase()}`
+    );
   }
 
   // useEffect(() => {

@@ -6,13 +6,14 @@ import {
 import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useSurvey = () => {
   const { setIsLoad } = useContextSite();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
+  const params = useParams();
 
   const [form, setForm] = useState<IConsultaUnionProps>(
     {} as IConsultaUnionProps
@@ -38,7 +39,7 @@ export const useSurvey = () => {
           ...agendamentoSession,
           uuidVeiculo: data.uuid,
         });
-        navigate(`/servicos/veiculo`);
+        navigate(`/agendamento/${params.uuidAgendamento}/servicos/veiculo`);
       })
       .catch(
         ({

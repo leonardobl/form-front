@@ -8,7 +8,7 @@ import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { addDays } from "date-fns";
 import { Delivery } from "../../../services/Delivery";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const useResidence = () => {
   const [token] = useSessionStorage("@token");
@@ -50,11 +50,11 @@ export const useResidence = () => {
         });
 
         if (token) {
-          navigate("/servicos");
+          navigate(`/agendamento/${data.uuid}/servicos`);
           return;
         }
 
-        navigate("/login-cadastro");
+        navigate(`/agendamento/${data.uuid}/login-cadastro`);
       })
       .catch(
         ({
