@@ -25,7 +25,7 @@ import { Pix } from "./components/Pages/Pix";
 import { Ticket } from "./components/Pages/Ticket";
 import { Schedules } from "./components/Pages/Schedules";
 import { ScheduleDetail } from "./components/Pages/ScheduleDetail";
-import { Profile } from "./components/Pages/Profile";
+import { EditProfile } from "./components/Pages/EditProfile";
 
 export const App = () => {
   return (
@@ -40,7 +40,7 @@ export const App = () => {
               path="/perfil"
               element={
                 <ProtectedRoute>
-                  <Profile />
+                  <EditProfile />
                 </ProtectedRoute>
               }
             />

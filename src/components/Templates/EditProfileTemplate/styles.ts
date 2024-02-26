@@ -11,13 +11,19 @@ export const Container = styled.div`
   `}
 `;
 
-export const Form = styled.form`
+export const FormClient = styled.form`
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
 `;
 
-export const Grid = styled.div`
+export const FormAdmin = styled.form`
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+`;
+
+export const GridClient = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 48px 16px;
@@ -76,6 +82,37 @@ export const Grid = styled.div`
   }
 
   > :nth-child(14) {
+    grid-area: button;
+
+    button {
+      margin: 0 auto;
+    }
+  }
+`;
+
+export const GridAdmin = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px 16px;
+  grid-template-areas: "nome nome" "cpf telefone" "email email" "button button";
+
+  > :nth-child(1) {
+    grid-area: nome;
+  }
+
+  > :nth-child(2) {
+    grid-area: cpf;
+  }
+
+  > :nth-child(3) {
+    grid-area: telefone;
+  }
+
+  > :nth-child(4) {
+    grid-area: email;
+  }
+
+  > :nth-child(5) {
     grid-area: button;
 
     button {

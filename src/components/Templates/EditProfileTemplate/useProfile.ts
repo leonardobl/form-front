@@ -6,6 +6,8 @@ import { IClienteForm } from "../../../types/cliente";
 import { Ibge } from "../../../services/Ibge";
 import { useContextSite } from "../../../context/Context";
 import { ViaCep } from "../../../services/ViaCep";
+import { RolesEnum } from "../../../enums/roles";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useProfile = () => {
   const inpSenhaRef = useRef<HTMLInputElement>(null);
@@ -14,6 +16,18 @@ export const useProfile = () => {
   const { setIsLoad } = useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [form, setForm] = useState<IClienteForm>({} as IClienteForm);
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
+  const [token] = useSessionStorage("@token");
+
+  const isAdmGerente = agendamentoSession?.roles?.some(
+    (regra) =>
+      regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE
+  );
+
+  const isCliente = !!(
+    agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE) && token
+  );
 
   function checkPass() {
     const pass = inpSenhaRef.current.value;
@@ -117,5 +131,7 @@ export const useProfile = () => {
     cidadesOptions,
     inpSenhaRef,
     inpConfirSenha,
+    isAdmGerente,
+    isCliente,
   };
 };
