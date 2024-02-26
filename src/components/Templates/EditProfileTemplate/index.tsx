@@ -28,7 +28,7 @@ export const EditProfileTemplate = () => {
     <LayoutTemplate>
       <S.Container>
         <Title>Meu perfil</Title>
-        {!isCliente ? (
+        {isCliente ? (
           <S.FormClient>
             <S.GridClient>
               <div>

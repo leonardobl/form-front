@@ -58,7 +58,9 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                   </button>
                 </div>
                 <div>
-                  <button>Novo Agendamento</button>
+                  <button onClick={() => navigate("/novo-agendamento")}>
+                    Novo Agendamento
+                  </button>
                 </div>
               </>
             )}

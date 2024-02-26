@@ -26,6 +26,7 @@ import { Ticket } from "./components/Pages/Ticket";
 import { Schedules } from "./components/Pages/Schedules";
 import { ScheduleDetail } from "./components/Pages/ScheduleDetail";
 import { EditProfile } from "./components/Pages/EditProfile";
+import { NewScheduling } from "./components/Pages/NewScheduling";
 
 export const App = () => {
   return (
@@ -45,6 +46,14 @@ export const App = () => {
               }
             />
 
+            <Route
+              path="/novo-agendamento"
+              element={
+                <ProtectedRoute>
+                  <NewScheduling />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/agendamento" element={<LayoutTemplate />}>
               <Route index element={<Home />} />
               <Route
