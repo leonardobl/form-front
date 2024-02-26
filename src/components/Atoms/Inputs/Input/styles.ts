@@ -60,6 +60,10 @@ export const Input = styled.input<{ $typeInput?: string }>`
       -webkit-appearance: none;
     }
 
+    &[data-variant-edit="true"] {
+      padding-right: 50px;
+    }
+
     &:focus {
       outline: none;
     }
@@ -69,4 +73,12 @@ export const Input = styled.input<{ $typeInput?: string }>`
       color: #fff;
     }
   `}
+`;
+
+export const IconEdit = styled.img`
+  display: block;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 `;

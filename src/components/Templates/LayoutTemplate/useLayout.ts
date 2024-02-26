@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContextSite } from "../../../context/Context";
+import { cleanStorage } from "../../../utils/cleanStorage";
 
 export const useLayout = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,9 +25,9 @@ export const useLayout = () => {
     setModalIsOpen(false);
 
     setTimeout(() => {
-      sessionStorage.removeItem("@token");
+      cleanStorage();
       setIsLoad(false);
-      navigate("/");
+      window.open("/", "_self");
     }, 2000);
   }
   return {

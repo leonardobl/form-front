@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import * as S from "./styles";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
+type VariantesTypes = "edit";
+
 interface InputCustomProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   required?: boolean;
+  variant?: VariantesTypes;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputCustomProps>(
@@ -30,6 +33,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputCustomProps>(
           type={eyeOpen ? "text" : props.type}
           onWheel={(event) => event.currentTarget.blur()}
           ref={ref}
+          data-variant-edit={props.variant === "edit"}
         />
         {props.type === "password" ? (
           eyeOpen ? (
@@ -38,6 +42,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputCustomProps>(
             <IoEyeOffSharp onClick={handleTypeChange} />
           )
         ) : null}
+
+        {props.variant === "edit" && (
+          <S.IconEdit src="/assets/svgs/icon-edit.svg" alt="icone de edite" />
+        )}
       </S.Container>
     );
   }

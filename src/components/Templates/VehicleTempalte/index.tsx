@@ -15,29 +15,23 @@ export const VehicleTemplate = () => {
       <S.Form onSubmit={handleSubmit}>
         <S.GridWrapper>
           <div>
-            <S.Label>Modelo do carro</S.Label>
-            <Input readOnly value={form?.modelo} />
+            <Input label="Modelo do carro" readOnly value={form?.modelo} />
           </div>
           <div>
-            <S.Label>ano</S.Label>
-            <Input readOnly value={form?.ano} />
+            <Input label="Ano" readOnly value={form?.ano} />
           </div>
           <div>
-            <S.Label>Placa</S.Label>
-            <Input readOnly value={form?.placa} />
+            <Input label="Placa" readOnly value={form?.placa} />
           </div>
 
           <div>
-            <S.Label>rENAVAM</S.Label>
-            <Input readOnly value={form?.renavam} />
+            <Input label="Renavam" readOnly value={form?.renavam} />
           </div>
           <div>
-            <S.Label>Tipo de veículo</S.Label>
-            <Input readOnly value={form?.tipo} />
+            <Input label="Tipo de Veículo" readOnly value={form?.tipo} />
           </div>
           <div>
-            <S.Label>Chassi</S.Label>
-            <Input readOnly value={form?.chassi} />
+            <Input label="Chassi" readOnly value={form?.chassi} />
           </div>
         </S.GridWrapper>
         <Button disabled={isLoad}>Confirmar</Button>

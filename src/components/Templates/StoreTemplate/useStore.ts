@@ -93,7 +93,7 @@ export const useStore = () => {
         });
 
         if (token) {
-          navigate("/servicos");
+          navigate(`/agendamento/${data.uuid}/servicos`);
           return;
         }
 

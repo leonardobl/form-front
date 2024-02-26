@@ -48,10 +48,14 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
             {token && (
               <>
                 <div>
-                  <button>Meu Perfil</button>
+                  <button onClick={() => navigate("/perfil")}>
+                    Meu Perfil
+                  </button>
                 </div>
                 <div>
-                  <button>Agendamentos</button>
+                  <button onClick={() => navigate("/meus-agendamentos")}>
+                    Agendamentos
+                  </button>
                 </div>
                 <div>
                   <button>Novo Agendamento</button>

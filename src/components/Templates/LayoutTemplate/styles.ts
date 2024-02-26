@@ -94,7 +94,7 @@ export const Wrapper = styled.div`
 `;
 
 export const WrapperButton = styled.div`
-  padding: 40px;
+  padding: 16px 40px;
   display: flex;
   flex-direction: column;
   gap: 32px 0;
@@ -112,10 +112,9 @@ export const WrapperButton = styled.div`
     font-family: Mulish;
     font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 20px;
     letter-spacing: 0.48px;
-    white-space: nowrap;
 
     background-color: transparent;
   }

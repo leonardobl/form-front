@@ -25,6 +25,7 @@ import { Pix } from "./components/Pages/Pix";
 import { Ticket } from "./components/Pages/Ticket";
 import { Schedules } from "./components/Pages/Schedules";
 import { ScheduleDetail } from "./components/Pages/ScheduleDetail";
+import { Profile } from "./components/Pages/Profile";
 
 export const App = () => {
   return (
@@ -35,6 +36,14 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Navigate to={"/agendamento"} />} />
+            <Route
+              path="/perfil"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="/agendamento" element={<LayoutTemplate />}>
               <Route index element={<Home />} />
