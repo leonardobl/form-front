@@ -92,3 +92,70 @@ export const WrapperIconsBar = styled.div`
 export const Wrapper = styled.div`
   padding: 20px;
 `;
+
+export const WrapperButton = styled.div`
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px 0;
+
+  > div {
+    padding-top: 32px;
+  }
+
+  > div + div {
+    border-top: 1px solid #677a7666;
+  }
+
+  button {
+    color: #20332f;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.48px;
+    white-space: nowrap;
+
+    background-color: transparent;
+  }
+`;
+
+export const ModalContent = styled.div`
+  /* padding: 102px 132px; */
+  background: #6fa599;
+  width: 506px;
+  height: 328px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    color: #fff;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    max-width: 270px;
+    margin-bottom: 32px;
+  }
+
+  button {
+    margin: 0 auto;
+    display: block;
+  }
+
+  @media (max-width: 500px) {
+    padding: 32px 48px;
+
+    p {
+      font-size: 18px;
+      line-height: 24px;
+      max-width: 200px;
+      margin: 0 auto 24px;
+    }
+  }
+`;
