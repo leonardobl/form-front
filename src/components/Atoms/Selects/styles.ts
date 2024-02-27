@@ -48,10 +48,6 @@ export const Container = styled.div<{
     svg path {
       fill: #111;
     }
-
-    .css-1fdsijx-ValueContainer {
-      padding-left: ${$variantSearch && "40px"};
-    }
   `}
 `;
 

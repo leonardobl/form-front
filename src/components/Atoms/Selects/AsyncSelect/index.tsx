@@ -22,8 +22,7 @@ export function AsyncSimpleSelect<
       // match with the menu
       borderRadius: 10,
       // letterSpacing: 1,
-
-      padding: "0 20px",
+      padding: props.variant ? "0 40px" : "0 20px",
       fontFamily: "Mulish",
       // color: state.isSelected ? "red" : "blue",
       // Overwrittes the different states of border
