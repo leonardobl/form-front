@@ -50,7 +50,7 @@ export const Container = styled.div<{
     }
 
     .css-1fdsijx-ValueContainer {
-      padding-left: ${$variantSearch && "30px"};
+      padding-left: ${$variantSearch && "40px"};
     }
   `}
 `;
