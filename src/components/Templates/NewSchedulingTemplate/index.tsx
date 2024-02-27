@@ -276,8 +276,8 @@ export const NewSchedulingTemplate = () => {
             </S.FormVeihecle>
 
             <SwitchOptions
-              IconA="/assets/svgs/pix-dark.svg"
-              IconB="/assets/svgs/boleto-dark.svg"
+              IconA="/assets/svgs/pix1.svg"
+              IconB="/assets/svgs/codigoBarras1.svg"
               optionA={{
                 label: "Pix",
                 value: FormaPagamentoEnum.PIX,
