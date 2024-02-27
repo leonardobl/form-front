@@ -123,7 +123,7 @@ export const ListTitles = styled.div`
 
   > h3 {
     white-space: nowrap;
-    color: #2d2d2d;
+    color: #20332f;
     font-family: Mulish;
     font-size: 16px;
     font-style: normal;
