@@ -15,6 +15,7 @@ export function AsyncSimpleSelect<
   props: AsyncProps<Option, IsMulti, Group> &
     RefAttributes<Select<Option, IsMulti, Group>>
 ) {
+  const myVariant = props.variant;
   const customStyles = {
     control: (base: any, state: { isFocused: any }) => ({
       ...base,
@@ -75,21 +76,21 @@ export function AsyncSimpleSelect<
   };
 
   const DropdownIndicator = (props) => {
-    return (
-      components.DropdownIndicator && (
-        <components.DropdownIndicator {...props}>
-          <img
-            src="/assets/svgs/arrowDownSelect.svg"
-            alt="icone arrow"
-            style={{ cursor: "pointer" }}
-          />
-        </components.DropdownIndicator>
-      )
-    );
+    return !myVariant
+      ? components.DropdownIndicator && (
+          <components.DropdownIndicator {...props}>
+            <img
+              src="/assets/svgs/arrowDownSelect.svg"
+              alt="icone arrow"
+              style={{ cursor: "pointer" }}
+            />
+          </components.DropdownIndicator>
+        )
+      : null;
   };
 
   return (
-    <S.Container $isLabel={!!props.label} $variantSearch={!!props.variant}>
+    <S.Container $isLabel={!!props.label} $variantSearch={!!myVariant}>
       {props.label && (
         <S.Label>
           {props.label}{" "}
