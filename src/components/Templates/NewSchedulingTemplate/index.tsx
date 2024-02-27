@@ -62,37 +62,37 @@ export const NewSchedulingTemplate = () => {
         <S.FormModal>
           <S.GridModal onSubmit={() => setCliente(true)}>
             <div>
-              <Input label="Nome" required />
+              <Input variant="modal" label="Nome" required />
             </div>
             <div>
-              <Input label="CPF/CNPJ" required />
+              <Input variant="modal" label="CPF/CNPJ" required />
             </div>
             <div>
-              <Input label="E-mail" />
+              <Input variant="modal" label="E-mail" />
             </div>
             <div>
-              <Input label="Telefone" />
+              <Input variant="modal" label="Telefone" />
             </div>
             <div>
-              <SimpleSelect label="Tipo" required />
+              <SimpleSelect variant="modal" label="Tipo" required />
             </div>
             <div>
-              <Input label="CEP" required />
+              <Input variant="modal" label="CEP" required />
             </div>
             <div>
-              <Input label="Endereço (Rua)" required />
+              <Input variant="modal" label="Endereço (Rua)" required />
             </div>
             <div>
-              <Input label="Complemento" required />
+              <Input variant="modal" label="Complemento" required />
             </div>
             <div>
-              <Input label="Bairro" required />
+              <Input variant="modal" label="Bairro" required />
             </div>
             <div>
-              <SimpleSelect label="UF" required />
+              <SimpleSelect variant="modal" label="UF" required />
             </div>
             <div>
-              <SimpleSelect label="Cidade" required />
+              <SimpleSelect variant="modal" label="Cidade" required />
             </div>
             <div>
               <Button>Salvar</Button>

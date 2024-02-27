@@ -66,6 +66,10 @@ export const Label = styled.label`
   font-style: normal;
   font-weight: 400;
   line-height: 16px;
+
+  &[data-variant-modal="true"] {
+    background: #e1f2ee;
+  }
 `;
 
 export const Required = styled.span<{ $isRequired: boolean }>`

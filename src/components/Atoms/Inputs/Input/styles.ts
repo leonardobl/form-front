@@ -36,6 +36,10 @@ export const Label = styled.label<{ $isRequired: boolean }>`
   font-weight: 400;
   line-height: 16px;
 
+  &[data-variant-modal="true"] {
+    background: #e1f2ee;
+  }
+
   span {
     color: rgba(237, 0, 0, 1);
     display: ${({ $isRequired }) => ($isRequired ? "block" : "none")};
@@ -68,9 +72,17 @@ export const Input = styled.input<{ $typeInput?: string }>`
       outline: none;
     }
 
+    &[data-variant-modal="true"] {
+      background-color: #e1f2ee;
+    }
+
     &::selection {
       background-color: #12d1a7;
       color: #fff;
+    }
+
+    &:read-only {
+      border: 1px solid #adb7b5;
     }
   `}
 `;

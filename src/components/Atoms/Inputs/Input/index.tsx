@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as S from "./styles";
 import { IoEyeOffSharp, IoEyeSharp } from "react-icons/io5";
 
-type VariantesTypes = "edit";
+type VariantesTypes = "edit" | "modal";
 
 interface InputCustomProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -21,7 +21,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputCustomProps>(
     return (
       <S.Container>
         {props.label && (
-          <S.Label $isRequired={!!props.required}>
+          <S.Label
+            $isRequired={!!props.required}
+            data-variant-modal={props.variant === "modal"}
+          >
             {props.label}
             <span>*</span>
           </S.Label>
@@ -30,6 +33,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputCustomProps>(
         <S.Input
           $typeInput={props.type}
           {...props}
+          data-variant-modal={props.variant === "modal"}
           type={eyeOpen ? "text" : props.type}
           onWheel={(event) => event.currentTarget.blur()}
           ref={ref}

@@ -18,10 +18,13 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     props: Props<Option, IsMulti, Group>,
     ref: Ref<SelectInstance<Option, IsMulti, Group>>
   ) {
+    const myVariant = props.variant;
+
     const customStyles = {
       control: (base: any, state: { isFocused: any }) => ({
         ...base,
-        background: "#fff",
+        background: myVariant === "modal" ? "#E1F2EE" : "#fff",
+
         // match with the menu
         borderRadius: 10,
         // letterSpacing: 10,
@@ -102,7 +105,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     return (
       <S.Container $isLabel={!!props.label}>
         {props.label && (
-          <S.Label>
+          <S.Label data-variant-modal={myVariant === "modal"}>
             {props.label}{" "}
             <S.Required $isRequired={!!props.required}>*</S.Required>
           </S.Label>
