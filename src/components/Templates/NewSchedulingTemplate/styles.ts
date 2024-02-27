@@ -32,7 +32,7 @@ export const Container = styled.div`
 
 export const FormSearch = styled.form`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 0.5fr;
   grid-template-areas: "input input input button";
   align-items: center;
   gap: 0 16px;

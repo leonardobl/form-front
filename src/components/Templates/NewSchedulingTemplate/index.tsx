@@ -41,6 +41,7 @@ export const NewSchedulingTemplate = () => {
       item.label.toLowerCase().includes(txt.toLowerCase())
     );
   };
+  const [cliente, setCliente] = useState(false);
 
   const { Option } = components;
   const IconOption = (props) => (
@@ -59,7 +60,7 @@ export const NewSchedulingTemplate = () => {
         isOpen={modalIsOpen}
       >
         <S.FormModal>
-          <S.GridModal>
+          <S.GridModal onSubmit={() => setCliente(true)}>
             <div>
               <Input label="Nome" required />
             </div>
@@ -106,6 +107,7 @@ export const NewSchedulingTemplate = () => {
             <AsyncSimpleSelect
               variant="search"
               placeholder=""
+              isClearable
               noOptionsMessage={() => (
                 <S.NotFoundvalue>
                   Não encontrado
@@ -117,6 +119,7 @@ export const NewSchedulingTemplate = () => {
                 </S.NotFoundvalue>
               )}
               loadOptions={getValues}
+              onChange={(e) => setCliente(() => (e?.value ? true : false))}
               options={options}
               components={{ Option: IconOption }}
             />
@@ -125,156 +128,172 @@ export const NewSchedulingTemplate = () => {
             <Button>Buscar</Button>
           </div>
         </S.FormSearch>
-        <S.FormUser>
-          <S.GridUser>
-            <div>
-              <Input label="Nome" readOnly />
-            </div>
 
-            <div>
-              <Input label="CPF/CNPJ" readOnly />
-            </div>
+        {cliente && (
+          <>
+            <S.FormUser>
+              <S.GridUser>
+                <div>
+                  <Input label="Nome" readOnly />
+                </div>
 
-            <div>
-              <Input label="Telefone" readOnly />
-            </div>
+                <div>
+                  <Input label="CPF/CNPJ" readOnly />
+                </div>
 
-            <div>
-              <Input label="E-mail" readOnly />
-            </div>
+                <div>
+                  <Input label="Telefone" readOnly />
+                </div>
 
-            <div>
-              <Input label="Tipo" readOnly />
-            </div>
-          </S.GridUser>
-        </S.FormUser>
-        <SwitchOptions
-          optionA={{ label: "Loja Física", value: TipoAtendimentoEnum.LOJA }}
-          optionB={{ label: "Domicílio", value: TipoAtendimentoEnum.DOMICILIO }}
-          className="optionAtendance"
-          handleOnChange={(v) => setTipoAtendimento(TipoAtendimentoEnum[v])}
-        />
-        <Title>
-          {tipoAtendimento === TipoAtendimentoEnum.LOJA
-            ? "Loja Física"
-            : "Domicílio"}
-        </Title>
-        <S.FormAtendence>
-          <S.GridAtendece>
-            <div>
-              <SimpleSelect
-                required
-                label={
-                  tipoAtendimento === TipoAtendimentoEnum.LOJA
-                    ? "Loja"
-                    : "Cidade"
-                }
-              />
-            </div>
+                <div>
+                  <Input label="E-mail" readOnly />
+                </div>
 
-            <div>
-              <Text>
-                Datas e horários <span className="textStrong">disponíveis</span>
-                .
-              </Text>
-            </div>
+                <div>
+                  <Input label="Tipo" readOnly />
+                </div>
+              </S.GridUser>
+            </S.FormUser>
+            <SwitchOptions
+              optionA={{
+                label: "Loja Física",
+                value: TipoAtendimentoEnum.LOJA,
+              }}
+              optionB={{
+                label: "Domicílio",
+                value: TipoAtendimentoEnum.DOMICILIO,
+              }}
+              className="optionAtendance"
+              handleOnChange={(v) => setTipoAtendimento(TipoAtendimentoEnum[v])}
+            />
+            <Title>
+              {tipoAtendimento === TipoAtendimentoEnum.LOJA
+                ? "Loja Física"
+                : "Domicílio"}
+            </Title>
+            <S.FormAtendence>
+              <S.GridAtendece>
+                <div>
+                  <SimpleSelect
+                    required
+                    label={
+                      tipoAtendimento === TipoAtendimentoEnum.LOJA
+                        ? "Loja"
+                        : "Cidade"
+                    }
+                  />
+                </div>
 
-            <div>
-              <InputDate required label="Data" showIcon onChange={() => ""} />
-            </div>
+                <div>
+                  <Text>
+                    Datas e horários{" "}
+                    <span className="textStrong">disponíveis</span>.
+                  </Text>
+                </div>
 
-            <div>
-              <SimpleSelect label="Horário" required />
-            </div>
-          </S.GridAtendece>
-        </S.FormAtendence>
+                <div>
+                  <InputDate
+                    required
+                    label="Data"
+                    showIcon
+                    onChange={() => ""}
+                  />
+                </div>
 
-        <Text className="textService">
-          Escolha qual <span className="textStrong">serviço</span> você deseja
-          realizar.
-        </Text>
+                <div>
+                  <SimpleSelect label="Horário" required />
+                </div>
+              </S.GridAtendece>
+            </S.FormAtendence>
 
-        <SwitchOptions
-          optionA={{
-            label: "1° Emplacamento",
-            value: OpcoesServicosEnum.EMPLACAMENTO,
-          }}
-          optionB={{
-            label: "Vistoria",
-            value: OpcoesServicosEnum.VISTORIA,
-          }}
-          className="optionAtendance"
-          handleOnChange={(v) => setTipoServico(OpcoesServicosEnum[v])}
-        />
+            <Text className="textService">
+              Escolha qual <span className="textStrong">serviço</span> você
+              deseja realizar.
+            </Text>
 
-        {tipoServico === OpcoesServicosEnum.EMPLACAMENTO ? (
-          <S.FormService>
-            <S.GridLicense>
-              <div>
-                <Input label="Chassi" required />
-              </div>
-              <div>
-                <Button>Buscar</Button>
-              </div>
-            </S.GridLicense>
-          </S.FormService>
-        ) : (
-          <S.FormService>
-            <S.GridSurvey>
-              <div>
-                <Input label="Placa" required />
-              </div>
-              <div>
-                <Input label="Renavam" required />
-              </div>
-              <div>
-                <Button>Buscar</Button>
-              </div>
-            </S.GridSurvey>
-          </S.FormService>
+            <SwitchOptions
+              optionA={{
+                label: "1° Emplacamento",
+                value: OpcoesServicosEnum.EMPLACAMENTO,
+              }}
+              optionB={{
+                label: "Vistoria",
+                value: OpcoesServicosEnum.VISTORIA,
+              }}
+              className="optionAtendance"
+              handleOnChange={(v) => setTipoServico(OpcoesServicosEnum[v])}
+            />
+
+            {tipoServico === OpcoesServicosEnum.EMPLACAMENTO ? (
+              <S.FormService>
+                <S.GridLicense>
+                  <div>
+                    <Input label="Chassi" required />
+                  </div>
+                  <div>
+                    <Button>Buscar</Button>
+                  </div>
+                </S.GridLicense>
+              </S.FormService>
+            ) : (
+              <S.FormService>
+                <S.GridSurvey>
+                  <div>
+                    <Input label="Placa" required />
+                  </div>
+                  <div>
+                    <Input label="Renavam" required />
+                  </div>
+                  <div>
+                    <Button>Buscar</Button>
+                  </div>
+                </S.GridSurvey>
+              </S.FormService>
+            )}
+
+            <Title>Informações do Veículo</Title>
+
+            <S.FormVeihecle>
+              <S.GridVeihecle>
+                <div>
+                  <Input label="Modelo do carro" readOnly />
+                </div>
+                <div>
+                  <Input label="Ano" readOnly />
+                </div>
+                <div>
+                  <Input label="Placa" readOnly />
+                </div>
+                <div>
+                  <Input label="Renavam" readOnly />
+                </div>
+                <div>
+                  <Input label="Tipo de Veículo" readOnly />
+                </div>
+                <div>
+                  <Input label="Chassi" readOnly />
+                </div>
+              </S.GridVeihecle>
+            </S.FormVeihecle>
+
+            <SwitchOptions
+              IconA="/assets/svgs/pix-dark.svg"
+              IconB="/assets/svgs/boleto-dark.svg"
+              optionA={{
+                label: "Pix",
+                value: FormaPagamentoEnum.PIX,
+              }}
+              optionB={{
+                label: "Boleto",
+                value: FormaPagamentoEnum.BOLETO,
+              }}
+              className="paymentSwitch"
+              handleOnChange={(v) => setTipoPagamento(FormaPagamentoEnum[v])}
+            />
+
+            <Button className="finalButton">Salvar</Button>
+          </>
         )}
-
-        <Title>Informações do Veículo</Title>
-
-        <S.FormVeihecle>
-          <S.GridVeihecle>
-            <div>
-              <Input label="Modelo do carro" readOnly />
-            </div>
-            <div>
-              <Input label="Ano" readOnly />
-            </div>
-            <div>
-              <Input label="Placa" readOnly />
-            </div>
-            <div>
-              <Input label="Renavam" readOnly />
-            </div>
-            <div>
-              <Input label="Tipo de Veículo" readOnly />
-            </div>
-            <div>
-              <Input label="Chassi" readOnly />
-            </div>
-          </S.GridVeihecle>
-        </S.FormVeihecle>
-
-        <SwitchOptions
-          IconA="/assets/svgs/pix-dark.svg"
-          IconB="/assets/svgs/boleto-dark.svg"
-          optionA={{
-            label: "Pix",
-            value: FormaPagamentoEnum.PIX,
-          }}
-          optionB={{
-            label: "Boleto",
-            value: FormaPagamentoEnum.BOLETO,
-          }}
-          className="paymentSwitch"
-          handleOnChange={(v) => setTipoPagamento(FormaPagamentoEnum[v])}
-        />
-
-        <Button className="finalButton">Salvar</Button>
       </S.Container>
     </LayoutTemplate>
   );
