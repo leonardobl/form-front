@@ -59,7 +59,7 @@ export function AsyncSimpleSelect<
     }),
     option: (styles: any, { isFocused, isSelected }: any) => ({
       // ...styles,
-      backgroundColor: isFocused ? lighten(0.4, "#12D1A7") : "transparent",
+      backgroundColor: isFocused ? "#bbe4db" : "transparent",
       color: "#111",
       fontWeight: 600,
       // letterSpacing: 1,
