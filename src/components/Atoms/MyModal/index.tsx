@@ -1,14 +1,11 @@
 import React from "react";
 import Modal, { Props } from "react-modal";
 
-interface CustomConfirmModalProps extends Props {
+interface IMyModalProps extends Props {
   children: React.ReactNode;
 }
 
-export const CustomConfirmModal = ({
-  children,
-  ...rest
-}: CustomConfirmModalProps) => {
+export const MyModal = ({ children, ...rest }: IMyModalProps) => {
   return (
     <Modal
       {...rest}

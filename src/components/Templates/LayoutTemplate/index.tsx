@@ -1,9 +1,9 @@
 import React, { ComponentProps, useEffect } from "react";
 import * as S from "./styles";
 import { Outlet } from "react-router-dom";
-import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { Button } from "../../Atoms/Button";
 import { useLayout } from "./useLayout";
+import { MyModal } from "../../Atoms/MyModal";
 
 interface LayoutTemplateProps extends ComponentProps<"div"> {
   children?: React.ReactNode;
@@ -95,7 +95,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
           <S.IconMap src="/assets/svgs/logo-mapa.svg" alt="icone mapa" />
         </S.Wrapper>
       </S.WrapperMain>
-      <CustomConfirmModal
+      <MyModal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       >
@@ -105,7 +105,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
             CONFIRMAR
           </Button>
         </S.ModalContent>
-      </CustomConfirmModal>
+      </MyModal>
     </S.Container>
   );
 };

@@ -2,12 +2,13 @@ import React, { useState, ComponentProps } from "react";
 import * as S from "./styles";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
-import { CustomConfirmModal } from "../CustomConfirmModal";
+
 import { Button } from "../Button";
 import { useContextSite } from "../../../context/Context";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { RolesEnum } from "../../../enums/roles";
 import { useNavigate } from "react-router-dom";
+import { MyModal } from "../MyModal";
 
 interface IButtonOptions extends ComponentProps<"details"> {
   disabled?: boolean;
@@ -102,10 +103,7 @@ export const ButtonOptions = ({
         <S.ArrowDown src="/assets/svgs/arrow-right.svg" alt="seta direita" />
       </div>
 
-      <CustomConfirmModal
-        isOpen={isOpen}
-        onRequestClose={() => setISOpen(false)}
-      >
+      <MyModal isOpen={isOpen} onRequestClose={() => setISOpen(false)}>
         <S.ModalContent>
           <p>Tem certeza que deseja cancelar sua vistoria?</p>
           <Button
@@ -118,7 +116,7 @@ export const ButtonOptions = ({
             CONFIRMAR
           </Button>
         </S.ModalContent>
-      </CustomConfirmModal>
+      </MyModal>
     </S.Container>
   );
 };
