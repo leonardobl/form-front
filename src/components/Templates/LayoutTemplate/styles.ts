@@ -130,6 +130,10 @@ export const WrapperButton = styled.div`
     white-space: nowrap;
 
     background-color: transparent;
+
+    &:hover {
+      color: #12d1a7;
+    }
   }
 `;
 
