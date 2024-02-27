@@ -79,6 +79,7 @@ export const Buttons = styled.div`
     color: #12d1a7;
     border: 1px solid #cacaca;
     width: max-content;
+    font-weight: 600;
     /* border-radius: 0; */
     /* justify-content: center; */
   }
@@ -90,7 +91,7 @@ export const Buttons = styled.div`
 
     /* border-radius: 0.4rem; */
 
-    font-weight: 600;
+    font-weight: 400;
 
     /* line-height: 1rem; */
 

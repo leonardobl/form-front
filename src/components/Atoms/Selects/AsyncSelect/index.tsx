@@ -2,7 +2,7 @@ import React, { RefAttributes } from "react";
 import * as S from "../styles";
 import AsyncSelect, { AsyncProps } from "react-select/async";
 
-import { GroupBase } from "react-select";
+import { GroupBase, components } from "react-select";
 
 import Select from "react-select/dist/declarations/src/Select";
 import { lighten } from "polished";
@@ -21,7 +21,7 @@ export function AsyncSimpleSelect<
       background: "#fff",
       // match with the menu
       borderRadius: 10,
-      letterSpacing: 1,
+      // letterSpacing: 1,
 
       padding: "0 20px",
       fontFamily: "Mulish",
@@ -62,7 +62,7 @@ export function AsyncSimpleSelect<
       backgroundColor: isFocused ? lighten(0.4, "#12D1A7") : "transparent",
       color: "#111",
       fontWeight: 600,
-      letterSpacing: 1,
+      // letterSpacing: 1,
       zindex: 2,
       padding: "10px 20px",
       cursor: "pointer",
@@ -73,6 +73,20 @@ export function AsyncSimpleSelect<
     valueContainer: (provided: any, state: any) => ({
       ...provided,
     }),
+  };
+
+  const DropdownIndicator = (props) => {
+    return (
+      components.DropdownIndicator && (
+        <components.DropdownIndicator {...props}>
+          <img
+            src="/assets/svgs/arrowDownSelect.svg"
+            alt="icone arrow"
+            style={{ cursor: "pointer" }}
+          />
+        </components.DropdownIndicator>
+      )
+    );
   };
 
   return (
@@ -86,6 +100,7 @@ export function AsyncSimpleSelect<
       <AsyncSelect
         {...props}
         name={props.name}
+        components={{ DropdownIndicator }}
         theme={(theme) => ({ ...theme, borderRadius: 10 })}
         styles={customStyles}
       />
