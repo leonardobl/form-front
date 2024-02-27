@@ -14,6 +14,7 @@ import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { Text } from "../../Atoms/Text";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
+import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 
 const options = [
   {
@@ -32,12 +33,9 @@ const options = [
 
 export const NewSchedulingTemplate = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>(
-    TipoAtendimentoEnum.LOJA
-  );
-  const [tipoServico, setTipoServico] = useState<OpcoesServicosEnum>(
-    OpcoesServicosEnum.EMPLACAMENTO
-  );
+  const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>();
+  const [tipoPagamento, setTipoPagamento] = useState<FormaPagamentoEnum>();
+  const [tipoServico, setTipoServico] = useState<OpcoesServicosEnum>();
   const getValues = async (txt: string) => {
     return options.filter((item) =>
       item.label.toLowerCase().includes(txt.toLowerCase())
@@ -151,8 +149,6 @@ export const NewSchedulingTemplate = () => {
           </S.GridUser>
         </S.FormUser>
         <SwitchOptions
-          name="atendance"
-          value={tipoAtendimento}
           optionA={{ label: "Loja Física", value: TipoAtendimentoEnum.LOJA }}
           optionB={{ label: "Domicílio", value: TipoAtendimentoEnum.DOMICILIO }}
           className="optionAtendance"
@@ -207,22 +203,78 @@ export const NewSchedulingTemplate = () => {
             label: "Vistoria",
             value: OpcoesServicosEnum.VISTORIA,
           }}
-          name="services"
-          value={tipoServico}
           className="optionAtendance"
           handleOnChange={(v) => setTipoServico(OpcoesServicosEnum[v])}
         />
 
-        <S.FormService>
-          <S.GridLicense>
+        {tipoServico === OpcoesServicosEnum.EMPLACAMENTO ? (
+          <S.FormService>
+            <S.GridLicense>
+              <div>
+                <Input label="Chassi" required />
+              </div>
+              <div>
+                <Button>Buscar</Button>
+              </div>
+            </S.GridLicense>
+          </S.FormService>
+        ) : (
+          <S.FormService>
+            <S.GridSurvey>
+              <div>
+                <Input label="Placa" required />
+              </div>
+              <div>
+                <Input label="Renavam" required />
+              </div>
+              <div>
+                <Button>Buscar</Button>
+              </div>
+            </S.GridSurvey>
+          </S.FormService>
+        )}
+
+        <Title>Informações do Veículo</Title>
+
+        <S.FormVeihecle>
+          <S.GridVeihecle>
             <div>
-              <Input label="Chassi" required />
+              <Input label="Modelo do carro" readOnly />
             </div>
             <div>
-              <Button>Buscar</Button>
+              <Input label="Ano" readOnly />
             </div>
-          </S.GridLicense>
-        </S.FormService>
+            <div>
+              <Input label="Placa" readOnly />
+            </div>
+            <div>
+              <Input label="Renavam" readOnly />
+            </div>
+            <div>
+              <Input label="Tipo de Veículo" readOnly />
+            </div>
+            <div>
+              <Input label="Chassi" readOnly />
+            </div>
+          </S.GridVeihecle>
+        </S.FormVeihecle>
+
+        <SwitchOptions
+          IconA="/assets/svgs/pix-dark.svg"
+          IconB="/assets/svgs/boleto-dark.svg"
+          optionA={{
+            label: "Pix",
+            value: FormaPagamentoEnum.PIX,
+          }}
+          optionB={{
+            label: "Boleto",
+            value: FormaPagamentoEnum.BOLETO,
+          }}
+          className="paymentSwitch"
+          handleOnChange={(v) => setTipoPagamento(FormaPagamentoEnum[v])}
+        />
+
+        <Button className="finalButton">Salvar</Button>
       </S.Container>
     </LayoutTemplate>
   );

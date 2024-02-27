@@ -1,13 +1,12 @@
 import React, { ComponentProps, useEffect, useState } from "react";
 import * as S from "./styles";
-import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { ISelectOptions } from "../../../types/inputs";
 
 interface ISwitchOptionsProps extends ComponentProps<"div"> {
   optionA: ISelectOptions;
+  IconA?: string;
   optionB: ISelectOptions;
-  value: any;
-  name: string;
+  IconB?: string;
   handleOnChange: (s: string) => void;
 }
 
@@ -15,32 +14,45 @@ export const SwitchOptions = ({
   optionA,
   optionB,
   handleOnChange,
-  value,
-  name,
+  IconA,
+  IconB,
   ...rest
 }: ISwitchOptionsProps) => {
+  const name = `${new Date()} - ${Math.random()}`;
+  const [value, setValue] = useState(optionA.value);
+
+  useEffect(() => {
+    handleOnChange(value);
+  }, [value]);
+
   return (
     <S.Container {...rest}>
       <S.Label>
-        {optionA.label}
-        <S.Input
-          name={name}
-          type="radio"
-          data-selected={optionA.value === value}
-          checked={optionA.value === value}
-          onChange={() => handleOnChange(optionA.value)}
-        />
+        <S.WrapperContent>
+          {IconA && <img className="icon" src={IconA} alt="Icone a" />}
+          {optionA.label}
+          <S.Input
+            name={name}
+            type="radio"
+            data-selected={optionA.value === value}
+            checked={optionA.value === value}
+            onChange={() => setValue(optionA.value)}
+          />
+        </S.WrapperContent>
       </S.Label>
 
       <S.Label>
-        {optionB.label}
-        <S.Input
-          name="option"
-          type="radio"
-          data-selected={optionB.value === value}
-          checked={optionB.value === value}
-          onChange={() => handleOnChange(optionB.value)}
-        />
+        <S.WrapperContent>
+          {IconB && <img className="icon" src={IconB} alt="Icone b" />}
+          {optionB.label}
+          <S.Input
+            name={name}
+            type="radio"
+            data-selected={optionB.value === value}
+            checked={optionB.value === value}
+            onChange={() => setValue(optionB.value)}
+          />
+        </S.WrapperContent>
       </S.Label>
     </S.Container>
   );

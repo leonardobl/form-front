@@ -31,9 +31,25 @@ export const Label = styled.label`
     background-color: #6fa599;
     overflow: hidden;
     color: #fff;
+
+    .icon {
+      -webkit-filter: brightness(0) invert(1);
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  img {
+    width: 24px;
+    display: block;
   }
 `;
 
 export const Input = styled.input`
   display: none;
+`;
+
+export const WrapperContent = styled.div`
+  display: flex;
+  gap: 0 6px;
+  align-items: center;
 `;

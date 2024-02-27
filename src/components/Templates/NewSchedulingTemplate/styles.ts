@@ -19,6 +19,14 @@ export const Container = styled.div`
     .textService {
       margin-bottom: 48px;
     }
+
+    .paymentSwitch {
+      margin: 0 auto 48px;
+    }
+
+    .finalButton {
+      margin: 0 auto;
+    }
   `}
 `;
 
@@ -190,6 +198,7 @@ export const GridAtendece = styled.div`
 
 export const FormService = styled.form`
   width: 100%;
+  margin-bottom: 48px;
 `;
 
 export const GridLicense = styled.div`
@@ -208,4 +217,58 @@ export const GridLicense = styled.div`
   }
 `;
 
-export const GridSurvey = styled.div``;
+export const GridSurvey = styled.div`
+  display: grid;
+  grid-template-columns: 5fr 5fr 1fr;
+  gap: 48px 16px;
+  align-items: center;
+
+  grid-template-areas: "placa renavam button";
+
+  > :nth-child(1) {
+    grid-area: placa;
+  }
+  > :nth-child(2) {
+    grid-area: renavam;
+  }
+  > :nth-child(3) {
+    grid-area: button;
+  }
+`;
+
+export const FormVeihecle = styled.form`
+  width: 100%;
+  margin-bottom: 48px;
+`;
+
+export const GridVeihecle = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 48px 16px;
+  align-items: center;
+
+  grid-template-areas: "modelo modelo ano placa" "renavam tipo chassi chassi";
+
+  > :nth-child(1) {
+    grid-area: modelo;
+  }
+  > :nth-child(2) {
+    grid-area: ano;
+  }
+
+  > :nth-child(3) {
+    grid-area: placa;
+  }
+
+  > :nth-child(4) {
+    grid-area: renavam;
+  }
+
+  > :nth-child(5) {
+    grid-area: tipo;
+  }
+
+  > :nth-child(6) {
+    grid-area: chassi;
+  }
+`;
