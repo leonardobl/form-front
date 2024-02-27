@@ -6,6 +6,7 @@ import { GroupBase, components } from "react-select";
 
 import Select from "react-select/dist/declarations/src/Select";
 import { lighten } from "polished";
+import { IoCloseOutline } from "react-icons/io5";
 
 export function AsyncSimpleSelect<
   Option = unknown,
@@ -89,6 +90,19 @@ export function AsyncSimpleSelect<
       : null;
   };
 
+  const ClearIndicator = (props) => {
+    return (
+      components.DropdownIndicator && (
+        <components.ClearIndicator {...props}>
+          <IoCloseOutline
+            size={20}
+            style={{ cursor: "pointer", right: "-30px", position: "relative" }}
+          />
+        </components.ClearIndicator>
+      )
+    );
+  };
+
   return (
     <S.Container $isLabel={!!props.label} $variantSearch={!!myVariant}>
       {props.label && (
@@ -100,11 +114,11 @@ export function AsyncSimpleSelect<
       <AsyncSelect
         {...props}
         name={props.name}
-        components={{ DropdownIndicator }}
+        components={{ DropdownIndicator, ClearIndicator }}
         theme={(theme) => ({ ...theme, borderRadius: 10 })}
         styles={customStyles}
       />
-      {props.variant && (
+      {myVariant && (
         <S.IconSearch src="/assets/svgs/icon-search.svg" alt="icone lupa" />
       )}
     </S.Container>
