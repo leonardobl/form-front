@@ -1,7 +1,10 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div<{ $isLabel: boolean }>`
-  ${({ $isLabel }) => css`
+export const Container = styled.div<{
+  $isLabel: boolean;
+  $variantSearch?: boolean;
+}>`
+  ${({ $isLabel, $variantSearch }) => css`
     font-family: "Mulish";
 
     position: relative;
@@ -45,6 +48,10 @@ export const Container = styled.div<{ $isLabel: boolean }>`
     svg path {
       fill: #111;
     }
+
+    .css-1fdsijx-ValueContainer {
+      padding-left: ${$variantSearch && "26px"};
+    }
   `}
 `;
 
@@ -68,4 +75,12 @@ export const Label = styled.label`
 export const Required = styled.span<{ $isRequired: boolean }>`
   color: rgba(237, 0, 0, 1);
   display: ${({ $isRequired }) => ($isRequired ? "block" : "none")};
+`;
+
+export const IconSearch = styled.img`
+  position: absolute;
+  top: 50%;
+  display: block;
+  transform: translateY(-50%);
+  left: 20px;
 `;

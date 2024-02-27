@@ -1,6 +1,7 @@
 import React, { RefAttributes } from "react";
 import * as S from "../styles";
 import AsyncSelect, { AsyncProps } from "react-select/async";
+
 import { GroupBase } from "react-select";
 
 import Select from "react-select/dist/declarations/src/Select";
@@ -42,6 +43,7 @@ export function AsyncSimpleSelect<
       // kill the gap
       // marginTop: 0,
       zIndex: 2,
+      backgroundColor: "#E1F2EE",
     }),
     menuList: (base: any, state: any) => ({
       ...base,
@@ -57,7 +59,7 @@ export function AsyncSimpleSelect<
     }),
     option: (styles: any, { isFocused, isSelected }: any) => ({
       // ...styles,
-      backgroundColor: isFocused ? lighten(0.45, "#12D1A7") : "transparent",
+      backgroundColor: isFocused ? lighten(0.4, "#12D1A7") : "transparent",
       color: "#111",
       fontWeight: 600,
       letterSpacing: 1,
@@ -73,7 +75,7 @@ export function AsyncSimpleSelect<
   };
 
   return (
-    <S.Container $isLabel={!!props.label}>
+    <S.Container $isLabel={!!props.label} $variantSearch={!!props.variant}>
       {props.label && (
         <S.Label>
           {props.label}{" "}
@@ -86,6 +88,9 @@ export function AsyncSimpleSelect<
         theme={(theme) => ({ ...theme, borderRadius: 10 })}
         styles={customStyles}
       />
+      {props.variant && (
+        <S.IconSearch src="/assets/svgs/icon-search.svg" alt="icone lupa" />
+      )}
     </S.Container>
   );
 }

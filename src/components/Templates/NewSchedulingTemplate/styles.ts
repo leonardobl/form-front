@@ -22,3 +22,9 @@ export const WrapperSearch = styled.div`
     grid-area: button;
   }
 `;
+
+export const WrapperValue = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
