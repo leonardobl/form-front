@@ -43,15 +43,15 @@ export const NewSchedulingTemplate = () => {
   };
   const [cliente, setCliente] = useState(false);
 
-  const { Option } = components;
-  const IconOption = (props) => (
-    <Option {...props}>
-      <S.WrapperValue>
-        {props.data.label}
-        <img src={"/assets/svgs/plus-round.svg"} alt={"icone adicionar"} />
-      </S.WrapperValue>
-    </Option>
-  );
+  // const { Option } = components;
+  // const IconOption = (props) => (
+  //   <Option {...props}>
+  //     <S.WrapperValue>
+  //       {props.data.label}
+  //       <img src={"/assets/svgs/plus-round.svg"} alt={"icone adicionar"} />
+  //     </S.WrapperValue>
+  //   </Option>
+  // );
 
   return (
     <LayoutTemplate>
@@ -121,7 +121,6 @@ export const NewSchedulingTemplate = () => {
               loadOptions={getValues}
               onChange={(e) => setCliente(() => (e?.value ? true : false))}
               options={options}
-              components={{ Option: IconOption }}
             />
           </div>
           <div>

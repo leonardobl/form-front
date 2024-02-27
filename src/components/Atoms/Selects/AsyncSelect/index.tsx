@@ -48,7 +48,7 @@ export function AsyncSimpleSelect<
     menuList: (base: any, state: any) => ({
       ...base,
       // kill the white space on first and last option
-      // padding: 0,
+      padding: "0 10px",
 
       borderRadius: 10,
       borderColor: "#12D1A7",
@@ -68,6 +68,7 @@ export function AsyncSimpleSelect<
       cursor: "pointer",
       // paddingLeft: "20px",
       fontFamily: "Mulish",
+      borderBottom: "1px solid rgba(103, 122, 118, 0.40)",
     }),
     valueContainer: (provided: any, state: any) => ({
       ...provided,
