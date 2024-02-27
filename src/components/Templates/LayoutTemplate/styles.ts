@@ -67,11 +67,22 @@ export const Bar = styled.div`
 
 export const IconMenuHamburguer = styled.img`
   display: block;
-  margin-right: 50px;
   cursor: pointer;
+  margin-right: 50px;
+
+  @media (max-width: 500px) {
+    margin-right: 20px;
+  }
 `;
 
-export const IconLogo = styled.img``;
+export const IconLogo = styled.img`
+  display: block;
+  margin-right: auto;
+
+  @media (max-width: 500px) {
+    width: 80px;
+  }
+`;
 
 export const IconMap = styled.img`
   display: block;
@@ -80,6 +91,7 @@ export const IconMap = styled.img`
 
 export const IconHome = styled.img`
   cursor: pointer;
+  width: 24px;
 `;
 
 export const WrapperIconsBar = styled.div`

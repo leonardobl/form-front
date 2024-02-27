@@ -70,12 +70,12 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
 
       <S.WrapperMain>
         <S.Bar>
-          <S.IconMenuHamburguer
-            src="/assets/svgs/menuHamburguer.svg"
-            alt="icone do menu hamburguer"
-            onClick={() => setMenuOpen(true)}
-          />
           <S.WrapperIconsBar>
+            <S.IconMenuHamburguer
+              src="/assets/svgs/menuHamburguer.svg"
+              alt="icone do menu hamburguer"
+              onClick={() => setMenuOpen(true)}
+            />
             <S.IconLogo
               src="/assets/svgs/logo-starcheck.svg"
               alt="logo empresa"
