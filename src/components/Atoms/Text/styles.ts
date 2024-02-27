@@ -17,5 +17,19 @@ export const MyText = styled.p`
     .textGreen {
       color: ${colors.primary};
     }
+
+    @media (max-width: 500px) {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+
+      .textStrong {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+      }
+    }
   `}
 `;

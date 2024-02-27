@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { Button } from "../../Atoms/Button";
 import { AsyncSimpleSelect } from "../../Atoms/Selects/AsyncSelect";
 import { v4 } from "uuid";
-
 import { components } from "react-select";
 import { MyModal } from "../../Atoms/MyModal";
 import { Input } from "../../Atoms/Inputs/Input";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
+import { SwitchOptions } from "../../Atoms/SwitchOptions";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { Text } from "../../Atoms/Text";
+import { InputDate } from "../../Atoms/Inputs/InputDate";
+import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 
 const options = [
   {
@@ -28,6 +32,12 @@ const options = [
 
 export const NewSchedulingTemplate = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>(
+    TipoAtendimentoEnum.LOJA
+  );
+  const [tipoServico, setTipoServico] = useState<OpcoesServicosEnum>(
+    OpcoesServicosEnum.EMPLACAMENTO
+  );
   const getValues = async (txt: string) => {
     return options.filter((item) =>
       item.label.toLowerCase().includes(txt.toLowerCase())
@@ -93,8 +103,7 @@ export const NewSchedulingTemplate = () => {
       </MyModal>
       <S.Container>
         <Title>Novo agendamento</Title>
-
-        <S.WrapperSearch>
+        <S.FormSearch>
           <div>
             <AsyncSimpleSelect
               variant="search"
@@ -117,7 +126,103 @@ export const NewSchedulingTemplate = () => {
           <div>
             <Button>Buscar</Button>
           </div>
-        </S.WrapperSearch>
+        </S.FormSearch>
+        <S.FormUser>
+          <S.GridUser>
+            <div>
+              <Input label="Nome" readOnly />
+            </div>
+
+            <div>
+              <Input label="CPF/CNPJ" readOnly />
+            </div>
+
+            <div>
+              <Input label="Telefone" readOnly />
+            </div>
+
+            <div>
+              <Input label="E-mail" readOnly />
+            </div>
+
+            <div>
+              <Input label="Tipo" readOnly />
+            </div>
+          </S.GridUser>
+        </S.FormUser>
+        <SwitchOptions
+          name="atendance"
+          value={tipoAtendimento}
+          optionA={{ label: "Loja Física", value: TipoAtendimentoEnum.LOJA }}
+          optionB={{ label: "Domicílio", value: TipoAtendimentoEnum.DOMICILIO }}
+          className="optionAtendance"
+          handleOnChange={(v) => setTipoAtendimento(TipoAtendimentoEnum[v])}
+        />
+        <Title>
+          {tipoAtendimento === TipoAtendimentoEnum.LOJA
+            ? "Loja Física"
+            : "Domicílio"}
+        </Title>
+        <S.FormAtendence>
+          <S.GridAtendece>
+            <div>
+              <SimpleSelect
+                required
+                label={
+                  tipoAtendimento === TipoAtendimentoEnum.LOJA
+                    ? "Loja"
+                    : "Cidade"
+                }
+              />
+            </div>
+
+            <div>
+              <Text>
+                Datas e horários <span className="textStrong">disponíveis</span>
+                .
+              </Text>
+            </div>
+
+            <div>
+              <InputDate required label="Data" showIcon onChange={() => ""} />
+            </div>
+
+            <div>
+              <SimpleSelect label="Horário" required />
+            </div>
+          </S.GridAtendece>
+        </S.FormAtendence>
+
+        <Text className="textService">
+          Escolha qual <span className="textStrong">serviço</span> você deseja
+          realizar.
+        </Text>
+
+        <SwitchOptions
+          optionA={{
+            label: "1° Emplacamento",
+            value: OpcoesServicosEnum.EMPLACAMENTO,
+          }}
+          optionB={{
+            label: "Vistoria",
+            value: OpcoesServicosEnum.VISTORIA,
+          }}
+          name="services"
+          value={tipoServico}
+          className="optionAtendance"
+          handleOnChange={(v) => setTipoServico(OpcoesServicosEnum[v])}
+        />
+
+        <S.FormService>
+          <S.GridLicense>
+            <div>
+              <Input label="Chassi" required />
+            </div>
+            <div>
+              <Button>Buscar</Button>
+            </div>
+          </S.GridLicense>
+        </S.FormService>
       </S.Container>
     </LayoutTemplate>
   );

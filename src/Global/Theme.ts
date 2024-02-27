@@ -14,6 +14,7 @@ export const Theme = {
   },
   padding: {
     secundary: "12.5rem",
+    mobile: "2rem",
     primary: "7.5rem",
   },
 };

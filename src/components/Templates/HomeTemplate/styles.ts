@@ -11,6 +11,10 @@ export const Container = styled.div`
       max-width: ${pxToRem(620)};
       margin-bottom: ${pxToRem(48)};
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 20px;
+    }
   `}
 `;
 
@@ -22,5 +26,10 @@ export const Wrapper = styled.div`
 export const FlexWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 0 ${pxToRem(62)};
+  gap: 32px ${pxToRem(62)};
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
