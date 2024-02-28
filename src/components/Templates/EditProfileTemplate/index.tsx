@@ -5,8 +5,9 @@ import { Title } from "../../Atoms/Title";
 import { Input } from "../../Atoms/Inputs/Input";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
-import { useProfile } from "./useProfile";
+import { useEditProfile } from "./useEditProfile";
 import { ISelectOptions } from "../../../types/inputs";
+import { maskCep } from "../../../utils/masks";
 
 export const EditProfileTemplate = () => {
   const {
@@ -22,7 +23,7 @@ export const EditProfileTemplate = () => {
     ufOptions,
     isAdmGerente,
     isCliente,
-  } = useProfile();
+  } = useEditProfile();
 
   return (
     <LayoutTemplate>
@@ -74,12 +75,19 @@ export const EditProfileTemplate = () => {
               </div>
               <div>
                 <Input
-                  label="CEP"
                   required
-                  variant="edit"
                   maxLength={9}
+                  onBlur={handleCep}
                   value={form?.endereco?.cep}
-                  onChange={(e) => handleCep(e.target.value)}
+                  onChange={(e) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      endereco: {
+                        ...prev.endereco,
+                        cep: maskCep(e.target.value),
+                      },
+                    }))
+                  }
                 />
               </div>
               <div>

@@ -97,14 +97,11 @@ export const useUserRegistration = () => {
       .catch((erro) => toast.error("Erro ao requisitar as UFs"));
   }, []);
 
-  function handleCep(e: string) {
-    const newCepValue = maskCep(e);
-
-    if (newCepValue.length === 9) {
-      setCepLoad(true);
+  function handleCep() {
+    if (form?.endereco?.cep?.length === 9) {
       setIsLoad(true);
       setTimeout(() => {
-        ViaCep.get(e)
+        ViaCep.get(form?.endereco?.cep)
           .then(({ data }) => {
             setForm((prev) => ({
               ...prev,
@@ -113,24 +110,14 @@ export const useUserRegistration = () => {
                 bairro: data.neighborhood,
                 cidade: data.city,
                 uf: data.state,
-                cep: newCepValue,
+                cep: form?.endereco?.cep,
               },
             }));
           })
           .catch((erro) => toast.error("Cep não encontrado"))
-          .finally(() => {
-            setIsLoad(false);
-            setCepLoad(false);
-          });
+          .finally(() => setIsLoad(false));
       }, 1000);
-
-      return;
     }
-
-    setForm((prev) => ({
-      ...prev,
-      endereco: { ...prev.endereco, cep: newCepValue },
-    }));
   }
 
   useEffect(() => {

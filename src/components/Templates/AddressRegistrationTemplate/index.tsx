@@ -6,6 +6,7 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
 import { useAddressRegistration } from "./useAddressRegistration";
 import { ISelectOptions } from "../../../types/inputs";
+import { maskCep } from "../../../utils/masks";
 
 export const AddressRegistrationTemplate = () => {
   const {
@@ -23,7 +24,7 @@ export const AddressRegistrationTemplate = () => {
     <S.Container>
       <Title>Endereço de Realização do Serviço</Title>
 
-      <S.Form>
+      <S.Form onSubmit={handleSubmit}>
         <S.GridWrapper>
           <div>
             <Input
@@ -48,11 +49,19 @@ export const AddressRegistrationTemplate = () => {
 
           <div>
             <Input
-              label="CEP"
               required
               maxLength={9}
+              onBlur={handleCep}
               value={form?.endereco?.cep}
-              onChange={(e) => handleCep(e.target.value)}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  endereco: {
+                    ...prev.endereco,
+                    cep: maskCep(e.target.value),
+                  },
+                }))
+              }
             />
           </div>
 

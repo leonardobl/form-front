@@ -8,6 +8,7 @@ import { Title } from "../../Atoms/Title";
 import { Input } from "../../Atoms/Inputs/Input";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { ISelectOptions } from "../../../types/inputs";
+import { maskCep } from "../../../utils/masks";
 
 export const UserRegistrationTemplate = () => {
   const {
@@ -72,11 +73,19 @@ export const UserRegistrationTemplate = () => {
 
         <div>
           <Input
-            label="CEP"
             required
             maxLength={9}
+            onBlur={handleCep}
             value={form?.endereco?.cep}
-            onChange={(e) => handleCep(e.target.value)}
+            onChange={(e) =>
+              setForm((prev) => ({
+                ...prev,
+                endereco: {
+                  ...prev.endereco,
+                  cep: maskCep(e.target.value),
+                },
+              }))
+            }
           />
         </div>
 

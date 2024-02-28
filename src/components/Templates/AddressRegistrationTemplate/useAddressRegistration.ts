@@ -76,22 +76,20 @@ export const useAddressRegistration = () => {
       .catch((erro) => toast.error("Erro ao requisitar as UFs"));
   }, []);
 
-  function handleCep(e: string) {
-    const newCepValue = maskCep(e);
-
-    if (newCepValue.length === 9) {
+  function handleCep() {
+    if (form?.endereco?.cep?.length === 9) {
       setIsLoad(true);
       setTimeout(() => {
-        ViaCep.get(e)
+        ViaCep.get(form?.endereco?.cep)
           .then(({ data }) => {
             setForm((prev) => ({
               ...prev,
               endereco: {
-                logradouro: data.street || "",
-                bairro: data.neighborhood || "",
-                cidade: data.city || "",
-                uf: data.state || "",
-                cep: newCepValue || "",
+                logradouro: data.street,
+                bairro: data.neighborhood,
+                cidade: data.city,
+                uf: data.state,
+                cep: form?.endereco?.cep,
               },
             }));
 
@@ -107,14 +105,7 @@ export const useAddressRegistration = () => {
           .catch((erro) => toast.error("Cep não encontrado"))
           .finally(() => setIsLoad(false));
       }, 1000);
-
-      return;
     }
-
-    setForm((prev) => ({
-      ...prev,
-      endereco: { ...prev.endereco, cep: newCepValue },
-    }));
   }
 
   useEffect(() => {

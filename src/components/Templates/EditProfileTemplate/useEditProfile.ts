@@ -9,7 +9,7 @@ import { ViaCep } from "../../../services/ViaCep";
 import { RolesEnum } from "../../../enums/roles";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
-export const useProfile = () => {
+export const useEditProfile = () => {
   const inpSenhaRef = useRef<HTMLInputElement>(null);
   const inpConfirSenha = useRef<HTMLInputElement>(null);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
@@ -73,13 +73,11 @@ export const useProfile = () => {
       .catch((erro) => toast.error("Erro ao requisitar as UFs"));
   }, []);
 
-  function handleCep(e: string) {
-    const newCepValue = maskCep(e);
-
-    if (newCepValue.length === 9) {
+  function handleCep() {
+    if (form?.endereco?.cep?.length === 9) {
       setIsLoad(true);
       setTimeout(() => {
-        ViaCep.get(e)
+        ViaCep.get(form?.endereco?.cep)
           .then(({ data }) => {
             setForm((prev) => ({
               ...prev,
@@ -88,21 +86,14 @@ export const useProfile = () => {
                 bairro: data.neighborhood,
                 cidade: data.city,
                 uf: data.state,
-                cep: newCepValue,
+                cep: form?.endereco?.cep,
               },
             }));
           })
           .catch((erro) => toast.error("Cep não encontrado"))
           .finally(() => setIsLoad(false));
       }, 1000);
-
-      return;
     }
-
-    setForm((prev) => ({
-      ...prev,
-      endereco: { ...prev.endereco, cep: newCepValue },
-    }));
   }
 
   useEffect(() => {
