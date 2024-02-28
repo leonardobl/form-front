@@ -93,8 +93,12 @@ export const useStore = () => {
         });
 
         if (token) {
-          navigate(`/agendamento/${data.uuid}/servicos`);
-          return;
+          Agendamento.vincularAgendamentoAoCliente({
+            uuidAgendamento: data.uuid,
+          }).then(() => {
+            navigate(`/agendamento/${data.uuid}/servicos`);
+            return;
+          });
         }
 
         navigate(`/agendamento/${data.uuid}/login-cadastro`);

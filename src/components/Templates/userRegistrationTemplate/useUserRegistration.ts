@@ -14,11 +14,13 @@ import { TipoClienteEnum } from "../../../enums/tipoCliente";
 import { IClienteForm } from "../../../types/cliente";
 import { ISelectOptions } from "../../../types/inputs";
 import { useContextSite } from "../../../context/Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Agendamento } from "../../../services/Agendamento";
 
 export const useUserRegistration = () => {
   const [form, setForm] = useState<IClienteForm>({} as IClienteForm);
   const { setIsLoad } = useContextSite();
+  const params = useParams();
 
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
@@ -43,9 +45,20 @@ export const useUserRegistration = () => {
       .then(() => {
         setIsLoad(false);
         toast.success("Cadastro realizado com sucesso!");
+
+        if (params?.uuidAgendamento) {
+          Agendamento.vincularAgendamentoAoCliente({
+            uuidAgendamento: params?.uuidAgendamento,
+          }).then(() => {
+            setTimeout(() => {
+              navigate(`/agendamento/${params?.uuidAgendamento}/login`);
+            }, 2000);
+          });
+        }
+
         setTimeout(() => {
-          navigate("/login");
-        }, 3000);
+          navigate("/agendamento/login");
+        }, 2000);
       })
       .catch((error) => toast.error(error?.message))
       .finally(() => {

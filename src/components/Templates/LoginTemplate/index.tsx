@@ -1,5 +1,4 @@
 import React from "react";
-import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { Button } from "../../Atoms/Button";

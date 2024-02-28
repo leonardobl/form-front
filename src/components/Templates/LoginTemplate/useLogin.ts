@@ -9,6 +9,7 @@ import { useContextSite } from "../../../context/Context";
 import { Autenticacao } from "../../../services/Autenticacao";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useNavigate, useParams } from "react-router-dom";
+import { Agendamento } from "../../../services/Agendamento";
 
 export const useLogin = () => {
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
@@ -84,9 +85,25 @@ export const useLogin = () => {
               setTimeout(() => {
                 setIsDisable(false);
 
-                if (agendamentoSession?.uuidAgendamento) {
-                  navigate(`/agendamento/${params.uuidAgendamento}/servicos`);
-                  return;
+                if (params?.uuidAgendamento) {
+                  Agendamento.vincularAgendamentoAoCliente({
+                    uuidAgendamento: params?.uuidAgendamento,
+                  })
+                    .then(() => {
+                      navigate(
+                        `/agendamento/${params.uuidAgendamento}/servicos`
+                      );
+                      return;
+                    })
+                    .catch(
+                      ({
+                        response: {
+                          data: { mensagem },
+                        },
+                      }) => {
+                        toast.error(mensagem);
+                      }
+                    );
                 }
 
                 navigate("/meus-agendamentos");

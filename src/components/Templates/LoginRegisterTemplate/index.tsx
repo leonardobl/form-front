@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { LayoutTemplate } from "../LayoutTemplate";
+import React from "react";
+
 import * as S from "./styles";
 import { Text } from "../../Atoms/Text";
 import { Button } from "../../Atoms/Button";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useLoginRegister } from "./useLoginRegister";
 
 export const LoginRegisterTemplate = () => {
-  const params = useParams();
+  const { params } = useLoginRegister();
 
   return (
     <S.Container>

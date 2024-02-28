@@ -13,8 +13,8 @@ const basePath = "/loja";
 
 export class Loja {
   static async get(props?: ILojaParams): Promise<AxiosResponse<IPageLojaDTO>> {
-    const values = removeEmpty(props);
-    const params = objectToParams(values);
+    const params = objectToParams(props);
+
     return ApiBrave.get(params ? `${basePath}?${params}` : `${basePath}`);
   }
 

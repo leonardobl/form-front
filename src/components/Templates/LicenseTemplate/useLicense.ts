@@ -6,7 +6,7 @@ import {
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useLicense = () => {
@@ -14,6 +14,7 @@ export const useLicense = () => {
   const [form, setForm] = useState<IConsultaUnionProps>(
     {} as IConsultaUnionProps
   );
+  const params = useParams();
 
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
@@ -33,14 +34,13 @@ export const useLicense = () => {
     };
 
     Veiculo.postByChassi(PAYLOAD)
-
       .then(({ data }) => {
         setAgendamentoSession({
           ...agendamentoSession,
           uuidVeiculo: data.uuid,
         });
 
-        navigate(`/servicos/veiculo`);
+        navigate(`/agendamento/${params.uuidAgendamento}/servicos/veiculo`);
       })
       .catch(
         ({
