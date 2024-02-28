@@ -13,7 +13,9 @@ export const WrapperMain = styled.div`
 
 export const WrapperMainMenu = styled.nav``;
 
-export const Main = styled.main``;
+export const Main = styled.main`
+  flex: 1;
+`;
 
 export const MainMenu = styled.div`
   background: #e1f2ee;
@@ -103,6 +105,9 @@ export const WrapperIconsBar = styled.div`
 
 export const Wrapper = styled.div`
   padding: 20px;
+  min-height: calc(100dvh - 90px);
+  display: flex;
+  flex-direction: column;
 `;
 
 export const WrapperButton = styled.div`
