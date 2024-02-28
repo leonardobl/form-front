@@ -3,12 +3,13 @@ import { IEnderecoDTO } from "./agendamento";
 
 export interface IClienteForm {
   cpfCnpj: string;
-  email: string;
+  email?: string;
   endereco?: IEnderecoDTO;
   nome: string;
   senha?: string;
   telefone?: string;
   tipo: TipoClienteEnum;
+  uuid?: string;
 }
 
 export interface IClienteDTO {

@@ -3,8 +3,8 @@ import { IPageRequest } from "../../types/page";
 import { ApiBrave } from "../../Apis/Brave/index";
 import { IPageMunicipioDTO } from "../../types/municipio";
 import { EstadosEnum } from "../../enums/estados";
-import { removeEmpty } from "../../utils/removeEmpty";
 import objectToParams from "../../utils/objectToParams";
+import { removeEmpty } from "../../utils/removeEmpty";
 
 const basePath = "/municipio";
 
@@ -17,7 +17,8 @@ export class Municipio {
   static async get(
     props?: IMunicipioProps
   ): Promise<AxiosResponse<IPageMunicipioDTO>> {
-    const params = objectToParams(props);
+    const values = removeEmpty(props);
+    const params = objectToParams(values);
     return ApiBrave.get(params ? `${basePath}?${params}` : basePath);
   }
 }

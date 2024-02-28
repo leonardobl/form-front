@@ -1,8 +1,8 @@
 import { TipoPessoaEnum } from "../enums/pessoas";
 
 interface IUsuarioForm {
-  cpfCnpj?: string;
-  email: string;
+  cpfCnpj: string;
+  email?: string;
   nome: string;
   senha: string;
   telefone?: string;
@@ -28,6 +28,38 @@ export interface IPerfil {
   rescursos?: IPerfil[];
   updateReason: string;
   updatedAt: string;
+  userNameUpdate: string;
+  uuid: string;
+  uuidUserUpdate: string;
+  version: number;
+}
+
+export interface INovaSenhaForm {
+  codigo: string;
+  cpfCnpj: string;
+  senha: string;
+}
+
+export interface IUsuarioCompletoDTO {
+  authorities: Authority[];
+  cpfCnpj: string;
+  email: string;
+  nome: string;
+  senha: string;
+  telefone: string;
+  tipoPessoa: string;
+  uuid: string;
+}
+
+export interface Authority {
+  ativo: boolean;
+  authority?: string;
+  createdAt: Date;
+  id: number;
+  nome: string;
+  rescursos?: Authority[];
+  updateReason: string;
+  updatedAt: Date;
   userNameUpdate: string;
   uuid: string;
   uuidUserUpdate: string;

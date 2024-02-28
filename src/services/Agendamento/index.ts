@@ -96,8 +96,27 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuid}/cancelar`);
   }
 
-  static async confirmarPagamento({uuid}:{uuid:string;}): Promise<AxiosResponse<IAgendamentoDTO>> {
+  static async confirmarPagamento({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuid}/confirmacao-manual`);
   }
 
+  static async vincularCliente({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.put(`${basePath}/${uuid}/vincular-cliente`);
+  }
+
+  static async vincularVeiculo({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.put(`${basePath}/${uuid}/vincular-veiculo`);
+  }
 }

@@ -2,6 +2,8 @@ import { AxiosResponse } from "axios";
 import { IPageRequest } from "../../types/page";
 import { ApiBrave } from "../../Apis/Brave/index";
 import { IPageLojaDTO } from "../../types/loja";
+import { removeEmpty } from "../../utils/removeEmpty";
+import objectToParams from "../../utils/objectToParams";
 
 interface ILojaParams extends IPageRequest {
   nome?: string;
@@ -11,7 +13,9 @@ const basePath = "/loja";
 
 export class Loja {
   static async get(props?: ILojaParams): Promise<AxiosResponse<IPageLojaDTO>> {
-    return ApiBrave.get(`${basePath}`);
+    const values = removeEmpty(props);
+    const params = objectToParams(values);
+    return ApiBrave.get(params ? `${basePath}?${params}` : `${basePath}`);
   }
 
   static async getDiasIndisponiveis({
