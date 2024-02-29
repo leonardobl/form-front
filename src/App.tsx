@@ -40,11 +40,11 @@ export const App = () => {
       <ContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="alterar-senha" element={<ResetPassword />} />
             <Route index element={<Navigate to={"/agendamento"} />} />
-            <Route path="*" element={<NotFound />} />
 
-            <Route path="offline" element={<Offline />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/alterar-senha" element={<ResetPassword />} />
+            <Route path="/offline" element={<Offline />} />
             <Route
               path="/perfil"
               element={
@@ -53,7 +53,6 @@ export const App = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/novo-agendamento"
               element={
@@ -62,10 +61,9 @@ export const App = () => {
                 </ProtectedRoute>
               }
             />
+
             <Route path="/agendamento" element={<LayoutTemplate />}>
               <Route index element={<Home />} />
-              <Route path="*" element={<NotFound />} />
-
               <Route
                 path="loja"
                 element={
