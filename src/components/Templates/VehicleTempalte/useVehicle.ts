@@ -46,29 +46,46 @@ export const useVehicle = () => {
 
         Agendamento.put(PAYLOAD)
           .then(() => {
-            if (PAYLOAD.revistoria) {
-              setAgendamentoSession({
-                ...agendamentoSession,
-                revistoria: true,
-                uuidAgendamento: PAYLOAD.uuid,
-              });
-            }
+            Agendamento.vincularAgendamentoAoVeiculo({
+              uuidAgendamento: PAYLOAD.uuid,
+            })
+              .then(() => {
+                if (PAYLOAD.revistoria) {
+                  setAgendamentoSession({
+                    ...agendamentoSession,
+                    revistoria: true,
+                    uuidAgendamento: PAYLOAD.uuid,
+                  });
+                }
 
-            if (
-              agendamentoSession?.tipoAtendimento === TipoAtendimentoEnum.LOJA
-            ) {
-              if (PAYLOAD.revistoria) {
-                navigate(`/meus-agendamentos/agendamento?id=${PAYLOAD.uuid}`);
-                return;
-              }
+                if (
+                  agendamentoSession?.tipoAtendimento ===
+                  TipoAtendimentoEnum.LOJA
+                ) {
+                  if (PAYLOAD.revistoria) {
+                    navigate(
+                      `/meus-agendamentos/agendamento?id=${PAYLOAD.uuid}`
+                    );
+                    return;
+                  }
 
-              navigate(`/agendamento/${params.uuidAgendamento}/pagamento`);
-              return;
-            }
+                  navigate(`/agendamento/${params.uuidAgendamento}/pagamento`);
+                  return;
+                }
 
-            navigate(
-              `/agendamento/${params.uuidAgendamento}/servicos/cadastro-endereco`
-            );
+                navigate(
+                  `/agendamento/${params.uuidAgendamento}/servicos/cadastro-endereco`
+                );
+              })
+              .catch(
+                ({
+                  response: {
+                    data: { mensagem },
+                  },
+                }) => {
+                  toast.error(mensagem);
+                }
+              );
           })
           .catch(
             ({
