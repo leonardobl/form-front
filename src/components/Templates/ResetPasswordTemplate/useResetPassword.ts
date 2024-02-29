@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useContextSite } from "../../../context/Context";
 import { Usuario } from "../../../services/Usuario";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { INovaSenhaForm } from "../../../types/usuario";
 import { toast } from "react-toastify";
 
@@ -17,11 +17,12 @@ export const useResetPassword = () => {
   const [params, setParams] = useSearchParams();
   const codigo = params.get("codigo");
   const cpfCnpj = params.get("cpfcnpj");
+  const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    // setIsLoad(true);
+    setIsLoad(true);
 
     const PAYLOAD: INovaSenhaForm = {
       senha: form.senha,
@@ -29,13 +30,20 @@ export const useResetPassword = () => {
       cpfCnpj,
     };
 
-    window.opener = null;
-    window.open("", "_self");
-    window.close();
-
-    // Usuario.alterarSenha(PAYLOAD).then(() => {
-    //   toast()
-    // } )
+    Usuario.alterarSenha(PAYLOAD)
+      .then(() => {
+        toast.success("Senha alterada com sucesso!");
+        setTimeout(() => {
+          navigate("/agendamento/login");
+        }, 2000);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      );
   }
 
   //mapa.starcheck.com.br/alterar-senha?cpfcnpj=12345678910&codigo=D1F2G3

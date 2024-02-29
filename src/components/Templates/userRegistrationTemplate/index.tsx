@@ -74,6 +74,7 @@ export const UserRegistrationTemplate = () => {
         <div>
           <Input
             required
+            label="Cep"
             maxLength={9}
             onBlur={handleCep}
             value={form?.endereco?.cep}

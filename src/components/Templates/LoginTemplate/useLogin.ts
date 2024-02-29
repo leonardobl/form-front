@@ -86,6 +86,7 @@ export const useLogin = () => {
                 setIsDisable(false);
 
                 if (params?.uuidAgendamento) {
+                  console.log("aqui");
                   Agendamento.vincularAgendamentoAoCliente({
                     uuidAgendamento: params?.uuidAgendamento,
                     uuidCliente: data.uuid,
