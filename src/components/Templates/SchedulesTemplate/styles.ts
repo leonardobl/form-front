@@ -45,14 +45,14 @@ export const GridWrapper = styled.div`
   padding: 40px;
   grid-template-columns: repeat(6, 1fr);
   gap: 36px 16px;
-  grid-template-areas: "dataF dataI tipo placa renavam renavam" "chassi chassi status status button1 button2";
+  grid-template-areas: "dataI dataF tipo placa renavam renavam" "chassi chassi status status button1 button2";
 
   > :nth-child(1) {
-    grid-area: dataF;
+    grid-area: dataI;
   }
 
   > :nth-child(2) {
-    grid-area: dataI;
+    grid-area: dataF;
   }
 
   > :nth-child(3) {
