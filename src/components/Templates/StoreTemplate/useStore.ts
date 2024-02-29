@@ -5,7 +5,10 @@ import { ISelectOptions } from "../../../types/inputs";
 import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
-import { Agendamento } from "../../../services/Agendamento";
+import {
+  Agendamento,
+  IReagendamentoProps,
+} from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { addDays } from "date-fns";
 import { useNavigate } from "react-router-dom";
@@ -22,10 +25,41 @@ export const useStore = () => {
   const [form, setForm] = useState<IAgendamentoBasicoForm>(
     {} as IAgendamentoBasicoForm
   );
+
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
 
   const navigate = useNavigate();
+
+  function handleReagendamento() {
+    setIsLoad(true);
+    setModalIsOpen(false);
+
+    const PAYLOAD: IReagendamentoProps = {
+      diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
+      horaAgendada: form.horaAgendada,
+      uuidAgendamento: agendamentoSession?.reagendamento,
+      uuidLoja: form.uuidLoja,
+      uuidDelivery: form.uuidDelivery,
+    };
+
+    Agendamento.reagendar(PAYLOAD)
+      .then(() => {
+        toast.success("Reagendamento efetuado com sucesso!");
+        // cleanStorage();
+        setTimeout(() => {
+          window.open("/meus-agendamentos/detalhe-agendamento", "_self");
+        }, 2000);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
 
   useEffect(() => {
     setDate(null);
@@ -145,5 +179,7 @@ export const useStore = () => {
     isLoading,
     horariosOptions,
     handleSubmit,
+    handleReagendamento,
+    setModalIsOpen,
   };
 };

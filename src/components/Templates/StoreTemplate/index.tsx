@@ -8,6 +8,8 @@ import { Button } from "../../Atoms/Button";
 import { useStore } from "./useStore";
 import { ISelectOptions } from "../../../types/inputs";
 import { Title } from "../../Atoms/Title";
+import { reverseToBrDate } from "../../../utils/dateTransform";
+import { MyModal } from "../../Atoms/MyModal";
 
 export const StoreTemplate = () => {
   const {
@@ -21,6 +23,8 @@ export const StoreTemplate = () => {
     horariosOptions,
     modalIsOpen,
     handleSubmit,
+    handleReagendamento,
+    setModalIsOpen,
   } = useStore();
 
   return (
@@ -83,6 +87,18 @@ export const StoreTemplate = () => {
           </div>
         </S.GridWrapper>
       </S.Form>
+
+      <MyModal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+      >
+        <S.ModalContent>
+          <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
+            date?.toLocaleDateString()
+          )} às ${form.horaAgendada}? `}</p>
+          <Button onClick={handleReagendamento}>CONFIRMAR</Button>
+        </S.ModalContent>
+      </MyModal>
     </S.Container>
   );
 };

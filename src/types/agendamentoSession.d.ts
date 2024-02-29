@@ -5,6 +5,7 @@ import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
 export interface IAgendamentoSessionProps {
   tipoAtendimento?: TipoAtendimentoEnum;
   revistoria?: boolean;
+  reagendamento?: boolean;
   cidade?: string;
   roles?: RolesEnum[];
   uuidAgendamento?: string;
