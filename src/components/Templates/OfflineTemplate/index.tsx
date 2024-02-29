@@ -28,6 +28,7 @@ export const OfflineTemplate = () => {
 
         <S.PhoneNumer>(98) 9.8426-1887</S.PhoneNumer>
       </S.Main>
+      <S.LogoMapa src="/assets/svgs/logo-mapa.svg" alt="logo mapa" />
     </S.Container>
   );
 };

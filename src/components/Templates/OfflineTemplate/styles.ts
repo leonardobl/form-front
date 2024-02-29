@@ -32,6 +32,11 @@ export const IconDanger = styled.img`
   margin: 0 auto 3.86rem;
 `;
 
+export const LogoMapa = styled.img`
+  display: block;
+  margin: 0 16px 16px auto;
+`;
+
 export const Title = styled.p`
   color: #20332f;
   font-family: Mulish;
