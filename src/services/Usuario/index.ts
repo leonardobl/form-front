@@ -23,10 +23,12 @@ export class Usuario {
     return ApiUsuarios.post(`${basePath}/cadastrar-cliente`, props);
   }
 
-  static async requererNovaSenha(
-    props: INovaSenhaForm
-  ): Promise<AxiosResponse<IUsuarioDTO>> {
-    return ApiUsuarios.post(`${basePath}/requerer-nova-senha`, props);
+  static async requererNovaSenha({
+    cpfCnpj,
+  }: {
+    cpfCnpj: string;
+  }): Promise<AxiosResponse<IUsuarioDTO>> {
+    return ApiUsuarios.post(`${basePath}/requerer-nova-senha`, { cpfCnpj });
   }
 
   static async getByEmail({

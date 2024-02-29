@@ -29,6 +29,7 @@ import { EditProfile } from "./components/Pages/EditProfile";
 import { NewScheduling } from "./components/Pages/NewScheduling";
 import { NotFound } from "./components/Atoms/NotFound";
 import { Offline } from "./components/Pages/Offline";
+import { ForgotPassword } from "./components/Pages/ForgotPassword";
 
 export const App = () => {
   return (
@@ -82,6 +83,7 @@ export const App = () => {
               path="/agendamento/:uuidAgendamento?"
               element={<LayoutTemplate />}
             >
+              <Route path="recuperar-senha" element={<ForgotPassword />} />
               <Route path="login" element={<Login />} />
               <Route path="login-cadastro" element={<LoginRegister />} />
               <Route path="cadastro-usuario" element={<UserRegistration />} />

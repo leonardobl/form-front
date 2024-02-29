@@ -21,20 +21,20 @@ export const Form = styled.form`
     margin-top: 48px;
   }
 
-  > a {
-    margin-top: 24px;
-    display: block;
-
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #20332f8f;
-    text-align: end;
-  }
-
-  > button {
+  > button.button {
     margin: 48px auto 0;
   }
+`;
+
+export const ButtonForgot = styled.button`
+  margin-top: 24px;
+  display: block;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #20332f8f;
+  margin-left: auto;
 `;

@@ -6,7 +6,7 @@ import { useLogin } from "./useLogin";
 import { Input } from "../../Atoms/Inputs/Input";
 
 export const LoginTemplate = () => {
-  const { form, setForm, handleCpf, handleSubmit } = useLogin();
+  const { form, setForm, handleCpf, handleSubmit, navigate } = useLogin();
 
   return (
     <S.Container>
@@ -36,9 +36,13 @@ export const LoginTemplate = () => {
           />
         </div>
 
-        <a href="#">Esqueceu sua senha?</a>
+        <S.ButtonForgot
+          onClick={() => navigate("/agendamento/recuperar-senha")}
+        >
+          Esqueceu sua senha ?
+        </S.ButtonForgot>
 
-        <Button>Entrar</Button>
+        <Button className="button">Entrar</Button>
       </S.Form>
     </S.Container>
   );

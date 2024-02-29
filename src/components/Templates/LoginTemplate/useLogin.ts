@@ -143,6 +143,7 @@ export const useLogin = () => {
     handleCpf,
     isDisable,
     isLoad,
+    navigate,
     handleSubmit,
   };
 };
