@@ -183,7 +183,9 @@ export const SchedulesTemplate = () => {
                 ? item?.loja?.endereco?.cidade
                 : item?.delivery?.cidade}
             </p>
-            <p>{reverseToBrDate(item?.diaAgendado)}</p>
+            <p>{`${reverseToBrDate(item?.diaAgendado)} - ${
+              item.horaAgendada
+            }`}</p>
             <Status
               status={item?.status}
               onClick={() => {

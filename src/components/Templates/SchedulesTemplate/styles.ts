@@ -117,7 +117,7 @@ export const List = styled.div`
 
 export const ListTitles = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 1fr 1fr 0.8fr 0.8fr 1.4fr 0.2fr;
+  grid-template-columns: 0.6fr 1.2fr 1fr 1fr 0.8fr 1.2fr 1.4fr 0.2fr;
   width: 100%;
   padding: 18px 38px;
 
@@ -135,7 +135,7 @@ export const ListTitles = styled.div`
 
 export const ListItem = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 1fr 1fr 0.8fr 0.8fr 1.4fr 0.2fr;
+  grid-template-columns: 0.6fr 1.2fr 1fr 1fr 0.8fr 1.2fr 1.4fr 0.2fr;
   width: 100%;
   padding: 18px 38px;
   border-radius: 10px;

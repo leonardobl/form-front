@@ -30,6 +30,7 @@ import { NewScheduling } from "./components/Pages/NewScheduling";
 import { NotFound } from "./components/Atoms/NotFound";
 import { Offline } from "./components/Pages/Offline";
 import { ForgotPassword } from "./components/Pages/ForgotPassword";
+import { ResetPassword } from "./components/Pages/ResetPassword";
 
 export const App = () => {
   return (
@@ -39,8 +40,10 @@ export const App = () => {
       <ContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to={"/agendamento"} />} />
+            <Route path="alterar-senha" element={<ResetPassword />} />
+            <Route index element={<Navigate to={"/agendamento"} />} />
             <Route path="*" element={<NotFound />} />
+
             <Route path="offline" element={<Offline />} />
             <Route
               path="/perfil"
@@ -61,6 +64,8 @@ export const App = () => {
             />
             <Route path="/agendamento" element={<LayoutTemplate />}>
               <Route index element={<Home />} />
+              <Route path="*" element={<NotFound />} />
+
               <Route
                 path="loja"
                 element={
@@ -84,6 +89,7 @@ export const App = () => {
               element={<LayoutTemplate />}
             >
               <Route path="recuperar-senha" element={<ForgotPassword />} />
+
               <Route path="login" element={<Login />} />
               <Route path="login-cadastro" element={<LoginRegister />} />
               <Route path="cadastro-usuario" element={<UserRegistration />} />
