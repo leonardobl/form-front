@@ -21,6 +21,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
     modalIsOpen,
     navigate,
     setModalIsOpen,
+    isCliente,
   } = useLayout();
 
   useEffect(() => {
@@ -58,11 +59,13 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     Agendamentos
                   </button>
                 </div>
-                <div>
-                  <button onClick={() => navigate("/novo-agendamento")}>
-                    Novo Agendamento
-                  </button>
-                </div>
+                {!isCliente && (
+                  <div>
+                    <button onClick={() => navigate("/novo-agendamento")}>
+                      Novo Agendamento
+                    </button>
+                  </div>
+                )}
               </>
             )}
           </S.WrapperButton>
