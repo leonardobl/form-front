@@ -28,6 +28,7 @@ import { ScheduleDetail } from "./components/Pages/ScheduleDetail";
 import { EditProfile } from "./components/Pages/EditProfile";
 import { NewScheduling } from "./components/Pages/NewScheduling";
 import { NotFound } from "./components/Atoms/NotFound";
+import { Offline } from "./components/Pages/Offline";
 
 export const App = () => {
   return (
@@ -39,6 +40,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<Navigate to={"/agendamento"} />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="offline" element={<Offline />} />
             <Route
               path="/perfil"
               element={

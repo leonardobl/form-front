@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Button } from "../../Atoms/Button";
 import { useLayout } from "./useLayout";
 import { MyModal } from "../../Atoms/MyModal";
+import { Bar } from "../../Atoms/Bar";
 
 interface LayoutTemplateProps extends ComponentProps<"div"> {
   children?: React.ReactNode;
@@ -69,7 +70,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
       </S.WrapperMainMenu>
 
       <S.WrapperMain>
-        <S.Bar>
+        <Bar>
           <S.WrapperIconsBar>
             <S.IconMenuHamburguer
               src="/assets/svgs/menuHamburguer.svg"
@@ -86,7 +87,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
               onClick={() => navigate("/")}
             />
           </S.WrapperIconsBar>
-        </S.Bar>
+        </Bar>
         <S.Wrapper>
           <S.Main>
             {props.children}
