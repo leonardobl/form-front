@@ -95,6 +95,7 @@ export const useStore = () => {
         if (token) {
           Agendamento.vincularAgendamentoAoCliente({
             uuidAgendamento: data.uuid,
+            uuidCliente: agendamentoSession?.uuidCliente,
           }).then(() => {
             navigate(`/agendamento/${data.uuid}/servicos`);
             return;

@@ -16,11 +16,14 @@ import { ISelectOptions } from "../../../types/inputs";
 import { useContextSite } from "../../../context/Context";
 import { useNavigate, useParams } from "react-router-dom";
 import { Agendamento } from "../../../services/Agendamento";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useUserRegistration = () => {
   const [form, setForm] = useState<IClienteForm>({} as IClienteForm);
   const { setIsLoad } = useContextSite();
   const params = useParams();
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
@@ -49,6 +52,7 @@ export const useUserRegistration = () => {
         if (params?.uuidAgendamento) {
           Agendamento.vincularAgendamentoAoCliente({
             uuidAgendamento: params?.uuidAgendamento,
+            uuidCliente: agendamentoSession?.uuidCliente,
           }).then(() => {
             setTimeout(() => {
               navigate(`/agendamento/${params?.uuidAgendamento}/login`);

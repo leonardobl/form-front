@@ -88,6 +88,7 @@ export const useLogin = () => {
                 if (params?.uuidAgendamento) {
                   Agendamento.vincularAgendamentoAoCliente({
                     uuidAgendamento: params?.uuidAgendamento,
+                    uuidCliente: data.uuid,
                   })
                     .then(() => {
                       navigate(

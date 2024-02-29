@@ -48,6 +48,7 @@ export const useVehicle = () => {
           .then(() => {
             Agendamento.vincularAgendamentoAoVeiculo({
               uuidAgendamento: PAYLOAD.uuid,
+              uuidVeiculo: agendamentoSession?.uuidVeiculo,
             })
               .then(() => {
                 if (PAYLOAD.revistoria) {

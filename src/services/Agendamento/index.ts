@@ -106,17 +106,25 @@ export class Agendamento {
 
   static async vincularAgendamentoAoCliente({
     uuidAgendamento,
+    uuidCliente,
   }: {
     uuidAgendamento: string;
+    uuidCliente: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
-    return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-cliente`);
+    return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-cliente`, {
+      uuid: uuidCliente,
+    });
   }
 
   static async vincularAgendamentoAoVeiculo({
     uuidAgendamento,
+    uuidVeiculo,
   }: {
     uuidAgendamento: string;
+    uuidVeiculo: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
-    return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-veiculo`);
+    return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-veiculo`, {
+      uuid: uuidVeiculo,
+    });
   }
 }
