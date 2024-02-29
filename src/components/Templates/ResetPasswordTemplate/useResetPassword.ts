@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useContextSite } from "../../../context/Context";
 import { Usuario } from "../../../services/Usuario";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { INovaSenhaForm } from "../../../types/usuario";
+import { toast } from "react-toastify";
 
 interface IResetPassProps {
   senha: string;
@@ -13,21 +14,31 @@ export const useResetPassword = () => {
   const inpConfirSenha = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState<IResetPassProps>({} as IResetPassProps);
   const { setIsLoad } = useContextSite();
-  const params = useParams();
+  const [params, setParams] = useSearchParams();
+  const codigo = params.get("codigo");
+  const cpfCnpj = params.get("cpfcnpj");
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    setIsLoad(true);
+    // setIsLoad(true);
 
     const PAYLOAD: INovaSenhaForm = {
       senha: form.senha,
-      codigo: "",
-      cpfCnpj: "",
+      codigo,
+      cpfCnpj,
     };
 
-    // Usuario.alterarSenha(PAYLOAD);
+    window.opener = null;
+    window.open("", "_self");
+    window.close();
+
+    // Usuario.alterarSenha(PAYLOAD).then(() => {
+    //   toast()
+    // } )
   }
+
+  //mapa.starcheck.com.br/alterar-senha?cpfcnpj=12345678910&codigo=D1F2G3
 
   function checkPass() {
     const pass = inpSenhaRef?.current?.value;

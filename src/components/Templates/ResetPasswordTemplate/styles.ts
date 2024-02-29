@@ -21,6 +21,10 @@ export const Text = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: 2rem;
+
+  span {
+    font-weight: bold;
+  }
 `;
 
 export const FlexWrapper = styled.div`
