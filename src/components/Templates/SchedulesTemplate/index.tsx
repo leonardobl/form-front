@@ -17,10 +17,14 @@ import { Status } from "../../Atoms/Status";
 
 export const SchedulesTemplate = () => {
   const {
-    date,
     handleClear,
     pagination,
-    setDate,
+    dateFinal,
+    dateInitial,
+    setDateFinal,
+    cidadeOptions,
+    isOpen,
+    setDateInitial,
     statusOptions,
     isMobile,
     handleFilter,
@@ -45,13 +49,13 @@ export const SchedulesTemplate = () => {
               placeholderText="___/___/___"
               label="Data Inicial"
               onChange={(e) => {
-                setDate(e);
+                setDateInitial(e);
                 setFormFilter((prev) => ({
                   ...prev,
-                  data: reverseToIsoDate(e?.toLocaleDateString()),
+                  dataInicial: reverseToIsoDate(e?.toLocaleDateString()),
                 }));
               }}
-              selected={date}
+              selected={dateInitial}
             />
           </div>
           <div>
@@ -59,13 +63,13 @@ export const SchedulesTemplate = () => {
               placeholderText="___/___/___"
               label="Data Final"
               onChange={(e) => {
-                setDate(e);
+                setDateFinal(e);
                 setFormFilter((prev) => ({
                   ...prev,
-                  data: reverseToIsoDate(e?.toLocaleDateString()),
+                  dataFinal: reverseToIsoDate(e?.toLocaleDateString()),
                 }));
               }}
-              selected={date}
+              selected={dateFinal}
             />
           </div>
 

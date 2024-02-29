@@ -24,7 +24,8 @@ export const useSchedules = () => {
   const size = 5;
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
-  const [date, setDate] = useState<Date>();
+  const [dateInitial, setDateInitial] = useState<Date>();
+  const [dateFinal, setDateFinal] = useState<Date>();
   const { setIsLoad } = useContextSite();
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const [numberPage, setNumberPage] = useState(0);
@@ -138,7 +139,8 @@ export const useSchedules = () => {
     setIsLoad(true);
     setFormFilter({
       cidade: null,
-      data: "",
+      dataFinal: "",
+      dataInicial: "",
       loja: null,
       placa: "",
       renavam: "",
@@ -148,7 +150,8 @@ export const useSchedules = () => {
       tipoAtendimento: null,
     });
 
-    setDate(null);
+    setDateFinal(null);
+    setDateInitial(null);
     setNumberPage(0);
 
     getAgendamentos({ size, page: 0 });
@@ -157,8 +160,10 @@ export const useSchedules = () => {
   return {
     handleClear,
     pagination,
-    date,
-    setDate,
+    dateInitial,
+    setDateInitial,
+    dateFinal,
+    setDateFinal,
     statusOptions,
     isMobile,
     handleFilter,

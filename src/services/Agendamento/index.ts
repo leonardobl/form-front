@@ -29,7 +29,8 @@ export interface IGetAgendamentosProps extends IPageRequest {
   tipoAtendimento?: TipoAtendimentoEnum;
   veiculo?: string;
   cidade?: string;
-  data?: string;
+  dataInicial?: string;
+  dataFinal?: string;
   placa?: string;
   renavam?: string;
   chassi?: string;
