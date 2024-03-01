@@ -19,7 +19,6 @@ export const UserRegistrationTemplate = () => {
     handleCep,
     cidadesOptions,
     ufOptions,
-    cepLoad,
     checkPass,
     handleSubmit,
     inpConfirSenha,
@@ -159,7 +158,7 @@ export const UserRegistrationTemplate = () => {
           <SimpleSelect
             label="UF"
             required
-            key={`${Math.random()} - ${cepLoad}`}
+            key={`${Math.random()}`}
             value={ufOptions.find((_) => _.value === form?.endereco?.uf)}
             options={ufOptions}
             onChange={(e: ISelectOptions) =>
@@ -175,7 +174,7 @@ export const UserRegistrationTemplate = () => {
           <SimpleSelect
             label="Cidade"
             required
-            key={`${Math.random()} - ${cepLoad}`}
+            key={`${Math.random()}`}
             value={cidadesOptions.find(
               (_) => _.value === form?.endereco?.cidade
             )}

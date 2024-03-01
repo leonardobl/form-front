@@ -27,7 +27,6 @@ export const useUserRegistration = () => {
 
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
-  const [cepLoad, setCepLoad] = useState(false);
 
   const inpSenhaRef = useRef<HTMLInputElement>(null);
   const inpConfirSenha = useRef<HTMLInputElement>(null);
@@ -160,7 +159,6 @@ export const useUserRegistration = () => {
     handleCep,
     cidadesOptions,
     ufOptions,
-    cepLoad,
     checkPass,
     handleSubmit,
     inpSenhaRef,

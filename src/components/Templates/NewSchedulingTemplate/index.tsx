@@ -15,33 +15,29 @@ import { Text } from "../../Atoms/Text";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
-
-const options = [
-  {
-    label: `Leonardo Bernardo Lima - cpf/cnpj: 014.269.043-04 `,
-    value: v4(),
-  },
-  {
-    label: `Leonardo Lima - cpf/cnpj: 014.269.043-04`,
-    value: v4(),
-  },
-  {
-    label: `Leonardo - cpf/cnpj: 014.269.043-04 `,
-    value: v4(),
-  },
-];
+import { useNewScheduling } from "./useNewScheduling";
 
 export const NewSchedulingTemplate = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>();
-  const [tipoPagamento, setTipoPagamento] = useState<FormaPagamentoEnum>();
-  const [tipoServico, setTipoServico] = useState<OpcoesServicosEnum>();
-  const getValues = async (txt: string) => {
-    return options.filter((item) =>
-      item.label.toLowerCase().includes(txt.toLowerCase())
-    );
-  };
-  const [cliente, setCliente] = useState(false);
+  const {
+    formNewClient,
+    handleCep,
+    handleCpf,
+    handlePhone,
+    handleSubmitNewClient,
+    setFormNewClient,
+    options,
+    cliente,
+    getValues,
+    modalIsOpen,
+    setCliente,
+    setModalIsOpen,
+    setTipoAtendimento,
+    setTipoPagamento,
+    setTipoServico,
+    tipoAtendimento,
+    tipoPagamento,
+    tipoServico,
+  } = useNewScheduling();
 
   // const { Option } = components;
   // const IconOption = (props) => (
@@ -59,16 +55,45 @@ export const NewSchedulingTemplate = () => {
         onRequestClose={() => setModalIsOpen(false)}
         isOpen={modalIsOpen}
       >
-        <S.FormModal>
+        <S.FormModal onSubmit={handleSubmitNewClient}>
           <S.GridModal onSubmit={() => setCliente(true)}>
             <div>
-              <Input variant="modal" label="Nome" required />
+              <Input
+                variant="modal"
+                label="Nome"
+                required
+                value={formNewClient?.nome}
+                onChange={(e) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    nome: e.target.value,
+                  }))
+                }
+              />
             </div>
             <div>
-              <Input variant="modal" label="CPF/CNPJ" required />
+              <Input
+                variant="modal"
+                label="CPF/CNPJ"
+                required
+                maxLength={18}
+                value={formNewClient?.cpfCnpj}
+                onChange={(e) => handleCpf(e.target.value)}
+              />
             </div>
             <div>
-              <Input variant="modal" label="E-mail" />
+              <Input
+                variant="modal"
+                label="E-mail"
+                type="email"
+                value={formNewClient?.email}
+                onChange={(e) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    email: e.target.value,
+                  }))
+                }
+              />
             </div>
             <div>
               <Input variant="modal" label="Telefone" />
