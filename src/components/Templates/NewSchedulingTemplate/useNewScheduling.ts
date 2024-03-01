@@ -22,9 +22,12 @@ import { resetValues } from "../../../utils/resetObject";
 import {
   IAgendamentoBasicoForm,
   IClienteDTO,
+  IVeiculoDTO,
 } from "../../../types/agendamento";
 import { Loja } from "../../../services/Lojas";
 import { Delivery } from "../../../services/Delivery";
+import { IConsultaUnionProps } from "../../../types/veiculo";
+import { Veiculo } from "../../../services/Veiculo";
 
 const options = [
   {
@@ -46,6 +49,10 @@ export const useNewScheduling = () => {
   const [formNewClient, setFormNewClient] = useState<IClienteForm>(
     {} as IClienteForm
   );
+  const [formService, setFormSerice] = useState<IConsultaUnionProps>(
+    {} as IConsultaUnionProps
+  );
+
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [responseClient, setResponseClient] = useState<IClienteDTO>(
     {} as IClienteDTO
@@ -73,6 +80,9 @@ export const useNewScheduling = () => {
     useState<IAgendamentoBasicoForm>({} as IAgendamentoBasicoForm);
   const [dateAgendamento, setDateAgendamento] = useState<Date>(null);
   const hasData = Object.keys(responseClient).some((item) => item);
+  const [FormVihacle, setFormVihacle] = useState<IVeiculoDTO>(
+    {} as IVeiculoDTO
+  );
 
   function handleSubmitNewClient(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -222,6 +232,11 @@ export const useNewScheduling = () => {
   }, [modalIsOpen]);
 
   useEffect(() => {
+    const reset = resetValues(formService);
+    setFormSerice(reset);
+  }, [tipoServico]);
+
+  useEffect(() => {
     if (tipoAtendimento === TipoAtendimentoEnum.LOJA) {
       Loja.get()
         .then(({ data }) => {
@@ -263,6 +278,27 @@ export const useNewScheduling = () => {
     }
   }, [tipoAtendimento]);
 
+  function getVihacle() {
+    // if (!veiculoSession) return;
+    // setIsLoad(true);
+    // Veiculo.byId({ uuid: veiculoSession })
+    //   .then(({ data }) => {
+    //     setVeiculo(data);
+    //   })
+    //   .catch(
+    //     ({
+    //       response: {
+    //         data: { mensagem },
+    //       },
+    //     }) => {
+    //       toast.error(mensagem);
+    //     }
+    //   )
+    //   .finally(() => {
+    //     setIsLoad(false);
+    //   });
+  }
+
   return {
     handleCep,
     formNewClient,
@@ -281,6 +317,8 @@ export const useNewScheduling = () => {
     setTipoServico,
     cliente,
     setCliente,
+    formService,
+    setFormSerice,
     getValues,
     horariosOptions,
     setHorariosOptions,

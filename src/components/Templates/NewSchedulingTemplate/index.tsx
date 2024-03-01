@@ -16,7 +16,11 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { useNewScheduling } from "./useNewScheduling";
-import { maskCep, maskCpf } from "../../../utils/masks";
+import {
+  maskCep,
+  maskCpf,
+  removerCaracteresEspeciais,
+} from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
 
 export const NewSchedulingTemplate = () => {
@@ -51,6 +55,8 @@ export const NewSchedulingTemplate = () => {
     setHorariosOptions,
     diasIndisponiveis,
     ufOptions,
+    formService,
+    setFormSerice,
     selectOptions,
     tipoClienteOptions,
   } = useNewScheduling();
@@ -432,7 +438,17 @@ export const NewSchedulingTemplate = () => {
               <S.FormService>
                 <S.GridLicense>
                   <div>
-                    <Input label="Chassi" required />
+                    <Input
+                      label="Chassi"
+                      required
+                      value={formService.Chassi}
+                      onChange={(e) =>
+                        setFormSerice((prev) => ({
+                          ...prev,
+                          Chassi: e.target.value,
+                        }))
+                      }
+                    />
                   </div>
                   <div>
                     <Button>Buscar</Button>
@@ -443,10 +459,31 @@ export const NewSchedulingTemplate = () => {
               <S.FormService>
                 <S.GridSurvey>
                   <div>
-                    <Input label="Placa" required />
+                    <Input
+                      label="Placa"
+                      required
+                      value={formService.Placa}
+                      onChange={(e) => {
+                        setFormSerice((prev) => ({
+                          ...prev,
+                          Placa: removerCaracteresEspeciais(e.target.value),
+                        }));
+                      }}
+                    />
                   </div>
                   <div>
-                    <Input label="Renavam" required />
+                    <Input
+                      label="Renavam"
+                      required
+                      type="number"
+                      value={formService.Renavam}
+                      onChange={(e) =>
+                        setFormSerice((prev) => ({
+                          ...prev,
+                          Renavam: e.target.value,
+                        }))
+                      }
+                    />
                   </div>
                   <div>
                     <Button>Buscar</Button>
