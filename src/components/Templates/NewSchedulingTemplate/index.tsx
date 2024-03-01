@@ -16,6 +16,8 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { useNewScheduling } from "./useNewScheduling";
+import { maskCep } from "../../../utils/masks";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const NewSchedulingTemplate = () => {
   const {
@@ -37,6 +39,9 @@ export const NewSchedulingTemplate = () => {
     tipoAtendimento,
     tipoPagamento,
     tipoServico,
+    cidadesOptions,
+    ufOptions,
+    tipoClienteOptions,
   } = useNewScheduling();
 
   // const { Option } = components;
@@ -96,28 +101,148 @@ export const NewSchedulingTemplate = () => {
               />
             </div>
             <div>
-              <Input variant="modal" label="Telefone" />
+              <Input
+                variant="modal"
+                label="Telefone"
+                value={formNewClient?.telefone}
+                maxLength={15}
+                onChange={(e) => handlePhone(e.target.value)}
+              />
             </div>
             <div>
-              <SimpleSelect variant="modal" label="Tipo" required />
+              <SimpleSelect
+                variant="modal"
+                label="Tipo"
+                required
+                options={tipoClienteOptions}
+              />
             </div>
             <div>
-              <Input variant="modal" label="CEP" required />
+              <Input
+                variant="modal"
+                required
+                label="Cep"
+                maxLength={9}
+                onBlur={handleCep}
+                value={formNewClient?.endereco?.cep}
+                onChange={(e) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    endereco: {
+                      ...prev.endereco,
+                      cep: maskCep(e.target.value),
+                    },
+                  }))
+                }
+              />
+            </div>
+
+            <div>
+              <Input
+                variant="modal"
+                label="Endereço (Rua)"
+                required
+                value={formNewClient?.endereco?.logradouro}
+                onChange={(e) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    endereco: {
+                      ...prev.endereco,
+                      logradouro: e.target.value,
+                    },
+                  }))
+                }
+              />
             </div>
             <div>
-              <Input variant="modal" label="Endereço (Rua)" required />
+              <Input
+                variant="modal"
+                label="Numero"
+                type="number"
+                required
+                value={formNewClient?.endereco?.numero}
+                onChange={(e) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    endereco: {
+                      ...prev.endereco,
+                      numero: e.target.value,
+                    },
+                  }))
+                }
+              />
+            </div>
+
+            <div>
+              <Input
+                variant="modal"
+                label="Bairro"
+                required
+                value={formNewClient?.endereco?.bairro}
+                onChange={(e) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    endereco: { ...prev.endereco, bairro: e.target.value },
+                  }))
+                }
+              />
+            </div>
+
+            <div>
+              <Input
+                variant="modal"
+                label="Complemento"
+                value={formNewClient?.endereco?.complemento}
+                onChange={(e) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    endereco: {
+                      ...prev.endereco,
+                      complemento: e.target.value,
+                    },
+                  }))
+                }
+              />
+            </div>
+
+            <div>
+              <SimpleSelect
+                variant="modal"
+                label="UF"
+                required
+                key={`${Math.random()}`}
+                value={ufOptions.find(
+                  (_) => _.value === formNewClient?.endereco?.uf
+                )}
+                options={ufOptions}
+                onChange={(e: ISelectOptions) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    endereco: { ...prev.endereco, uf: e.value },
+                  }))
+                }
+              />
             </div>
             <div>
-              <Input variant="modal" label="Complemento" required />
-            </div>
-            <div>
-              <Input variant="modal" label="Bairro" required />
-            </div>
-            <div>
-              <SimpleSelect variant="modal" label="UF" required />
-            </div>
-            <div>
-              <SimpleSelect variant="modal" label="Cidade" required />
+              <SimpleSelect
+                variant="modal"
+                label="Cidade"
+                required
+                key={`${Math.random()}`}
+                value={cidadesOptions.find(
+                  (_) => _.value === formNewClient?.endereco?.cidade
+                )}
+                options={cidadesOptions}
+                onChange={(e: ISelectOptions) =>
+                  setFormNewClient((prev) => ({
+                    ...prev,
+                    endereco: {
+                      ...prev.endereco,
+                      cidade: e?.value,
+                    },
+                  }))
+                }
+              />
             </div>
             <div>
               <Button>Salvar</Button>

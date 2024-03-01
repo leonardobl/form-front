@@ -78,7 +78,7 @@ export const GridModal = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 48px 16px;
   padding: 90px;
-  grid-template-areas: "nome nome" "cpf email" "telefone tipo" "cep rua" "complemento bairro" "uf cidade" "button button";
+  grid-template-areas: "nome nome" "cpf email" "telefone tipo" "cep rua" "numero bairro" "complemento complemento" "uf cidade" "button button";
 
   > :nth-child(1) {
     grid-area: nome;
@@ -109,7 +109,7 @@ export const GridModal = styled.div`
   }
 
   > :nth-child(8) {
-    grid-area: complemento;
+    grid-area: numero;
   }
 
   > :nth-child(9) {
@@ -117,14 +117,18 @@ export const GridModal = styled.div`
   }
 
   > :nth-child(10) {
-    grid-area: uf;
+    grid-area: complemento;
   }
 
   > :nth-child(11) {
-    grid-area: cidade;
+    grid-area: uf;
   }
 
   > :nth-child(12) {
+    grid-area: cidade;
+  }
+
+  > :nth-child(13) {
     grid-area: button;
 
     button {

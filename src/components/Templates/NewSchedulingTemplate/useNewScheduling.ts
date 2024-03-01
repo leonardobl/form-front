@@ -15,6 +15,9 @@ import { TipoClienteEnum } from "../../../enums/tipoCliente";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
+import { ISelectOptions } from "../../../types/inputs";
+import { Ibge } from "../../../services/Ibge";
+import { resetValues } from "../../../utils/resetObject";
 
 const options = [
   {
@@ -45,7 +48,13 @@ export const useNewScheduling = () => {
       item.label.toLowerCase().includes(txt.toLowerCase())
     );
   };
+  const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
+  const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cliente, setCliente] = useState(false);
+  const tipoClienteOptions = Object.values(TipoClienteEnum).map((item) => ({
+    value: item,
+    label: item,
+  }));
 
   function handleSubmitNewClient(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -111,7 +120,38 @@ export const useNewScheduling = () => {
   }
 
   useEffect(() => {
+    if (formNewClient?.endereco?.uf) {
+      Ibge.CidadesPorEstado({ sigla: formNewClient.endereco.uf })
+        .then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item.nome,
+            label: item.nome,
+            element: item,
+          }));
+          setCidadesOptions(options);
+        })
+        .catch((erro) => toast.error("Erro ao requisitar as cidades"));
+    }
+  }, [formNewClient?.endereco?.uf]);
+
+  useEffect(() => {
+    Ibge.UFs()
+      .then(({ data }) => {
+        const options = data.map((item) => ({
+          value: item.sigla,
+          label: item.sigla,
+          element: item,
+        }));
+
+        setUfOptions(options);
+      })
+      .catch((erro) => toast.error("Erro ao requisitar as UFs"));
+  }, []);
+
+  useEffect(() => {
     if (!modalIsOpen) {
+      const reset = resetValues(formNewClient);
+      setFormNewClient(reset);
     }
   }, [modalIsOpen]);
 
@@ -134,5 +174,8 @@ export const useNewScheduling = () => {
     cliente,
     setCliente,
     getValues,
+    tipoClienteOptions,
+    cidadesOptions,
+    ufOptions,
   };
 };
