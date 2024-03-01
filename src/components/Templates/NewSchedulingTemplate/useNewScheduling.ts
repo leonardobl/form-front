@@ -5,6 +5,7 @@ import { ViaCep } from "../../../services/ViaCep";
 import { toast } from "react-toastify";
 import { IClienteForm } from "../../../types/cliente";
 import { Cliente } from "../../../services/Cliente";
+import { addDays } from "date-fns";
 import {
   maskCnpj,
   maskCpf,
@@ -18,6 +19,12 @@ import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { ISelectOptions } from "../../../types/inputs";
 import { Ibge } from "../../../services/Ibge";
 import { resetValues } from "../../../utils/resetObject";
+import {
+  IAgendamentoBasicoForm,
+  IClienteDTO,
+} from "../../../types/agendamento";
+import { Loja } from "../../../services/Lojas";
+import { Delivery } from "../../../services/Delivery";
 
 const options = [
   {
@@ -39,6 +46,10 @@ export const useNewScheduling = () => {
   const [formNewClient, setFormNewClient] = useState<IClienteForm>(
     {} as IClienteForm
   );
+  const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
+  const [responseClient, setResponseClient] = useState<IClienteDTO>(
+    {} as IClienteDTO
+  );
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>();
   const [tipoPagamento, setTipoPagamento] = useState<FormaPagamentoEnum>();
@@ -48,6 +59,7 @@ export const useNewScheduling = () => {
       item.label.toLowerCase().includes(txt.toLowerCase())
     );
   };
+  const [isLoading, setIsLoading] = useState(false);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const [cliente, setCliente] = useState(false);
@@ -55,6 +67,12 @@ export const useNewScheduling = () => {
     value: item,
     label: item,
   }));
+  const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>([]);
+  const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
+  const [formAgendamento, setFormAgendamento] =
+    useState<IAgendamentoBasicoForm>({} as IAgendamentoBasicoForm);
+  const [dateAgendamento, setDateAgendamento] = useState<Date>(null);
+  const hasData = Object.keys(responseClient).some((item) => item);
 
   function handleSubmitNewClient(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -68,8 +86,9 @@ export const useNewScheduling = () => {
     };
 
     Cliente.post(PAYLOAD)
-      .then(() => {
-        setIsLoad(false);
+      .then(({ data }) => {
+        setResponseClient(data);
+        setModalIsOpen(false);
         toast.success("Cadastro realizado com sucesso!");
       })
       .catch((error) => toast.error(error?.message))
@@ -77,6 +96,53 @@ export const useNewScheduling = () => {
         setIsLoad(false);
       });
   }
+
+  useEffect(() => {
+    setDateAgendamento(null);
+    if (formAgendamento?.uuidLoja) {
+      setIsLoading(true);
+      Loja.getDiasIndisponiveis({ uuidLoja: formAgendamento.uuidLoja })
+        .then(({ data }) => {
+          const options = data.map((item) => addDays(new Date(item), 1));
+
+          setDiasIndisponiveis(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => setIsLoading(false));
+    }
+  }, [formAgendamento?.uuidLoja]);
+
+  useEffect(() => {
+    setFormAgendamento((prev) => ({ ...prev, horaAgendada: null }));
+    if (dateAgendamento) {
+      const newDate = dateAgendamento
+        .toLocaleDateString()
+        .split("/")
+        .reverse()
+        .join("-");
+
+      if (formAgendamento?.uuidLoja) {
+        Loja.getHorariosDisponiveis({
+          uuidLoja: formAgendamento?.uuidLoja,
+          dataAgendamento: newDate,
+        }).then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item,
+            label: item,
+            element: item,
+          }));
+
+          setHorariosOptions(options);
+        });
+      }
+    }
+  }, [dateAgendamento]);
 
   function handlePhone(e: string) {
     const newPhoneValue = maskPhone(e);
@@ -155,6 +221,48 @@ export const useNewScheduling = () => {
     }
   }, [modalIsOpen]);
 
+  useEffect(() => {
+    if (tipoAtendimento === TipoAtendimentoEnum.LOJA) {
+      Loja.get()
+        .then(({ data }) => {
+          const options = data.content.map((item) => ({
+            label: item.nome,
+            value: item.uuid,
+            element: item,
+          }));
+
+          setSelectOptions(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+    }
+
+    if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
+      Delivery.get()
+        .then(({ data }) => {
+          const options = data.content.map((item) => ({
+            value: item.uuid,
+            label: item.cidade,
+            element: item,
+          }));
+
+          setSelectOptions(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+    }
+  }, [tipoAtendimento]);
+
   return {
     handleCep,
     formNewClient,
@@ -174,8 +282,19 @@ export const useNewScheduling = () => {
     cliente,
     setCliente,
     getValues,
+    horariosOptions,
+    setHorariosOptions,
+    formAgendamento,
+    setFormAgendamento,
     tipoClienteOptions,
     cidadesOptions,
     ufOptions,
+    hasData,
+    diasIndisponiveis,
+    dateAgendamento,
+    setDateAgendamento,
+    responseClient,
+    isLoading,
+    selectOptions,
   };
 };

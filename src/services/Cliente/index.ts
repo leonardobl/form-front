@@ -6,7 +6,7 @@ import { IClienteDTO } from "../../types/agendamento";
 const basePath = "/cliente";
 
 export class Cliente {
-  static async post(props: IClienteForm) {
+  static async post(props: IClienteForm): Promise<AxiosResponse<IClienteDTO>> {
     return ApiBrave.post(`${basePath}`, props);
   }
 

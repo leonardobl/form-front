@@ -16,7 +16,7 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { useNewScheduling } from "./useNewScheduling";
-import { maskCep } from "../../../utils/masks";
+import { maskCep, maskCpf } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
 
 export const NewSchedulingTemplate = () => {
@@ -38,9 +38,20 @@ export const NewSchedulingTemplate = () => {
     setTipoServico,
     tipoAtendimento,
     tipoPagamento,
+    responseClient,
     tipoServico,
+    isLoading,
+    formAgendamento,
+    setFormAgendamento,
     cidadesOptions,
+    hasData,
+    dateAgendamento,
+    horariosOptions,
+    setDateAgendamento,
+    setHorariosOptions,
+    diasIndisponiveis,
     ufOptions,
+    selectOptions,
     tipoClienteOptions,
   } = useNewScheduling();
 
@@ -269,8 +280,6 @@ export const NewSchedulingTemplate = () => {
                 </S.NotFoundvalue>
               )}
               loadOptions={getValues}
-              onChange={(e) => setCliente(() => (e?.value ? true : false))}
-              options={options}
             />
           </div>
           <div>
@@ -278,28 +287,40 @@ export const NewSchedulingTemplate = () => {
           </div>
         </S.FormSearch>
 
-        {cliente && (
+        {hasData && (
           <>
             <S.FormUser>
               <S.GridUser>
                 <div>
-                  <Input label="Nome" readOnly />
+                  <Input label="Nome" readOnly value={responseClient?.nome} />
                 </div>
 
                 <div>
-                  <Input label="CPF/CNPJ" readOnly />
+                  <Input
+                    label="CPF/CNPJ"
+                    readOnly
+                    value={responseClient?.cpfCnpj}
+                  />
                 </div>
 
                 <div>
-                  <Input label="Telefone" readOnly />
+                  <Input
+                    label="Telefone"
+                    readOnly
+                    value={responseClient?.telefone}
+                  />
                 </div>
 
                 <div>
-                  <Input label="E-mail" readOnly />
+                  <Input
+                    label="E-mail"
+                    readOnly
+                    value={responseClient?.email}
+                  />
                 </div>
 
                 <div>
-                  <Input label="Tipo" readOnly />
+                  <Input label="Tipo" readOnly value={responseClient?.tipo} />
                 </div>
               </S.GridUser>
             </S.FormUser>
@@ -325,6 +346,16 @@ export const NewSchedulingTemplate = () => {
                 <div>
                   <SimpleSelect
                     required
+                    value={
+                      tipoAtendimento === TipoAtendimentoEnum.LOJA
+                        ? selectOptions.find(
+                            (item) => item.value === formAgendamento.uuidLoja
+                          )
+                        : selectOptions.find(
+                            (item) =>
+                              item.value === formAgendamento.uuidDelivery
+                          )
+                    }
                     label={
                       tipoAtendimento === TipoAtendimentoEnum.LOJA
                         ? "Loja"
@@ -345,12 +376,36 @@ export const NewSchedulingTemplate = () => {
                     required
                     label="Data"
                     showIcon
-                    onChange={() => ""}
+                    isLoading={isLoading}
+                    minDate={new Date()}
+                    disabled={!!!formAgendamento?.uuidLoja}
+                    excludeDates={diasIndisponiveis}
+                    onChange={(e) => {
+                      setDateAgendamento(e);
+                    }}
+                    placeholderText="__/__/__"
+                    selected={dateAgendamento}
                   />
                 </div>
 
                 <div>
-                  <SimpleSelect label="Horário" required />
+                  <SimpleSelect
+                    label="Horário"
+                    required
+                    isDisabled={!dateAgendamento}
+                    value={
+                      horariosOptions?.find(
+                        (item) => item.value === formAgendamento.horaAgendada
+                      ) || null
+                    }
+                    onChange={(e: ISelectOptions) =>
+                      setFormAgendamento((prev) => ({
+                        ...prev,
+                        horaAgendada: e?.value,
+                      }))
+                    }
+                    options={horariosOptions}
+                  />
                 </div>
               </S.GridAtendece>
             </S.FormAtendence>
