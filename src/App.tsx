@@ -31,6 +31,7 @@ import { NotFound } from "./components/Atoms/NotFound";
 import { Offline } from "./components/Pages/Offline";
 import { ForgotPassword } from "./components/Pages/ForgotPassword";
 import { ResetPassword } from "./components/Pages/ResetPassword";
+import { ProtectedAdminRoute } from "./components/Atoms/ProtectedAdminRoute";
 
 export const App = () => {
   return (
@@ -57,7 +58,9 @@ export const App = () => {
               path="/novo-agendamento"
               element={
                 <ProtectedRoute>
-                  <NewScheduling />
+                  <ProtectedAdminRoute>
+                    <NewScheduling />
+                  </ProtectedAdminRoute>
                 </ProtectedRoute>
               }
             />

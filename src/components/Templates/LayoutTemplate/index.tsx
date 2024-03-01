@@ -59,13 +59,16 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     Agendamentos
                   </button>
                 </div>
-                {!isCliente && (
-                  <div>
-                    <button onClick={() => navigate("/novo-agendamento")}>
-                      Novo Agendamento
-                    </button>
-                  </div>
-                )}
+
+                <div>
+                  <button
+                    onClick={() =>
+                      navigate(isCliente ? "/agendamento" : "/novo-agendamento")
+                    }
+                  >
+                    Novo Agendamento
+                  </button>
+                </div>
               </>
             )}
           </S.WrapperButton>

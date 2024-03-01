@@ -113,7 +113,7 @@ export const NewSchedulingTemplate = () => {
                   Não encontrado
                   <img
                     src={"/assets/svgs/plus-round.svg"}
-                    alt={"icone de aidciionar"}
+                    alt={"icone de adicionar"}
                     onClick={() => setModalIsOpen(true)}
                   />
                 </S.NotFoundvalue>
