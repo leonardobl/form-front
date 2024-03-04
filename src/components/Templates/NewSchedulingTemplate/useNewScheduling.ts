@@ -21,28 +21,24 @@ import { Ibge } from "../../../services/Ibge";
 import { resetValues } from "../../../utils/resetObject";
 import {
   IAgendamentoBasicoForm,
+  IAgendamentoDTO,
+  IAtendimentoDomiciliarForm,
   IClienteDTO,
   IVeiculoDTO,
 } from "../../../types/agendamento";
 import { Loja } from "../../../services/Lojas";
 import { Delivery } from "../../../services/Delivery";
-import { IConsultaUnionProps } from "../../../types/veiculo";
+import {
+  IConsultaUnionProps,
+  IConsultaVeiculoChassiForm,
+  IConsultaVeiculoPlacaForm,
+} from "../../../types/veiculo";
 import { Veiculo } from "../../../services/Veiculo";
-
-const options = [
-  {
-    label: `Leonardo Bernardo Lima - cpf/cnpj: 014.269.043-04 `,
-    value: v4(),
-  },
-  {
-    label: `Leonardo Lima - cpf/cnpj: 014.269.043-04`,
-    value: v4(),
-  },
-  {
-    label: `Leonardo - cpf/cnpj: 014.269.043-04 `,
-    value: v4(),
-  },
-];
+import {
+  Agendamento,
+  IPutAgendamentoProps,
+} from "../../../services/Agendamento";
+import { useNavigate } from "react-router-dom";
 
 export const useNewScheduling = () => {
   const { setIsLoad } = useContextSite();
@@ -52,24 +48,33 @@ export const useNewScheduling = () => {
   const [formService, setFormSerice] = useState<IConsultaUnionProps>(
     {} as IConsultaUnionProps
   );
-
+  const navigate = useNavigate();
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
-  const [responseClient, setResponseClient] = useState<IClienteDTO>(
-    {} as IClienteDTO
-  );
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>();
   const [tipoPagamento, setTipoPagamento] = useState<FormaPagamentoEnum>();
+  const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
+    {} as IAgendamentoDTO
+  );
   const [tipoServico, setTipoServico] = useState<OpcoesServicosEnum>();
   const getValues = async (txt: string) => {
-    return options.filter((item) =>
-      item.label.toLowerCase().includes(txt.toLowerCase())
+    return Cliente.lista({ nomeCpfCnpj: txt, page: 0, size: 5 }).then(
+      ({ data }) =>
+        data.content.map((item) => ({
+          value: item.uuid,
+          label: `${item.nome} - CPF/CNPJ: ${item.cpfCnpj}`,
+          element: item,
+        }))
     );
   };
+  const [formAddress, setFormAddress] = useState<IAtendimentoDomiciliarForm>(
+    {} as IAtendimentoDomiciliarForm
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
-  const [cliente, setCliente] = useState(false);
+  const [cliente, setCliente] = useState<IClienteDTO>({} as IClienteDTO);
+  const [swapClient, setSwapClient] = useState<IClienteDTO>({} as IClienteDTO);
   const tipoClienteOptions = Object.values(TipoClienteEnum).map((item) => ({
     value: item,
     label: item,
@@ -79,10 +84,33 @@ export const useNewScheduling = () => {
   const [formAgendamento, setFormAgendamento] =
     useState<IAgendamentoBasicoForm>({} as IAgendamentoBasicoForm);
   const [dateAgendamento, setDateAgendamento] = useState<Date>(null);
-  const hasData = Object.keys(responseClient).some((item) => item);
-  const [FormVihacle, setFormVihacle] = useState<IVeiculoDTO>(
+  const [disabled, setDisabled] = useState(false);
+
+  const [formVihacle, setFormVihacle] = useState<IVeiculoDTO>(
     {} as IVeiculoDTO
   );
+
+  useEffect(() => {
+    const hasAgendamento =
+      formAgendamento.uuidDelivery || formAgendamento.uuidDelivery;
+
+    if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
+      const addrValid =
+        formAddress?.nome &&
+        formAddress?.telefone &&
+        formAddress?.endereco?.bairro &&
+        formAddress?.endereco?.cep &&
+        formAddress?.endereco?.cidade &&
+        formAddress?.endereco?.logradouro &&
+        formAddress?.endereco?.numero &&
+        formAddress?.endereco?.uf;
+
+      setDisabled(!formVihacle?.uuid && !hasAgendamento && !addrValid);
+      return;
+    }
+
+    setDisabled(!formVihacle?.uuid && !hasAgendamento);
+  }, [formVihacle, formAgendamento, formAddress, tipoAtendimento]);
 
   function handleSubmitNewClient(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -97,7 +125,6 @@ export const useNewScheduling = () => {
 
     Cliente.post(PAYLOAD)
       .then(({ data }) => {
-        setResponseClient(data);
         setModalIsOpen(false);
         toast.success("Cadastro realizado com sucesso!");
       })
@@ -125,8 +152,28 @@ export const useNewScheduling = () => {
           }) => toast.error(mensagem)
         )
         .finally(() => setIsLoading(false));
+      return;
     }
-  }, [formAgendamento?.uuidLoja]);
+
+    if (formAgendamento?.uuidDelivery) {
+      Delivery.getDiasIndisponiveis({
+        uuidDelivery: formAgendamento.uuidDelivery,
+      })
+        .then(({ data }) => {
+          const options = data.map((item) => addDays(new Date(item), 1));
+
+          setDiasIndisponiveis(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => setIsLoading(false));
+    }
+  }, [formAgendamento?.uuidLoja, formAgendamento?.uuidDelivery]);
 
   useEffect(() => {
     setFormAgendamento((prev) => ({ ...prev, horaAgendada: null }));
@@ -154,9 +201,9 @@ export const useNewScheduling = () => {
     }
   }, [dateAgendamento]);
 
-  function handlePhone(e: string) {
+  function handlePhone({ e, setForms }: { e: string; setForms: any }) {
     const newPhoneValue = maskPhone(e);
-    setFormNewClient((prev) => ({ ...prev, telefone: newPhoneValue }));
+    setForms((prev) => ({ ...prev, telefone: newPhoneValue }));
   }
 
   function handleCpf(e: string) {
@@ -172,13 +219,39 @@ export const useNewScheduling = () => {
     setFormNewClient((prev) => ({ ...prev, cpfCnpj: newvalue }));
   }
 
-  function handleCep() {
-    if (formNewClient?.endereco?.cep?.length === 9) {
+  async function saveAgendamento() {
+    setIsLoad(true);
+
+    const PAYLOAD: IPutAgendamentoProps = {
+      ...agendamento,
+      uuidVeiculo: formVihacle?.uuid,
+    };
+
+    try {
+      // await Agendamento.put(PAYLOAD);
+      await Agendamento.vincularAgendamentoAoVeiculo({
+        uuidAgendamento: PAYLOAD.uuid,
+        uuidVeiculo: formVihacle?.uuid,
+      });
+      navigate(
+        `/agendamento/${
+          agendamento.uuid
+        }/pagamento/${tipoPagamento.toLowerCase()}`
+      );
+    } catch (error) {
+      toast.error(error.mensagem);
+    } finally {
+      setIsLoad(false);
+    }
+  }
+
+  function handleCep(forms: any, setForms: any) {
+    if (forms?.endereco?.cep?.length === 9) {
       setIsLoad(true);
       setTimeout(() => {
-        ViaCep.get(formNewClient?.endereco?.cep)
+        ViaCep.get(forms?.endereco?.cep)
           .then(({ data }) => {
-            setFormNewClient((prev) => ({
+            setForms((prev) => ({
               ...prev,
               endereco: {
                 logradouro: data.street,
@@ -208,7 +281,20 @@ export const useNewScheduling = () => {
         })
         .catch((erro) => toast.error("Erro ao requisitar as cidades"));
     }
-  }, [formNewClient?.endereco?.uf]);
+
+    if (formAddress?.endereco?.uf) {
+      Ibge.CidadesPorEstado({ sigla: formAddress?.endereco?.uf })
+        .then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item.nome,
+            label: item.nome,
+            element: item,
+          }));
+          setCidadesOptions(options);
+        })
+        .catch((erro) => toast.error("Erro ao requisitar as cidades"));
+    }
+  }, [formNewClient?.endereco?.uf, formAddress?.endereco?.uf]);
 
   useEffect(() => {
     Ibge.UFs()
@@ -232,11 +318,99 @@ export const useNewScheduling = () => {
   }, [modalIsOpen]);
 
   useEffect(() => {
-    const reset = resetValues(formService);
-    setFormSerice(reset);
+    resetServicos();
+    resetVihacle();
   }, [tipoServico]);
 
+  function resetServicos() {
+    const reset = resetValues(formService);
+    setFormSerice(reset);
+  }
+
+  function resetVihacle() {
+    const reset = resetValues(formVihacle);
+    setFormVihacle(reset);
+  }
+
+  function resetCliente() {
+    const reset = resetValues(swapClient);
+    setSwapClient(reset);
+    setCliente(reset);
+
+    resetServicos();
+    resetAtendimento();
+  }
+
+  function resetAtendimento() {
+    const reset = resetValues(formAgendamento);
+    setFormAgendamento(reset);
+    setDateAgendamento(null);
+
+    if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
+      const reset = resetValues(formAddress);
+      setFormAddress(reset);
+    }
+  }
+
+  async function handleSubmitAgendamento(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    setIsLoad(true);
+
+    const PAYLOAD_AGENDAMENTO: IAgendamentoBasicoForm = {
+      ...formAgendamento,
+      tipoAtendimento: tipoAtendimento,
+      diaAgendado: dateAgendamento
+        ?.toLocaleDateString()
+        ?.split("/")
+        ?.reverse()
+        ?.join("-"),
+    };
+
+    try {
+      const dataAgendamento = await Agendamento.post(PAYLOAD_AGENDAMENTO);
+      setAgendamento(dataAgendamento.data);
+
+      if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
+        await Agendamento.putAddress(formAddress);
+      }
+
+      let veiculo = null;
+      if (tipoServico === OpcoesServicosEnum.EMPLACAMENTO) {
+        const PAYLOAD_VEICULO = {
+          Chassi: formService.Chassi,
+          CnpjECV: null,
+          IdCidadeDetran: null,
+          uuidAgendamento: dataAgendamento?.data.uuid,
+        };
+        veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO);
+      }
+
+      if (tipoServico === OpcoesServicosEnum.VISTORIA) {
+        const PAYLOAD_VEICULO = {
+          Placa: formService.Placa,
+          CnpjECV: null,
+          IdCidadeDetran: null,
+          Renavam: formService.Renavam,
+          uuidAgendamento: dataAgendamento?.data?.uuid,
+        };
+
+        veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO);
+      }
+
+      setFormVihacle(veiculo?.data);
+    } catch (error) {
+      toast.error(error.mensagem);
+    } finally {
+      setIsLoad(false);
+    }
+  }
+
   useEffect(() => {
+    resetAtendimento();
+    resetVihacle();
+    resetServicos();
+
     if (tipoAtendimento === TipoAtendimentoEnum.LOJA) {
       Loja.get()
         .then(({ data }) => {
@@ -278,35 +452,20 @@ export const useNewScheduling = () => {
     }
   }, [tipoAtendimento]);
 
-  function getVihacle() {
-    // if (!veiculoSession) return;
-    // setIsLoad(true);
-    // Veiculo.byId({ uuid: veiculoSession })
-    //   .then(({ data }) => {
-    //     setVeiculo(data);
-    //   })
-    //   .catch(
-    //     ({
-    //       response: {
-    //         data: { mensagem },
-    //       },
-    //     }) => {
-    //       toast.error(mensagem);
-    //     }
-    //   )
-    //   .finally(() => {
-    //     setIsLoad(false);
-    //   });
+  function handleClient(e: React.SyntheticEvent) {
+    e.preventDefault();
+    setCliente(swapClient);
   }
 
   return {
+    handleSubmitAgendamento,
     handleCep,
     formNewClient,
     setFormNewClient,
     handlePhone,
     handleCpf,
+    formVihacle,
     handleSubmitNewClient,
-    options,
     modalIsOpen,
     setModalIsOpen,
     tipoAtendimento,
@@ -317,6 +476,7 @@ export const useNewScheduling = () => {
     setTipoServico,
     cliente,
     setCliente,
+    handleClient,
     formService,
     setFormSerice,
     getValues,
@@ -327,12 +487,16 @@ export const useNewScheduling = () => {
     tipoClienteOptions,
     cidadesOptions,
     ufOptions,
-    hasData,
+    saveAgendamento,
+    disabled,
+    setSwapClient,
     diasIndisponiveis,
     dateAgendamento,
     setDateAgendamento,
-    responseClient,
     isLoading,
     selectOptions,
+    resetCliente,
+    formAddress,
+    setFormAddress,
   };
 };

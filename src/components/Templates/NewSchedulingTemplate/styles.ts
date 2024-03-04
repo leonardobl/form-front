@@ -17,7 +17,7 @@ export const Container = styled.div`
     }
 
     .textService {
-      margin-bottom: 48px;
+      margin: 48px 0;
     }
 
     .paymentSwitch {
@@ -200,11 +200,6 @@ export const GridAtendece = styled.div`
   }
 `;
 
-export const FormService = styled.form`
-  width: 100%;
-  margin-bottom: 48px;
-`;
-
 export const GridLicense = styled.div`
   display: grid;
   grid-template-columns: 11fr 1fr;
@@ -274,5 +269,56 @@ export const GridVeihecle = styled.div`
 
   > :nth-child(6) {
     grid-area: chassi;
+  }
+`;
+
+export const WrapperAddress = styled.div`
+  margin: 48px 0 0;
+
+  > h1 {
+    text-align: center;
+  }
+`;
+
+export const GridAddress = styled.div`
+  display: grid;
+  gap: 48px 16px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "nome nome nome nome" "telefone cep rua rua" "numero complemento complemento complemento" "bairro bairro uf cidade";
+
+  > :nth-child(1) {
+    grid-area: nome;
+  }
+
+  > :nth-child(2) {
+    grid-area: telefone;
+  }
+
+  > :nth-child(3) {
+    grid-area: cep;
+  }
+
+  > :nth-child(4) {
+    grid-area: rua;
+  }
+
+  > :nth-child(5) {
+    grid-area: numero;
+  }
+
+  > :nth-child(6) {
+    grid-area: complemento;
+  }
+
+  > :nth-child(7) {
+    grid-area: bairro;
+  }
+
+  > :nth-child(8) {
+    grid-area: uf;
+  }
+
+  > :nth-child(9) {
+    grid-area: cidade;
   }
 `;

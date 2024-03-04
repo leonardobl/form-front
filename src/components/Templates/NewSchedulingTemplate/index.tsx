@@ -16,11 +16,7 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { useNewScheduling } from "./useNewScheduling";
-import {
-  maskCep,
-  maskCpf,
-  removerCaracteresEspeciais,
-} from "../../../utils/masks";
+import { maskCep, removerCaracteresEspeciais } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
 
 export const NewSchedulingTemplate = () => {
@@ -31,34 +27,38 @@ export const NewSchedulingTemplate = () => {
     handlePhone,
     handleSubmitNewClient,
     setFormNewClient,
-    options,
     cliente,
     getValues,
     modalIsOpen,
-    setCliente,
     setModalIsOpen,
     setTipoAtendimento,
     setTipoPagamento,
     setTipoServico,
     tipoAtendimento,
     tipoPagamento,
-    responseClient,
     tipoServico,
     isLoading,
     formAgendamento,
     setFormAgendamento,
     cidadesOptions,
-    hasData,
     dateAgendamento,
     horariosOptions,
     setDateAgendamento,
-    setHorariosOptions,
     diasIndisponiveis,
     ufOptions,
+    handleSubmitAgendamento,
     formService,
     setFormSerice,
+    formVihacle,
+    handleClient,
+    setSwapClient,
     selectOptions,
+    resetCliente,
     tipoClienteOptions,
+    disabled,
+    formAddress,
+    saveAgendamento,
+    setFormAddress,
   } = useNewScheduling();
 
   // const { Option } = components;
@@ -78,7 +78,7 @@ export const NewSchedulingTemplate = () => {
         isOpen={modalIsOpen}
       >
         <S.FormModal onSubmit={handleSubmitNewClient}>
-          <S.GridModal onSubmit={() => setCliente(true)}>
+          <S.GridModal>
             <div>
               <Input
                 variant="modal"
@@ -123,7 +123,9 @@ export const NewSchedulingTemplate = () => {
                 label="Telefone"
                 value={formNewClient?.telefone}
                 maxLength={15}
-                onChange={(e) => handlePhone(e.target.value)}
+                onChange={(e) =>
+                  handlePhone({ e: e.target.value, setForms: setFormNewClient })
+                }
               />
             </div>
             <div>
@@ -140,7 +142,7 @@ export const NewSchedulingTemplate = () => {
                 required
                 label="Cep"
                 maxLength={9}
-                onBlur={handleCep}
+                onBlur={() => handleCep(formNewClient, setFormNewClient)}
                 value={formNewClient?.endereco?.cep}
                 onChange={(e) =>
                   setFormNewClient((prev) => ({
@@ -269,12 +271,13 @@ export const NewSchedulingTemplate = () => {
       </MyModal>
       <S.Container>
         <Title>Novo agendamento</Title>
-        <S.FormSearch>
+        <S.FormSearch onSubmit={handleClient}>
           <div>
             <AsyncSimpleSelect
               variant="search"
               placeholder=""
               isClearable
+              required
               noOptionsMessage={() => (
                 <S.NotFoundvalue>
                   Não encontrado
@@ -285,6 +288,13 @@ export const NewSchedulingTemplate = () => {
                   />
                 </S.NotFoundvalue>
               )}
+              onChange={(e) => {
+                if (e?.element) {
+                  setSwapClient(e?.element);
+                  return;
+                }
+                resetCliente();
+              }}
               loadOptions={getValues}
             />
           </div>
@@ -293,40 +303,28 @@ export const NewSchedulingTemplate = () => {
           </div>
         </S.FormSearch>
 
-        {hasData && (
+        {cliente?.nome && (
           <>
             <S.FormUser>
               <S.GridUser>
                 <div>
-                  <Input label="Nome" readOnly value={responseClient?.nome} />
+                  <Input label="Nome" readOnly value={cliente?.nome} />
                 </div>
 
                 <div>
-                  <Input
-                    label="CPF/CNPJ"
-                    readOnly
-                    value={responseClient?.cpfCnpj}
-                  />
+                  <Input label="CPF/CNPJ" readOnly value={cliente?.cpfCnpj} />
                 </div>
 
                 <div>
-                  <Input
-                    label="Telefone"
-                    readOnly
-                    value={responseClient?.telefone}
-                  />
+                  <Input label="Telefone" readOnly value={cliente?.telefone} />
                 </div>
 
                 <div>
-                  <Input
-                    label="E-mail"
-                    readOnly
-                    value={responseClient?.email}
-                  />
+                  <Input label="E-mail" readOnly value={cliente?.email} />
                 </div>
 
                 <div>
-                  <Input label="Tipo" readOnly value={responseClient?.tipo} />
+                  <Input label="Tipo" readOnly value={cliente?.tipo} />
                 </div>
               </S.GridUser>
             </S.FormUser>
@@ -347,19 +345,32 @@ export const NewSchedulingTemplate = () => {
                 ? "Loja Física"
                 : "Domicílio"}
             </Title>
-            <S.FormAtendence>
+            <S.FormAtendence onSubmit={handleSubmitAgendamento}>
               <S.GridAtendece>
                 <div>
                   <SimpleSelect
                     required
+                    key={`${tipoAtendimento}`}
+                    options={selectOptions}
+                    onChange={(e: ISelectOptions) => {
+                      tipoAtendimento === TipoAtendimentoEnum.LOJA
+                        ? setFormAgendamento((prev) => ({
+                            ...prev,
+                            uuidLoja: e?.value,
+                          }))
+                        : setFormAgendamento((prev) => ({
+                            ...prev,
+                            uuidDelivery: e?.value,
+                          }));
+                    }}
                     value={
                       tipoAtendimento === TipoAtendimentoEnum.LOJA
                         ? selectOptions.find(
-                            (item) => item.value === formAgendamento.uuidLoja
+                            (item) => item.value === formAgendamento?.uuidLoja
                           )
                         : selectOptions.find(
                             (item) =>
-                              item.value === formAgendamento.uuidDelivery
+                              item.value === formAgendamento?.uuidDelivery
                           )
                     }
                     label={
@@ -382,9 +393,14 @@ export const NewSchedulingTemplate = () => {
                     required
                     label="Data"
                     showIcon
+                    key={`${tipoAtendimento}`}
                     isLoading={isLoading}
                     minDate={new Date()}
-                    disabled={!!!formAgendamento?.uuidLoja}
+                    disabled={
+                      tipoAtendimento === TipoAtendimentoEnum.LOJA
+                        ? !!!formAgendamento?.uuidLoja
+                        : !!!formAgendamento?.uuidDelivery
+                    }
                     excludeDates={diasIndisponiveis}
                     onChange={(e) => {
                       setDateAgendamento(e);
@@ -398,6 +414,7 @@ export const NewSchedulingTemplate = () => {
                   <SimpleSelect
                     label="Horário"
                     required
+                    key={`${tipoAtendimento}`}
                     isDisabled={!dateAgendamento}
                     value={
                       horariosOptions?.find(
@@ -414,28 +431,179 @@ export const NewSchedulingTemplate = () => {
                   />
                 </div>
               </S.GridAtendece>
-            </S.FormAtendence>
 
-            <Text className="textService">
-              Escolha qual <span className="textStrong">serviço</span> você
-              deseja realizar.
-            </Text>
+              {tipoAtendimento === TipoAtendimentoEnum.DOMICILIO && (
+                <S.WrapperAddress>
+                  <Title>Endereço de Atendimento</Title>
+                  <S.GridAddress>
+                    <div>
+                      <Input
+                        label="Nome"
+                        required
+                        value={formAddress?.nome}
+                        onChange={(e) =>
+                          setFormAddress((prev) => ({
+                            ...prev,
+                            nome: e?.target?.value,
+                          }))
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        label="Telefone"
+                        required
+                        maxLength={15}
+                        onChange={(e) =>
+                          handlePhone({
+                            e: e.target.value,
+                            setForms: setFormAddress,
+                          })
+                        }
+                        value={formAddress?.telefone}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        label="CEP"
+                        required
+                        onBlur={() => handleCep(formAddress, setFormAddress)}
+                        value={formAddress?.endereco?.cep}
+                        onChange={(e) =>
+                          setFormAddress((prev) => ({
+                            ...prev,
+                            endereco: {
+                              ...prev.endereco,
+                              cep: maskCep(e.target.value),
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        label="Endereço (Rua)"
+                        required
+                        value={formAddress?.endereco?.logradouro}
+                        onChange={(e) =>
+                          setFormAddress((prev) => ({
+                            ...prev,
+                            endereco: {
+                              ...prev.endereco,
+                              logradouro: e.target.value,
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        label="Número"
+                        required
+                        value={formAddress?.endereco?.numero}
+                        onChange={(e) =>
+                          setFormAddress((prev) => ({
+                            ...prev,
+                            endereco: {
+                              ...prev.endereco,
+                              numero: e.target.value,
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        label="Complemento"
+                        value={formAddress?.endereco?.complemento}
+                        onChange={(e) =>
+                          setFormAddress((prev) => ({
+                            ...prev,
+                            endereco: {
+                              ...prev.endereco,
+                              complemento: e.target.value,
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        label="Bairro"
+                        required
+                        value={formAddress?.endereco?.bairro}
+                        onChange={(e) =>
+                          setFormAddress((prev) => ({
+                            ...prev,
+                            endereco: {
+                              ...prev.endereco,
+                              bairro: e.target.value,
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+                    <div>
+                      <SimpleSelect
+                        label="UF"
+                        required
+                        placeholder=""
+                        options={ufOptions}
+                        value={ufOptions.find(
+                          (item) => item.value === formAddress?.endereco?.uf
+                        )}
+                        onChange={(e: ISelectOptions) =>
+                          setFormAddress((prev) => ({
+                            ...prev,
+                            endereco: { ...prev.endereco, uf: e.value },
+                          }))
+                        }
+                      />
+                    </div>
+                    <div>
+                      <SimpleSelect
+                        label="Cidade"
+                        required
+                        key={`${Math.random()}-${formAddress?.endereco?.uf}`}
+                        placeholder=""
+                        value={cidadesOptions.find(
+                          (item) => item.value === formAddress?.endereco?.cidade
+                        )}
+                        options={cidadesOptions}
+                        onChange={(e: ISelectOptions) =>
+                          setFormAddress((prev) => ({
+                            ...prev,
+                            endereco: {
+                              ...prev.endereco,
+                              cidade: e.value,
+                            },
+                          }))
+                        }
+                      />
+                    </div>
+                  </S.GridAddress>
+                </S.WrapperAddress>
+              )}
 
-            <SwitchOptions
-              optionA={{
-                label: "1° Emplacamento",
-                value: OpcoesServicosEnum.EMPLACAMENTO,
-              }}
-              optionB={{
-                label: "Vistoria",
-                value: OpcoesServicosEnum.VISTORIA,
-              }}
-              className="optionAtendance"
-              handleOnChange={(v) => setTipoServico(OpcoesServicosEnum[v])}
-            />
+              <Text className="textService">
+                Escolha qual <span className="textStrong">serviço</span> você
+                deseja realizar.
+              </Text>
 
-            {tipoServico === OpcoesServicosEnum.EMPLACAMENTO ? (
-              <S.FormService>
+              <SwitchOptions
+                optionA={{
+                  label: "1° Emplacamento",
+                  value: OpcoesServicosEnum.EMPLACAMENTO,
+                }}
+                optionB={{
+                  label: "Vistoria",
+                  value: OpcoesServicosEnum.VISTORIA,
+                }}
+                className="optionAtendance"
+                handleOnChange={(v) => setTipoServico(OpcoesServicosEnum[v])}
+              />
+
+              {tipoServico === OpcoesServicosEnum.EMPLACAMENTO ? (
                 <S.GridLicense>
                   <div>
                     <Input
@@ -454,9 +622,7 @@ export const NewSchedulingTemplate = () => {
                     <Button>Buscar</Button>
                   </div>
                 </S.GridLicense>
-              </S.FormService>
-            ) : (
-              <S.FormService>
+              ) : (
                 <S.GridSurvey>
                   <div>
                     <Input
@@ -489,30 +655,42 @@ export const NewSchedulingTemplate = () => {
                     <Button>Buscar</Button>
                   </div>
                 </S.GridSurvey>
-              </S.FormService>
-            )}
+              )}
+            </S.FormAtendence>
 
             <Title>Informações do Veículo</Title>
 
             <S.FormVeihecle>
               <S.GridVeihecle>
                 <div>
-                  <Input label="Modelo do carro" readOnly />
+                  <Input
+                    label="Modelo do carro"
+                    readOnly
+                    value={formVihacle?.modelo}
+                  />
                 </div>
                 <div>
-                  <Input label="Ano" readOnly />
+                  <Input label="Ano" readOnly value={formVihacle?.ano} />
                 </div>
                 <div>
-                  <Input label="Placa" readOnly />
+                  <Input label="Placa" readOnly value={formVihacle?.placa} />
                 </div>
                 <div>
-                  <Input label="Renavam" readOnly />
+                  <Input
+                    label="Renavam"
+                    readOnly
+                    value={formVihacle?.renavam}
+                  />
                 </div>
                 <div>
-                  <Input label="Tipo de Veículo" readOnly />
+                  <Input
+                    label="Tipo de Veículo"
+                    readOnly
+                    value={formVihacle?.tipo}
+                  />
                 </div>
                 <div>
-                  <Input label="Chassi" readOnly />
+                  <Input label="Chassi" readOnly value={formVihacle?.chassi} />
                 </div>
               </S.GridVeihecle>
             </S.FormVeihecle>
@@ -532,7 +710,13 @@ export const NewSchedulingTemplate = () => {
               handleOnChange={(v) => setTipoPagamento(FormaPagamentoEnum[v])}
             />
 
-            <Button className="finalButton">Salvar</Button>
+            <Button
+              className="finalButton"
+              disabled={disabled}
+              onClick={saveAgendamento}
+            >
+              Salvar
+            </Button>
           </>
         )}
       </S.Container>

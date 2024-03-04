@@ -46,6 +46,20 @@ export interface IClienteDTO {
   uuid: string;
 }
 
+export interface IPageClienteDTO {
+  content: IClienteDTO[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: IPageableObject;
+  size: number;
+  sort: ISortObject;
+  totalElements: number;
+  totalPages: number;
+}
+
 export interface IEnderecoDTO {
   bairro: string;
   cep: string;
