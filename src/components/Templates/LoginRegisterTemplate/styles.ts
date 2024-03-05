@@ -9,6 +9,10 @@ export const Container = styled.div`
     .text {
       margin-bottom: 48px;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 20px;
+    }
   `}
 `;
 
@@ -16,5 +20,10 @@ export const FlexWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0 ${pxToRem(62)};
+  gap: 32px ${pxToRem(62)};
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;

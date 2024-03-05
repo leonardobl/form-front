@@ -21,7 +21,7 @@ export const useLayout = () => {
       setModalIsOpen(true);
       return;
     }
-    navigate("/agendamento/login");
+    navigate("/agendamento/login-cadastro");
   }
 
   function logout() {
@@ -32,7 +32,7 @@ export const useLayout = () => {
       cleanStorage();
       setIsLoad(false);
       window.open("/", "_self");
-    }, 2000);
+    }, 1000);
   }
   return {
     handleLogin,
