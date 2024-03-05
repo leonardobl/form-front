@@ -13,6 +13,10 @@ export const Container = styled.div`
     > p {
       margin-bottom: ${pxToRem(48)};
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -60,6 +64,13 @@ export const GridWrapper = styled.div`
       margin: 0 auto;
     }
   }
+
+  @media (max-width: 500px) {
+    gap: ${pxToRem(32)} 0;
+    grid-template-areas: "pix" "boleto" "button";
+    grid-template-columns: 1fr;
+    place-items: center;
+  }
 `;
 
 export const Info = styled.p`
@@ -78,5 +89,9 @@ export const Info = styled.p`
 
   .textStrong {
     font-weight: 700;
+  }
+
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
