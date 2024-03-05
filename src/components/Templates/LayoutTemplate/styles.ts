@@ -58,6 +58,10 @@ export const WrapperIconCloseMainMenu = styled.div`
   align-items: center;
   justify-content: end;
   padding: 0 20px;
+
+  @media (max-width: 500px) {
+    padding: 0 40px;
+  }
 `;
 
 export const IconCloseMainMenu = styled.img`

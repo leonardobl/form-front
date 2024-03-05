@@ -9,6 +9,10 @@ export const Container = styled.div`
     h1 {
       text-align: center;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -67,5 +71,11 @@ export const GridWrapper = styled.div`
       margin: 0 auto;
       width: ${pxToRem(168)};
     }
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ${pxToRem(32)} ${pxToRem(16)};
+    grid-template-areas: "nome nome" "telefone cep" "rua rua" "numero complemento" "bairro bairro" "uf cidade" "button button";
   }
 `;

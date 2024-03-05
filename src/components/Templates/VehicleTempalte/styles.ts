@@ -8,6 +8,10 @@ export const Container = styled.div`
     h1 {
       text-align: center;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -53,6 +57,11 @@ export const GridWrapper = styled.div`
 
   > :nth-child(6) {
     grid-area: chassi;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "modelo" "ano" "placa" "renavam" "tipo" "chassi";
   }
 `;
 

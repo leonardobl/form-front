@@ -12,6 +12,10 @@ export const Container = styled.div`
     > p {
       margin-bottom: ${pxToRem(48)};
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 20px;
+    }
   `}
 `;
 

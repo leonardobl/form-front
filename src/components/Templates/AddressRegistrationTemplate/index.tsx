@@ -52,6 +52,7 @@ export const AddressRegistrationTemplate = () => {
               required
               maxLength={9}
               onBlur={handleCep}
+              label="CEP"
               value={form?.endereco?.cep}
               onChange={(e) =>
                 setForm((prev) => ({
@@ -133,6 +134,8 @@ export const AddressRegistrationTemplate = () => {
           <div>
             <SimpleSelect
               placeholder=""
+              label="UF"
+              required
               options={ufOptions}
               value={ufOptions.find(
                 (item) => item.value === form?.endereco?.uf
@@ -150,6 +153,7 @@ export const AddressRegistrationTemplate = () => {
             <SimpleSelect
               key={`${Math.random()}-${form?.endereco?.uf}`}
               required
+              label="Cidade"
               placeholder=""
               value={cidadesOptions.find(
                 (item) => item.value === form?.endereco?.cidade

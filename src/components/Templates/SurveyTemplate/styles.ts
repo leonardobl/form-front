@@ -13,6 +13,10 @@ export const Container = styled.div`
     > p {
       margin-bottom: ${pxToRem(48)};
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 20px;
+    }
   `}
 `;
 
@@ -39,5 +43,11 @@ export const Form = styled.form`
     button {
       margin: 0 auto;
     }
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "placa" "renavam" "button";
+    gap: ${pxToRem(32)} ${pxToRem(40)};
   }
 `;
