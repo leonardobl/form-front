@@ -9,6 +9,10 @@ export const Container = styled.div`
     > h1 {
       text-align: center;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 20px;
+    }
   `}
 `;
 
@@ -77,5 +81,11 @@ export const Form = styled.form`
   > :nth-child(14) {
     grid-area: buttom;
     margin: 0 auto;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: ${pxToRem(32)} ${pxToRem(16)};
+    grid-template-areas: "nome nome" "cpf cpf" "email email" "telefone cep" "rua rua" "numero complemento" "bairro bairro" "uf cidade" "senha confirmacao" "buttom buttom";
   }
 `;
