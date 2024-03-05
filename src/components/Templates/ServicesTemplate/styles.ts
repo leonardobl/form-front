@@ -9,6 +9,10 @@ export const Container = styled.div`
     > p {
       margin-bottom: ${pxToRem(48)};
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 20px;
+    }
   `}
 `;
 
@@ -27,5 +31,11 @@ export const FlexWrapper = styled.div`
 
   > button {
     width: ${pxToRem(154)};
+  }
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px 0;
   }
 `;
