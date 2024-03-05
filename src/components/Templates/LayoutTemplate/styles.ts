@@ -78,9 +78,11 @@ export const IconMenuHamburguer = styled.img`
 export const IconLogo = styled.img`
   display: block;
   margin-right: auto;
+  max-height: 56px;
+  max-width: 120px;
 
   @media (max-width: 500px) {
-    width: 80px;
+    max-width: 100px;
   }
 `;
 

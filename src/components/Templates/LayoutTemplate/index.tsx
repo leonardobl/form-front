@@ -84,7 +84,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
               onClick={() => setMenuOpen(true)}
             />
             <S.IconLogo
-              src="/assets/svgs/logo-starcheck.svg"
+              src={`/assets/svgs/logo-${process.env.REACT_APP_PROJECT}.svg`}
               alt="logo empresa"
             />
             <S.IconHome
