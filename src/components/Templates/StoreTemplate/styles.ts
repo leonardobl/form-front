@@ -9,6 +9,10 @@ export const Container = styled.div`
     .title {
       text-align: center;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 20px;
+    }
   `}
 `;
 
@@ -46,6 +50,12 @@ export const GridWrapper = styled.div`
     button {
       margin: 0 auto;
     }
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "loja" "text" "data" "horario" "button";
+    gap: ${pxToRem(40)};
   }
 `;
 
