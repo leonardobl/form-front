@@ -41,6 +41,14 @@ export const MainMenu = styled.div`
 
     width: ${pxToRem(0)};
   }
+
+  @media (max-width: 500px) {
+    &[data-open="true"] {
+      width: 100vw;
+      position: fixed;
+      z-index: 10;
+    }
+  }
 `;
 
 export const WrapperIconCloseMainMenu = styled.div`
