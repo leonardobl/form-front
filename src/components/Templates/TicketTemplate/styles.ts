@@ -14,6 +14,10 @@ export const Container = styled.div`
       max-width: ${pxToRem(1138)};
       margin: 0 auto 48px;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -26,19 +30,29 @@ export const Info = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  margin: 0 auto ${pxToRem(48)};
 
-  font-family: Mulish;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 32px;
-  letter-spacing: 0em;
-  text-align: center;
-  color: #3f504c;
-  margin-bottom: ${pxToRem(48)};
+  > p {
+    font-family: Mulish;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #3f504c;
 
-  > span {
-    color: red;
+    > span {
+      color: red;
+    }
+  }
+
+  @media (max-width: 500px) {
+    > p {
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+    }
   }
 `;
 
@@ -88,6 +102,29 @@ export const GridWrapper = styled.div`
   > :nth-child(5) {
     grid-area: button2;
     margin-right: auto;
+  }
+
+  @media (max-width: 500px) {
+    gap: ${pxToRem(32)} ${pxToRem(16)};
+    grid-template-columns: 1fr;
+    grid-template-areas: "barra" "valor" "inp" "button1" "button2";
+
+    > :nth-child(2) {
+      p {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20px;
+      }
+    }
+
+    > :nth-child(4) {
+      margin: auto;
+    }
+
+    > :nth-child(5) {
+      margin: auto;
+    }
   }
 `;
 

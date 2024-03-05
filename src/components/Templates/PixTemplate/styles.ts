@@ -15,30 +15,47 @@ export const Container = styled.div`
       margin: 0 auto;
       margin-bottom: ${pxToRem(48)};
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
 export const Info = styled.div`
+  height: ${pxToRem(59)};
   background-color: #e1f2ee;
   width: 100%;
   max-width: ${pxToRem(708)};
-  height: ${pxToRem(59)};
   margin: 0 auto;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Mulish;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 32px;
-  letter-spacing: 0em;
-  text-align: center;
-  color: #3f504c;
   margin-bottom: ${pxToRem(72)};
 
-  > span {
-    color: red;
+  > p {
+    font-family: Mulish;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #3f504c;
+
+    > span {
+      color: red;
+    }
+  }
+
+  @media (max-width: 500px) {
+    margin-bottom: 2rem;
+
+    > p {
+      font-size: 1rem;
+      font-style: normal;
+      line-height: 1.25rem;
+    }
   }
 `;
 
@@ -94,5 +111,31 @@ export const GridWrapper = styled.div`
   > :nth-child(5) {
     grid-area: button2;
     margin-right: auto;
+  }
+
+  @media (max-width: 500px) {
+    gap: ${pxToRem(32)};
+    place-items: center;
+    grid-template-columns: 1fr;
+    grid-template-areas: "qr" "valor" "input" "button1" "button2";
+
+    > :nth-child(4) {
+      margin: 0 auto;
+    }
+
+    > :nth-child(2) {
+      p {
+        text-align: center;
+        font-family: Mulish;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 1.25rem;
+      }
+    }
+
+    > :nth-child(5) {
+      margin: 0 auto;
+    }
   }
 `;

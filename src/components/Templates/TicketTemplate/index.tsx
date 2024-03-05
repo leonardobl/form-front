@@ -25,8 +25,10 @@ export const TicketTemplate = () => {
       </Text>
 
       <S.Info>
-        <span>*</span>Seu agendamento só será realizado após a confirmação do
-        pagamento.
+        <p>
+          <span>*</span>Seu agendamento só será realizado após a confirmação do
+          pagamento.
+        </p>
       </S.Info>
 
       <S.GridWrapper>
