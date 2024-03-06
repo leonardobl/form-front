@@ -11,6 +11,12 @@ export class Usuario {
     return ApiUsuarios.post(`${basePath}`, props);
   }
 
+  static async atualizar(
+    props: IUsuarioForm
+  ): Promise<AxiosResponse<IUsuarioDTO>> {
+    return ApiUsuarios.post(`${basePath}/atualizar`, props);
+  }
+
   static async alterarSenha(
     props: INovaSenhaForm
   ): Promise<AxiosResponse<IStandardErrorDTO>> {

@@ -7,31 +7,17 @@ interface IUsuarioForm {
   senha: string;
   telefone?: string;
   tipoPessoa?: TipoPessoaEnum;
+  uuid: string;
 }
 
 export interface IUsuarioDTO {
-  authorities: IPerfil[];
+  authorities: IAuthority[];
   cpfCnpj: string;
   email: string;
   nome: string;
   telefone: string;
-  tipoPessoa: TipoPessoaEnum;
+  tipoPessoa?: TipoPessoaEnum;
   uuid: string;
-}
-
-export interface IPerfil {
-  ativo: boolean;
-  authority?: string;
-  createdAt: string;
-  id: number;
-  nome: string;
-  rescursos?: IPerfil[];
-  updateReason: string;
-  updatedAt: string;
-  userNameUpdate: string;
-  uuid: string;
-  uuidUserUpdate: string;
-  version: number;
 }
 
 export interface INovaSenhaForm {
@@ -41,7 +27,7 @@ export interface INovaSenhaForm {
 }
 
 export interface IUsuarioCompletoDTO {
-  authorities: Authority[];
+  authorities: IAuthority[];
   cpfCnpj: string;
   email: string;
   nome: string;
@@ -51,7 +37,7 @@ export interface IUsuarioCompletoDTO {
   uuid: string;
 }
 
-export interface Authority {
+export interface IAuthority {
   ativo: boolean;
   authority?: string;
   createdAt: Date;

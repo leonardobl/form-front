@@ -27,7 +27,7 @@ export const GridClient = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 48px 16px;
-  grid-template-areas: "nome nome" "cpf email" "telefone cep" "rua numero" "bairro complemento" "uf cidade" "senha confirmacao" "button button";
+  grid-template-areas: "nome nome" "cpf email" "telefone cep" "rua numero" "bairro complemento" "uf cidade" "button button";
 
   > :nth-child(1) {
     grid-area: nome;
@@ -74,14 +74,6 @@ export const GridClient = styled.div`
   }
 
   > :nth-child(12) {
-    grid-area: senha;
-  }
-
-  > :nth-child(13) {
-    grid-area: confirmacao;
-  }
-
-  > :nth-child(14) {
     grid-area: button;
 
     button {

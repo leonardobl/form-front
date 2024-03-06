@@ -11,20 +11,18 @@ import { maskCep } from "../../../utils/masks";
 
 export const EditProfileTemplate = () => {
   const {
-    checkPass,
     cidadesOptions,
     formUsuario,
     handleCep,
     maskPhone,
     maskCnpj,
     maskCpf,
-    inpConfirSenha,
-    inpSenhaRef,
+    handleSubmitCliente,
+    handleSubmitUsuario,
     setFormUsuario,
     formCliente,
     setFormCliente,
     ufOptions,
-    isAdmGerente,
     isCliente,
   } = useEditProfile();
 
@@ -33,7 +31,7 @@ export const EditProfileTemplate = () => {
       <S.Container>
         <Title>Meu perfil</Title>
         {isCliente ? (
-          <S.FormClient>
+          <S.FormClient onSubmit={handleSubmitCliente}>
             <S.GridClient>
               <div>
                 <Input
@@ -104,6 +102,7 @@ export const EditProfileTemplate = () => {
                 <Input
                   required
                   maxLength={9}
+                  label="Cep"
                   onBlur={handleCep}
                   value={formCliente?.endereco?.cep}
                   onChange={(e) =>
@@ -224,38 +223,14 @@ export const EditProfileTemplate = () => {
                   }
                 />
               </div>
-              <div>
-                <Input
-                  type="password"
-                  label="Senha"
-                  required
-                  value={formCliente.senha}
-                  ref={inpSenhaRef}
-                  onChange={(e) => {
-                    setFormCliente((prev) => ({
-                      ...prev,
-                      senha: e.target.value,
-                    }));
-                    checkPass();
-                  }}
-                />
-              </div>
-              <div>
-                <Input
-                  type="password"
-                  label="Confirmar Senha"
-                  required
-                  ref={inpConfirSenha}
-                  onChange={(e) => checkPass()}
-                />
-              </div>
+
               <div>
                 <Button>Salvar</Button>
               </div>
             </S.GridClient>
           </S.FormClient>
         ) : (
-          <S.FormAdmin>
+          <S.FormAdmin onSubmit={handleSubmitUsuario}>
             <S.GridAdmin>
               <div>
                 <Input

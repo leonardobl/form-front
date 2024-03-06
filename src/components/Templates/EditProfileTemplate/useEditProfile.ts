@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { maskCep, maskCnpj, maskCpf, maskPhone } from "../../../utils/masks";
+import {
+  maskCep,
+  maskCnpj,
+  maskCpf,
+  maskPhone,
+  removeDigitos,
+  removerCaracteresEspeciais,
+} from "../../../utils/masks";
 import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
 import { IClienteDTO, IClienteForm } from "../../../types/cliente";
@@ -10,7 +17,8 @@ import { RolesEnum } from "../../../enums/roles";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { Cliente } from "../../../services/Cliente";
 import { Usuario } from "../../../services/Usuario";
-import { IUsuarioCompletoDTO } from "../../../types/usuario";
+import { IUsuarioCompletoDTO, IUsuarioForm } from "../../../types/usuario";
+import { TipoPessoaEnum } from "../../../enums/pessoas";
 
 export const useEditProfile = () => {
   const inpSenhaRef = useRef<HTMLInputElement>(null);
@@ -52,7 +60,9 @@ export const useEditProfile = () => {
   function getDataUser() {
     setIsLoad(true);
     if (isCliente) {
-      Cliente.getByUsuario({ uuidUsuario: agendamentoSession?.uuidUsuario })
+      Cliente.getByUsuario({
+        uuidUsuario: agendamentoSession?.uuidUsuario,
+      })
         .then(({ data }) => {
           const values: IClienteDTO = {
             ...data,
@@ -155,21 +165,71 @@ export const useEditProfile = () => {
     }
   }, [formCliente?.endereco?.uf]);
 
+  function handleSubmitCliente(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    const PAYLOAD: IClienteForm = {
+      ...formCliente,
+      cpfCnpj: removerCaracteresEspeciais(formCliente.cpfCnpj),
+      telefone: removerCaracteresEspeciais(formCliente.telefone),
+    };
+
+    setIsLoad(true);
+
+    Cliente.atualizar(PAYLOAD)
+      .then(({ data }) => toast.success("Cadastro atualizado com sucesso!"))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
+
+  function handleSubmitUsuario(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    const PAYLOAD: IUsuarioForm = {
+      cpfCnpj: removerCaracteresEspeciais(formUsuario.cpfCnpj),
+      nome: formUsuario.nome,
+      senha: formUsuario.senha,
+      uuid: formUsuario.uuid,
+      email: formUsuario.email,
+      telefone: removerCaracteresEspeciais(formUsuario.telefone),
+      tipoPessoa: TipoPessoaEnum.PESSOA_FISICA,
+    };
+
+    setIsLoad(true);
+
+    Usuario.atualizar(PAYLOAD)
+      .then(({ data }) => {
+        toast.success("Cadastro atualizado com sucesso!");
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
+
   return {
     formCliente,
     setFormCliente,
     formUsuario,
+    handleSubmitCliente,
     setFormUsuario,
+    handleSubmitUsuario,
     handleCep,
     maskCnpj,
     maskCpf,
     maskPhone,
-    checkPass,
     ufOptions,
     cidadesOptions,
-    inpSenhaRef,
-    inpConfirSenha,
-    isAdmGerente,
     isCliente,
   };
 };
