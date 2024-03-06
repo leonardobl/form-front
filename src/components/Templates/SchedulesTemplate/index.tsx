@@ -35,131 +35,142 @@ export const SchedulesTemplate = () => {
     agendamentos,
     iniciarVistoria,
     isCliente,
+    menuOpen,
+    setMenuOpen,
   } = useSchedules();
 
   return (
     <S.Container>
       <Title>{isCliente ? "Meus Agendamentos" : "Agendamentos"}</Title>
 
-      <S.Filter onSubmit={handleFilter}>
-        <S.TitleFilter>Filtro</S.TitleFilter>
-        <S.GridWrapper>
-          <div>
-            <InputDate
-              placeholderText="___/___/___"
-              label="Data Inicial"
-              onChange={(e) => {
-                setDateInitial(e);
-                setFormFilter((prev) => ({
-                  ...prev,
-                  dataInicial: reverseToIsoDate(e?.toLocaleDateString()),
-                }));
-              }}
-              selected={dateInitial}
-            />
-          </div>
-          <div>
-            <InputDate
-              placeholderText="___/___/___"
-              label="Data Final"
-              onChange={(e) => {
-                setDateFinal(e);
-                setFormFilter((prev) => ({
-                  ...prev,
-                  dataFinal: reverseToIsoDate(e?.toLocaleDateString()),
-                }));
-              }}
-              selected={dateFinal}
-            />
-          </div>
+      {isMobile && !menuOpen && (
+        <S.ButtonFilterMobile onClick={() => setMenuOpen(true)}>
+          <img src="/assets/svgs/filter.svg" alt="icone filtro" />
+          Filtrar
+        </S.ButtonFilterMobile>
+      )}
 
-          <div>
-            <SimpleSelect
-              label="Tipo"
-              placeholder=""
-              options={tipoOptions}
-              onChange={(e: ISelectOptions) =>
-                setFormFilter((prev) => ({
-                  ...prev,
-                  tipoAtendimento: e?.value,
-                }))
-              }
-              value={
-                tipoOptions.find(
-                  (item) => item.value === formFilter?.tipoAtendimento
-                ) || null
-              }
-            />
-          </div>
+      {menuOpen && (
+        <S.Filter onSubmit={handleFilter}>
+          <S.TitleFilter>Filtro</S.TitleFilter>
+          <S.GridWrapper>
+            <div>
+              <InputDate
+                placeholderText="___/___/___"
+                label="Data Inicial"
+                onChange={(e) => {
+                  setDateInitial(e);
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    dataInicial: reverseToIsoDate(e?.toLocaleDateString()),
+                  }));
+                }}
+                selected={dateInitial}
+              />
+            </div>
+            <div>
+              <InputDate
+                placeholderText="___/___/___"
+                label="Data Final"
+                onChange={(e) => {
+                  setDateFinal(e);
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    dataFinal: reverseToIsoDate(e?.toLocaleDateString()),
+                  }));
+                }}
+                selected={dateFinal}
+              />
+            </div>
 
-          <div>
-            <Input
-              label="Placa"
-              value={formFilter?.placa}
-              onChange={(e) =>
-                setFormFilter((prev) => ({
-                  ...prev,
-                  placa: e.target.value,
-                }))
-              }
-            />
-          </div>
-          <div>
-            <Input
-              label="Renavam"
-              value={formFilter.renavam}
-              onChange={(e) =>
-                setFormFilter((prev) => ({
-                  ...prev,
-                  renavam: e.target.value,
-                }))
-              }
-            />
-          </div>
+            <div>
+              <SimpleSelect
+                label="Tipo"
+                placeholder=""
+                options={tipoOptions}
+                onChange={(e: ISelectOptions) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    tipoAtendimento: e?.value,
+                  }))
+                }
+                value={
+                  tipoOptions.find(
+                    (item) => item.value === formFilter?.tipoAtendimento
+                  ) || null
+                }
+              />
+            </div>
 
-          <div>
-            <Input
-              label="Chassi"
-              value={formFilter?.chassi}
-              onChange={(e) =>
-                setFormFilter((prev) => ({
-                  ...prev,
-                  chassi: e?.target?.value,
-                }))
-              }
-            />
-          </div>
+            <div>
+              <Input
+                label="Placa"
+                value={formFilter?.placa}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    placa: e.target.value,
+                  }))
+                }
+              />
+            </div>
+            <div>
+              <Input
+                label="Renavam"
+                value={formFilter.renavam}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    renavam: e.target.value,
+                  }))
+                }
+              />
+            </div>
 
-          <div>
-            <SimpleSelect
-              value={
-                statusOptions.find(
-                  (item) => item.value === formFilter?.statusAgendamento
-                ) || null
-              }
-              onChange={(e: ISelectOptions) =>
-                setFormFilter((prev) => ({
-                  ...prev,
-                  statusAgendamento: e?.value,
-                }))
-              }
-              options={statusOptions}
-              label="Status"
-              placeholder=""
-            />
-          </div>
+            <div>
+              <Input
+                label="Chassi"
+                value={formFilter?.chassi}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    chassi: e?.target?.value,
+                  }))
+                }
+              />
+            </div>
 
-          <div>
-            <button type="button" onClick={handleClear}>
-              Limpar tudo
-            </button>
-          </div>
+            <div>
+              <SimpleSelect
+                value={
+                  statusOptions.find(
+                    (item) => item.value === formFilter?.statusAgendamento
+                  ) || null
+                }
+                onChange={(e: ISelectOptions) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    statusAgendamento: e?.value,
+                  }))
+                }
+                options={statusOptions}
+                label="Status"
+                placeholder=""
+              />
+            </div>
 
-          <div>
-            <Button>BUSCAR</Button>
-          </div>
-        </S.GridWrapper>
-      </S.Filter>
+            <div>
+              <button type="button" onClick={handleClear}>
+                Limpar tudo
+              </button>
+            </div>
+
+            <div>
+              <Button>BUSCAR</Button>
+            </div>
+          </S.GridWrapper>
+        </S.Filter>
+      )}
 
       <S.List>
         <S.ListTitles>

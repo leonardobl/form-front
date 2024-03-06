@@ -41,6 +41,7 @@ export const useSchedules = () => {
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const isCliente = agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE);
   const [cidadeOptions, setCidadeoptions] = useState<ISelectOptions[]>([]);
+  const [menuOpen, setMenuOpen] = useState(isMobile ? false : true);
 
   function iniciarVistoria(uuidAgendamento: string) {
     Agendamento.iniciar({ uuid: uuidAgendamento })
@@ -177,5 +178,7 @@ export const useSchedules = () => {
     isOpen,
     isCliente,
     iniciarVistoria,
+    menuOpen,
+    setMenuOpen,
   };
 };

@@ -98,7 +98,7 @@ export const GridWrapper = styled.div`
     grid-area: button2;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
   }
 `;
 
@@ -161,4 +161,28 @@ export const ListItem = styled.div`
     letter-spacing: 0.36px;
     text-transform: uppercase;
   }
+`;
+
+export const ButtonFilterMobile = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 0.25rem;
+  background: #6fa599;
+
+  width: 5.4375rem;
+  height: 1.83894rem;
+  padding: 0.9375rem 0.625rem;
+
+  gap: 0.625rem;
+
+  color: #fff;
+  text-align: center;
+  font-family: Mulish;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5rem;
+  margin: 0 auto 2.53rem;
 `;

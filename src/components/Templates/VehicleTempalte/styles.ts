@@ -26,6 +26,10 @@ export const Form = styled.form`
   > button {
     margin: 0 auto;
   }
+
+  @media (max-width: 500px) {
+    padding: ${pxToRem(16)} 0;
+  }
 `;
 
 export const GridWrapper = styled.div`
