@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { maskCep, maskCnpj, maskCpf, maskPhone } from "../../../utils/masks";
 import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
-import { IClienteForm } from "../../../types/cliente";
+import { IClienteDTO, IClienteForm } from "../../../types/cliente";
 import { Ibge } from "../../../services/Ibge";
 import { useContextSite } from "../../../context/Context";
 import { ViaCep } from "../../../services/ViaCep";
@@ -49,29 +49,22 @@ export const useEditProfile = () => {
     inpConfirSenha.current.setCustomValidity("");
   }
 
-  function handlePhone(e: string) {
-    const newPhoneValue = maskPhone(e);
-    setFormCliente((prev) => ({ ...prev, telefone: newPhoneValue }));
-  }
-
-  function handleCpf(e: string) {
-    let newvalue = "";
-
-    if (e?.length > 14) {
-      newvalue = maskCnpj(e);
-      setFormCliente((prev) => ({ ...prev, cpfCnpj: newvalue }));
-      return;
-    }
-
-    newvalue = maskCpf(e);
-    setFormCliente((prev) => ({ ...prev, cpfCnpj: newvalue }));
-  }
-
   function getDataUser() {
     setIsLoad(true);
     if (isCliente) {
       Cliente.getByUsuario({ uuidUsuario: agendamentoSession?.uuidUsuario })
-        .then(({ data }) => setFormCliente(data))
+        .then(({ data }) => {
+          const values: IClienteDTO = {
+            ...data,
+            telefone: maskPhone(data.telefone),
+            cpfCnpj:
+              data.cpfCnpj.length > 14
+                ? maskCnpj(data.cpfCnpj)
+                : maskCpf(data.cpfCnpj),
+            endereco: { ...data.endereco, cep: maskCep(data.endereco.cep) },
+          };
+          setFormCliente(values);
+        })
         .catch(
           ({
             response: {
@@ -87,7 +80,17 @@ export const useEditProfile = () => {
     Usuario.getByCpfCnpjCompleto({
       cpfCnpj: agendamentoSession?.usuarioCpfCnpj,
     })
-      .then(({ data }) => setFormUsuario(data))
+      .then(({ data }) => {
+        const values: IUsuarioCompletoDTO = {
+          ...data,
+          cpfCnpj:
+            data.cpfCnpj.length > 14
+              ? maskCnpj(data.cpfCnpj)
+              : maskCpf(data.cpfCnpj),
+          telefone: maskPhone(data.telefone),
+        };
+        setFormUsuario(values);
+      })
       .catch(
         ({
           response: {
@@ -158,8 +161,9 @@ export const useEditProfile = () => {
     formUsuario,
     setFormUsuario,
     handleCep,
-    handleCpf,
-    handlePhone,
+    maskCnpj,
+    maskCpf,
+    maskPhone,
     checkPass,
     ufOptions,
     cidadesOptions,

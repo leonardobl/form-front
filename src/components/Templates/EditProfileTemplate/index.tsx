@@ -15,8 +15,9 @@ export const EditProfileTemplate = () => {
     cidadesOptions,
     formUsuario,
     handleCep,
-    handleCpf,
-    handlePhone,
+    maskPhone,
+    maskCnpj,
+    maskCpf,
     inpConfirSenha,
     inpSenhaRef,
     setFormUsuario,
@@ -55,7 +56,20 @@ export const EditProfileTemplate = () => {
                   variant="edit"
                   value={formCliente.cpfCnpj}
                   maxLength={18}
-                  onChange={(e) => handleCpf(e.target.value)}
+                  onChange={(e) => {
+                    if (e.target.value.length > 14) {
+                      setFormCliente((prev) => ({
+                        ...prev,
+                        cpfCnpj: maskCnpj(e.target.value),
+                      }));
+                      return;
+                    }
+
+                    setFormCliente((prev) => ({
+                      ...prev,
+                      cpfCnpj: maskCpf(e.target.value),
+                    }));
+                  }}
                 />
               </div>
               <div>
@@ -78,7 +92,12 @@ export const EditProfileTemplate = () => {
                   variant="edit"
                   value={formCliente.telefone}
                   maxLength={15}
-                  onChange={(e) => handlePhone(e.target.value)}
+                  onChange={(e) =>
+                    setFormCliente((prev) => ({
+                      ...prev,
+                      telefone: maskPhone(e.target.value),
+                    }))
+                  }
                 />
               </div>
               <div>
@@ -259,7 +278,19 @@ export const EditProfileTemplate = () => {
                   variant="edit"
                   value={formUsuario?.cpfCnpj}
                   maxLength={18}
-                  onChange={(e) => handleCpf(e.target.value)}
+                  onChange={(e) => {
+                    if (e?.target?.value?.length > 14) {
+                      setFormUsuario((prev) => ({
+                        ...prev,
+                        cpfCnpj: maskCnpj(e.target.value),
+                      }));
+                      return;
+                    }
+                    setFormUsuario((prev) => ({
+                      ...prev,
+                      cpfCnpj: maskCpf(e.target.value),
+                    }));
+                  }}
                 />
               </div>
 
@@ -267,9 +298,15 @@ export const EditProfileTemplate = () => {
                 <Input
                   label="Telefone"
                   variant="edit"
+                  type="tel"
                   value={formUsuario?.telefone}
                   maxLength={15}
-                  onChange={(e) => handlePhone(e.target.value)}
+                  onChange={(e) =>
+                    setFormUsuario((prev) => ({
+                      ...prev,
+                      telefone: maskPhone(e.target.value),
+                    }))
+                  }
                 />
               </div>
 
