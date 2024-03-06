@@ -13,13 +13,15 @@ export const EditProfileTemplate = () => {
   const {
     checkPass,
     cidadesOptions,
-    form,
+    formUsuario,
     handleCep,
     handleCpf,
     handlePhone,
     inpConfirSenha,
     inpSenhaRef,
-    setForm,
+    setFormUsuario,
+    formCliente,
+    setFormCliente,
     ufOptions,
     isAdmGerente,
     isCliente,
@@ -37,9 +39,12 @@ export const EditProfileTemplate = () => {
                   label="Nome"
                   required
                   variant="edit"
-                  value={form.nome}
+                  value={formCliente.nome}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, nome: e.target.value }))
+                    setFormCliente((prev) => ({
+                      ...prev,
+                      nome: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -48,7 +53,7 @@ export const EditProfileTemplate = () => {
                   label="CPF/CNPJ"
                   required
                   variant="edit"
-                  value={form.cpfCnpj}
+                  value={formCliente.cpfCnpj}
                   maxLength={18}
                   onChange={(e) => handleCpf(e.target.value)}
                 />
@@ -58,9 +63,12 @@ export const EditProfileTemplate = () => {
                   label="E-mail"
                   variant="edit"
                   type="email"
-                  value={form.email}
+                  value={formCliente.email}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, email: e.target.value }))
+                    setFormCliente((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -68,7 +76,7 @@ export const EditProfileTemplate = () => {
                 <Input
                   label="Telefone"
                   variant="edit"
-                  value={form.telefone}
+                  value={formCliente.telefone}
                   maxLength={15}
                   onChange={(e) => handlePhone(e.target.value)}
                 />
@@ -78,9 +86,9 @@ export const EditProfileTemplate = () => {
                   required
                   maxLength={9}
                   onBlur={handleCep}
-                  value={form?.endereco?.cep}
+                  value={formCliente?.endereco?.cep}
                   onChange={(e) =>
-                    setForm((prev) => ({
+                    setFormCliente((prev) => ({
                       ...prev,
                       endereco: {
                         ...prev.endereco,
@@ -95,9 +103,9 @@ export const EditProfileTemplate = () => {
                   label="Endereço (Rua)"
                   required
                   variant="edit"
-                  value={form?.endereco?.logradouro}
+                  value={formCliente?.endereco?.logradouro}
                   onChange={(e) =>
-                    setForm((prev) => ({
+                    setFormCliente((prev) => ({
                       ...prev,
                       endereco: {
                         ...prev.endereco,
@@ -113,9 +121,9 @@ export const EditProfileTemplate = () => {
                   required
                   variant="edit"
                   type="number"
-                  value={form?.endereco?.numero}
+                  value={formCliente?.endereco?.numero}
                   onChange={(e) =>
-                    setForm((prev) => ({
+                    setFormCliente((prev) => ({
                       ...prev,
                       endereco: {
                         ...prev.endereco,
@@ -131,9 +139,9 @@ export const EditProfileTemplate = () => {
                   label="Bairro"
                   required
                   variant="edit"
-                  value={form?.endereco?.bairro}
+                  value={formCliente?.endereco?.bairro}
                   onChange={(e) =>
-                    setForm((prev) => ({
+                    setFormCliente((prev) => ({
                       ...prev,
                       endereco: {
                         ...prev.endereco,
@@ -147,9 +155,9 @@ export const EditProfileTemplate = () => {
                 <Input
                   label="Complemento"
                   variant="edit"
-                  value={form?.endereco?.complemento}
+                  value={formCliente?.endereco?.complemento}
                   onChange={(e) =>
-                    setForm((prev) => ({
+                    setFormCliente((prev) => ({
                       ...prev,
                       endereco: {
                         ...prev.endereco,
@@ -166,10 +174,10 @@ export const EditProfileTemplate = () => {
                   placeholder=""
                   options={ufOptions}
                   value={ufOptions.find(
-                    (item) => item.value === form?.endereco?.uf
+                    (item) => item.value === formCliente?.endereco?.uf
                   )}
                   onChange={(e: ISelectOptions) =>
-                    setForm((prev) => ({
+                    setFormCliente((prev) => ({
                       ...prev,
                       endereco: { ...prev.endereco, uf: e.value },
                     }))
@@ -179,15 +187,15 @@ export const EditProfileTemplate = () => {
               <div>
                 <SimpleSelect
                   label="Cidade"
-                  key={`${Math.random()}-${form?.endereco?.uf}`}
+                  key={`${Math.random()}-${formCliente?.endereco?.uf}`}
                   required
                   placeholder=""
                   value={cidadesOptions.find(
-                    (item) => item.value === form?.endereco?.cidade
+                    (item) => item.value === formCliente?.endereco?.cidade
                   )}
                   options={cidadesOptions}
                   onChange={(e: ISelectOptions) =>
-                    setForm((prev) => ({
+                    setFormCliente((prev) => ({
                       ...prev,
                       endereco: {
                         ...prev.endereco,
@@ -202,10 +210,13 @@ export const EditProfileTemplate = () => {
                   type="password"
                   label="Senha"
                   required
-                  value={form.senha}
+                  value={formCliente.senha}
                   ref={inpSenhaRef}
                   onChange={(e) => {
-                    setForm((prev) => ({ ...prev, senha: e.target.value }));
+                    setFormCliente((prev) => ({
+                      ...prev,
+                      senha: e.target.value,
+                    }));
                     checkPass();
                   }}
                 />
@@ -232,9 +243,12 @@ export const EditProfileTemplate = () => {
                   label="Nome"
                   required
                   variant="edit"
-                  value={form.nome}
+                  value={formUsuario?.nome}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, nome: e.target.value }))
+                    setFormUsuario((prev) => ({
+                      ...prev,
+                      nome: e.target.value,
+                    }))
                   }
                 />
               </div>
@@ -243,7 +257,7 @@ export const EditProfileTemplate = () => {
                   label="CPF/CNPJ"
                   required
                   variant="edit"
-                  value={form.cpfCnpj}
+                  value={formUsuario?.cpfCnpj}
                   maxLength={18}
                   onChange={(e) => handleCpf(e.target.value)}
                 />
@@ -253,7 +267,7 @@ export const EditProfileTemplate = () => {
                 <Input
                   label="Telefone"
                   variant="edit"
-                  value={form.telefone}
+                  value={formUsuario?.telefone}
                   maxLength={15}
                   onChange={(e) => handlePhone(e.target.value)}
                 />
@@ -264,9 +278,12 @@ export const EditProfileTemplate = () => {
                   label="E-mail"
                   variant="edit"
                   type="email"
-                  value={form.email}
+                  value={formUsuario.email}
                   onChange={(e) =>
-                    setForm((prev) => ({ ...prev, email: e.target.value }))
+                    setFormUsuario((prev) => ({
+                      ...prev,
+                      email: e.target.value,
+                    }))
                   }
                 />
               </div>

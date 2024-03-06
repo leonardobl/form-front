@@ -8,6 +8,9 @@ import { useContextSite } from "../../../context/Context";
 import { ViaCep } from "../../../services/ViaCep";
 import { RolesEnum } from "../../../enums/roles";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { Cliente } from "../../../services/Cliente";
+import { Usuario } from "../../../services/Usuario";
+import { IUsuarioCompletoDTO } from "../../../types/usuario";
 
 export const useEditProfile = () => {
   const inpSenhaRef = useRef<HTMLInputElement>(null);
@@ -15,7 +18,6 @@ export const useEditProfile = () => {
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const { setIsLoad } = useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
-  const [form, setForm] = useState<IClienteForm>({} as IClienteForm);
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
   const [token] = useSessionStorage("@token");
@@ -27,6 +29,12 @@ export const useEditProfile = () => {
 
   const isCliente = !!(
     agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE) && token
+  );
+  const [formCliente, setFormCliente] = useState<IClienteForm>(
+    {} as IClienteForm
+  );
+  const [formUsuario, setFormUsuario] = useState<IUsuarioCompletoDTO>(
+    {} as IUsuarioCompletoDTO
   );
 
   function checkPass() {
@@ -43,7 +51,7 @@ export const useEditProfile = () => {
 
   function handlePhone(e: string) {
     const newPhoneValue = maskPhone(e);
-    setForm((prev) => ({ ...prev, telefone: newPhoneValue }));
+    setFormCliente((prev) => ({ ...prev, telefone: newPhoneValue }));
   }
 
   function handleCpf(e: string) {
@@ -51,12 +59,43 @@ export const useEditProfile = () => {
 
     if (e?.length > 14) {
       newvalue = maskCnpj(e);
-      setForm((prev) => ({ ...prev, cpfCnpj: newvalue }));
+      setFormCliente((prev) => ({ ...prev, cpfCnpj: newvalue }));
       return;
     }
 
     newvalue = maskCpf(e);
-    setForm((prev) => ({ ...prev, cpfCnpj: newvalue }));
+    setFormCliente((prev) => ({ ...prev, cpfCnpj: newvalue }));
+  }
+
+  function getDataUser() {
+    setIsLoad(true);
+    if (isCliente) {
+      Cliente.getByUsuario({ uuidUsuario: agendamentoSession?.uuidUsuario })
+        .then(({ data }) => setFormCliente(data))
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => setIsLoad(false));
+
+      return;
+    }
+
+    Usuario.getByCpfCnpjCompleto({
+      cpfCnpj: agendamentoSession?.usuarioCpfCnpj,
+    })
+      .then(({ data }) => setFormUsuario(data))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
   }
 
   useEffect(() => {
@@ -71,22 +110,24 @@ export const useEditProfile = () => {
         setUfOptions(options);
       })
       .catch((erro) => toast.error("Erro ao requisitar as UFs"));
+
+    getDataUser();
   }, []);
 
   function handleCep() {
-    if (form?.endereco?.cep?.length === 9) {
+    if (formCliente?.endereco?.cep?.length === 9) {
       setIsLoad(true);
       setTimeout(() => {
-        ViaCep.get(form?.endereco?.cep)
+        ViaCep.get(formCliente?.endereco?.cep)
           .then(({ data }) => {
-            setForm((prev) => ({
+            setFormCliente((prev) => ({
               ...prev,
               endereco: {
                 logradouro: data.street,
                 bairro: data.neighborhood,
                 cidade: data.city,
                 uf: data.state,
-                cep: form?.endereco?.cep,
+                cep: formCliente?.endereco?.cep,
               },
             }));
           })
@@ -97,8 +138,8 @@ export const useEditProfile = () => {
   }
 
   useEffect(() => {
-    if (form?.endereco?.uf) {
-      Ibge.CidadesPorEstado({ sigla: form.endereco.uf })
+    if (formCliente?.endereco?.uf) {
+      Ibge.CidadesPorEstado({ sigla: formCliente?.endereco?.uf })
         .then(({ data }) => {
           const options = data.map((item) => ({
             value: item.nome,
@@ -109,11 +150,13 @@ export const useEditProfile = () => {
         })
         .catch((erro) => toast.error("Erro ao requisitar as cidades"));
     }
-  }, [form?.endereco?.uf]);
+  }, [formCliente?.endereco?.uf]);
 
   return {
-    form,
-    setForm,
+    formCliente,
+    setFormCliente,
+    formUsuario,
+    setFormUsuario,
     handleCep,
     handleCpf,
     handlePhone,

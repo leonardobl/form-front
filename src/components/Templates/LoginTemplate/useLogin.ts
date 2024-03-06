@@ -62,6 +62,8 @@ export const useLogin = () => {
           toast.success("Login efetuado com sucesso");
           setAgendamentoSession({
             ...agendamentoSession,
+            uuidUsuario: decoded.uuid,
+            usuarioCpfCnpj: decoded.sub,
             roles: decoded.perfis,
           });
           setTimeout(() => {

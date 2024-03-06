@@ -7,23 +7,23 @@ export const ApiUsuarios = axios.create({
   },
 });
 
-// ApiHondaIHS.interceptors.request.use(
-//   (config) => {
-//     let token;
-//     if (typeof window !== "undefined") {
-//       const localToken = localStorage.getItem("@token");
+ApiUsuarios.interceptors.request.use(
+  (config) => {
+    let token;
+    if (typeof window !== "undefined") {
+      const localToken = sessionStorage.getItem("@token");
 
-//       if (localToken) {
-//         token = localToken.replaceAll('"', "");
-//       }
+      if (localToken) {
+        token = localToken.replaceAll('"', "");
+      }
 
-//       if (token && config.headers !== undefined) {
-//         config.headers.Authorization = `Bearer ${token}`;
-//       }
-//     }
+      if (token && config.headers !== undefined) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
 
-//     return config;
-//   },
+    return config;
+  },
 
-//   (error) => Promise.reject(error)
-// );
+  (error) => Promise.reject(error)
+);
