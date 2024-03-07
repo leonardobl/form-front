@@ -7,21 +7,24 @@ import { useForgotPassword } from "./useForgotPassword";
 import { Title } from "../../Atoms/Title";
 
 export const ForgotPasswordTemplate = () => {
-  const { handleSubmit, form, setForm } = useForgotPassword();
+  const { handleSubmit, form, handleCpf } = useForgotPassword();
 
   return (
     <S.Container>
       <S.Form onSubmit={handleSubmit}>
         <Title>Esqueceu sua senha?</Title>
 
-        <Text>Coloque o seu e-mail e enviaremos um link para alterá-la.</Text>
+        <Text>
+          Coloque o seu <span className="textStrong">CPF/CNPJ</span> e
+          enviaremos um <span className="textStrong">link</span> para alterá-la.
+        </Text>
 
         <Input
-          value={form.email}
-          onChange={(e) => setForm({ email: e.target.value })}
-          type="email"
+          value={form.cpfCnpj}
           required
-          label="E-mail"
+          label="CPF/CNPJ"
+          onChange={(e) => handleCpf(e.target.value)}
+          maxLength={18}
         />
 
         <Button>Enviar e-mail</Button>

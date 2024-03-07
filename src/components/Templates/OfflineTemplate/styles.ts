@@ -6,6 +6,10 @@ export const Main = styled.div`
   ${({ theme: { padding } }) => css`
     padding: ${padding.primary} 0;
     width: 100%;
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -30,6 +34,10 @@ export const IconDanger = styled.img`
   height: 3.21506rem;
   display: block;
   margin: 0 auto 3.86rem;
+
+  @media (max-width: 500px) {
+    margin: 0 auto 1rem;
+  }
 `;
 
 export const LogoMapa = styled.img`
@@ -47,6 +55,13 @@ export const Title = styled.p`
   letter-spacing: 0.09rem;
   margin-bottom: 2rem;
   text-align: center;
+
+  @media (max-width: 500px) {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 32px;
+    letter-spacing: 0.6px;
+  }
 `;
 
 export const Text = styled.p`
@@ -58,6 +73,18 @@ export const Text = styled.p`
   font-weight: 400;
   line-height: 2rem;
   margin-bottom: 3rem;
+
+  @media (max-width: 500px) {
+    color: var(--MAPA6, #20332f);
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    max-width: 280px;
+    text-align: center;
+    margin: 0 auto 1rem;
+  }
 `;
 
 export const Contact = styled.p`

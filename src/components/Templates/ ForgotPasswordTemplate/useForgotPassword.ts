@@ -3,9 +3,10 @@ import { useContextSite } from "../../../context/Context";
 import { Usuario } from "../../../services/Usuario";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { maskCnpj, maskCpf } from "../../../utils/masks";
 
 interface IFormForgotProps {
-  email: string;
+  cpfCnpj: string;
 }
 
 export const useForgotPassword = () => {
@@ -13,11 +14,24 @@ export const useForgotPassword = () => {
   const navigate = useNavigate();
   const { setIsLoad } = useContextSite();
 
+  function handleCpf(e: string) {
+    let newvalue = "";
+
+    if (e?.length > 14) {
+      newvalue = maskCnpj(e);
+      setForm((prev) => ({ cpfCnpj: newvalue }));
+      return;
+    }
+
+    newvalue = maskCpf(e);
+    setForm((prev) => ({ cpfCnpj: newvalue }));
+  }
+
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     setIsLoad(true);
 
-    Usuario.getByEmail({ email: form.email })
+    Usuario.getByEmail({ cpfCnpj: form.cpfCnpj })
       .then(({ data }) => {
         Usuario.requererNovaSenha({
           cpfCnpj: data.cpfCnpj,
@@ -52,5 +66,5 @@ export const useForgotPassword = () => {
       });
   }
 
-  return { handleSubmit, form, setForm };
+  return { handleSubmit, form, handleCpf };
 };

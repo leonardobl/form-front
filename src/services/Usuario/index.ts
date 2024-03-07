@@ -38,11 +38,11 @@ export class Usuario {
   }
 
   static async getByEmail({
-    email,
+    cpfCnpj,
   }: {
-    email: string;
+    cpfCnpj: string;
   }): Promise<AxiosResponse<IUsuarioDTO>> {
-    return ApiUsuarios.get(`${basePath}/email?email=${email}`);
+    return ApiUsuarios.get(`${basePath}/email?cpfCnpj=${cpfCnpj}`);
   }
 
   static async getByCpfCnpj({
