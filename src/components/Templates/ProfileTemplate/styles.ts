@@ -2,11 +2,15 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   ${({ theme: { padding } }) => css`
-    padding: ${padding.primary};
+    padding: ${padding.primary} 0;
     width: 100%;
 
     > h1 {
       text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
     }
   `}
 `;
@@ -110,5 +114,11 @@ export const GridAdmin = styled.div`
     button {
       margin: 0 auto;
     }
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    gap: 32px 16px;
+    grid-template-areas: "nome" "cpf" "telefone" "email" "button";
   }
 `;

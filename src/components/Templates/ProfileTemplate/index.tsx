@@ -9,7 +9,7 @@ import { useEditProfile } from "./useEditProfile";
 import { ISelectOptions } from "../../../types/inputs";
 import { maskCep } from "../../../utils/masks";
 
-export const EditProfileTemplate = () => {
+export const ProfileTemplate = () => {
   const {
     cidadesOptions,
     formUsuario,

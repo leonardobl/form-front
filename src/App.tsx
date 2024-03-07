@@ -25,13 +25,13 @@ import { Pix } from "./components/Pages/Pix";
 import { Ticket } from "./components/Pages/Ticket";
 import { Schedules } from "./components/Pages/Schedules";
 import { ScheduleDetail } from "./components/Pages/ScheduleDetail";
-import { EditProfile } from "./components/Pages/EditProfile";
 import { NewScheduling } from "./components/Pages/NewScheduling";
 import { NotFound } from "./components/Atoms/NotFound";
 import { Offline } from "./components/Pages/Offline";
 import { ForgotPassword } from "./components/Pages/ForgotPassword";
 import { ResetPassword } from "./components/Pages/ResetPassword";
 import { ProtectedAdminRoute } from "./components/Atoms/ProtectedAdminRoute";
+import { Profile } from "./components/Pages/Profile";
 
 export const App = () => {
   return (
@@ -50,7 +50,7 @@ export const App = () => {
               path="/perfil"
               element={
                 <ProtectedRoute>
-                  <EditProfile />
+                  <Profile />
                 </ProtectedRoute>
               }
             />
