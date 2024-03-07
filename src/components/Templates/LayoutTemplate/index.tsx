@@ -99,7 +99,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
             {props.children}
             <Outlet />
           </S.Main>
-          <S.IconMap src="/assets/svgs/logo-mapa.svg" alt="icone mapa" />
+          <S.IconMap src="/assets/svgs/paguexlogo.svg" alt="icone mapa" />
         </S.Wrapper>
       </S.WrapperMain>
       <MyModal
