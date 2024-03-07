@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const Form = styled.form`
   width: 100%;
-  width: 39.75rem;
+  max-width: 39.75rem;
   margin: 0 auto;
 
   > h1 {
@@ -21,5 +21,8 @@ export const Form = styled.form`
 
   > button {
     margin: 2.81rem auto 0;
+  }
+
+  @media (max-width: 500px) {
   }
 `;

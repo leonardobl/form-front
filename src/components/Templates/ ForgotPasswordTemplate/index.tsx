@@ -1,10 +1,10 @@
 import React from "react";
 import * as S from "./styles";
-import { Title } from "../OfflineTemplate/styles";
 import { Text } from "../../Atoms/Text";
 import { Input } from "../../Atoms/Inputs/Input";
 import { Button } from "../../Atoms/Button";
 import { useForgotPassword } from "./useForgotPassword";
+import { Title } from "../../Atoms/Title";
 
 export const ForgotPasswordTemplate = () => {
   const { handleSubmit, form, setForm } = useForgotPassword();
