@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  ${({ theme: { padding } }) => css``}
+`;
 
 export const Main = styled.div`
   ${({ theme: { padding } }) => css`
@@ -9,6 +11,12 @@ export const Main = styled.div`
 
     @media (max-width: 500px) {
       padding: ${padding.mobile} 0;
+
+      height: 80vh;
+
+      > p {
+        margin-bottom: 30px;
+      }
     }
   `}
 `;
@@ -97,14 +105,39 @@ export const Contact = styled.p`
   text-align: center;
   letter-spacing: 0.06rem;
   margin-bottom: 2.6rem;
+
+  @media (max-width: 500px) {
+    text-align: center;
+    font-family: Mulish;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 32px;
+    letter-spacing: 0.6px;
+  }
 `;
 
 export const PhoneNumer = styled.p`
   color: #3f504c;
   text-align: center;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 14px 32px;
   font-family: Mulish;
   font-size: 2rem;
   font-style: normal;
   font-weight: 700;
   line-height: 2.25rem;
+  border-radius: 10px;
+  background: #e1f2ee;
+
+  @media (max-width: 500px) {
+    color: #3f504c;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 36px;
+  }
 `;
