@@ -37,7 +37,7 @@ export const useSchedules = () => {
     value: item,
     label: item,
   }));
-  const [isOpen, setIsOpen] = useState(isMobile ? false : true);
+
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const isCliente = agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE);
   const [cidadeOptions, setCidadeoptions] = useState<ISelectOptions[]>([]);
@@ -131,7 +131,7 @@ export const useSchedules = () => {
   }
 
   function handleClear() {
-    isMobile && setIsOpen(false);
+    isMobile && setMenuOpen(false);
     const values = Object.values(formFilter).some(
       (item) => item || typeof item === "number"
     );
@@ -175,7 +175,6 @@ export const useSchedules = () => {
     tipoOptions,
     agendamentos,
     cidadeOptions,
-    isOpen,
     isCliente,
     iniciarVistoria,
     menuOpen,

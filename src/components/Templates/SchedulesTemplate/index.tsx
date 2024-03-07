@@ -23,7 +23,6 @@ export const SchedulesTemplate = () => {
     dateInitial,
     setDateFinal,
     cidadeOptions,
-    isOpen,
     setDateInitial,
     statusOptions,
     isMobile,
@@ -172,51 +171,79 @@ export const SchedulesTemplate = () => {
         </S.Filter>
       )}
 
-      <S.List>
-        <S.ListTitles>
-          <h3>Tipo</h3>
-          <h3>Veículo</h3>
-          <h3>Placa</h3>
-          <h3>Chassi</h3>
-          <h3>Cidade</h3>
-          <h3>Data / Hora</h3>
-          <h3>Status</h3>
-          <span></span>
-        </S.ListTitles>
-        {agendamentos?.map((item) => (
-          <S.ListItem key={`${Math.random()}`}>
-            <p>{item?.tipoAtendimento}</p>
-            <p>{item?.veiculo?.modelo}</p>
-            <p>{item?.veiculo?.placa}</p>
-            <p>{item?.veiculo?.chassi}</p>
-            <p>
-              {item?.loja?.endereco?.cidade
-                ? item?.loja?.endereco?.cidade
-                : item?.delivery?.cidade}
-            </p>
-            <p>{`${reverseToBrDate(item?.diaAgendado)} - ${
-              item.horaAgendada
-            }`}</p>
-            <Status
-              status={item?.status}
-              onClick={() => {
-                iniciarVistoria(item.uuid);
-              }}
-            />
+      {isMobile ? (
+        <S.ListMobile>
+          {agendamentos?.map((item) => (
+            <S.ListItemMobile key={`${Math.random()}`}>
+              <S.ListItemMobileContent>
+                <p>{`${item?.veiculo?.modelo} ${item.horaAgendada}`}</p>
+                <Status
+                  status={item?.status}
+                  onClick={() => {
+                    iniciarVistoria(item.uuid);
+                  }}
+                />
+              </S.ListItemMobileContent>
+              <img
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                onClick={() =>
+                  window.open(
+                    `/meus-agendamentos/agendamento?id=${item?.uuid}`,
+                    "_blanck"
+                  )
+                }
+              />
+            </S.ListItemMobile>
+          ))}
+        </S.ListMobile>
+      ) : (
+        <S.List>
+          <S.ListTitles>
+            <h3>Tipo</h3>
+            <h3>Veículo</h3>
+            <h3>Placa</h3>
+            <h3>Chassi</h3>
+            <h3>Cidade</h3>
+            <h3>Data / Hora</h3>
+            <h3>Status</h3>
+            <span></span>
+          </S.ListTitles>
+          {agendamentos?.map((item) => (
+            <S.ListItem key={`${Math.random()}`}>
+              <p>{item?.tipoAtendimento}</p>
+              <p>{item?.veiculo?.modelo}</p>
+              <p>{item?.veiculo?.placa}</p>
+              <p>{item?.veiculo?.chassi}</p>
+              <p>
+                {item?.loja?.endereco?.cidade
+                  ? item?.loja?.endereco?.cidade
+                  : item?.delivery?.cidade}
+              </p>
+              <p>{`${reverseToBrDate(item?.diaAgendado)} - ${
+                item.horaAgendada
+              }`}</p>
+              <Status
+                status={item?.status}
+                onClick={() => {
+                  iniciarVistoria(item.uuid);
+                }}
+              />
 
-            <img
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              onClick={() =>
-                window.open(
-                  `/meus-agendamentos/agendamento?id=${item?.uuid}`,
-                  "_blanck"
-                )
-              }
-            />
-          </S.ListItem>
-        ))}
-      </S.List>
+              <img
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                onClick={() =>
+                  window.open(
+                    `/meus-agendamentos/agendamento?id=${item?.uuid}`,
+                    "_blanck"
+                  )
+                }
+              />
+            </S.ListItem>
+          ))}
+        </S.List>
+      )}
       <Pagination
         maxPageNumbersDisplayed={isMobile ? 3 : 10}
         key={`${Math.random()} - ${pagination}`}

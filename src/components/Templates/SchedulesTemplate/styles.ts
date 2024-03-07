@@ -9,6 +9,10 @@ export const Container = styled.div`
     > h1 {
       text-align: center;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -28,6 +32,10 @@ export const TitleFilter = styled.h2`
   font-weight: 700;
   line-height: 32px;
   text-transform: uppercase;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const Filter = styled.form`
@@ -38,6 +46,10 @@ export const Filter = styled.form`
   width: 100%;
   max-width: ${pxToRem(1160)};
   margin: 0 auto 48px;
+
+  @media (max-width: 500px) {
+    border: none;
+  }
 `;
 
 export const GridWrapper = styled.div`
@@ -99,6 +111,12 @@ export const GridWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    grid-template-areas: "dataI dataF" "tipo placa" "renavam renavam" "chassi chassi" "status status" "button1 button2";
   }
 `;
 
@@ -185,4 +203,54 @@ export const ButtonFilterMobile = styled.button`
   font-weight: 500;
   line-height: 1.5rem;
   margin: 0 auto 2.53rem;
+`;
+
+export const ListMobile = styled.div`
+  margin: 0 auto 2rem;
+
+  > :nth-child(even) {
+    background: #e1f2ee;
+  }
+
+  > :nth-child(odd) {
+    background: #f7f7f7;
+  }
+`;
+
+export const ListItemMobile = styled.div`
+  padding: 0.94rem 0.5rem;
+  border-radius: 0.3125rem;
+  display: flex;
+  height: 5.875rem;
+  justify-content: space-between;
+  align-items: center;
+
+  > img {
+    width: 0.8125rem;
+    height: 0.625rem;
+    margin-right: 1.2rem;
+  }
+
+  & + div {
+    margin-top: 2rem;
+  }
+`;
+
+export const ListItemMobileContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  height: 100%;
+
+  > p {
+    color: #595959;
+    font-family: Mulish;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.5rem;
+    letter-spacing: 0.0225rem;
+    text-transform: uppercase;
+  }
 `;

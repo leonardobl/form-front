@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 export const Container = styled.div<{ status: string }>`
   ${({ status }) => css`
     border-radius: 25px;
-    height: 30px;
+    /* height: 30px; */
     display: flex;
     align-items: center;
     justify-content: center;
