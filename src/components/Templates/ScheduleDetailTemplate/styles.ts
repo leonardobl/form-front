@@ -5,6 +5,10 @@ export const Container = styled.div`
   ${({ theme: { padding } }) => css`
     padding: ${padding.primary} 0;
     width: 100%;
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -20,6 +24,11 @@ export const WrapperText = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 58px;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    gap: 2rem;
+  }
 `;
 
 export const Form = styled.form`
@@ -83,5 +92,11 @@ export const Form = styled.form`
 
   > :nth-child(14) {
     grid-area: local;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 16px;
+    grid-template-areas: "status status" "data horario" "nome nome" "cpf cpf" "telefone telefone" "email email" "modelo modelo" "placa renavam" "chassi chassi" "servico servico" "valor valor" "local local";
   }
 `;

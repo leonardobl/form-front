@@ -21,12 +21,12 @@ export const ScheduleDetailTemplate = () => {
   return (
     <S.Container>
       <S.Wrapper>
-        <Title>{agendamento.tipoAtendimento}</Title>
+        <Title>Dados do Agendamento</Title>
 
         <S.WrapperText>
           <Text>
-            Esses são os <span className="textStrong">dados</span> do seu{" "}
-            <span className="textStrong">agendamento</span>.
+            Esses são os{" "}
+            <span className="textStrong">dados do seu agendamento</span>.
           </Text>
 
           <ButtonOptions
