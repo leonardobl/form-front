@@ -34,6 +34,8 @@ export const MyModal = ({ children, ...rest }: IMyModalProps) => {
           paddingRight: 0,
           paddingBottom: 0,
           paddingTop: 0,
+          position: "relative",
+          left: 0,
         },
       }}
     >

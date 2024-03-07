@@ -27,6 +27,9 @@ export const Container = styled.div`
     .finalButton {
       margin: 0 auto;
     }
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -44,6 +47,19 @@ export const FormSearch = styled.form`
 
   > :nth-child(2) {
     grid-area: button;
+  }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem 0;
+    align-items: stretch;
+
+    > :nth-child(2) {
+      button {
+        margin: 0 auto;
+      }
+    }
   }
 `;
 
@@ -135,6 +151,13 @@ export const GridModal = styled.div`
       margin: 0 auto;
     }
   }
+
+  @media (max-width: 500px) {
+    width: 22.5rem;
+    gap: 2.31rem 1rem;
+    padding: 2rem 1rem;
+    grid-template-areas: "nome nome" "cpf cpf" "email email" "telefone telefone" "tipo tipo" "cep numero" "rua rua" "bairro complemento" "uf cidade" "button button";
+  }
 `;
 
 export const FormUser = styled.form`
@@ -164,6 +187,12 @@ export const GridUser = styled.div`
   }
   > :nth-child(5) {
     grid-area: tipo;
+  }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 32px 16px;
   }
 `;
 
@@ -198,6 +227,12 @@ export const GridAtendece = styled.div`
   > :nth-child(5) {
     grid-area: horario;
   }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 32px 16px;
+  }
 `;
 
 export const GridLicense = styled.div`
@@ -213,6 +248,19 @@ export const GridLicense = styled.div`
   }
   > :nth-child(2) {
     grid-area: button;
+  }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 32px 16px;
+    align-items: stretch;
+
+    > :nth-child(2) {
+      button {
+        margin: 0 auto;
+      }
+    }
   }
 `;
 
@@ -232,6 +280,19 @@ export const GridSurvey = styled.div`
   }
   > :nth-child(3) {
     grid-area: button;
+  }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 32px 16px;
+    align-items: stretch;
+
+    > :nth-child(3) {
+      button {
+        margin: 0 auto;
+      }
+    }
   }
 `;
 
@@ -269,6 +330,13 @@ export const GridVeihecle = styled.div`
 
   > :nth-child(6) {
     grid-area: chassi;
+  }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    gap: 32px 16px;
+    align-items: stretch;
   }
 `;
 
@@ -320,5 +388,11 @@ export const GridAddress = styled.div`
 
   > :nth-child(9) {
     grid-area: cidade;
+  }
+
+  @media (max-width: 500px) {
+    gap: 32px 16px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "nome nome" "telefone cep" "rua rua" "numero complemento" "bairro bairro" "uf cidade";
   }
 `;
