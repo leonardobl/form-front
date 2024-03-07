@@ -84,6 +84,12 @@ export const GridClient = styled.div`
       margin: 0 auto;
     }
   }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 16px;
+    grid-template-areas: "nome nome" "cpf cpf" "email email" "telefone cep" "rua rua" "numero complemento" "bairro bairro" "uf cidade" "button button";
+  }
 `;
 
 export const GridAdmin = styled.div`

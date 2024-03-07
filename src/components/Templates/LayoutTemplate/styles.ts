@@ -149,8 +149,8 @@ export const WrapperButton = styled.div`
 export const ModalContent = styled.div`
   /* padding: 102px 132px; */
   background: #6fa599;
-  width: 506px;
-  height: 328px;
+  width: 300px;
+  height: 220px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -160,10 +160,10 @@ export const ModalContent = styled.div`
     color: #fff;
     text-align: center;
     font-family: Mulish;
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 700;
-    line-height: 40px;
+    line-height: 28px;
     max-width: 270px;
     margin-bottom: 32px;
   }
@@ -177,8 +177,8 @@ export const ModalContent = styled.div`
     padding: 32px 48px;
 
     p {
-      font-size: 18px;
-      line-height: 24px;
+      font-size: 16px;
+      line-height: 22px;
       max-width: 200px;
       margin: 0 auto 24px;
     }
