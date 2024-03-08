@@ -38,7 +38,7 @@ export const useStore = () => {
     const PAYLOAD: IReagendamentoProps = {
       diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
       horaAgendada: form.horaAgendada,
-      uuidAgendamento: agendamentoSession?.reagendamento,
+      uuidAgendamento: agendamentoSession?.uuidAgendamento,
       uuidLoja: form.uuidLoja,
       uuidDelivery: form.uuidDelivery,
     };
@@ -46,9 +46,11 @@ export const useStore = () => {
     Agendamento.reagendar(PAYLOAD)
       .then(() => {
         toast.success("Reagendamento efetuado com sucesso!");
-        // cleanStorage();
+        setAgendamentoSession({ ...agendamentoSession, reagendamento: false });
         setTimeout(() => {
-          window.open("/meus-agendamentos/detalhe-agendamento", "_self");
+          navigate(
+            `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
+          );
         }, 2000);
       })
       .catch(
@@ -107,7 +109,7 @@ export const useStore = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoSession?.revistoria) {
+    if (agendamentoSession?.reagendamento) {
       setModalIsOpen(true);
       return;
     }

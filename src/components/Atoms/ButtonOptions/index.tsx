@@ -32,16 +32,20 @@ export const ButtonOptions = ({
   handleTicket,
 }: IButtonOptions) => {
   const { setIsLoad } = useContextSite();
-  // const [reagendamento, setReagendamento] = useSessionStorage("reagendamento");
   const [isOpen, setISOpen] = useState(false);
-  const [sessionCliente, setSessionCliente] = useSessionStorage("cliente");
+  const [sessionAgendamento, setSessionagendamento] =
+    useSessionStorage("agendamentoSession");
   const navigate = useNavigate();
 
   function onRescheduling() {
     setIsLoad(true);
-    // setReagendamento(uuidAgendamento);
+    setSessionagendamento({
+      ...sessionAgendamento,
+      uuidAgendamento: uuidAgendamento,
+      reagendamento: true,
+    });
     setTimeout(() => {
-      navigate(`/${tipoAtendimento?.toLowerCase()}`);
+      navigate(`/agendamento/${tipoAtendimento?.toLowerCase()}`);
       setIsLoad(false);
     }, 1000);
   }
@@ -60,7 +64,7 @@ export const ButtonOptions = ({
       <div className="summary-content">
         {status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&
           [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_SUPORTE].some((role) =>
-            sessionCliente?.role?.includes(role)
+            sessionAgendamento?.roles?.includes(role)
           ) && (
             <div>
               <div>

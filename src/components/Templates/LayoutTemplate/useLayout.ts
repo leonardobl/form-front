@@ -17,7 +17,7 @@ export const useLayout = () => {
   const isCliente = agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE);
 
   function handleLogin() {
-    if (setTokenContext) {
+    if (tokenContext) {
       setModalIsOpen(true);
       return;
     }
