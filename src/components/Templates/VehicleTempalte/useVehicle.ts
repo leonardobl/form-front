@@ -41,7 +41,6 @@ export const useVehicle = () => {
           uuidDelivery: data?.delivery?.uuid,
           uuidLoja: data?.loja?.uuid,
           uuidServico: data?.servico?.uuid,
-          uuidVeiculo: agendamentoSession?.uuidVeiculo,
         };
 
         Agendamento.put(PAYLOAD)

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 import { maskCnpj, maskCpf, removeDigitos } from "../../../utils/masks";
@@ -88,7 +88,6 @@ export const useLogin = () => {
                 setIsDisable(false);
 
                 if (params?.uuidAgendamento) {
-                  console.log("aqui");
                   Agendamento.vincularAgendamentoAoCliente({
                     uuidAgendamento: params?.uuidAgendamento,
                     uuidCliente: data.uuid,
@@ -97,7 +96,6 @@ export const useLogin = () => {
                       navigate(
                         `/agendamento/${params.uuidAgendamento}/servicos`
                       );
-                      return;
                     })
                     .catch(
                       ({
@@ -108,10 +106,10 @@ export const useLogin = () => {
                         toast.error(mensagem);
                       }
                     );
+                  return;
                 }
 
                 navigate("/meus-agendamentos");
-                return;
               }, 2000);
             })
             .catch(
