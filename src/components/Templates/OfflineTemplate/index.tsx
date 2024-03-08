@@ -1,7 +1,6 @@
 import React from "react";
 import * as S from "./styles";
 import { Bar } from "../../Atoms/Bar";
-import { Title } from "../../Atoms/Title";
 
 export const OfflineTemplate = () => {
   return (
