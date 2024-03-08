@@ -14,19 +14,14 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
   const {
     handleLogin,
     logout,
-    pathname,
     menuOpen,
     setMenuOpen,
-    token,
+    tokenContext,
     modalIsOpen,
     navigate,
     setModalIsOpen,
     isCliente,
   } = useLayout();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
 
   return (
     <S.Container {...props}>
@@ -43,11 +38,11 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
           <S.WrapperButton>
             <div>
               <button onClick={handleLogin}>
-                {token ? "Logout" : "Login"}
+                {tokenContext ? "Logout" : "Login"}
               </button>
             </div>
 
-            {token && (
+            {tokenContext && (
               <>
                 <div>
                   <button onClick={() => navigate("/perfil")}>

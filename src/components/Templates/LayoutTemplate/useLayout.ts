@@ -8,16 +8,16 @@ import { RolesEnum } from "../../../enums/roles";
 export const useLayout = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const [token] = useSessionStorage("@token");
   const [agendamentoSession] = useSessionStorage("agendamentoSession");
   const { pathname } = useLocation();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { setIsLoad } = useContextSite();
+  const { setTokenContext, tokenContext } = useContextSite();
 
   const isCliente = agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE);
 
   function handleLogin() {
-    if (token) {
+    if (setTokenContext) {
       setModalIsOpen(true);
       return;
     }
@@ -30,17 +30,22 @@ export const useLayout = () => {
 
     setTimeout(() => {
       cleanStorage();
+      setTokenContext("");
       setIsLoad(false);
       window.open("/", "_self");
     }, 1000);
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return {
     handleLogin,
     logout,
-    pathname,
     menuOpen,
     setMenuOpen,
-    token,
+    tokenContext,
     modalIsOpen,
     navigate,
     setModalIsOpen,

@@ -3,11 +3,10 @@ import React from "react";
 import * as S from "./styles";
 import { Text } from "../../Atoms/Text";
 import { Button } from "../../Atoms/Button";
-import { Link } from "react-router-dom";
 import { useLoginRegister } from "./useLoginRegister";
 
 export const LoginRegisterTemplate = () => {
-  const { params } = useLoginRegister();
+  const { handleLogin, handleRegister } = useLoginRegister();
 
   return (
     <S.Container>
@@ -18,12 +17,9 @@ export const LoginRegisterTemplate = () => {
       </Text>
 
       <S.FlexWrapper>
-        <Link to={`/agendamento/${params.uuidAgendamento}/login`}>
-          <Button>Login</Button>
-        </Link>
-        <Link to={`/agendamento/${params.uuidAgendamento}/cadastro-usuario`}>
-          <Button>Cadastro</Button>
-        </Link>
+        <Button onClick={handleLogin}>Login</Button>
+
+        <Button onClick={handleRegister}>Cadastro</Button>
       </S.FlexWrapper>
     </S.Container>
   );

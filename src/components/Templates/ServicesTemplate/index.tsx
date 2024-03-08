@@ -2,14 +2,12 @@ import React from "react";
 import * as S from "./styles";
 import { Button } from "../../Atoms/Button";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
-import { Link, useParams } from "react-router-dom";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { Link } from "react-router-dom";
 import { Text } from "../../Atoms/Text";
+import { useServices } from "./useServices";
 
 export const ServicesTemplate = () => {
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
-  const params = useParams();
+  const { agendamentoSession, setAgendamentoSession, params } = useServices();
 
   return (
     <S.Container>

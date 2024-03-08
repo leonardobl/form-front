@@ -13,7 +13,7 @@ import { Agendamento } from "../../../services/Agendamento";
 
 export const useLogin = () => {
   const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
-  const { isLoad, setIsLoad } = useContextSite();
+  const { isLoad, setIsLoad, setTokenContext } = useContextSite();
   const [isDisable, setIsDisable] = useState(false);
   const [token, setToken] = useSessionStorage("@token");
   const params = useParams();
@@ -48,6 +48,7 @@ export const useLogin = () => {
     await Autenticacao.post(PAYLOAD)
       .then(({ data }) => {
         setToken(data.token);
+        setTokenContext(data.token);
         return data.token;
       })
       .then((token) => {
@@ -120,6 +121,7 @@ export const useLogin = () => {
               }) => {
                 toast.error(mensagem);
                 sessionStorage.removeItem("@token");
+                setTokenContext("");
               }
             );
       })
