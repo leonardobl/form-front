@@ -8,6 +8,7 @@ import Select, {
   SelectInstance,
   components,
 } from "react-select";
+import { IoCloseOutline } from "react-icons/io5";
 
 export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
   function ReactSelect<
@@ -19,6 +20,22 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     ref: Ref<SelectInstance<Option, IsMulti, Group>>
   ) {
     const myVariant = props.variant;
+
+    const ClearIndicator = (props) => {
+      return (
+        components.DropdownIndicator && (
+          <components.ClearIndicator {...props}>
+            <IoCloseOutline
+              size={20}
+              style={{
+                cursor: "pointer",
+                position: "relative",
+              }}
+            />
+          </components.ClearIndicator>
+        )
+      );
+    };
 
     const customStyles = {
       control: (base: any, state: { isFocused: any }) => ({
@@ -34,7 +51,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         // color: state.isSelected ? "red" : "blue",
         // Overwrittes the different states of border
         borderColor: "#12D1A7",
-        fontWeight: 600,
+        // fontWeight: 600,
         // Removes weird border around container
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
@@ -68,7 +85,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         // ...styles,
         backgroundColor: isFocused ? lighten(0.45, "#12D1A7") : "transparent",
         color: "#111",
-        fontWeight: 600,
+        // fontWeight: 600,
         // letterSpacing: 1,
         zindex: 2,
         padding: "10px 20px",
@@ -114,7 +131,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
           {...props}
           name={props.name}
           ref={ref}
-          components={{ DropdownIndicator }}
+          components={{ DropdownIndicator, ClearIndicator }}
           theme={(theme) => ({ ...theme, borderRadius: 10 })}
           styles={customStyles}
         />

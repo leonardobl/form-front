@@ -5,31 +5,57 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
 import { useDeliverys } from "./useDeliverys";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const DeliverysTemplates = () => {
-  const { date, setDate, formFilter, setFormFilter, cidadesOptions } =
-    useDeliverys();
+  const {
+    date,
+    setDate,
+    formFilter,
+    setFormFilter,
+    cidadesOptions,
+    agendamentos,
+    handleClean,
+    handleFilter,
+  } = useDeliverys();
 
   return (
     <S.Container>
       <Title>Deliverys</Title>
 
-      <S.FormFilter>
+      <S.FormFilter onSubmit={handleFilter}>
         <S.HeaderFormFilter>Filtro</S.HeaderFormFilter>
         <S.GridFormFilter>
           <div>
             <InputDate
+              isClearable
               label="Data"
               selected={date}
               placeholderText="___/___/___"
-              onChange={(e) => setDate(e)}
+              onChange={(e) => {
+                setDate(e);
+              }}
             />
           </div>
           <div>
-            <SimpleSelect options={cidadesOptions} label="Cidade" />
+            <SimpleSelect
+              isClearable
+              options={cidadesOptions}
+              value={
+                cidadesOptions.find(
+                  (item) => item.label === formFilter?.cidade
+                ) || null
+              }
+              onChange={(e: ISelectOptions) =>
+                setFormFilter((prev) => ({ ...prev, cidade: e?.label }))
+              }
+              label="Cidade"
+            />
           </div>
           <div>
-            <button className="buttonClean">Limpar tudo</button>
+            <button type="button" onClick={handleClean} className="buttonClean">
+              Limpar tudo
+            </button>
           </div>
           <div>
             <Button>BUSCAR</Button>
@@ -57,78 +83,17 @@ export const DeliverysTemplates = () => {
           </button>
         </S.ListHeader>
         <S.ListBody>
-          <S.ListItem>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade</p>
-            <p>8:00</p>
-            <p></p>
-          </S.ListItem>
-          <S.ListItem>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade</p>
-            <p>8:00</p>
-            <p></p>
-          </S.ListItem>
-          <S.ListItem>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade</p>
-            <p>8:00</p>
-            <p></p>
-          </S.ListItem>
-          <S.ListItem>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade</p>
-            <p>8:00</p>
-            <p></p>
-          </S.ListItem>
-          <S.ListItem>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade</p>
-            <p>8:00</p>
-            <p></p>
-          </S.ListItem>
-          <S.ListItem>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade</p>
-            <p>8:00</p>
-            <p></p>
-          </S.ListItem>
-          <S.ListItem>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade</p>
-            <p>8:00</p>
-            <p></p>
-          </S.ListItem>
-          <S.ListItem>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade</p>
-            <p>8:00</p>
-            <p></p>
-          </S.ListItem>
+          {agendamentos?.map((item) => (
+            <S.ListItem key={item?.uuid}>
+              <p>{item?.cliente?.nome || "---"}</p>
+              <p>{item?.veiculo?.modelo || "---"}</p>
+              <p>{item?.veiculo?.placa || "---"}</p>
+              <p>{item?.veiculo?.chassi || "---"}</p>
+              <p>{item?.cliente?.endereco?.cidade || "---"}</p>
+              <p>{item?.horaAgendada || "---"}</p>
+              <p></p>
+            </S.ListItem>
+          ))}
         </S.ListBody>
       </S.List>
     </S.Container>

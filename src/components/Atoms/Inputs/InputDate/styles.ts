@@ -36,10 +36,11 @@ export const Container = styled.div<{ $showIcon?: boolean }>`
     .react-datepicker__close-icon {
       &::after {
         background-color: transparent;
-        color: #12d1a7;
-        font-size: 21px;
+        /* color: #12d1a7; */
+        color: #ccc;
+        font-size: 24px;
         position: absolute;
-        font-weight: 900;
+        /* font-weight: 900; */
         right: ${$showIcon ? "50px" : "10px"};
         bottom: 20px;
       }
@@ -57,7 +58,7 @@ export const Container = styled.div<{ $showIcon?: boolean }>`
         font-family: "Mulish";
         font-size: 16px;
         border: 1px solid #12d1a7;
-        font-weight: 600;
+        /* font-weight: 600; */
 
         &:focus {
           /* outline: 1px solid #12d1a7; */

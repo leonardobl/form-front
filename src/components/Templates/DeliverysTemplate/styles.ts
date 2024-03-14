@@ -124,7 +124,7 @@ export const ListBody = styled.div`
   }
 
   > div + div {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
 `;
 
