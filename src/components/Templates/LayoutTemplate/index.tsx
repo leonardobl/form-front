@@ -78,7 +78,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     <NavLink
                       className={"navLink"}
                       end
-                      to={"/meus-agendamentos/lojas"}
+                      to={"/meus-agendamentos/atendimento-loja"}
                     >
                       Atendimento Loja
                     </NavLink>

@@ -33,6 +33,7 @@ import { ResetPassword } from "./components/Pages/ResetPassword";
 import { ProtectedAdminRoute } from "./components/Atoms/ProtectedAdminRoute";
 import { Profile } from "./components/Pages/Profile";
 import { Deliverys } from "./components/Pages/Deliverys";
+import { Stores } from "./components/Pages/Stores";
 
 export const App = () => {
   return (
@@ -133,6 +134,7 @@ export const App = () => {
               <Route index element={<Schedules />} />
               <Route path="agendamento" element={<ScheduleDetail />} />
               <Route path="deliverys" element={<Deliverys />} />
+              <Route path="atendimento-loja" element={<Stores />} />
             </Route>
           </Routes>
         </BrowserRouter>
