@@ -9,20 +9,13 @@ export const useLayout = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const [agendamentoSession] = useSessionStorage("agendamentoSession");
+  const [token] = useSessionStorage("@token");
   const { pathname } = useLocation();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { setIsLoad } = useContextSite();
   const { setTokenContext, tokenContext } = useContextSite();
 
   const isCliente = agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE);
-
-  function handleLogin() {
-    if (tokenContext) {
-      setModalIsOpen(true);
-      return;
-    }
-    navigate("/agendamento/login-cadastro");
-  }
 
   function logout() {
     setIsLoad(true);
@@ -41,11 +34,10 @@ export const useLayout = () => {
   }, [pathname]);
 
   return {
-    handleLogin,
     logout,
     menuOpen,
     setMenuOpen,
-    tokenContext,
+    token,
     modalIsOpen,
     navigate,
     setModalIsOpen,

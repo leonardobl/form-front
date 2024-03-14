@@ -32,6 +32,7 @@ import { ForgotPassword } from "./components/Pages/ForgotPassword";
 import { ResetPassword } from "./components/Pages/ResetPassword";
 import { ProtectedAdminRoute } from "./components/Atoms/ProtectedAdminRoute";
 import { Profile } from "./components/Pages/Profile";
+import { Deliverys } from "./components/Pages/Deliverys";
 
 export const App = () => {
   return (
@@ -131,6 +132,7 @@ export const App = () => {
             >
               <Route index element={<Schedules />} />
               <Route path="agendamento" element={<ScheduleDetail />} />
+              <Route path="deliverys" element={<Deliverys />} />
             </Route>
           </Routes>
         </BrowserRouter>

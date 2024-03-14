@@ -5,6 +5,7 @@ import { Button } from "../../Atoms/Button";
 import { useLayout } from "./useLayout";
 import { MyModal } from "../../Atoms/MyModal";
 import { Bar } from "../../Atoms/Bar";
+import { NavLink } from "react-router-dom";
 
 interface LayoutTemplateProps extends ComponentProps<"div"> {
   children?: React.ReactNode;
@@ -12,11 +13,10 @@ interface LayoutTemplateProps extends ComponentProps<"div"> {
 
 export const LayoutTemplate = (props: LayoutTemplateProps) => {
   const {
-    handleLogin,
     logout,
     menuOpen,
     setMenuOpen,
-    tokenContext,
+    token,
     modalIsOpen,
     navigate,
     setModalIsOpen,
@@ -36,34 +36,54 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
           </S.WrapperIconCloseMainMenu>
 
           <S.WrapperButton>
-            <div>
-              <button onClick={handleLogin}>
-                {tokenContext ? "Logout" : "Login"}
-              </button>
-            </div>
+            {token ? (
+              <div>
+                <button onClick={() => setModalIsOpen(true)}>Logout</button>
+              </div>
+            ) : (
+              <div>
+                <NavLink
+                  className={"navLink"}
+                  end
+                  to={"/agendamento/login-cadastro"}
+                >
+                  Login
+                </NavLink>
+              </div>
+            )}
 
-            {tokenContext && (
+            {token && (
               <>
                 <div>
-                  <button onClick={() => navigate("/perfil")}>
+                  <NavLink className={"navLink"} to={"/perfil"}>
                     Meu Perfil
-                  </button>
+                  </NavLink>
                 </div>
                 <div>
-                  <button onClick={() => navigate("/meus-agendamentos")}>
+                  <NavLink end className={"navLink"} to={"/meus-agendamentos"}>
                     Agendamentos
-                  </button>
+                  </NavLink>
                 </div>
 
                 <div>
-                  <button
-                    onClick={() =>
-                      navigate(isCliente ? "/agendamento" : "/novo-agendamento")
-                    }
+                  <NavLink
+                    className={"navLink"}
+                    to={isCliente ? "/agendamento" : "/novo-agendamento"}
                   >
                     Novo Agendamento
-                  </button>
+                  </NavLink>
                 </div>
+                {!isCliente && (
+                  <div>
+                    <NavLink
+                      className={"navLink"}
+                      end
+                      to={"/meus-agendamentos/deliverys"}
+                    >
+                      Deliverys
+                    </NavLink>
+                  </div>
+                )}
               </>
             )}
           </S.WrapperButton>

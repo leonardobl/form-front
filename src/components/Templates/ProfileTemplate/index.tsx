@@ -5,7 +5,7 @@ import { Title } from "../../Atoms/Title";
 import { Input } from "../../Atoms/Inputs/Input";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
-import { useEditProfile } from "./useEditProfile";
+import { useProfile } from "./useProfile";
 import { ISelectOptions } from "../../../types/inputs";
 import { maskCep } from "../../../utils/masks";
 
@@ -24,7 +24,7 @@ export const ProfileTemplate = () => {
     setFormCliente,
     ufOptions,
     isCliente,
-  } = useEditProfile();
+  } = useProfile();
 
   return (
     <LayoutTemplate>

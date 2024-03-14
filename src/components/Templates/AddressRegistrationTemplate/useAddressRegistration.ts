@@ -6,9 +6,8 @@ import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import { maskCep, maskPhone } from "../../../utils/masks";
+import { maskPhone } from "../../../utils/masks";
 import { ViaCep } from "../../../services/ViaCep";
-import { IAgendamentoSessionProps } from "../../../types/agendamentoSession";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useAddressRegistration = () => {
@@ -85,15 +84,15 @@ export const useAddressRegistration = () => {
             setForm((prev) => ({
               ...prev,
               endereco: {
-                logradouro: data.street,
-                bairro: data.neighborhood,
-                cidade: data.city,
-                uf: data.state,
+                logradouro: data.logradouro,
+                bairro: data.bairro,
+                cidade: data.localidade,
+                uf: data.uf,
                 cep: form?.endereco?.cep,
               },
             }));
 
-            if (data.city !== agendamentoSession?.cidade) {
+            if (data.localidade !== agendamentoSession?.cidade) {
               toast.error("Endereço fora da cidade escolhida para atendimento");
               setIsDisabled(true);
 

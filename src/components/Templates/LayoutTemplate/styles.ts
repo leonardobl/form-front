@@ -120,6 +120,25 @@ export const WrapperButton = styled.div`
   flex-direction: column;
   gap: 32px 0;
 
+  .navLink {
+    color: #20332f;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.48px;
+    white-space: nowrap;
+    background-color: transparent;
+
+    &:hover {
+      color: #12d1a7;
+    }
+  }
+  .navLink.active {
+    color: #12d1a7;
+  }
+
   > div {
     padding-top: 32px;
   }

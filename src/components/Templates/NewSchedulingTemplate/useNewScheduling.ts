@@ -28,11 +28,7 @@ import {
 } from "../../../types/agendamento";
 import { Loja } from "../../../services/Lojas";
 import { Delivery } from "../../../services/Delivery";
-import {
-  IConsultaUnionProps,
-  IConsultaVeiculoChassiForm,
-  IConsultaVeiculoPlacaForm,
-} from "../../../types/veiculo";
+import { IConsultaUnionProps } from "../../../types/veiculo";
 import { Veiculo } from "../../../services/Veiculo";
 import {
   Agendamento,
@@ -254,10 +250,10 @@ export const useNewScheduling = () => {
             setForms((prev) => ({
               ...prev,
               endereco: {
-                logradouro: data.street,
-                bairro: data.neighborhood,
-                cidade: data.city,
-                uf: data.state,
+                logradouro: data.logradouro,
+                bairro: data.bairro,
+                cidade: data.localidade,
+                uf: data.uf,
                 cep: formNewClient?.endereco?.cep,
               },
             }));

@@ -122,10 +122,10 @@ export const useUserRegistration = () => {
             setForm((prev) => ({
               ...prev,
               endereco: {
-                logradouro: data.street,
-                bairro: data.neighborhood,
-                cidade: data.city,
-                uf: data.state,
+                logradouro: data.logradouro,
+                bairro: data.bairro,
+                cidade: data.localidade,
+                uf: data.uf,
                 cep: form?.endereco?.cep,
               },
             }));

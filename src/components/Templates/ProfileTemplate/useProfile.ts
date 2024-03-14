@@ -20,7 +20,7 @@ import { Usuario } from "../../../services/Usuario";
 import { IUsuarioCompletoDTO, IUsuarioForm } from "../../../types/usuario";
 import { TipoPessoaEnum } from "../../../enums/pessoas";
 
-export const useEditProfile = () => {
+export const useProfile = () => {
   const inpSenhaRef = useRef<HTMLInputElement>(null);
   const inpConfirSenha = useRef<HTMLInputElement>(null);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
@@ -136,10 +136,10 @@ export const useEditProfile = () => {
             setFormCliente((prev) => ({
               ...prev,
               endereco: {
-                logradouro: data.street,
-                bairro: data.neighborhood,
-                cidade: data.city,
-                uf: data.state,
+                logradouro: data.logradouro,
+                bairro: data.bairro,
+                cidade: data.localidade,
+                uf: data.uf,
                 cep: formCliente?.endereco?.cep,
               },
             }));
