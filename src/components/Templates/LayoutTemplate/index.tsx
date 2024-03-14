@@ -78,6 +78,18 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     <NavLink
                       className={"navLink"}
                       end
+                      to={"/meus-agendamentos/lojas"}
+                    >
+                      Atendimento Loja
+                    </NavLink>
+                  </div>
+                )}
+
+                {!isCliente && (
+                  <div>
+                    <NavLink
+                      className={"navLink"}
+                      end
                       to={"/meus-agendamentos/deliverys"}
                     >
                       Deliverys

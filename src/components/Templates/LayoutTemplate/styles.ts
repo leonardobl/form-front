@@ -118,7 +118,7 @@ export const WrapperButton = styled.div`
   padding: 16px 40px;
   display: flex;
   flex-direction: column;
-  gap: 32px 0;
+  gap: 20px 0;
 
   .navLink {
     color: #20332f;
@@ -140,7 +140,7 @@ export const WrapperButton = styled.div`
   }
 
   > div {
-    padding-top: 32px;
+    padding-top: 20px;
   }
 
   > div + div {
