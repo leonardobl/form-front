@@ -223,18 +223,11 @@ export const useNewScheduling = () => {
     const PAYLOAD: IPutAgendamentoProps = {
       ...agendamento,
       uuidVeiculo: formVihacle?.uuid,
+      uuidCliente: cliente?.uuid
     };
 
     try {
-      // await Agendamento.put(PAYLOAD);
-      await Agendamento.vincularAgendamentoAoVeiculo({
-        uuidAgendamento: PAYLOAD.uuid,
-        uuidVeiculo: formVihacle?.uuid,
-      });
-      Pagamento.gerarFatura({
-        uuidAgendamento: agendamento?.uuid,
-        formaPagamento: tipoPagamento,
-      })
+      Agendamento.put(PAYLOAD)
       .then(() => navigate(
         `/agendamento/${
           agendamento?.uuid
