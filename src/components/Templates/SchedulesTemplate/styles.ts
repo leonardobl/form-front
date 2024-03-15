@@ -139,7 +139,11 @@ export const GridWrapper = styled.div`
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
     padding: 0;
-    grid-template-areas: "dataI dataF" "tipo placa" "renavam renavam" "chassi chassi" "status status" "button1 button2";
+    grid-template-areas: "dataI dataF" "cidade tipo" "placa placa" "renavam renavam" "chassi chassi" "nome nome" "cpf cpf" "status status" "button1 button2";
+
+    &[data-client="true"] {
+      grid-template-areas: "dataI dataF" "cidade tipo" "placa placa" "renavam renavam" "chassi chassi" "status status" "button1 button2";
+    }
   }
 `;
 
