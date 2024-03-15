@@ -13,6 +13,13 @@ export const TicketTemplate = () => {
   const params = useParams();
   const navigate = useNavigate();
 
+  function acessarFatura() {
+    window.open(
+      `${pagamento?.url}.pdf`,
+      "_blank"
+    );
+  }
+
   return (
     <S.Container>
       <Title>Pagamento Boleto</Title>
@@ -46,10 +53,10 @@ export const TicketTemplate = () => {
         </div>
 
         <div>
-          <Button>VER FATURA</Button>
+          <Button onClick={acessarFatura}>VER FATURA</Button>
         </div>
 
-        <div>
+        {/* <div>
           <Button
             onClick={() =>
               navigate(`/agendamento/${params.uuidAgendamento}/pagamento/pix`)
@@ -57,7 +64,7 @@ export const TicketTemplate = () => {
           >
             ALTERAR PARA PIX
           </Button>
-        </div>
+        </div> */}
       </S.GridWrapper>
     </S.Container>
   );

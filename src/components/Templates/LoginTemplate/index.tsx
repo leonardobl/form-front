@@ -36,11 +36,11 @@ export const LoginTemplate = () => {
           />
         </div>
 
-        <S.ButtonForgot
+        {/* <S.ButtonForgot
           onClick={() => navigate("/agendamento/recuperar-senha")}
         >
           Esqueceu sua senha ?
-        </S.ButtonForgot>
+        </S.ButtonForgot> */}
 
         <Button className="button">Entrar</Button>
       </S.Form>

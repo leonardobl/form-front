@@ -13,6 +13,13 @@ export const PixTemplate = () => {
   const navigate = useNavigate();
   const params = useParams();
 
+  function acessarFatura() {
+    window.open(
+      `${pagamento?.url}.pdf`,
+      "_blank"
+    );
+  }
+
   return (
     <S.Container>
       <Title>Pagamento PIX</Title>
@@ -44,9 +51,9 @@ export const PixTemplate = () => {
         </div>
 
         <div>
-          <Button>VER FATURA</Button>
+          <Button onClick={acessarFatura}>VER FATURA</Button>
         </div>
-        <div>
+        {/* <div>
           <Button
             onClick={() =>
               navigate(
@@ -56,7 +63,7 @@ export const PixTemplate = () => {
           >
             ALTERAR PARA BOLETO
           </Button>
-        </div>
+        </div> */}
       </S.GridWrapper>
     </S.Container>
   );
