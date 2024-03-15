@@ -59,7 +59,12 @@ export const Info = styled.div`
   }
 `;
 
-export const ImgQr = styled.img``;
+export const ImgQr = styled.img`
+  width: 260px;
+  border-radius: 10px;
+  border: 2px solid var(--MAPA1, #12d1a7);
+  background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+`;
 
 export const GridWrapper = styled.div`
   max-width: ${pxToRem(740)};
@@ -69,7 +74,7 @@ export const GridWrapper = styled.div`
   gap: ${pxToRem(40)};
   place-items: center;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-areas: "qr valor valor" "qr input input" "qr button1 button2";
+  grid-template-areas: "qr valor valor" "qr input input" "qr button1 button1";
 
   button {
     width: 168px;
@@ -105,7 +110,7 @@ export const GridWrapper = styled.div`
 
   > :nth-child(4) {
     grid-area: button1;
-    margin-left: auto;
+    /* margin-left: auto; */
   }
 
   > :nth-child(5) {
