@@ -15,7 +15,7 @@ export const VehicleTemplate = () => {
       <S.Form onSubmit={handleSubmit}>
         <S.GridWrapper>
           <div>
-            <Input label="Modelo do carro" readOnly value={form?.modelo} />
+            <Input label="Modelo do veículo" readOnly value={form?.modelo} />
           </div>
           <div>
             <Input label="Ano" readOnly value={form?.ano} />
