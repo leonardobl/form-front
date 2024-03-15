@@ -73,7 +73,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     Novo Agendamento
                   </NavLink>
                 </div>
-                {!isCliente && (
+                {/* {!isCliente && (
                   <div>
                     <NavLink
                       className={"navLink"}
@@ -95,7 +95,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                       Deliverys
                     </NavLink>
                   </div>
-                )}
+                )} */}
               </>
             )}
           </S.WrapperButton>

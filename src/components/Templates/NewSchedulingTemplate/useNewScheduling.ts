@@ -35,6 +35,7 @@ import {
   IPutAgendamentoProps,
 } from "../../../services/Agendamento";
 import { useNavigate } from "react-router-dom";
+import { Pagamento } from "../../../services/Pagamento";
 
 export const useNewScheduling = () => {
   const { setIsLoad } = useContextSite();
@@ -217,6 +218,7 @@ export const useNewScheduling = () => {
 
   async function saveAgendamento() {
     setIsLoad(true);
+    setDisabled(true)
 
     const PAYLOAD: IPutAgendamentoProps = {
       ...agendamento,
@@ -229,13 +231,28 @@ export const useNewScheduling = () => {
         uuidAgendamento: PAYLOAD.uuid,
         uuidVeiculo: formVihacle?.uuid,
       });
-      navigate(
+      Pagamento.gerarFatura({
+        uuidAgendamento: agendamento?.uuid,
+        formaPagamento: tipoPagamento,
+      })
+      .then(() => navigate(
         `/agendamento/${
-          agendamento.uuid
+          agendamento?.uuid
         }/pagamento/${tipoPagamento.toLowerCase()}`
+      ))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+          setDisabled(false);
+        }
       );
     } catch (error) {
       toast.error(error.mensagem);
+      setDisabled(false);
     } finally {
       setIsLoad(false);
     }

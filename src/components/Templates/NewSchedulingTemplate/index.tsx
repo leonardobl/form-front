@@ -299,7 +299,7 @@ export const NewSchedulingTemplate = () => {
             />
           </div>
           <div>
-            <Button>Buscar</Button>
+            <Button>Selecionar</Button>
           </div>
         </S.FormSearch>
 
