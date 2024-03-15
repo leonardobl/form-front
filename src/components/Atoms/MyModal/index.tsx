@@ -29,13 +29,17 @@ export const MyModal = ({ children, ...rest }: IMyModalProps) => {
           padding: "20px",
           width: "fit-content",
           height: "fit-content",
-          margin: "60px auto 0",
+          margin: "0 auto",
+          transform: "translateY(-50%)",
           paddingLeft: 0,
           paddingRight: 0,
           paddingBottom: 0,
           paddingTop: 0,
           position: "relative",
           left: 0,
+          top: "50%",
+          bottom: 0,
+          right: 0,
         },
       }}
     >

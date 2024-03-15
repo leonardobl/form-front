@@ -104,7 +104,7 @@ export const GridWrapper = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
 
     button {
       color: rgba(32, 51, 47, 0.56);
@@ -112,6 +112,7 @@ export const GridWrapper = styled.div`
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
+      margin-right: -50px;
       line-height: 20px; /* 125% */
       background-color: transparent;
     }
@@ -121,7 +122,7 @@ export const GridWrapper = styled.div`
     grid-area: button2;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: end;
   }
 
   &[data-client="true"] {
@@ -143,6 +144,18 @@ export const GridWrapper = styled.div`
 
     &[data-client="true"] {
       grid-template-areas: "dataI dataF" "cidade tipo" "placa placa" "renavam renavam" "chassi chassi" "status status" "button1 button2";
+    }
+
+    > :nth-child(11) {
+      justify-content: center;
+
+      button {
+        margin-right: 0;
+      }
+    }
+
+    > :nth-child(12) {
+      justify-content: center;
     }
   }
 `;

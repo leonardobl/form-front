@@ -136,7 +136,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
         <S.ModalContent>
           <p>Tem certeza que deseja fazer logout ?</p>
           <Button data-variant-dark onClick={logout}>
-            CONFIRMAR
+            Confirmar
           </Button>
         </S.ModalContent>
       </MyModal>

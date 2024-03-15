@@ -208,7 +208,7 @@ export const SchedulesTemplate = () => {
             </div>
 
             <div>
-              <Button>BUSCAR</Button>
+              <Button>Buscar</Button>
             </div>
           </S.GridWrapper>
         </S.Filter>
