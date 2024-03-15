@@ -27,7 +27,6 @@ export const useTicket = () => {
 
     Pagamento.consultarFatura({ uuidAgendamento: params?.uuidAgendamento })
       .then(({ data }) => {
-        console.log(data);
         setPagamento(data);
       })
       .catch(

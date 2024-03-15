@@ -63,7 +63,7 @@ export const GridWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   max-width: ${pxToRem(706)};
-  grid-template-areas: "barra barra" "valor valor" "inp inp" "button1 button2";
+  grid-template-areas: "barra barra" "valor valor" "inp inp" "button1 button1";
 
   button {
     width: 168px;
@@ -96,7 +96,7 @@ export const GridWrapper = styled.div`
 
   > :nth-child(4) {
     grid-area: button1;
-    margin-left: auto;
+    margin: 0 auto;
   }
 
   > :nth-child(5) {
@@ -128,4 +128,8 @@ export const GridWrapper = styled.div`
   }
 `;
 
-export const BarCodeImg = styled.img``;
+export const BarCodeImg = styled.img`
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+`;
