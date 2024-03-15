@@ -15,6 +15,7 @@ import { removeEmpty } from "../../../utils/removeEmpty";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { Municipio } from "../../../services/Municipio";
 import { ISelectOptions } from "../../../types/inputs";
+import { maskCnpj, maskCpf } from "../../../utils/masks";
 
 export const useSchedules = () => {
   const isMobile = useMediaQuery({ maxWidth: "500px" });
@@ -60,6 +61,19 @@ export const useSchedules = () => {
           },
         }) => toast.error(mensagem)
       );
+  }
+
+  function handleCpf(e: string) {
+    let newvalue = "";
+
+    if (e?.length > 14) {
+      newvalue = maskCnpj(e);
+      setFormFilter((prev) => ({ ...prev, cpfCnpj: newvalue }));
+      return;
+    }
+
+    newvalue = maskCpf(e);
+    setFormFilter((prev) => ({ ...prev, cpfCnpj: newvalue }));
   }
 
   useEffect(() => {
@@ -174,6 +188,7 @@ export const useSchedules = () => {
     setFormFilter,
     tipoOptions,
     agendamentos,
+    handleCpf,
     cidadeOptions,
     isCliente,
     iniciarVistoria,

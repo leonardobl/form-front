@@ -36,6 +36,7 @@ export const SchedulesTemplate = () => {
     isCliente,
     menuOpen,
     setMenuOpen,
+    handleCpf,
   } = useSchedules();
 
   return (
@@ -52,7 +53,7 @@ export const SchedulesTemplate = () => {
       {menuOpen && (
         <S.Filter onSubmit={handleFilter}>
           <S.TitleFilter>Filtro</S.TitleFilter>
-          <S.GridWrapper>
+          <S.GridWrapper data-client={isCliente}>
             <div>
               <InputDate
                 placeholderText="___/___/___"
@@ -84,6 +85,25 @@ export const SchedulesTemplate = () => {
 
             <div>
               <SimpleSelect
+                label="Cidade"
+                placeholder=""
+                options={cidadeOptions}
+                onChange={(e: ISelectOptions) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    cidade: e?.label,
+                  }))
+                }
+                value={
+                  cidadeOptions.find(
+                    (item) => item.label === formFilter?.cidade
+                  ) || null
+                }
+              />
+            </div>
+
+            <div>
+              <SimpleSelect
                 label="Tipo"
                 placeholder=""
                 options={tipoOptions}
@@ -103,18 +123,6 @@ export const SchedulesTemplate = () => {
 
             <div>
               <Input
-                label="Placa"
-                value={formFilter?.placa}
-                onChange={(e) =>
-                  setFormFilter((prev) => ({
-                    ...prev,
-                    placa: e.target.value,
-                  }))
-                }
-              />
-            </div>
-            <div>
-              <Input
                 label="Renavam"
                 value={formFilter.renavam}
                 onChange={(e) =>
@@ -128,12 +136,47 @@ export const SchedulesTemplate = () => {
 
             <div>
               <Input
+                label="Placa"
+                value={formFilter?.placa}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    placa: e.target.value,
+                  }))
+                }
+              />
+            </div>
+
+            <div>
+              <Input
                 label="Chassi"
                 value={formFilter?.chassi}
                 onChange={(e) =>
                   setFormFilter((prev) => ({
                     ...prev,
                     chassi: e?.target?.value,
+                  }))
+                }
+              />
+            </div>
+
+            <div>
+              <Input
+                label="CPF/CNPJ"
+                maxLength={18}
+                value={formFilter?.cpfCnpj}
+                onChange={(e) => handleCpf(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <Input
+                label="Nome"
+                value={formFilter?.nome}
+                onChange={(e) =>
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    nome: e.target.value,
                   }))
                 }
               />

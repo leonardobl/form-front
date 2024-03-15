@@ -55,9 +55,9 @@ export const Filter = styled.form`
 export const GridWrapper = styled.div`
   display: grid;
   padding: 40px;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 36px 16px;
-  grid-template-areas: "dataI dataF tipo placa renavam renavam" "chassi chassi status status button1 button2";
+  grid-template-areas: "dataI dataF cidade tipo renavam" "placa chassi chassi cpf cpf" "nome nome nome status status" ". . . button1 button2";
 
   > :nth-child(1) {
     grid-area: dataI;
@@ -68,11 +68,11 @@ export const GridWrapper = styled.div`
   }
 
   > :nth-child(3) {
-    grid-area: tipo;
+    grid-area: cidade;
   }
 
   > :nth-child(4) {
-    grid-area: placa;
+    grid-area: tipo;
   }
 
   > :nth-child(5) {
@@ -80,14 +80,26 @@ export const GridWrapper = styled.div`
   }
 
   > :nth-child(6) {
-    grid-area: chassi;
+    grid-area: placa;
   }
 
   > :nth-child(7) {
-    grid-area: status;
+    grid-area: chassi;
   }
 
   > :nth-child(8) {
+    grid-area: cpf;
+  }
+
+  > :nth-child(9) {
+    grid-area: nome;
+  }
+
+  > :nth-child(10) {
+    grid-area: status;
+  }
+
+  > :nth-child(11) {
     grid-area: button1;
     width: 100%;
     display: flex;
@@ -102,15 +114,26 @@ export const GridWrapper = styled.div`
       font-weight: 400;
       line-height: 20px; /* 125% */
       background-color: transparent;
-      margin: 0 auto;
     }
   }
 
-  > :nth-child(9) {
+  > :nth-child(12) {
     grid-area: button2;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &[data-client="true"] {
+    grid-template-areas: "dataI dataF cidade tipo renavam" "placa chassi chassi status status" ". . . button1 button2";
+
+    > :nth-child(8) {
+      display: none;
+    }
+
+    > :nth-child(9) {
+      display: none;
+    }
   }
 
   @media (max-width: 500px) {
@@ -135,7 +158,7 @@ export const List = styled.div`
 
 export const ListTitles = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 1fr 1fr 0.8fr 1.2fr 1.4fr 0.2fr;
+  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.2fr;
   width: 100%;
   padding: 18px 38px;
 
@@ -153,7 +176,7 @@ export const ListTitles = styled.div`
 
 export const ListItem = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 1fr 1fr 0.8fr 1.2fr 1.4fr 0.2fr;
+  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.2fr;
   width: 100%;
   padding: 18px 38px;
   border-radius: 10px;
@@ -166,7 +189,7 @@ export const ListItem = styled.div`
   }
 
   & + div {
-    margin-top: 32px;
+    margin-top: 1rem;
   }
 
   > p {

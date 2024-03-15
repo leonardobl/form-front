@@ -65,6 +65,7 @@ export const StoresTemplate = () => {
             </span>
             <img src="/assets/svgs/eye.svg" alt="icone olho" />
           </S.RowList>
+          yarn starrt
         </S.BodyList>
       </S.List>
     </S.Container>

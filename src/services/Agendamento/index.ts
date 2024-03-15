@@ -26,6 +26,8 @@ export interface IReagendamentoProps extends IReagendamentoForm {
 
 export interface IGetAgendamentosProps extends IPageRequest {
   loja?: string;
+  nome?: string;
+  cpfCnpj?: string;
   tipoAtendimento?: TipoAtendimentoEnum;
   veiculo?: string;
   cidade?: string;
