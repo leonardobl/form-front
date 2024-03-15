@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
@@ -9,7 +9,8 @@ import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { usePayment } from "./usePayment";
 
 export const PaymentTemplate = () => {
-  const { handleSubmit, setPayment, payment } = usePayment();
+  const { handleSubmit, setPayment, payment, btnFaturaGerada, setBtnFaturaGerada } = usePayment();
+  
   return (
     <S.Container>
       <Title>Pagamento</Title>
@@ -54,7 +55,9 @@ export const PaymentTemplate = () => {
             </p>
           </div>
           <div>
-            <Button>AVANÇAR</Button>
+          <Button disabled={btnFaturaGerada}>
+            AVANÇAR
+          </Button>
           </div>
         </S.GridWrapper>
       </S.Form>

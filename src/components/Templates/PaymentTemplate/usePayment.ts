@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export const usePayment = () => {
   const params = useParams();
   const [payment, setPayment] = useState<FormaPagamentoEnum>();
+  const [btnFaturaGerada, setBtnFaturaGerada] = useState(false);
   // const [pagamento, setPagamento] = useState<IAgendamentoDTO>(
   //   {} as IAgendamentoDTO
   // );
@@ -18,11 +19,26 @@ export const usePayment = () => {
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+    setBtnFaturaGerada(true);
 
-    navigate(
+    Pagamento.gerarFatura({
+      uuidAgendamento: params?.uuidAgendamento,
+      formaPagamento: payment,
+    })
+    .then(() => navigate(
       `/agendamento/${
         params.uuidAgendamento
       }/pagamento/${payment.toLowerCase()}`
+    ))
+    .catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => {
+        toast.error(mensagem);
+        setBtnFaturaGerada(false);
+      }
     );
   }
 
@@ -44,5 +60,5 @@ export const usePayment = () => {
   //     .finally(() => setIsLoad(false));
   // }, [agendamentoContext?.uuidAgendamento]);
 
-  return { setPayment, handleSubmit, payment };
+  return { setPayment, handleSubmit, payment, btnFaturaGerada, setBtnFaturaGerada };
 };
