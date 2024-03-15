@@ -227,7 +227,12 @@ export const useNewScheduling = () => {
     };
 
     try {
-      Agendamento.put(PAYLOAD)
+      await Agendamento.put(PAYLOAD);
+
+      Pagamento.gerarFatura({
+        uuidAgendamento: agendamento?.uuid,
+        formaPagamento: tipoPagamento,
+      })
       .then(() => navigate(
         `/agendamento/${
           agendamento?.uuid
