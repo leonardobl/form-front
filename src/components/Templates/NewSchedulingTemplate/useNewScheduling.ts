@@ -195,6 +195,21 @@ export const useNewScheduling = () => {
           setHorariosOptions(options);
         });
       }
+
+      if (formAgendamento?.uuidDelivery) {
+        Delivery.getHorariosDisponiveis({
+          uuidDelivery: formAgendamento?.uuidDelivery,
+          dataAgendamento: newDate,
+        }).then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item,
+            label: item,
+            element: item,
+          }));
+
+          setHorariosOptions(options);
+        });
+      }
     }
   }, [dateAgendamento]);
 
@@ -218,12 +233,12 @@ export const useNewScheduling = () => {
 
   async function saveAgendamento() {
     setIsLoad(true);
-    setDisabled(true)
+    setDisabled(true);
 
     const PAYLOAD: IPutAgendamentoProps = {
       ...agendamento,
       uuidVeiculo: formVihacle?.uuid,
-      uuidCliente: cliente?.uuid
+      uuidCliente: cliente?.uuid,
     };
 
     try {
@@ -233,21 +248,23 @@ export const useNewScheduling = () => {
         uuidAgendamento: agendamento?.uuid,
         formaPagamento: tipoPagamento,
       })
-      .then(() => navigate(
-        `/agendamento/${
-          agendamento?.uuid
-        }/pagamento/${tipoPagamento.toLowerCase()}`
-      ))
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-          setDisabled(false);
-        }
-      );
+        .then(() =>
+          navigate(
+            `/agendamento/${
+              agendamento?.uuid
+            }/pagamento/${tipoPagamento.toLowerCase()}`
+          )
+        )
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => {
+            toast.error(mensagem);
+            setDisabled(false);
+          }
+        );
     } catch (error) {
       toast.error(error.mensagem);
       setDisabled(false);
