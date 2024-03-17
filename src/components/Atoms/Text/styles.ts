@@ -7,15 +7,16 @@ export const MyText = styled.p`
     line-height: 32px;
     letter-spacing: 0em;
     text-align: center;
-    color: ${colors.main};
+    color: ${colors.textColor};
 
     .textStrong {
       font-weight: 700;
       line-height: 32px;
+      color: ${colors.main};
     }
 
     .textGreen {
-      color: ${colors.primary};
+      color: ${colors.main};
     }
 
     @media (max-width: 500px) {

@@ -9,7 +9,7 @@ export const MyTitle = styled.h1`
     letter-spacing: 0.03em;
     text-align: left;
     margin-bottom: 48px;
-    color: ${colors.primary};
+    color: ${colors.main};
 
     @media (max-width: 500px) {
       text-align: center;
