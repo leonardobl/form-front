@@ -1,20 +1,74 @@
 export const Theme = {
-  colors: {
-    main: "#20332F",
-    primary: "#12D1A7",
+  starcheck: {
+    colors: {
+      main: "#266BF0",
+      primary: "#00114D",
+      bgColor: "rgba(38, 107, 240, .2)",
+      textColor: "#2D2D2D",
+    },
+
+    space: {
+      large: "100rem", //1600px
+      medio: "75rem", // 1200px
+    },
+    padding: {
+      secundary: "12.5rem",
+      mobile: "2rem",
+      primary: "7.5rem",
+    },
   },
-  bgColor: {
-    main: "#12D1A7",
-    primary: "#55FAD6",
-    secondary: "#6FA599",
+  log: {
+    colors: {
+      main: "#50D05D",
+      primary: "#111111",
+      bgColor: "rgba(80, 208, 93, .2)",
+      textColor: "#2D2D2D",
+    },
+
+    space: {
+      large: "100rem", //1600px
+      medio: "75rem", // 1200px
+    },
+    padding: {
+      secundary: "12.5rem",
+      mobile: "2rem",
+      primary: "7.5rem",
+    },
   },
-  space: {
-    large: "100rem", //1600px
-    medio: "75rem", // 1200px
+  vlx: {
+    colors: {
+      main: "#0C0C0C",
+      primary: "#1C1C1C",
+      bgColor: "rgba(0, 0, 0, 0.2)",
+      textColor: "#2D2D2D",
+    },
+
+    space: {
+      large: "100rem", //1600px
+      medio: "75rem", // 1200px
+    },
+    padding: {
+      secundary: "12.5rem",
+      mobile: "2rem",
+      primary: "7.5rem",
+    },
   },
-  padding: {
-    secundary: "12.5rem",
-    mobile: "2rem",
-    primary: "7.5rem",
+  tokyo: {
+    colors: {
+      main: "#E42E30",
+      primary: "#353535",
+      bgColor: "rgba(228, 46, 48, .2)",
+      textColor: "",
+    },
+
+    space: {
+      large: "100rem", //1600px
+      medio: "75rem", // 1200px
+    },
+    padding: {
+      secundary: "12.5rem",
+      mobile: "2rem",
+      primary: "7.5rem",
+    },
   },
 };
