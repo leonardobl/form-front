@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { pxToRem } from "../../../utils/pxToRem";
+import { colors } from "@mui/material";
 
 export const Container = styled.div`
   display: flex;
@@ -18,37 +19,40 @@ export const Main = styled.main`
 `;
 
 export const MainMenu = styled.div`
-  background: #e1f2ee;
-  height: 100%;
-  box-shadow: 8px 4px 20.7px 0px rgba(0, 0, 0, 0.2);
+  ${({ theme: { colors } }) => css`
+    /* background: #e1f2ee; */
+    background: ${colors.bgColor};
+    height: 100%;
+    box-shadow: 8px 4px 20.7px 0px rgba(0, 0, 0, 0.2);
 
-  overflow: hidden;
+    overflow: hidden;
 
-  &[data-open="true"] {
-    -webkit-transition: width 0.3s ease-in-out;
-    -moz-transition: width 0.3s ease-in-out;
-    -o-transition: width 0.3s ease-in-out;
-    transition: width 0.3s ease-in-out;
-
-    width: ${pxToRem(285)};
-  }
-
-  &[data-open="false"] {
-    -webkit-transition: width 0.3s ease-in-out;
-    -moz-transition: width 0.3s ease-in-out;
-    -o-transition: width 0.3s ease-in-out;
-    transition: width 0.3s ease-in-out;
-
-    width: ${pxToRem(0)};
-  }
-
-  @media (max-width: 500px) {
     &[data-open="true"] {
-      width: 100vw;
-      position: fixed;
-      z-index: 10;
+      -webkit-transition: width 0.3s ease-in-out;
+      -moz-transition: width 0.3s ease-in-out;
+      -o-transition: width 0.3s ease-in-out;
+      transition: width 0.3s ease-in-out;
+
+      width: ${pxToRem(285)};
     }
-  }
+
+    &[data-open="false"] {
+      -webkit-transition: width 0.3s ease-in-out;
+      -moz-transition: width 0.3s ease-in-out;
+      -o-transition: width 0.3s ease-in-out;
+      transition: width 0.3s ease-in-out;
+
+      width: ${pxToRem(0)};
+    }
+
+    @media (max-width: 500px) {
+      &[data-open="true"] {
+        width: 100vw;
+        position: fixed;
+        z-index: 10;
+      }
+    }
+  `}
 `;
 
 export const WrapperIconCloseMainMenu = styled.div`
@@ -115,54 +119,56 @@ export const Wrapper = styled.div`
 `;
 
 export const WrapperButton = styled.div`
-  padding: 16px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px 0;
+  ${({ theme: { colors } }) => css`
+    padding: 16px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
 
-  .navLink {
-    color: #20332f;
-    font-family: Mulish;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px;
-    letter-spacing: 0.48px;
-    white-space: nowrap;
-    background-color: transparent;
+    .navLink {
+      color: ${colors.textColor};
+      font-family: Mulish;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.48px;
+      white-space: nowrap;
+      background-color: transparent;
 
-    &:hover {
-      color: #12d1a7;
+      &:hover {
+        color: ${colors.main};
+      }
     }
-  }
-  .navLink.active {
-    color: #12d1a7;
-  }
-
-  > div {
-    padding-top: 20px;
-  }
-
-  > div + div {
-    border-top: 1px solid #677a7666;
-  }
-
-  button {
-    color: #20332f;
-    font-family: Mulish;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px;
-    letter-spacing: 0.48px;
-    white-space: nowrap;
-
-    background-color: transparent;
-
-    &:hover {
-      color: #12d1a7;
+    .navLink.active {
+      color: ${colors.main};
     }
-  }
+
+    > div {
+      padding-top: 20px;
+    }
+
+    > div + div {
+      border-top: 1px solid #677a7666;
+    }
+
+    button {
+      color: #20332f;
+      font-family: Mulish;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 0.48px;
+      white-space: nowrap;
+
+      background-color: transparent;
+
+      &:hover {
+        color: ${colors.main};
+      }
+    }
+  `}
 `;
 
 export const ModalContent = styled.div`
