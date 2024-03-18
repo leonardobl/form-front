@@ -52,12 +52,12 @@ export const Container = styled.div<{ $showIcon?: boolean }>`
         height: 56px;
         background-color: #fff;
         border-radius: 10px;
-        border: 1px solid #12d1a7;
+        border: 1px solid ${(props) => props.theme.colors.main};
         padding: 0 30px;
         color: #111;
         font-family: "Mulish";
         font-size: 16px;
-        border: 1px solid #12d1a7;
+
         /* font-weight: 600; */
 
         &:focus {
