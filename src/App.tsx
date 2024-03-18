@@ -38,7 +38,7 @@ import { Stores } from "./components/Pages/Stores";
 export const App = () => {
   return (
     <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
-      {/* // <ThemeProvider theme={Theme["tokyo"]}> */}
+      {/* // <ThemeProvider theme={Theme["log"]}> */}
       <ToastContainer autoClose={2000} />
       <GlobalStyles />
       <ContextProvider>

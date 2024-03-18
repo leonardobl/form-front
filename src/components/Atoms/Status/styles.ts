@@ -36,7 +36,7 @@ export const Container = styled.div<{ status: string }>`
       align-items: center;
 
       border-radius: 5px;
-      background: #266bf0;
+      background: #0025a8;
       box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
     }
 
@@ -75,6 +75,7 @@ export const Container = styled.div<{ status: string }>`
      ${status === "ABERTO" &&
     css`
       > p {
+        /* color: #4881ef; */
         color: #31cbec;
       }
     `}

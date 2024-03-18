@@ -52,7 +52,7 @@ export const Container = styled.div<{ $showIcon?: boolean }>`
         height: 56px;
         background-color: #fff;
         border-radius: 10px;
-        border: 1px solid ${(props) => props.theme.colors.main};
+        border: 1px solid #9d9d9d;
         padding: 0 30px;
         color: #111;
         font-family: "Mulish";

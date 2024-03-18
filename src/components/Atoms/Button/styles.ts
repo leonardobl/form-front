@@ -10,11 +10,22 @@ export const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(
-      180deg,
-      ${colors.main} 0%,
-      ${lighten(0.1, colors.main)} 100%
-    );
+
+    &[data-color-starcheck="true"] {
+      background: linear-gradient(180deg, #54acf2 0%, #266bf0 100%);
+    }
+
+    &[data-color-log="true"] {
+      background: linear-gradient(180deg, #83d58c 11.76%, #50d05d 100%);
+    }
+
+    &[data-color-vlx="true"] {
+      background: linear-gradient(180deg, #848484 -6.62%, #1c1c1c 100%);
+    }
+
+    &[data-color-tokyo="true"] {
+      background: linear-gradient(180deg, #fe4f59 0%, #e42e30 100%);
+    }
     box-shadow: 0px 4px 4px 0px #00000033;
 
     font-family: Mulish;

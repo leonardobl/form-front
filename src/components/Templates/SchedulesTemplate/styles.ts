@@ -22,7 +22,7 @@ export const TitleFilter = styled.h2`
   align-items: center;
   justify-content: center;
   border-radius: 10px 10px 0px 0px;
-  background: #6fa599;
+  background: ${(props) => props.theme.colors.main};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   color: #fff;
@@ -40,7 +40,7 @@ export const TitleFilter = styled.h2`
 
 export const Filter = styled.form`
   border-radius: 10px;
-  border: 1px solid #12d1a7;
+  border: 1px solid ${(props) => props.theme.colors.main};
   background: #fff;
   /* overflow: hidden; */
   width: 100%;
@@ -165,7 +165,7 @@ export const List = styled.div`
   margin: 0 auto 48px;
 
   > :not(:first-child):nth-child(even) {
-    background: #e1f2ee;
+    background: #ededed;
   }
 
   > :not(:first-child):nth-child(odd) {
@@ -292,5 +292,27 @@ export const ListItemMobileContent = styled.div`
     line-height: 1.5rem;
     letter-spacing: 0.0225rem;
     text-transform: uppercase;
+  }
+`;
+
+export const Eye = styled.img`
+  &[data-color-starcheck="true"] {
+    filter: brightness(0) saturate(100%) invert(56%) sepia(88%) saturate(585%)
+      hue-rotate(180deg) brightness(98%) contrast(94%);
+  }
+
+  &[data-color-log="true"] {
+    filter: brightness(0) saturate(100%) invert(79%) sepia(16%) saturate(968%)
+      hue-rotate(76deg) brightness(96%) contrast(85%);
+  }
+
+  &[data-color-vlx="true"] {
+    filter: brightness(0) saturate(100%) invert(55%) sepia(0%) saturate(79%)
+      hue-rotate(181deg) brightness(95%) contrast(81%);
+  }
+
+  &[data-color-tokyo="true"] {
+    filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(4716%)
+      hue-rotate(328deg) brightness(103%) contrast(98%);
   }
 `;

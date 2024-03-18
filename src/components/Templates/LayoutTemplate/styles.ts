@@ -20,7 +20,7 @@ export const Main = styled.main`
 export const MainMenu = styled.div`
   ${({ theme: { colors } }) => css`
     /* background: #e1f2ee; */
-    background: ${colors.bgColor};
+    /* background: ${colors.bgColor}; */
     height: 100%;
     box-shadow: 8px 4px 20.7px 0px rgba(0, 0, 0, 0.2);
 

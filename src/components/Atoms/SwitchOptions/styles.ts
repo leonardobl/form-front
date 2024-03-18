@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   border-radius: 10px;
-  border: 0.8px solid #6fa599;
-  background: #e1f2ee;
+  border: 0.8px solid #9d9d9d;
   width: 100%;
+  background-color: #e8e8e8;
   max-width: 304px;
   height: 44px;
   display: flex;
@@ -15,7 +15,7 @@ export const Label = styled.label`
   flex: 1;
 
   cursor: pointer;
-  color: #6fa599;
+  color: #9d9d9d;
   text-align: center;
   font-family: Mulish;
   font-size: 16px;
@@ -27,8 +27,13 @@ export const Label = styled.label`
   align-items: center;
   justify-content: center;
 
+  .icon {
+    filter: brightness(0) saturate(100%) invert(74%) sepia(0%) saturate(1658%)
+      hue-rotate(243deg) brightness(84%) contrast(93%);
+  }
+
   &:has(input:checked) {
-    background-color: #6fa599;
+    background-color: #9d9d9d;
     overflow: hidden;
     color: #fff;
 

@@ -84,8 +84,8 @@ export const NotFoundvalue = styled.div`
     }
 
     &[data-color-log="true"] {
-      filter: brightness(0) saturate(100%) invert(61%) sepia(73%)
-        saturate(1014%) hue-rotate(117deg) brightness(97%) contrast(86%);
+      filter: brightness(0) saturate(100%) invert(90%) sepia(10%)
+        saturate(7500%) hue-rotate(62deg) brightness(103%) contrast(63%);
     }
 
     &[data-color-vlx="true"] {

@@ -76,7 +76,7 @@ export const Buttons = styled.div`
   flex-wrap: wrap;
 
   .actived {
-    color: #12d1a7;
+    color: ${(props) => props.theme.colors.main};
     border: 1px solid #cacaca;
     width: max-content;
     font-weight: 600;

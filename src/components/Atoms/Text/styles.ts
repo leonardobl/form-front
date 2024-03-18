@@ -12,7 +12,7 @@ export const MyText = styled.p`
     .textStrong {
       font-weight: 700;
       line-height: 32px;
-      color: ${colors.main};
+      color: ${colors.textColor};
     }
 
     .textGreen {

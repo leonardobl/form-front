@@ -53,13 +53,13 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         fontFamily: "Mulish",
         // color: state.isSelected ? "red" : "blue",
         // Overwrittes the different states of border
-        borderColor: colors?.main,
+        borderColor: "#9d9d9d",
         // fontWeight: 600,
         // Removes weird border around container
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
           // Overwrittes the different states of border
-          borderColor: colors?.main,
+          borderColor: "#9d9d9d",
         },
       }),
 
