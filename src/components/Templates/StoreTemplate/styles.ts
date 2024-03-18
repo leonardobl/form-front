@@ -61,7 +61,7 @@ export const GridWrapper = styled.div`
 
 export const ModalContent = styled.div`
   /* padding: 102px 132px; */
-  background: #6fa599;
+  /* background: #6fa599; */
   width: 506px;
   height: 328px;
   display: flex;
@@ -70,7 +70,7 @@ export const ModalContent = styled.div`
   align-items: center;
 
   p {
-    color: #fff;
+    color: ${(props) => props.theme.colors.textColor};
     text-align: center;
     font-family: Mulish;
     font-size: 24px;

@@ -165,7 +165,7 @@ export const List = styled.div`
   margin: 0 auto 48px;
 
   > :not(:first-child):nth-child(even) {
-    background: #ededed;
+    background: #e8e8e8;
   }
 
   > :not(:first-child):nth-child(odd) {

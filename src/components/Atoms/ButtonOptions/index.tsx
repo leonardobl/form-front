@@ -51,7 +51,13 @@ export const ButtonOptions = ({
   }
 
   return (
-    <S.Container data-disabled={false}>
+    <S.Container
+      data-disabled={false}
+      data-color-starcheck={process.env.REACT_APP_PROJECT === "starcheck"}
+      data-color-log={process.env.REACT_APP_PROJECT === "log"}
+      data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+      data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+    >
       <summary>
         <div>
           <span className="summary-title">ações</span>
@@ -61,7 +67,13 @@ export const ButtonOptions = ({
         </div>
       </summary>
 
-      <div className="summary-content">
+      <div
+        className="summary-content"
+        data-color-starcheck={process.env.REACT_APP_PROJECT === "starcheck"}
+        data-color-log={process.env.REACT_APP_PROJECT === "log"}
+        data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+        data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+      >
         {status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&
           [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_SUPORTE].some((role) =>
             sessionAgendamento?.roles?.includes(role)
@@ -117,7 +129,7 @@ export const ButtonOptions = ({
               onCancel();
             }}
           >
-            CONFIRMAR
+            Confirmar
           </Button>
         </S.ModalContent>
       </MyModal>

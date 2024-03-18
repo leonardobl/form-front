@@ -36,6 +36,7 @@ export const Button = styled.button`
     letter-spacing: 0em;
     text-align: center;
     color: #fff;
+    text-transform: capitalize;
 
     &:disabled {
       cursor: not-allowed;

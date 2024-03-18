@@ -9,7 +9,24 @@ export const Container = styled.details`
   height: 44px;
   border-radius: 10px;
 
-  background: linear-gradient(180deg, #41efc9 0%, #12d1a7 100%);
+  /* background: linear-gradient(180deg, #41efc9 0%, #12d1a7 100%); */
+
+  &[data-color-starcheck="true"] {
+    background: linear-gradient(180deg, #54acf2 0%, #266bf0 100%);
+  }
+
+  &[data-color-log="true"] {
+    background: linear-gradient(180deg, #50d05d 11.76%, #50d05d 100%);
+  }
+
+  &[data-color-vlx="true"] {
+    background: linear-gradient(180deg, #848484 -6.62%, #1c1c1c 100%);
+  }
+
+  &[data-color-tokyo="true"] {
+    background: linear-gradient(180deg, #fe4f59 0%, #e42e30 100%);
+  }
+
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 
   &[data-disabled="true"] {
@@ -41,7 +58,24 @@ export const Container = styled.details`
     cursor: default;
 
     border-radius: 5px;
-    background: linear-gradient(180deg, #2ee3bc 49.6%, #12d1a7 123.68%);
+    /* background: linear-gradient(180deg, #2ee3bc 49.6%, #12d1a7 123.68%); */
+
+    &[data-color-starcheck="true"] {
+      background: linear-gradient(180deg, #54acf2 0%, #266bf0 100%);
+    }
+
+    &[data-color-log="true"] {
+      background: linear-gradient(180deg, #50d05d 11.76%, #50d05d 100%);
+    }
+
+    &[data-color-vlx="true"] {
+      background: linear-gradient(180deg, #848484 -6.62%, #1c1c1c 100%);
+    }
+
+    &[data-color-tokyo="true"] {
+      background: linear-gradient(180deg, #fe4f59 0%, #e42e30 100%);
+    }
+
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
 
     margin-top: 6px;
@@ -118,9 +152,9 @@ export const Container = styled.details`
     top: 50%;
     right: 1em;
 
-    background-color: #12d1a7;
-    box-shadow: 0px 0px 7.6px 2px #12d1a7 inset;
-    filter: drop-shadow(1px 1px 1.6px #29a086);
+    background-color: ${(props) => props.theme.colors.main};
+    /* box-shadow: 0px 0px 7.6px 2px #12d1a7 inset; */
+    /* filter: drop-shadow(1px 1px 1.6px #29a086); */
 
     border-radius: 50%;
     width: 22px;
@@ -146,7 +180,7 @@ export const ArrowDown = styled.img`
 
 export const ModalContent = styled.div`
   /* padding: 102px 132px; */
-  background: #6fa599;
+  /* background: #6fa599; */
   width: 506px;
   height: 328px;
   display: flex;
@@ -155,7 +189,7 @@ export const ModalContent = styled.div`
   align-items: center;
 
   p {
-    color: #fff;
+    color: ${(props) => props.theme.colors.textColor};
     text-align: center;
     font-family: Mulish;
     font-size: 24px;
