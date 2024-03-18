@@ -1,6 +1,7 @@
 import React, { Ref } from "react";
 import * as S from "../styles";
 import { lighten } from "polished";
+import { Theme } from "../../../../Global/Theme";
 
 import Select, {
   GroupBase,
@@ -20,6 +21,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     ref: Ref<SelectInstance<Option, IsMulti, Group>>
   ) {
     const myVariant = props.variant;
+    const colors = Theme[process.env.REACT_APP_PROJECT]?.colors;
 
     const ClearIndicator = (props) => {
       return (
@@ -40,7 +42,8 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     const customStyles = {
       control: (base: any, state: { isFocused: any }) => ({
         ...base,
-        background: myVariant === "modal" ? "#E1F2EE" : "#fff",
+        // background: myVariant === "modal" ? "#E1F2EE" : "#fff",
+        background: "#fff",
 
         // match with the menu
         borderRadius: 10,
@@ -50,13 +53,13 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         fontFamily: "Mulish",
         // color: state.isSelected ? "red" : "blue",
         // Overwrittes the different states of border
-        borderColor: "#12D1A7",
+        borderColor: colors?.main,
         // fontWeight: 600,
         // Removes weird border around container
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
           // Overwrittes the different states of border
-          borderColor: "#12D1A7",
+          borderColor: colors?.main,
         },
       }),
 
@@ -74,7 +77,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         // padding: 0,
 
         borderRadius: 10,
-        borderColor: "#12D1A7",
+        borderColor: colors?.main,
       }),
       singleValue: (provided: any, state: any) => ({
         ...provided,
@@ -83,7 +86,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
 
       option: (styles: any, { isFocused, isSelected }: any) => ({
         // ...styles,
-        backgroundColor: isFocused ? lighten(0.45, "#12D1A7") : "transparent",
+        backgroundColor: isFocused ? lighten(0.4, colors?.main) : "transparent",
         color: "#111",
         // fontWeight: 600,
         // letterSpacing: 1,

@@ -38,13 +38,13 @@ import { Stores } from "./components/Pages/Stores";
 export const App = () => {
   return (
     <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
+      {/* // <ThemeProvider theme={Theme["tokyo"]}> */}
       <ToastContainer autoClose={2000} />
       <GlobalStyles />
       <ContextProvider>
         <BrowserRouter>
           <Routes>
             <Route index element={<Navigate to={"/agendamento"} />} />
-
             <Route path="*" element={<NotFound />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
             <Route path="/offline" element={<Offline />} />

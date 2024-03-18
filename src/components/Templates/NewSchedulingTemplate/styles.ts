@@ -77,6 +77,26 @@ export const NotFoundvalue = styled.div`
 
   img {
     cursor: pointer;
+
+    &[data-color-starcheck="true"] {
+      filter: brightness(0) saturate(100%) invert(37%) sepia(35%)
+        saturate(7494%) hue-rotate(212deg) brightness(96%) contrast(97%);
+    }
+
+    &[data-color-log="true"] {
+      filter: brightness(0) saturate(100%) invert(61%) sepia(73%)
+        saturate(1014%) hue-rotate(117deg) brightness(97%) contrast(86%);
+    }
+
+    &[data-color-vlx="true"] {
+      filter: brightness(0) saturate(100%) invert(0%) sepia(5%) saturate(2391%)
+        hue-rotate(330deg) brightness(86%) contrast(91%);
+    }
+
+    &[data-color-tokyo="true"] {
+      filter: brightness(0) saturate(100%) invert(30%) sepia(100%)
+        saturate(4426%) hue-rotate(345deg) brightness(92%) contrast(93%);
+    }
   }
 `;
 
@@ -85,7 +105,7 @@ export const FormModal = styled.form`
   max-width: ${pxToRem(1033)};
   overflow: auto;
   height: 80dvh;
-  background: #e1f2ee;
+  /* background: #e1f2ee; */
 `;
 
 export const GridModal = styled.div`

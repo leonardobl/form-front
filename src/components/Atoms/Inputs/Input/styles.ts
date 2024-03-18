@@ -16,7 +16,7 @@ export const Container = styled.div`
     position: absolute;
     right: 14px;
     top: 19px;
-    color: #12d1a7;
+    color: ${(props) => props.theme.colors.main};
   }
 `;
 
@@ -51,7 +51,7 @@ export const Input = styled.input<{ $typeInput?: string }>`
     width: 100%;
     height: 56px;
     border-radius: 10px;
-    border: 1px solid #12d1a7;
+    border: 1px solid ${(props) => props.theme.colors.main};
     background-color: #fff;
     padding: ${$typeInput === "password" ? "0 40px 0 20px" : "0 20px"};
     font-size: 18px;
@@ -77,7 +77,7 @@ export const Input = styled.input<{ $typeInput?: string }>`
     }
 
     &::selection {
-      background-color: #12d1a7;
+      background-color: ${(props) => props.theme.colors.main};
       color: #fff;
     }
 
@@ -93,4 +93,24 @@ export const IconEdit = styled.img`
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
+
+  &[data-color-starcheck="true"] {
+    filter: brightness(0) saturate(100%) invert(37%) sepia(35%) saturate(7494%)
+      hue-rotate(212deg) brightness(96%) contrast(97%);
+  }
+
+  &[data-color-log="true"] {
+    filter: brightness(0) saturate(100%) invert(61%) sepia(73%) saturate(1014%)
+      hue-rotate(117deg) brightness(97%) contrast(86%);
+  }
+
+  &[data-color-vlx="true"] {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(5%) saturate(2391%)
+      hue-rotate(330deg) brightness(86%) contrast(91%);
+  }
+
+  &[data-color-tokyo="true"] {
+    filter: brightness(0) saturate(100%) invert(30%) sepia(100%) saturate(4426%)
+      hue-rotate(345deg) brightness(92%) contrast(93%);
+  }
 `;

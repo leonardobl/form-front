@@ -81,7 +81,6 @@ export const NewSchedulingTemplate = () => {
           <S.GridModal>
             <div>
               <Input
-                variant="modal"
                 label="Nome"
                 required
                 value={formNewClient?.nome}
@@ -95,7 +94,6 @@ export const NewSchedulingTemplate = () => {
             </div>
             <div>
               <Input
-                variant="modal"
                 label="CPF/CNPJ"
                 required
                 maxLength={18}
@@ -105,7 +103,6 @@ export const NewSchedulingTemplate = () => {
             </div>
             <div>
               <Input
-                variant="modal"
                 label="E-mail"
                 type="email"
                 value={formNewClient?.email}
@@ -119,7 +116,6 @@ export const NewSchedulingTemplate = () => {
             </div>
             <div>
               <Input
-                variant="modal"
                 label="Telefone"
                 value={formNewClient?.telefone}
                 maxLength={15}
@@ -130,7 +126,6 @@ export const NewSchedulingTemplate = () => {
             </div>
             <div>
               <SimpleSelect
-                variant="modal"
                 label="Tipo"
                 required
                 options={tipoClienteOptions}
@@ -138,7 +133,6 @@ export const NewSchedulingTemplate = () => {
             </div>
             <div>
               <Input
-                variant="modal"
                 required
                 label="Cep"
                 maxLength={9}
@@ -158,7 +152,6 @@ export const NewSchedulingTemplate = () => {
 
             <div>
               <Input
-                variant="modal"
                 label="Endereço (Rua)"
                 required
                 value={formNewClient?.endereco?.logradouro}
@@ -175,7 +168,6 @@ export const NewSchedulingTemplate = () => {
             </div>
             <div>
               <Input
-                variant="modal"
                 label="Numero"
                 type="number"
                 required
@@ -194,7 +186,6 @@ export const NewSchedulingTemplate = () => {
 
             <div>
               <Input
-                variant="modal"
                 label="Bairro"
                 required
                 value={formNewClient?.endereco?.bairro}
@@ -209,7 +200,6 @@ export const NewSchedulingTemplate = () => {
 
             <div>
               <Input
-                variant="modal"
                 label="Complemento"
                 value={formNewClient?.endereco?.complemento}
                 onChange={(e) =>
@@ -226,7 +216,6 @@ export const NewSchedulingTemplate = () => {
 
             <div>
               <SimpleSelect
-                variant="modal"
                 label="UF"
                 required
                 key={`${Math.random()}`}
@@ -244,7 +233,6 @@ export const NewSchedulingTemplate = () => {
             </div>
             <div>
               <SimpleSelect
-                variant="modal"
                 label="Cidade"
                 required
                 key={`${Math.random()}`}
@@ -285,6 +273,12 @@ export const NewSchedulingTemplate = () => {
                     src={"/assets/svgs/plus-round.svg"}
                     alt={"icone de adicionar"}
                     onClick={() => setModalIsOpen(true)}
+                    data-color-starcheck={
+                      process.env.REACT_APP_PROJECT === "starcheck"
+                    }
+                    data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                    data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                    data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
                   />
                 </S.NotFoundvalue>
               )}

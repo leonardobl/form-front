@@ -48,7 +48,14 @@ export const Input = React.forwardRef<HTMLInputElement, InputCustomProps>(
         ) : null}
 
         {props.variant === "edit" && (
-          <S.IconEdit src="/assets/svgs/icon-edit.svg" alt="icone de edite" />
+          <S.IconEdit
+            src="/assets/svgs/icon-edit.svg"
+            alt="icone de edite"
+            data-color-starcheck={process.env.REACT_APP_PROJECT === "starcheck"}
+            data-color-log={process.env.REACT_APP_PROJECT === "log"}
+            data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+            data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+          />
         )}
       </S.Container>
     );

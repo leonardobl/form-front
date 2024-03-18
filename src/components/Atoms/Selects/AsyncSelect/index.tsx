@@ -7,6 +7,7 @@ import { GroupBase, components } from "react-select";
 import Select from "react-select/dist/declarations/src/Select";
 import { lighten } from "polished";
 import { IoCloseOutline } from "react-icons/io5";
+import { Theme } from "../../../../Global/Theme";
 
 export function AsyncSimpleSelect<
   Option = unknown,
@@ -17,6 +18,9 @@ export function AsyncSimpleSelect<
     RefAttributes<Select<Option, IsMulti, Group>>
 ) {
   const myVariant = props.variant;
+
+  const colors = Theme[process.env.REACT_APP_PROJECT]?.colors;
+
   const customStyles = {
     control: (base: any, state: { isFocused: any }) => ({
       ...base,
@@ -28,13 +32,13 @@ export function AsyncSimpleSelect<
       fontFamily: "Mulish",
       // color: state.isSelected ? "red" : "blue",
       // Overwrittes the different states of border
-      borderColor: "#12D1A7",
+      borderColor: colors?.main,
       fontWeight: 600,
       // Removes weird border around container
       boxShadow: state.isFocused ? null : null,
       "&:hover": {
         // Overwrittes the different states of border
-        borderColor: "#12D1A7",
+        borderColor: colors?.main,
       },
     }),
     menu: (base: any, state: any) => ({
@@ -44,7 +48,7 @@ export function AsyncSimpleSelect<
       // kill the gap
       // marginTop: 0,
       zIndex: 2,
-      backgroundColor: "#E1F2EE",
+      // backgroundColor: "#E1F2EE",
     }),
     menuList: (base: any, state: any) => ({
       ...base,
@@ -52,7 +56,7 @@ export function AsyncSimpleSelect<
       padding: "0",
 
       borderRadius: 10,
-      borderColor: "#12D1A7",
+      borderColor: colors?.main,
     }),
     singleValue: (provided: any, state: any) => ({
       ...provided,
@@ -60,7 +64,7 @@ export function AsyncSimpleSelect<
     }),
     option: (styles: any, { isFocused, isSelected }: any) => ({
       // ...styles,
-      backgroundColor: isFocused ? "#bbe4db" : "transparent",
+      backgroundColor: isFocused ? lighten(0.4, colors?.main) : "transparent",
       color: "#111",
       fontWeight: 600,
       // letterSpacing: 1,

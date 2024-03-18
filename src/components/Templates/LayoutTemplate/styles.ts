@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 import { pxToRem } from "../../../utils/pxToRem";
-import { colors } from "@mui/material";
 
 export const Container = styled.div`
   display: flex;
@@ -153,7 +152,7 @@ export const WrapperButton = styled.div`
     }
 
     button {
-      color: #20332f;
+      color: ${(props) => props.theme.colors.textColor};
       font-family: Mulish;
       font-size: 16px;
       font-style: normal;
@@ -173,7 +172,7 @@ export const WrapperButton = styled.div`
 
 export const ModalContent = styled.div`
   /* padding: 102px 132px; */
-  background: #6fa599;
+  /* background: #6fa599; */
   width: 300px;
   height: 220px;
   display: flex;
@@ -182,7 +181,7 @@ export const ModalContent = styled.div`
   align-items: center;
 
   p {
-    color: #fff;
+    color: ${(props) => props.theme.colors.textColor};
     text-align: center;
     font-family: Mulish;
     font-size: 20px;

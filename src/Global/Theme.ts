@@ -19,9 +19,9 @@ export const Theme = {
   },
   log: {
     colors: {
-      main: "#50D05D",
+      main: "#12d1a7",
       primary: "#111111",
-      bgColor: "rgba(80, 208, 93, .2)",
+      bgColor: "rgba(18, 209, 167, .15)",
       textColor: "#2D2D2D",
     },
 
