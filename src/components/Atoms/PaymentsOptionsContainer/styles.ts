@@ -5,8 +5,7 @@ export const Label = styled.label`
   width: 278px;
   height: 56px;
   border-radius: 10px;
-  /* border: 1px solid #50d05d; */
-  background: #6fa599;
+  background: #e8e8e8;
   box-shadow: 0px 4px 4px 0px #00000040;
 
   cursor: pointer;
@@ -16,12 +15,16 @@ export const Label = styled.label`
   align-items: center;
 
   &:has(> input:checked) {
-    /* outline: 2.5px solid #26be51; */
-    background: #12d1a7;
+    background: #9d9d9d;
   }
 
   &:has(> input:checked) > div p {
-    color: #3f504c;
+    color: #ffffff;
+  }
+
+  &:has(> input:checked) img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(1%) saturate(7500%)
+      hue-rotate(64deg) brightness(104%) contrast(100%);
   }
 
   @media (max-width: 500px) {
@@ -42,7 +45,8 @@ export const WrapperLeftContent = styled.div`
 `;
 
 export const Icon = styled.img`
-  /* margin-top: -4px; */
+  filter: brightness(0) saturate(100%) invert(68%) sepia(0%) saturate(187%)
+    hue-rotate(177deg) brightness(94%) contrast(83%);
 `;
 
 export const TextIcon = styled.p`
@@ -52,7 +56,13 @@ export const TextIcon = styled.p`
   line-height: 32px;
   letter-spacing: 0em;
   text-align: center;
-  color: #ffffff;
+  color: #9d9d9d;
+  text-align: center;
+  font-family: Mulish;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px; /* 133.333% */
 `;
 export const Value = styled.p`
   color: #26be51;

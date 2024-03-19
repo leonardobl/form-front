@@ -9,8 +9,14 @@ import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { usePayment } from "./usePayment";
 
 export const PaymentTemplate = () => {
-  const { handleSubmit, setPayment, payment, btnFaturaGerada, setBtnFaturaGerada } = usePayment();
-  
+  const {
+    handleSubmit,
+    setPayment,
+    payment,
+    btnFaturaGerada,
+    setBtnFaturaGerada,
+  } = usePayment();
+
   return (
     <S.Container>
       <Title>Pagamento</Title>
@@ -24,11 +30,7 @@ export const PaymentTemplate = () => {
         <S.GridWrapper>
           <div>
             <PaymentsOptionsContainer
-              iconLeft={
-                payment === FormaPagamentoEnum.PIX
-                  ? "/assets/svgs/pix-dark.svg"
-                  : "/assets/svgs/pix-light.svg"
-              }
+              iconLeft={"/assets/svgs/pix-light.svg"}
               textIcon={"Pix"}
               value=""
               name={"pagamento"}
@@ -40,11 +42,7 @@ export const PaymentTemplate = () => {
           <div>
             <PaymentsOptionsContainer
               required
-              iconLeft={
-                payment === FormaPagamentoEnum.BOLETO
-                  ? "/assets/svgs/boleto-dark.svg"
-                  : "/assets/svgs/boleto-light.svg"
-              }
+              iconLeft={"/assets/svgs/boleto-light.svg"}
               textIcon={"Boleto"}
               value=""
               name={"pagamento"}
@@ -55,9 +53,7 @@ export const PaymentTemplate = () => {
             </p>
           </div>
           <div>
-          <Button disabled={btnFaturaGerada}>
-            AVANÇAR
-          </Button>
+            <Button disabled={btnFaturaGerada}>AVANÇAR</Button>
           </div>
         </S.GridWrapper>
       </S.Form>
