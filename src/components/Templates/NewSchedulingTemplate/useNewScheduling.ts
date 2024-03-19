@@ -33,6 +33,7 @@ import { Veiculo } from "../../../services/Veiculo";
 import {
   Agendamento,
   IPutAgendamentoProps,
+  IReagendamentoProps,
 } from "../../../services/Agendamento";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Pagamento } from "../../../services/Pagamento";
@@ -49,7 +50,11 @@ export const useNewScheduling = () => {
   const navigate = useNavigate();
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>();
+  const [modalReagendamentoIsOpen, setModalReagendamentoIsOpen] =
+    useState(false);
+  const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>(
+    TipoAtendimentoEnum.LOJA
+  );
   const [tipoPagamento, setTipoPagamento] = useState<FormaPagamentoEnum>();
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
     {} as IAgendamentoDTO
@@ -243,7 +248,15 @@ export const useNewScheduling = () => {
     setFormNewClient((prev) => ({ ...prev, cpfCnpj: newvalue }));
   }
 
-  async function saveAgendamento() {
+  async function saveAgendamento(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    if (agendamentoSession?.reagendamento) {
+      setModalReagendamentoIsOpen(true);
+
+      return;
+    }
+
     setIsLoad(true);
     setDisabled(true);
 
@@ -392,59 +405,108 @@ export const useNewScheduling = () => {
     }
   }
 
-  async function handleSubmitAgendamento(e: React.SyntheticEvent) {
-    e.preventDefault();
-
+  function handleReagendamento() {
     setIsLoad(true);
+    setModalReagendamentoIsOpen(false);
 
-    const PAYLOAD_AGENDAMENTO: IAgendamentoBasicoForm = {
-      ...formAgendamento,
-      tipoAtendimento: tipoAtendimento,
+    const PAYLOAD: IReagendamentoProps = {
       diaAgendado: dateAgendamento
-        ?.toLocaleDateString()
-        ?.split("/")
-        ?.reverse()
-        ?.join("-"),
+        .toLocaleDateString()
+        .split("/")
+        .reverse()
+        .join("-"),
+      horaAgendada: formAgendamento?.horaAgendada,
+      uuidAgendamento: agendamentoSession?.uuidAgendamento,
+      uuidLoja: formAgendamento?.uuidLoja,
+      uuidDelivery: formAgendamento?.uuidDelivery,
     };
 
-    try {
-      const dataAgendamento = await Agendamento.post(PAYLOAD_AGENDAMENTO);
-      setAgendamento(dataAgendamento.data);
-
-      if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
-        await Agendamento.putAddress(formAddress);
-      }
-
-      let veiculo = null;
-      if (tipoServico === OpcoesServicosEnum.EMPLACAMENTO) {
-        const PAYLOAD_VEICULO = {
-          Chassi: formService.Chassi,
-          CnpjECV: null,
-          IdCidadeDetran: null,
-          uuidAgendamento: dataAgendamento?.data.uuid,
-        };
-        veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO);
-      }
-
-      if (tipoServico === OpcoesServicosEnum.VISTORIA) {
-        const PAYLOAD_VEICULO = {
-          Placa: formService.Placa,
-          CnpjECV: null,
-          IdCidadeDetran: null,
-          Renavam: formService.Renavam,
-          uuidAgendamento: dataAgendamento?.data?.uuid,
-        };
-
-        veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO);
-      }
-
-      setFormVihacle(veiculo?.data);
-    } catch (error) {
-      toast.error(error.mensagem);
-    } finally {
-      setIsLoad(false);
-    }
+    Agendamento.reagendar(PAYLOAD)
+      .then(() => {
+        toast.success("Reagendamento efetuado com sucesso!");
+        setAgendamentoSession({
+          ...agendamentoSession,
+          reagendamento: false,
+          cliente: null,
+          veiculo: null,
+        });
+        setTimeout(() => {
+          navigate(
+            `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
+          );
+        }, 2000);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
   }
+
+  // async function handleSubmitAgendamento(e: React.SyntheticEvent) {
+  //   e.preventDefault();
+
+  //   console.log("aqui 1");
+  //   if (agendamentoSession?.reagendamento) {
+  //     setModalReagendamentoIsOpen(true);
+  //     console.log("aqui 2");
+
+  //     return;
+  //   }
+
+  //   setIsLoad(true);
+
+  //   const PAYLOAD_AGENDAMENTO: IAgendamentoBasicoForm = {
+  //     ...formAgendamento,
+  //     tipoAtendimento: tipoAtendimento,
+  //     diaAgendado: dateAgendamento
+  //       ?.toLocaleDateString()
+  //       ?.split("/")
+  //       ?.reverse()
+  //       ?.join("-"),
+  //   };
+
+  //   try {
+  //     const dataAgendamento = await Agendamento.post(PAYLOAD_AGENDAMENTO);
+  //     setAgendamento(dataAgendamento.data);
+
+  //     if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
+  //       await Agendamento.putAddress(formAddress);
+  //     }
+
+  //     let veiculo = null;
+  //     if (tipoServico === OpcoesServicosEnum.EMPLACAMENTO) {
+  //       const PAYLOAD_VEICULO = {
+  //         Chassi: formService.Chassi,
+  //         CnpjECV: null,
+  //         IdCidadeDetran: null,
+  //         uuidAgendamento: dataAgendamento?.data.uuid,
+  //       };
+  //       veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO);
+  //     }
+
+  //     if (tipoServico === OpcoesServicosEnum.VISTORIA) {
+  //       const PAYLOAD_VEICULO = {
+  //         Placa: formService.Placa,
+  //         CnpjECV: null,
+  //         IdCidadeDetran: null,
+  //         Renavam: formService.Renavam,
+  //         uuidAgendamento: dataAgendamento?.data?.uuid,
+  //       };
+
+  //       veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO);
+  //     }
+
+  //     setFormVihacle(veiculo?.data);
+  //   } catch (error) {
+  //     toast.error(error.mensagem);
+  //   } finally {
+  //     setIsLoad(false);
+  //   }
+  // }
 
   useEffect(() => {
     resetAtendimento();
@@ -515,7 +577,7 @@ export const useNewScheduling = () => {
   }
 
   return {
-    handleSubmitAgendamento,
+    // handleSubmitAgendamento,
     handleCep,
     formNewClient,
     setFormNewClient,
@@ -554,6 +616,9 @@ export const useNewScheduling = () => {
     selectOptions,
     resetCliente,
     formAddress,
+    modalReagendamentoIsOpen,
+    setModalReagendamentoIsOpen,
+    handleReagendamento,
     setFormAddress,
     agendamentoSession,
   };

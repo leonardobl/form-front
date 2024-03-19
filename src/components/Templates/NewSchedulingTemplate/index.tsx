@@ -18,6 +18,7 @@ import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { useNewScheduling } from "./useNewScheduling";
 import { maskCep, removerCaracteresEspeciais } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
+import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const NewSchedulingTemplate = () => {
   const {
@@ -46,7 +47,7 @@ export const NewSchedulingTemplate = () => {
     setDateAgendamento,
     diasIndisponiveis,
     ufOptions,
-    handleSubmitAgendamento,
+    // handleSubmitAgendamento,
     formService,
     setFormSerice,
     formVihacle,
@@ -60,6 +61,9 @@ export const NewSchedulingTemplate = () => {
     saveAgendamento,
     setFormAddress,
     agendamentoSession,
+    modalReagendamentoIsOpen,
+    setModalReagendamentoIsOpen,
+    handleReagendamento,
   } = useNewScheduling();
 
   // const { Option } = components;
@@ -302,7 +306,7 @@ export const NewSchedulingTemplate = () => {
         </S.FormSearch>
 
         {cliente?.nome && (
-          <>
+          <S.MainForm onSubmit={saveAgendamento}>
             <S.FormUser>
               <S.GridUser>
                 <div>
@@ -345,7 +349,7 @@ export const NewSchedulingTemplate = () => {
                 ? "Loja Física"
                 : "Domicílio"}
             </Title>
-            <S.FormAtendence onSubmit={handleSubmitAgendamento}>
+            <S.FormAtendence>
               <S.GridAtendece>
                 <div>
                   <SimpleSelect
@@ -722,13 +726,24 @@ export const NewSchedulingTemplate = () => {
 
             <Button
               className="finalButton"
-              disabled={disabled}
-              onClick={saveAgendamento}
+              // disabled={disabled}
             >
               Salvar
             </Button>
-          </>
+          </S.MainForm>
         )}
+
+        <MyModal
+          isOpen={modalReagendamentoIsOpen}
+          onRequestClose={() => setModalReagendamentoIsOpen(false)}
+        >
+          <S.ModalContent>
+            <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
+              dateAgendamento?.toLocaleDateString()
+            )} às ${formAgendamento.horaAgendada}? `}</p>
+            <Button onClick={handleReagendamento}>Confirmar</Button>
+          </S.ModalContent>
+        </MyModal>
       </S.Container>
     </LayoutTemplate>
   );

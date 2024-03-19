@@ -29,7 +29,7 @@ export const useResidence = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoSession?.revistoria) {
+    if (agendamentoSession?.reagendamento) {
       setModalIsOpen(true);
       return;
     }

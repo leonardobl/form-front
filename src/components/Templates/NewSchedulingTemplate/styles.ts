@@ -180,7 +180,7 @@ export const GridModal = styled.div`
   }
 `;
 
-export const FormUser = styled.form`
+export const FormUser = styled.div`
   margin: 0 auto 48px;
   width: 100%;
 `;
@@ -216,7 +216,7 @@ export const GridUser = styled.div`
   }
 `;
 
-export const FormAtendence = styled.form`
+export const FormAtendence = styled.div`
   width: 100%;
   margin-bottom: 48px;
 `;
@@ -316,7 +316,7 @@ export const GridSurvey = styled.div`
   }
 `;
 
-export const FormVeihecle = styled.form`
+export const FormVeihecle = styled.div`
   width: 100%;
   margin-bottom: 48px;
 `;
@@ -414,5 +414,50 @@ export const GridAddress = styled.div`
     gap: 32px 16px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-areas: "nome nome" "telefone cep" "rua rua" "numero complemento" "bairro bairro" "uf cidade";
+  }
+`;
+
+export const ModalContent = styled.div`
+  /* padding: 102px 132px; */
+  /* background: #6fa599; */
+  width: 506px;
+  height: 328px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    color: ${(props) => props.theme.colors.textColor};
+    text-align: center;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    max-width: 270px;
+    margin-bottom: 32px;
+  }
+
+  button {
+    margin: 0 auto;
+    display: block;
+  }
+
+  @media (max-width: 500px) {
+    padding: 32px 48px;
+
+    p {
+      font-size: 18px;
+      line-height: 24px;
+      max-width: 200px;
+      margin: 0 auto 24px;
+    }
+  }
+`;
+
+export const MainForm = styled.form`
+  > h1 {
+    text-align: center;
   }
 `;

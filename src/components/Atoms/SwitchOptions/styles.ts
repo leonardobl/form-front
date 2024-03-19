@@ -49,6 +49,7 @@ export const Label = styled.label`
   }
 
   &[data-disabled="true"] {
+    pointer-events: none;
     cursor: not-allowed;
   }
 `;
