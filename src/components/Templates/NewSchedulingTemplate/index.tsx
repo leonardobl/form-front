@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { Button } from "../../Atoms/Button";
 import { AsyncSimpleSelect } from "../../Atoms/Selects/AsyncSelect";
-import { v4 } from "uuid";
-import { components } from "react-select";
 import { MyModal } from "../../Atoms/MyModal";
 import { Input } from "../../Atoms/Inputs/Input";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
@@ -22,6 +20,7 @@ import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const NewSchedulingTemplate = () => {
   const {
+    handleSubmitAgendamento,
     formNewClient,
     handleCep,
     handleCpf,
@@ -628,7 +627,13 @@ export const NewSchedulingTemplate = () => {
                         />
                       </div>
                       <div>
-                        <Button>Buscar</Button>
+                        <Button
+                          type="button"
+                          disabled={disabled}
+                          onClick={handleSubmitAgendamento}
+                        >
+                          Buscar
+                        </Button>
                       </div>
                     </S.GridLicense>
                   ) : (
@@ -661,7 +666,13 @@ export const NewSchedulingTemplate = () => {
                         />
                       </div>
                       <div>
-                        <Button>Buscar</Button>
+                        <Button
+                          type="button"
+                          disabled={disabled}
+                          onClick={handleSubmitAgendamento}
+                        >
+                          Buscar
+                        </Button>
                       </div>
                     </S.GridSurvey>
                   )}

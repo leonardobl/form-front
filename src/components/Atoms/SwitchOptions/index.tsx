@@ -34,7 +34,7 @@ export const SwitchOptions = ({
             name={name}
             type="radio"
             // data-selected={optionA.value === value}
-            checked={value ? optionA.value === value : true}
+            checked={optionA.value === value}
             onChange={() => handleOnChange(optionA.value)}
           />
         </S.WrapperContent>

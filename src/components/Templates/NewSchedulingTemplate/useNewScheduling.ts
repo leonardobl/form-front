@@ -38,6 +38,7 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import { Pagamento } from "../../../services/Pagamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { Vehicle } from "../../Pages/Vehicle";
 
 export const useNewScheduling = () => {
   const { setIsLoad } = useContextSite();
@@ -55,11 +56,15 @@ export const useNewScheduling = () => {
   const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>(
     TipoAtendimentoEnum.LOJA
   );
-  const [tipoPagamento, setTipoPagamento] = useState<FormaPagamentoEnum>();
+  const [tipoPagamento, setTipoPagamento] = useState<FormaPagamentoEnum>(
+    FormaPagamentoEnum.PIX
+  );
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
     {} as IAgendamentoDTO
   );
-  const [tipoServico, setTipoServico] = useState<OpcoesServicosEnum>();
+  const [tipoServico, setTipoServico] = useState<OpcoesServicosEnum>(
+    OpcoesServicosEnum.EMPLACAMENTO
+  );
   const getValues = async (txt: string) => {
     return Cliente.lista({ nomeCpfCnpj: txt, page: 0, size: 5 }).then(
       ({ data }) =>
@@ -96,35 +101,13 @@ export const useNewScheduling = () => {
   );
 
   useEffect(() => {
-    if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
-      const hasAgendamento =
-        dateAgendamento &&
-        formAgendamento?.horaAgendada &&
-        formAgendamento?.uuidDelivery;
-
-      const addrValid = !!(
-        formAddress?.nome &&
-        formAddress?.telefone &&
-        formAddress?.endereco?.bairro &&
-        formAddress?.endereco?.cep &&
-        formAddress?.endereco?.cidade &&
-        formAddress?.endereco?.logradouro &&
-        formAddress?.endereco?.numero &&
-        formAddress?.endereco?.uf
-      );
-
-      setDisabled(!(formVihacle?.uuid && hasAgendamento && addrValid));
+    if (tipoServico === OpcoesServicosEnum.VISTORIA) {
+      setDisabled(!(formService?.Placa && formService?.Renavam));
       return;
     }
 
-    const hasAgendamento = !!(
-      dateAgendamento &&
-      formAgendamento?.horaAgendada &&
-      formAgendamento?.uuidLoja
-    );
-
-    setDisabled(!(formVihacle?.uuid && hasAgendamento));
-  }, [formVihacle, formAgendamento, formAddress, tipoAtendimento]);
+    setDisabled(!formService?.Chassi);
+  }, [formService, tipoServico]);
 
   function handleSubmitNewClient(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -258,7 +241,6 @@ export const useNewScheduling = () => {
     }
 
     setIsLoad(true);
-    setDisabled(true);
 
     const PAYLOAD: IPutAgendamentoProps = {
       ...agendamento,
@@ -287,12 +269,10 @@ export const useNewScheduling = () => {
             },
           }) => {
             toast.error(mensagem);
-            setDisabled(false);
           }
         );
     } catch (error) {
       toast.error(error.mensagem);
-      setDisabled(false);
     } finally {
       setIsLoad(false);
     }
@@ -446,67 +426,67 @@ export const useNewScheduling = () => {
       .finally(() => setIsLoad(false));
   }
 
-  // async function handleSubmitAgendamento(e: React.SyntheticEvent) {
-  //   e.preventDefault();
+  async function handleSubmitAgendamento(e: React.SyntheticEvent) {
+    e.preventDefault();
 
-  //   console.log("aqui 1");
-  //   if (agendamentoSession?.reagendamento) {
-  //     setModalReagendamentoIsOpen(true);
-  //     console.log("aqui 2");
+    console.log("aqui 1");
+    if (agendamentoSession?.reagendamento) {
+      setModalReagendamentoIsOpen(true);
+      console.log("aqui 2");
 
-  //     return;
-  //   }
+      return;
+    }
 
-  //   setIsLoad(true);
+    setIsLoad(true);
 
-  //   const PAYLOAD_AGENDAMENTO: IAgendamentoBasicoForm = {
-  //     ...formAgendamento,
-  //     tipoAtendimento: tipoAtendimento,
-  //     diaAgendado: dateAgendamento
-  //       ?.toLocaleDateString()
-  //       ?.split("/")
-  //       ?.reverse()
-  //       ?.join("-"),
-  //   };
+    const PAYLOAD_AGENDAMENTO: IAgendamentoBasicoForm = {
+      ...formAgendamento,
+      tipoAtendimento: tipoAtendimento,
+      diaAgendado: dateAgendamento
+        ?.toLocaleDateString()
+        ?.split("/")
+        ?.reverse()
+        ?.join("-"),
+    };
 
-  //   try {
-  //     const dataAgendamento = await Agendamento.post(PAYLOAD_AGENDAMENTO);
-  //     setAgendamento(dataAgendamento.data);
+    try {
+      const dataAgendamento = await Agendamento.post(PAYLOAD_AGENDAMENTO);
+      setAgendamento(dataAgendamento.data);
 
-  //     if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
-  //       await Agendamento.putAddress(formAddress);
-  //     }
+      if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
+        await Agendamento.putAddress(formAddress);
+      }
 
-  //     let veiculo = null;
-  //     if (tipoServico === OpcoesServicosEnum.EMPLACAMENTO) {
-  //       const PAYLOAD_VEICULO = {
-  //         Chassi: formService.Chassi,
-  //         CnpjECV: null,
-  //         IdCidadeDetran: null,
-  //         uuidAgendamento: dataAgendamento?.data.uuid,
-  //       };
-  //       veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO);
-  //     }
+      let veiculo = null;
+      if (tipoServico === OpcoesServicosEnum.EMPLACAMENTO) {
+        const PAYLOAD_VEICULO = {
+          Chassi: formService.Chassi,
+          CnpjECV: null,
+          IdCidadeDetran: null,
+          uuidAgendamento: dataAgendamento?.data.uuid,
+        };
+        veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO);
+      }
 
-  //     if (tipoServico === OpcoesServicosEnum.VISTORIA) {
-  //       const PAYLOAD_VEICULO = {
-  //         Placa: formService.Placa,
-  //         CnpjECV: null,
-  //         IdCidadeDetran: null,
-  //         Renavam: formService.Renavam,
-  //         uuidAgendamento: dataAgendamento?.data?.uuid,
-  //       };
+      if (tipoServico === OpcoesServicosEnum.VISTORIA) {
+        const PAYLOAD_VEICULO = {
+          Placa: formService.Placa,
+          CnpjECV: null,
+          IdCidadeDetran: null,
+          Renavam: formService.Renavam,
+          uuidAgendamento: dataAgendamento?.data?.uuid,
+        };
 
-  //       veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO);
-  //     }
+        veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO);
+      }
 
-  //     setFormVihacle(veiculo?.data);
-  //   } catch (error) {
-  //     toast.error(error.mensagem);
-  //   } finally {
-  //     setIsLoad(false);
-  //   }
-  // }
+      setFormVihacle(veiculo?.data);
+    } catch (error) {
+      toast.error(error.mensagem);
+    } finally {
+      setIsLoad(false);
+    }
+  }
 
   useEffect(() => {
     resetAtendimento();
@@ -567,7 +547,12 @@ export const useNewScheduling = () => {
     }
 
     return () => {
-      setAgendamentoSession({ ...agendamentoSession, cliente: null });
+      setAgendamentoSession({
+        ...agendamentoSession,
+        cliente: null,
+        veiculo: null,
+        reagendamento: false,
+      });
     };
   }, []);
 
@@ -577,7 +562,7 @@ export const useNewScheduling = () => {
   }
 
   return {
-    // handleSubmitAgendamento,
+    handleSubmitAgendamento,
     handleCep,
     formNewClient,
     setFormNewClient,
