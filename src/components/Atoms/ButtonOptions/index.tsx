@@ -1,6 +1,5 @@
-import React, { useState, ComponentProps } from "react";
+import React, { useState, ComponentProps, useEffect } from "react";
 import * as S from "./styles";
-import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
 import { Button } from "../Button";
@@ -9,27 +8,30 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { RolesEnum } from "../../../enums/roles";
 import { useNavigate } from "react-router-dom";
 import { MyModal } from "../MyModal";
+import { IAgendamentoDTO } from "../../../types/agendamento";
 
 interface IButtonOptions extends ComponentProps<"details"> {
   disabled?: boolean;
-  tipoAtendimento: TipoAtendimentoEnum;
-  uuidAgendamento: string;
+  // tipoAtendimento: TipoAtendimentoEnum;
+  // uuidAgendamento: string;
   onCancel: () => void;
   handlePix: () => void;
   handleTicket: () => void;
   handleConfirmPayment: () => void;
-  status: StatusAgendamentoEnum;
+  agendamento: IAgendamentoDTO;
+  // status: StatusAgendamentoEnum;
 }
 
 export const ButtonOptions = ({
-  tipoAtendimento,
+  // tipoAtendimento,
   disabled,
-  uuidAgendamento,
+  // uuidAgendamento,
   onCancel,
-  status,
+  // status,
   handlePix,
   handleConfirmPayment,
   handleTicket,
+  agendamento,
 }: IButtonOptions) => {
   const { setIsLoad } = useContextSite();
   const [isOpen, setISOpen] = useState(false);
@@ -37,15 +39,30 @@ export const ButtonOptions = ({
     useSessionStorage("agendamentoSession");
   const navigate = useNavigate();
 
+  const isAdmGerente = sessionAgendamento?.roles?.some(
+    (regra) =>
+      regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE
+  );
+
   function onRescheduling() {
     setIsLoad(true);
     setSessionagendamento({
       ...sessionAgendamento,
-      uuidAgendamento: uuidAgendamento,
+      uuidAgendamento: agendamento?.uuid,
       reagendamento: true,
+      tipoAtendimento: agendamento.tipoAtendimento,
+      cliente: {
+        ...agendamento.cliente,
+      },
+      veiculo: { ...agendamento.veiculo },
     });
     setTimeout(() => {
-      navigate(`/agendamento/${tipoAtendimento?.toLowerCase()}`);
+      isAdmGerente
+        ? navigate(`/novo-agendamento`)
+        : navigate(
+            `/agendamento/${agendamento.tipoAtendimento?.toLowerCase()}`
+          );
+
       setIsLoad(false);
     }, 1000);
   }
@@ -74,7 +91,7 @@ export const ButtonOptions = ({
         data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
         data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
       >
-        {status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&
+        {agendamento.status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO &&
           [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_SUPORTE].some((role) =>
             sessionAgendamento?.roles?.includes(role)
           ) && (
@@ -99,7 +116,7 @@ export const ButtonOptions = ({
           </div>
         </div>
 
-        {status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO && (
+        {agendamento.status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO && (
           <>
             <div>
               <div>

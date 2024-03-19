@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useContextSite } from "../../../context/Context";
 import { ViaCep } from "../../../services/ViaCep";
 import { toast } from "react-toastify";
@@ -34,8 +34,9 @@ import {
   Agendamento,
   IPutAgendamentoProps,
 } from "../../../services/Agendamento";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Pagamento } from "../../../services/Pagamento";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useNewScheduling = () => {
   const { setIsLoad } = useContextSite();
@@ -67,6 +68,8 @@ export const useNewScheduling = () => {
   const [formAddress, setFormAddress] = useState<IAtendimentoDomiciliarForm>(
     {} as IAtendimentoDomiciliarForm
   );
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
   const [isLoading, setIsLoading] = useState(false);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
@@ -88,11 +91,13 @@ export const useNewScheduling = () => {
   );
 
   useEffect(() => {
-    const hasAgendamento =
-      formAgendamento.uuidDelivery || formAgendamento.uuidDelivery;
-
     if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
-      const addrValid =
+      const hasAgendamento =
+        dateAgendamento &&
+        formAgendamento?.horaAgendada &&
+        formAgendamento?.uuidDelivery;
+
+      const addrValid = !!(
         formAddress?.nome &&
         formAddress?.telefone &&
         formAddress?.endereco?.bairro &&
@@ -100,13 +105,20 @@ export const useNewScheduling = () => {
         formAddress?.endereco?.cidade &&
         formAddress?.endereco?.logradouro &&
         formAddress?.endereco?.numero &&
-        formAddress?.endereco?.uf;
+        formAddress?.endereco?.uf
+      );
 
-      setDisabled(!formVihacle?.uuid && !hasAgendamento && !addrValid);
+      setDisabled(!(formVihacle?.uuid && hasAgendamento && addrValid));
       return;
     }
 
-    setDisabled(!formVihacle?.uuid && !hasAgendamento);
+    const hasAgendamento = !!(
+      dateAgendamento &&
+      formAgendamento?.horaAgendada &&
+      formAgendamento?.uuidLoja
+    );
+
+    setDisabled(!(formVihacle?.uuid && hasAgendamento));
   }, [formVihacle, formAgendamento, formAddress, tipoAtendimento]);
 
   function handleSubmitNewClient(e: React.SyntheticEvent) {
@@ -286,7 +298,7 @@ export const useNewScheduling = () => {
                 bairro: data.bairro,
                 cidade: data.localidade,
                 uf: data.uf,
-                cep: formNewClient?.endereco?.cep,
+                cep: data.cep,
               },
             }));
           })
@@ -436,8 +448,11 @@ export const useNewScheduling = () => {
 
   useEffect(() => {
     resetAtendimento();
-    resetVihacle();
     resetServicos();
+
+    if (!agendamentoSession?.reagendamento) {
+      resetVihacle();
+    }
 
     if (tipoAtendimento === TipoAtendimentoEnum.LOJA) {
       Loja.get()
@@ -479,6 +494,20 @@ export const useNewScheduling = () => {
         );
     }
   }, [tipoAtendimento]);
+
+  useEffect(() => {
+    if (agendamentoSession?.reagendamento) {
+      setCliente(agendamentoSession?.cliente);
+      setTipoAtendimento(
+        TipoAtendimentoEnum[agendamentoSession.tipoAtendimento]
+      );
+      setFormVihacle(agendamentoSession.veiculo);
+    }
+
+    return () => {
+      setAgendamentoSession({ ...agendamentoSession, cliente: null });
+    };
+  }, []);
 
   function handleClient(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -526,5 +555,6 @@ export const useNewScheduling = () => {
     resetCliente,
     formAddress,
     setFormAddress,
+    agendamentoSession,
   };
 };

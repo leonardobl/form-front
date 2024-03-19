@@ -59,6 +59,7 @@ export const NewSchedulingTemplate = () => {
     formAddress,
     saveAgendamento,
     setFormAddress,
+    agendamentoSession,
   } = useNewScheduling();
 
   // const { Option } = components;
@@ -264,6 +265,7 @@ export const NewSchedulingTemplate = () => {
             <AsyncSimpleSelect
               variant="search"
               placeholder=""
+              isDisabled={agendamentoSession.reagendamento}
               isClearable
               required
               noOptionsMessage={() => (
@@ -293,7 +295,9 @@ export const NewSchedulingTemplate = () => {
             />
           </div>
           <div>
-            <Button>Selecionar</Button>
+            <Button disabled={agendamentoSession.reagendamento}>
+              Selecionar
+            </Button>
           </div>
         </S.FormSearch>
 
@@ -323,6 +327,8 @@ export const NewSchedulingTemplate = () => {
               </S.GridUser>
             </S.FormUser>
             <SwitchOptions
+              value={tipoAtendimento}
+              disabled={agendamentoSession.reagendamento}
               optionA={{
                 label: "Loja Física",
                 value: TipoAtendimentoEnum.LOJA,
@@ -579,76 +585,83 @@ export const NewSchedulingTemplate = () => {
                 </S.WrapperAddress>
               )}
 
-              <Text className="textService">
-                Escolha qual <span className="textStrong">serviço</span> você
-                deseja realizar.
-              </Text>
+              {!agendamentoSession?.reagendamento && (
+                <>
+                  <Text className="textService">
+                    Escolha qual <span className="textStrong">serviço</span>{" "}
+                    você deseja realizar.
+                  </Text>
 
-              <SwitchOptions
-                optionA={{
-                  label: "1° Emplacamento",
-                  value: OpcoesServicosEnum.EMPLACAMENTO,
-                }}
-                optionB={{
-                  label: "Vistoria",
-                  value: OpcoesServicosEnum.VISTORIA,
-                }}
-                className="optionAtendance"
-                handleOnChange={(v) => setTipoServico(OpcoesServicosEnum[v])}
-              />
+                  <SwitchOptions
+                    value={tipoServico}
+                    optionA={{
+                      label: "1° Emplacamento",
+                      value: OpcoesServicosEnum.EMPLACAMENTO,
+                    }}
+                    optionB={{
+                      label: "Vistoria",
+                      value: OpcoesServicosEnum.VISTORIA,
+                    }}
+                    className="optionAtendance"
+                    handleOnChange={(v) =>
+                      setTipoServico(OpcoesServicosEnum[v])
+                    }
+                  />
 
-              {tipoServico === OpcoesServicosEnum.EMPLACAMENTO ? (
-                <S.GridLicense>
-                  <div>
-                    <Input
-                      label="Chassi"
-                      required
-                      value={formService.Chassi}
-                      onChange={(e) =>
-                        setFormSerice((prev) => ({
-                          ...prev,
-                          Chassi: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Button>Buscar</Button>
-                  </div>
-                </S.GridLicense>
-              ) : (
-                <S.GridSurvey>
-                  <div>
-                    <Input
-                      label="Placa"
-                      required
-                      value={formService.Placa}
-                      onChange={(e) => {
-                        setFormSerice((prev) => ({
-                          ...prev,
-                          Placa: removerCaracteresEspeciais(e.target.value),
-                        }));
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <Input
-                      label="Renavam"
-                      required
-                      type="number"
-                      value={formService.Renavam}
-                      onChange={(e) =>
-                        setFormSerice((prev) => ({
-                          ...prev,
-                          Renavam: e.target.value,
-                        }))
-                      }
-                    />
-                  </div>
-                  <div>
-                    <Button>Buscar</Button>
-                  </div>
-                </S.GridSurvey>
+                  {tipoServico === OpcoesServicosEnum.EMPLACAMENTO ? (
+                    <S.GridLicense>
+                      <div>
+                        <Input
+                          label="Chassi"
+                          required
+                          value={formService.Chassi}
+                          onChange={(e) =>
+                            setFormSerice((prev) => ({
+                              ...prev,
+                              Chassi: e.target.value,
+                            }))
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Button>Buscar</Button>
+                      </div>
+                    </S.GridLicense>
+                  ) : (
+                    <S.GridSurvey>
+                      <div>
+                        <Input
+                          label="Placa"
+                          required
+                          value={formService.Placa}
+                          onChange={(e) => {
+                            setFormSerice((prev) => ({
+                              ...prev,
+                              Placa: removerCaracteresEspeciais(e.target.value),
+                            }));
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <Input
+                          label="Renavam"
+                          required
+                          type="number"
+                          value={formService.Renavam}
+                          onChange={(e) =>
+                            setFormSerice((prev) => ({
+                              ...prev,
+                              Renavam: e.target.value,
+                            }))
+                          }
+                        />
+                      </div>
+                      <div>
+                        <Button>Buscar</Button>
+                      </div>
+                    </S.GridSurvey>
+                  )}
+                </>
               )}
             </S.FormAtendence>
 
@@ -689,20 +702,23 @@ export const NewSchedulingTemplate = () => {
               </S.GridVeihecle>
             </S.FormVeihecle>
 
-            <SwitchOptions
-              IconA="/assets/svgs/pix1.svg"
-              IconB="/assets/svgs/codigoBarras1.svg"
-              optionA={{
-                label: "Pix",
-                value: FormaPagamentoEnum.PIX,
-              }}
-              optionB={{
-                label: "Boleto",
-                value: FormaPagamentoEnum.BOLETO,
-              }}
-              className="paymentSwitch"
-              handleOnChange={(v) => setTipoPagamento(FormaPagamentoEnum[v])}
-            />
+            {!agendamentoSession.reagendamento && (
+              <SwitchOptions
+                value={tipoPagamento}
+                IconA="/assets/svgs/pix1.svg"
+                IconB="/assets/svgs/codigoBarras1.svg"
+                optionA={{
+                  label: "Pix",
+                  value: FormaPagamentoEnum.PIX,
+                }}
+                optionB={{
+                  label: "Boleto",
+                  value: FormaPagamentoEnum.BOLETO,
+                }}
+                className="paymentSwitch"
+                handleOnChange={(v) => setTipoPagamento(FormaPagamentoEnum[v])}
+              />
+            )}
 
             <Button
               className="finalButton"

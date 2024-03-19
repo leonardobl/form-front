@@ -8,6 +8,8 @@ interface ISwitchOptionsProps extends ComponentProps<"div"> {
   optionB: ISelectOptions;
   IconB?: string;
   handleOnChange: (s: string) => void;
+  disabled?: boolean;
+  value: string;
 }
 
 export const SwitchOptions = ({
@@ -16,41 +18,39 @@ export const SwitchOptions = ({
   handleOnChange,
   IconA,
   IconB,
+  disabled,
+  value,
   ...rest
 }: ISwitchOptionsProps) => {
   const name = `${new Date()} - ${Math.random()}`;
-  const [value, setValue] = useState(optionA.value);
-
-  useEffect(() => {
-    handleOnChange(value);
-  }, [value]);
 
   return (
     <S.Container {...rest}>
-      <S.Label>
+      <S.Label data-disabled={disabled}>
         <S.WrapperContent>
           {IconA && <img className="icon" src={IconA} alt="Icone a" />}
           {optionA.label}
           <S.Input
             name={name}
             type="radio"
-            data-selected={optionA.value === value}
-            checked={optionA.value === value}
-            onChange={() => setValue(optionA.value)}
+            // data-selected={optionA.value === value}
+            checked={value ? optionA.value === value : true}
+            onChange={() => handleOnChange(optionA.value)}
           />
         </S.WrapperContent>
       </S.Label>
 
-      <S.Label>
+      <S.Label data-disabled={disabled}>
         <S.WrapperContent>
           {IconB && <img className="icon" src={IconB} alt="Icone b" />}
           {optionB.label}
           <S.Input
             name={name}
             type="radio"
-            data-selected={optionB.value === value}
+            disabled={disabled}
+            // data-selected={optionB.value === value}
             checked={optionB.value === value}
-            onChange={() => setValue(optionB.value)}
+            onChange={() => handleOnChange(optionB.value)}
           />
         </S.WrapperContent>
       </S.Label>

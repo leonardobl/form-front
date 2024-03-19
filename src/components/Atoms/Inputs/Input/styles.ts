@@ -64,6 +64,10 @@ export const Input = styled.input<{ $typeInput?: string }>`
       -webkit-appearance: none;
     }
 
+    &:disabled {
+      cursor: not-allowed;
+    }
+
     &[data-variant-edit="true"] {
       padding-right: 50px;
     }

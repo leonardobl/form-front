@@ -47,6 +47,10 @@ export const Label = styled.label`
     width: 24px;
     display: block;
   }
+
+  &[data-disabled="true"] {
+    cursor: not-allowed;
+  }
 `;
 
 export const Input = styled.input`
