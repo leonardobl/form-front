@@ -57,3 +57,42 @@ export const GridWrapper = styled.div`
     grid-template-areas: "loja" "text" "data" "horario" "button";
   }
 `;
+
+export const ModalContent = styled.div`
+  /* padding: 102px 132px; */
+  /* background: #6fa599; */
+  width: 506px;
+  height: 328px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    color: ${(props) => props.theme.colors.textColor};
+    text-align: center;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    max-width: 270px;
+    margin-bottom: 32px;
+  }
+
+  button {
+    margin: 0 auto;
+    display: block;
+  }
+
+  @media (max-width: 500px) {
+    padding: 32px 48px;
+
+    p {
+      font-size: 18px;
+      line-height: 24px;
+      max-width: 200px;
+      margin: 0 auto 24px;
+    }
+  }
+`;

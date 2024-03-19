@@ -34,7 +34,7 @@ export const useAddressRegistration = () => {
       .then(({ data }) => {
         toast.success("Endereco cadastrado com sucesso!");
         setTimeout(() => {
-          if (agendamentoSession?.revistoria) {
+          if (agendamentoSession?.reagendamento) {
             setAgendamentoSession({
               ...agendamentoSession,
               uuidAgendamento: PAYLOAD.uuid,

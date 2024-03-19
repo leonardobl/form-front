@@ -4,7 +4,10 @@ import { ISelectOptions } from "../../../types/inputs";
 import { IAgendamentoBasicoForm } from "../../../types/agendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
-import { Agendamento } from "../../../services/Agendamento";
+import {
+  Agendamento,
+  IReagendamentoProps,
+} from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { addDays } from "date-fns";
 import { Delivery } from "../../../services/Delivery";
@@ -25,6 +28,41 @@ export const useResidence = () => {
   const navigate = useNavigate();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
+
+  function handleReagendamento() {
+    setIsLoad(true);
+    setModalIsOpen(false);
+
+    const PAYLOAD: IReagendamentoProps = {
+      diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
+      horaAgendada: form.horaAgendada,
+      uuidAgendamento: agendamentoSession?.uuidAgendamento,
+      uuidLoja: form.uuidLoja,
+      uuidDelivery: form.uuidDelivery,
+    };
+
+    Agendamento.reagendar(PAYLOAD)
+      .then(() => {
+        toast.success("Reagendamento efetuado com sucesso!");
+        setAgendamentoSession({
+          ...agendamentoSession,
+          reagendamento: false,
+        });
+        setTimeout(() => {
+          navigate(
+            `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
+          );
+        }, 2000);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -139,11 +177,13 @@ export const useResidence = () => {
     form,
     setForm,
     handleSubmit,
+    setModalIsOpen,
     date,
     setDate,
     isLoading,
     diasIndisponiveis,
     modalIsOpen,
     horariosOptions,
+    handleReagendamento,
   };
 };
