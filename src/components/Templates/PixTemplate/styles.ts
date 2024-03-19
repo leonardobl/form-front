@@ -24,7 +24,7 @@ export const Container = styled.div`
 
 export const Info = styled.div`
   height: ${pxToRem(59)};
-  background-color: #e1f2ee;
+  background-color: #e8e8e8;
   width: 100%;
   max-width: ${pxToRem(708)};
   margin: 0 auto;
