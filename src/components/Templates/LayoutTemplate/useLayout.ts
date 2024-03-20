@@ -5,6 +5,13 @@ import { useContextSite } from "../../../context/Context";
 import { cleanStorage } from "../../../utils/cleanStorage";
 import { RolesEnum } from "../../../enums/roles";
 
+const LINKS = {
+  starcheck: "https://starcheck.com.br/",
+  log: "https://logvistorias.com.br/",
+  vlx: "https://veloxvistorias.com.br/",
+  tokyo: "https://tokyovistorias.com.br/",
+};
+
 export const useLayout = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -42,5 +49,6 @@ export const useLayout = () => {
     navigate,
     setModalIsOpen,
     isCliente,
+    LINKS,
   };
 };
