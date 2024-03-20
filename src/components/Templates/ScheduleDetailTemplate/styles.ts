@@ -36,7 +36,7 @@ export const Form = styled.form`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 56px 16px;
-  grid-template-areas: "status status status data horario" "nome nome nome cpf cpf" "telefone telefone email email email" "modelo modelo modelo placa renavam" "chassi chassi chassi chassi chassi" "servico servico servico valor valor" "local local local local local";
+  grid-template-areas: "status status status data horario" "nome nome nome cpf cpf" "telefone telefone email email email" "modelo modelo modelo placa renavam" "chassi chassi chassi chassi chassi" "servico servico servico valor valor" "local local local local local" "laudo laudo laudo laudo laudo";
 
   > :nth-child(1) {
     grid-area: status;
@@ -94,9 +94,13 @@ export const Form = styled.form`
     grid-area: local;
   }
 
+  > :nth-child(15) {
+    grid-area: laudo;
+  }
+
   @media (max-width: 500px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 32px 16px;
-    grid-template-areas: "status status" "data horario" "nome nome" "cpf cpf" "telefone telefone" "email email" "modelo modelo" "placa renavam" "chassi chassi" "servico servico" "valor valor" "local local";
+    grid-template-areas: "status status" "data horario" "nome nome" "cpf cpf" "telefone telefone" "email email" "modelo modelo" "placa renavam" "chassi chassi" "servico servico" "valor valor" "local local" "laudo laudo";
   }
 `;

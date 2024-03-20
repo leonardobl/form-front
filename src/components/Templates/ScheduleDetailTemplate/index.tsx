@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { Text } from "../../Atoms/Text";
@@ -8,6 +8,9 @@ import { Input } from "../../Atoms/Inputs/Input";
 import { removeUnderscore } from "../../../utils/removeUnderscore";
 import { reverseToBrDate } from "../../../utils/dateTransform";
 import { maskCnpj, maskCpf, maskMoney } from "../../../utils/masks";
+import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { OrdemServico } from "../../../services/OrdemServico";
+import { toast } from "react-toastify";
 
 export const ScheduleDetailTemplate = () => {
   const {
@@ -17,6 +20,26 @@ export const ScheduleDetailTemplate = () => {
     menuDisabled,
     cancelarAgendamento,
   } = useScheduleDetail();
+
+  const [urlLaudo, setUrlLaudo] = useState<string>("");
+
+  useEffect(() => {
+    if (agendamento?.status === StatusAgendamentoEnum.FINALIZADO) {
+      OrdemServico.getUrlLaudo({ uuidAgendamento: agendamento?.uuid })
+        .then(({ data }) => setUrlLaudo(data))
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+    }
+  }, [agendamento]);
+
+  function verLaudo() {
+    window.open(`${urlLaudo}`, "_blank")
+  }
 
   return (
     <S.Container>
@@ -163,6 +186,20 @@ export const ScheduleDetailTemplate = () => {
                   : "---"
               }
             />
+            {[StatusAgendamentoEnum.FINALIZADO].includes(
+                agendamento?.status
+              ) && (
+              <div>
+                <Input
+                  label="URL Laudo"
+                  readOnly
+                  value={
+                    urlLaudo || "---"
+                  }
+                  onClick={verLaudo}
+                />
+              </div>
+            )}
           </div>
         </S.Form>
       </S.Wrapper>
