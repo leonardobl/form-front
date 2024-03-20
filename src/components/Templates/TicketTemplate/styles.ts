@@ -26,7 +26,7 @@ export const Info = styled.div`
   width: 100%;
   height: 56px;
   border-radius: 10px;
-  background-color: #e1f2ee;
+  background-color: #e8e8e8;
   display: flex;
   align-items: center;
   justify-content: center;

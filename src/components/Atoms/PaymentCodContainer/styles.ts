@@ -19,7 +19,7 @@ export const Input = styled.input`
 
   border-radius: 10px;
   /* border: 1px solid #50d05d; */
-  background: #e1f2ee;
+  background: #e8e8e8;
 
   display: flex;
   padding: 0 50px 0 20px;
