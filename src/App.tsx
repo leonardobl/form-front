@@ -38,7 +38,6 @@ import { Stores } from "./components/Pages/Stores";
 export const App = () => {
   return (
     <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
-      {/* // <ThemeProvider theme={Theme["log"]}> */}
       <ToastContainer autoClose={2000} />
       <GlobalStyles />
       <ContextProvider>
@@ -134,7 +133,7 @@ export const App = () => {
               <Route index element={<Schedules />} />
               <Route path="agendamento" element={<ScheduleDetail />} />
               <Route path="deliverys" element={<Deliverys />} />
-              <Route path="atendimento-loja" element={<Stores />} />
+              <Route path="atendimentos-loja" element={<Stores />} />
             </Route>
           </Routes>
         </BrowserRouter>
