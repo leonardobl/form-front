@@ -74,7 +74,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     Novo Agendamento
                   </NavLink>
                 </div>
-                {/* {!isCliente && (
+                {!isCliente && (
                   <div>
                     <NavLink
                       className={"navLink"}
@@ -96,7 +96,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                       Deliverys
                     </NavLink>
                   </div>
-                )} */}
+                )}
               </>
             )}
           </S.WrapperButton>
@@ -129,7 +129,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
             {props.children}
             <Outlet />
           </S.Main>
-          <S.IconMap src="/assets/svgs/paguexlogo.svg" alt="icone mapa" />
+          {/* <S.IconMap src="/assets/svgs/paguexlogo.svg" alt="icone mapa" /> */}
         </S.Wrapper>
       </S.WrapperMain>
       <MyModal

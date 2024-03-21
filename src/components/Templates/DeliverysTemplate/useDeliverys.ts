@@ -54,10 +54,11 @@ export const useDeliverys = () => {
 
   function handleClean() {
     const reset = resetValues(formFilter);
-    setDate(null);
+    const date = reverseToIsoDate(new Date().toLocaleDateString());
+    setDate(new Date());
 
     setFormFilter(reset);
-    getAgendamentos();
+    getAgendamentos({ dataInicial: date });
   }
 
   useEffect(() => {

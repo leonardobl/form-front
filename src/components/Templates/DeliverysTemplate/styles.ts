@@ -16,7 +16,7 @@ export const FormFilter = styled.form`
   max-width: 49.1875rem;
   width: 100%;
   border-radius: 0.625rem;
-  border: 1px solid #12d1a7;
+  border: 1px solid ${(props) => props.theme.colors.main};
   margin: 0 auto;
   margin-bottom: 3rem;
 `;
@@ -25,7 +25,7 @@ export const HeaderFormFilter = styled.div`
   width: 100%;
   height: 4.5rem;
   border-radius: 0.625rem 0.625rem 0rem 0rem;
-  background: #6fa599;
+  background: ${(props) => props.theme.colors.main};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: center;
@@ -109,18 +109,10 @@ export const ListHeader = styled.div`
 
 export const ListBody = styled.div`
   > :nth-child(odd) {
-    background-color: #e1f2ee;
-
-    &:hover {
-      background-color: ${darken(0.1, "#e1f2ee")};
-    }
+    background-color: #e8e8e8;
   }
   > :nth-child(even) {
     background-color: #f7f7f7;
-
-    &:hover {
-      background-color: ${darken(0.1, "#f7f7f7")};
-    }
   }
 
   > div + div {
