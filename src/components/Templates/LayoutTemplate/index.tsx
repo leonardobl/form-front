@@ -21,6 +21,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
     navigate,
     setModalIsOpen,
     isCliente,
+    LINKS,
   } = useLayout();
 
   return (
@@ -117,7 +118,9 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
             <S.IconHome
               src="/assets/svgs/icone-home.svg"
               alt="icone home"
-              onClick={() => navigate("/")}
+              onClick={() =>
+                window.open(LINKS[process.env.REACT_APP_PROJECT], "_self")
+              }
             />
           </S.WrapperIconsBar>
         </Bar>
