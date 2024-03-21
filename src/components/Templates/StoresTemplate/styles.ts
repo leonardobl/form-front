@@ -96,3 +96,14 @@ export const BodyItem = styled.div`
     background: #e8e8e8;
   }
 `;
+
+export const WrapperActions = styled.div`
+  display: flex;
+  gap: 0 16px;
+  align-items: center;
+  justify-content: end;
+
+  > img {
+    cursor: pointer;
+  }
+`;

@@ -32,7 +32,10 @@ export const StoresTemplate = () => {
                   <p>{_?.veiculo?.modelo || "---"}</p>
                   <p>{_?.veiculo?.placa || "---"}</p>
                   <p>{_?.veiculo?.chassi || "---"}</p>
-                  <div></div>
+                  <S.WrapperActions>
+                    <img src="/assets/svgs/eye.svg" alt="olho" />
+                    <img src="/assets/svgs/dots.svg" alt="dots" />
+                  </S.WrapperActions>
                 </S.BodyItem>
               ))}
             </S.Body>
