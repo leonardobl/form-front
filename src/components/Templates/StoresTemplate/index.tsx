@@ -33,7 +33,24 @@ export const StoresTemplate = () => {
                   <p>{_?.veiculo?.placa || "---"}</p>
                   <p>{_?.veiculo?.chassi || "---"}</p>
                   <S.WrapperActions>
-                    <img src="/assets/svgs/eye.svg" alt="olho" />
+                    <S.Eye
+                      data-color-starcheck={
+                        process.env.REACT_APP_PROJECT === "starcheck"
+                      }
+                      data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                      data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                      data-color-tokyo={
+                        process.env.REACT_APP_PROJECT === "tokyo"
+                      }
+                      onClick={() =>
+                        window.open(
+                          `/meus-agendamentos/agendamento?id=${_.uuid}`,
+                          "_blank"
+                        )
+                      }
+                      src="/assets/svgs/eye.svg"
+                      alt="olho"
+                    />
                     <img src="/assets/svgs/dots.svg" alt="dots" />
                   </S.WrapperActions>
                 </S.BodyItem>

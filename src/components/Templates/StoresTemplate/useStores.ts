@@ -34,7 +34,7 @@ export const useStores = () => {
   useEffect(() => {
     if (agendamentos?.length > 0) {
       const horas = [
-        ...new Set(agendamentos.map((item) => item.horaAgendada)),
+        ...new Set(agendamentos?.map((item) => item?.horaAgendada)),
       ].sort();
 
       let agendamentoFormatado = horas.map((item) => ({
