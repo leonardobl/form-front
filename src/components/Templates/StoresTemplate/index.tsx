@@ -2,6 +2,7 @@ import React from "react";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { useStores } from "./useStores";
+import { ButtonDots } from "../../Atoms/ButtonDots";
 
 export const StoresTemplate = () => {
   const { data } = useStores();
@@ -51,7 +52,7 @@ export const StoresTemplate = () => {
                       src="/assets/svgs/eye.svg"
                       alt="olho"
                     />
-                    <img src="/assets/svgs/dots.svg" alt="dots" />
+                    <ButtonDots />
                   </S.WrapperActions>
                 </S.BodyItem>
               ))}
