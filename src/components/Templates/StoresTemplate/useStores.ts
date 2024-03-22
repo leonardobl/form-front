@@ -18,8 +18,27 @@ export const useStores = () => {
     [] as IAgendamentoDTO[]
   );
 
+  function iniciarVistoria(uuidAgendamento: string) {
+    setIsLoad(true);
+    Agendamento.iniciar({ uuid: uuidAgendamento })
+      .then(({ data }) => {
+        window.open(
+          `/meus-agendamentos/agendamento?id=${uuidAgendamento}`,
+          "_self"
+        );
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
+
   function getData() {
-    const hoje = reverseToIsoDate(new Date("2024-03-21").toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
 
     setIsLoad(true);
     Agendamento.get({
@@ -60,5 +79,5 @@ export const useStores = () => {
     }
   }, [agendamentos]);
 
-  return { data };
+  return { data, iniciarVistoria };
 };

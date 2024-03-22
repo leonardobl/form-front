@@ -1,7 +1,10 @@
 import React, { ComponentProps, useState } from "react";
 import * as S from "./styles";
 
-interface IButtonDotsProps extends ComponentProps<"div"> {}
+interface IButtonDotsProps extends ComponentProps<"div"> {
+  handleStart: () => void;
+  handleSleep: () => void;
+}
 
 export const ButtonDots = (props: IButtonDotsProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,10 +14,10 @@ export const ButtonDots = (props: IButtonDotsProps) => {
       <img src="/assets/svgs/dots.svg" alt="dots" />
       <S.WrapperButtons data-active={isOpen}>
         <div>
-          <button>Iniciar</button>
+          <button onClick={props.handleStart}>Iniciar</button>
         </div>
         <div>
-          <button>Em Espera</button>
+          <button onClick={props.handleSleep}>Em Espera</button>
         </div>
       </S.WrapperButtons>
     </S.MyMenu>

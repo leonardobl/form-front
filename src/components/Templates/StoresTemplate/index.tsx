@@ -5,7 +5,7 @@ import { useStores } from "./useStores";
 import { ButtonDots } from "../../Atoms/ButtonDots";
 
 export const StoresTemplate = () => {
-  const { data } = useStores();
+  const { data, iniciarVistoria } = useStores();
 
   return (
     <S.Container>
@@ -52,7 +52,10 @@ export const StoresTemplate = () => {
                       src="/assets/svgs/eye.svg"
                       alt="olho"
                     />
-                    <ButtonDots />
+                    <ButtonDots
+                      handleSleep={() => ""}
+                      handleStart={() => iniciarVistoria(_.uuid)}
+                    />
                   </S.WrapperActions>
                 </S.BodyItem>
               ))}
