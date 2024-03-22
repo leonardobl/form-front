@@ -3,6 +3,8 @@ import { Agendamento } from "../../../services/Agendamento";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { useContextSite } from "../../../context/Context";
+import { toast } from "react-toastify";
 
 type DataProps = {
   horaAgendada: string;
@@ -10,6 +12,7 @@ type DataProps = {
 };
 
 export const useStores = () => {
+  const { setIsLoad } = useContextSite();
   const [data, setData] = useState<DataProps[]>([] as DataProps[]);
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>(
     [] as IAgendamentoDTO[]
@@ -17,14 +20,25 @@ export const useStores = () => {
 
   function getData() {
     const hoje = reverseToIsoDate(new Date("2024-03-21").toLocaleDateString());
+
+    setIsLoad(true);
     Agendamento.get({
       dataInicial: hoje,
       dataFinal: hoje,
       tipoAtendimento: TipoAtendimentoEnum.LOJA,
       size: 100,
-    }).then(({ data }) => {
-      setAgendamentos(data.content);
-    });
+    })
+      .then(({ data }) => {
+        setAgendamentos(data.content);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
   }
 
   useEffect(() => {
