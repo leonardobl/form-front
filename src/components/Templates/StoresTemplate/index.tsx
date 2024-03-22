@@ -2,9 +2,10 @@ import React from "react";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { useStores } from "./useStores";
+import { ButtonDots } from "../../Atoms/ButtonDots";
 
 export const StoresTemplate = () => {
-  const { data } = useStores();
+  const { data, iniciarVistoria } = useStores();
 
   return (
     <S.Container>
@@ -51,7 +52,10 @@ export const StoresTemplate = () => {
                       src="/assets/svgs/eye.svg"
                       alt="olho"
                     />
-                    <img src="/assets/svgs/dots.svg" alt="dots" />
+                    <ButtonDots
+                      handleSleep={() => ""}
+                      handleStart={() => iniciarVistoria(_.uuid)}
+                    />
                   </S.WrapperActions>
                 </S.BodyItem>
               ))}
