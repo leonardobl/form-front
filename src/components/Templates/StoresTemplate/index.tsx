@@ -5,16 +5,16 @@ import { useStores } from "./useStores";
 import { ButtonDots } from "../../Atoms/ButtonDots";
 
 export const StoresTemplate = () => {
-  const { data, iniciarVistoria } = useStores();
+  const { agendamentos, iniciarVistoria } = useStores();
 
   return (
     <S.Container>
       <Title>Atendimento Loja</Title>
 
-      {data.map((item) => (
+      {agendamentos?.map((item) => (
         <S.Wrapper key={Math.random()}>
           <S.GridHeader>
-            <p>{item.horaAgendada}</p>
+            <p>{item?.horaAgendada}</p>
             <div></div>
           </S.GridHeader>
           <S.GridBody>
@@ -27,7 +27,7 @@ export const StoresTemplate = () => {
                 <h4>Chassi</h4>
                 <span></span>
               </S.HeaderBody>
-              {item.agendamento.map((_) => (
+              {item?.agendamentos?.map((_) => (
                 <S.BodyItem key={Math.random()}>
                   <p>{_?.cliente?.nome || "---"}</p>
                   <p>{_?.veiculo?.modelo || "---"}</p>

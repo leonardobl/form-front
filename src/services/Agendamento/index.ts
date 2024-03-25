@@ -3,6 +3,7 @@ import { ApiBrave } from "../../Apis/Brave";
 import {
   IAgendamentoBasicoForm,
   IAgendamentoDTO,
+  IAgendamentoDaHoraDTO,
   IAgendamentoForm,
   IAtendimentoDomiciliarForm,
   IPageAgendamentoDTO,
@@ -39,6 +40,23 @@ export interface IGetAgendamentosProps extends IPageRequest {
   statusAgendamento?: StatusAgendamentoEnum;
   idCliente?: string;
 }
+
+type AgendamentoByHourProps = {
+  data?: string;
+  status?: StatusAgendamentoEnum[];
+};
+
+function propsToString(props: AgendamentoByHourProps) {
+  if (props?.data && props?.status) {
+    const statusString = props?.status?.join(",");
+    return `data=${props?.data}&status=${statusString}`;
+  }
+  if (props?.data) {
+    return `data=${props?.data}`;
+  }
+  return `status=${props?.status.join(",")}`;
+}
+
 export class Agendamento {
   static async get(
     props?: IGetAgendamentosProps
@@ -53,6 +71,13 @@ export class Agendamento {
     uuid: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.get(`${basePath}/${uuid}`);
+  }
+
+  static getByHour(
+    props: AgendamentoByHourProps
+  ): Promise<AxiosResponse<IAgendamentoDaHoraDTO[]>> {
+    const path = propsToString(props);
+    return ApiBrave.get(`${basePath}/listar-por-horario?${path}`);
   }
 
   static async post(
