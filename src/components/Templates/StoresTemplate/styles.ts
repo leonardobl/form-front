@@ -26,11 +26,11 @@ export const GridHeader = styled.div`
 
   > p {
     border-right: 1px solid #adb7b5;
-    color: #595959;
+    color: #fff;
     font-family: Mulish;
     font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 24px; /* 150% */
     letter-spacing: 0.48px;
     text-transform: uppercase;
@@ -38,6 +38,34 @@ export const GridHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  > :nth-child(1),
+  > :nth-child(2) {
+    background-color: ${(props) => props.theme.colors.main};
+  }
+`;
+
+export const GridHeaderEmEspera = styled.div`
+  height: 38px;
+
+  grid-template-columns: 100px 1fr;
+  display: grid;
+
+  > :nth-child(2) {
+    border: 1px solid #adb7b5;
+    background-color: ${(props) => props.theme.colors.main};
+
+    p {
+      color: #fff;
+      text-align: center;
+      font-family: Mulish;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 38px; /* 190% */
+      text-transform: capitalize;
+    }
   }
 `;
 

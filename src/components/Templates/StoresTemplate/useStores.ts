@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Agendamento } from "../../../services/Agendamento";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
-import { IAgendamentoDaHoraDTO } from "../../../types/agendamento";
+import {
+  IAgendamentoDTO,
+  IAgendamentoDaHoraDTO,
+} from "../../../types/agendamento";
 
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
@@ -10,11 +13,16 @@ import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 export const useStores = () => {
   const { setIsLoad } = useContextSite();
   const [agendamentosEmEspera, setAgendamentosEmEspera] = useState<
-    IAgendamentoDaHoraDTO[]
-  >([] as IAgendamentoDaHoraDTO[]);
+    IAgendamentoDTO[]
+  >([] as IAgendamentoDTO[]);
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>(
     [] as IAgendamentoDaHoraDTO[]
   );
+
+  function transformData(data: IAgendamentoDaHoraDTO[]) {
+    const result = data.flatMap((item) => item.agendamentos);
+    return result;
+  }
 
   function iniciarVistoria(uuidAgendamento: string) {
     setIsLoad(true);
@@ -44,8 +52,9 @@ export const useStores = () => {
       // status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
     })
       .then(({ data }) => {
+        const emEspera = transformData(data);
         setAgendamentos(data);
-        setAgendamentosEmEspera(data);
+        setAgendamentosEmEspera(emEspera);
       })
       .catch(
         ({
