@@ -64,7 +64,7 @@ export const StoresTemplate = () => {
         </S.Wrapper>
       ))}
 
-      {agendamentosEmEspera?.length && (
+      {agendamentosEmEspera?.length > 0 && (
         <S.Wrapper>
           <S.GridHeaderEmEspera>
             <div></div>
@@ -117,6 +117,12 @@ export const StoresTemplate = () => {
             </S.Body>
           </S.GridBody>
         </S.Wrapper>
+      )}
+
+      {!(agendamentos?.length > 0) && !(agendamentosEmEspera.length > 0) && (
+        <S.TextNotFound>
+          Nenhum registro encontrado para a data de hoje.
+        </S.TextNotFound>
       )}
     </S.Container>
   );

@@ -44,12 +44,12 @@ export const useStores = () => {
   }
 
   function getData() {
-    const hoje = reverseToIsoDate(new Date("2024-03-03").toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
 
     setIsLoad(true);
     Agendamento.getByHour({
       data: hoje,
-      // status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
+      status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
     })
       .then(({ data }) => {
         const emEspera = transformData(data);

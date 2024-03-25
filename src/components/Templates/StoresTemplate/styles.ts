@@ -158,3 +158,7 @@ export const Eye = styled.img`
       hue-rotate(328deg) brightness(103%) contrast(98%);
   }
 `;
+
+export const TextNotFound = styled.p`
+  text-align: center;
+`;
