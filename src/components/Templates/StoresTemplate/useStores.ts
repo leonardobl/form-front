@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Agendamento } from "../../../services/Agendamento";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
-import { IAgendamentoDTO } from "../../../types/agendamento";
-import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import {
+  IAgendamentoDTO,
+  IAgendamentoDaHoraDTO,
+} from "../../../types/agendamento";
+
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
-
-type DataProps = {
-  horaAgendada: string;
-  agendamento: IAgendamentoDTO[];
-};
+import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
 export const useStores = () => {
   const { setIsLoad } = useContextSite();
-  const [data, setData] = useState<DataProps[]>([] as DataProps[]);
-  const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>(
-    [] as IAgendamentoDTO[]
+  const [agendamentosEmEspera, setAgendamentosEmEspera] = useState<
+    IAgendamentoDTO[]
+  >([] as IAgendamentoDTO[]);
+  const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>(
+    [] as IAgendamentoDaHoraDTO[]
   );
+
+  function transformData(data: IAgendamentoDaHoraDTO[]) {
+    const result = data.flatMap((item) => item.agendamentos);
+    return result;
+  }
 
   function iniciarVistoria(uuidAgendamento: string) {
     setIsLoad(true);
@@ -38,17 +44,17 @@ export const useStores = () => {
   }
 
   function getData() {
-    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date("2024-03-03").toLocaleDateString());
 
     setIsLoad(true);
-    Agendamento.get({
-      dataInicial: hoje,
-      dataFinal: hoje,
-      tipoAtendimento: TipoAtendimentoEnum.LOJA,
-      size: 100,
+    Agendamento.getByHour({
+      data: hoje,
+      // status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
     })
       .then(({ data }) => {
-        setAgendamentos(data.content);
+        const emEspera = transformData(data);
+        setAgendamentos(data);
+        setAgendamentosEmEspera(emEspera);
       })
       .catch(
         ({
@@ -64,20 +70,5 @@ export const useStores = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-    if (agendamentos?.length > 0) {
-      const horas = [
-        ...new Set(agendamentos?.map((item) => item?.horaAgendada)),
-      ].sort();
-
-      let agendamentoFormatado = horas.map((item) => ({
-        horaAgendada: item,
-        agendamento: agendamentos.filter((_) => _.horaAgendada === item),
-      }));
-
-      setData(agendamentoFormatado);
-    }
-  }, [agendamentos]);
-
-  return { data, iniciarVistoria };
+  return { iniciarVistoria, agendamentos, agendamentosEmEspera };
 };
