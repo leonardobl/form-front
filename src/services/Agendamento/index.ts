@@ -39,6 +39,12 @@ export interface IGetAgendamentosProps extends IPageRequest {
   statusAgendamento?: StatusAgendamentoEnum;
   idCliente?: string;
 }
+
+type DownloadProps = {
+  cidade?: string;
+  dia: string;
+};
+
 export class Agendamento {
   static async get(
     props?: IGetAgendamentosProps
@@ -89,6 +95,14 @@ export class Agendamento {
     uuid: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuid}/iniciar`);
+  }
+
+  static async downloadExc(
+    props: DownloadProps
+  ): Promise<AxiosResponse<string[]>> {
+    const values = removeEmpty(props);
+    const path = objectToParams(values);
+    return ApiBrave.put(`${basePath}/listar-deliveries?${path}`);
   }
 
   static async cancelar({

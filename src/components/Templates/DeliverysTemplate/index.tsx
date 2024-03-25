@@ -6,6 +6,7 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
 import { useDeliverys } from "./useDeliverys";
 import { ISelectOptions } from "../../../types/inputs";
+import { reverseToIsoDate } from "../../../utils/dateTransform";
 
 export const DeliverysTemplates = () => {
   const {
@@ -17,6 +18,7 @@ export const DeliverysTemplates = () => {
     agendamentos,
     handleClean,
     handleFilter,
+    handleDownload,
   } = useDeliverys();
 
   return (
@@ -28,6 +30,7 @@ export const DeliverysTemplates = () => {
         <S.GridFormFilter>
           <div>
             <InputDate
+              required
               isClearable
               label="Data"
               selected={date}
@@ -71,13 +74,20 @@ export const DeliverysTemplates = () => {
           <h4>Chassi</h4>
           <h4>Cidade</h4>
           <h4>Horário</h4>
-          <button>
+          <button
+            onClick={() => {
+              date &&
+                handleDownload({
+                  dia: reverseToIsoDate(date.toLocaleDateString()),
+                  cidade: formFilter?.cidade,
+                });
+            }}
+          >
             <S.WrapperImgsButton>
               <img
                 src="/assets/svg/download-icon.svg"
                 alt="icone download documento"
               />
-              <img src="/assets/svg/doc-icon.svg" alt="icone documento" />
             </S.WrapperImgsButton>
             Exportar
           </button>
