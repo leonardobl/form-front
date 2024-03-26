@@ -7,6 +7,10 @@ export const Container = styled.div`
     cursor: pointer;
     padding: 5px;
     margin-bottom: -3px;
+
+    &[data-disabled="true"] {
+      pointer-events: none;
+    }
   }
 `;
 

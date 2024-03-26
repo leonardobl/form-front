@@ -14,11 +14,13 @@ export const OptionsSchedules = ({
   handleStart,
   handleSleep,
 }: OptionsSchedulesProps) => {
-  const { isCliente, isOpen, setIsOpen } = useOptionsSchedules();
+  const { isCliente, isOpen, setIsOpen, disabled, isAdmin } =
+    useOptionsSchedules();
 
   return (
     <S.Container>
       <img
+        data-disabled={disabled}
         src="/assets/svgs/dots.svg"
         alt="dots"
         onClick={() => setIsOpen((prev) => !prev)}
@@ -29,9 +31,11 @@ export const OptionsSchedules = ({
             <button onClick={handleStart}>Iniciar</button>
           </div>
         )}
-        <div>
-          <button>Atribuir</button>
-        </div>
+        {status === "AGENDADO" && isAdmin && (
+          <div>
+            <button>Atribuir</button>
+          </div>
+        )}
       </S.Menu>
     </S.Container>
   );

@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { RolesEnum } from "../../../enums/roles";
+
+const RESOLCES = ["ATRIBUIR_VISTORIA", "ADMIN"];
 
 export const useOptionsSchedules = () => {
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
-  const [isOpen, setIsOpen] = useState(false);
 
   const isCliente = !!agendamentoSession?.roles?.includes(
     RolesEnum.ROLE_CLIENTE
   );
 
-  return { isCliente, isOpen, setIsOpen };
+  const isAdmin = RESOLCES.some(
+    (item) => item === "ATRIBUIR_VISTORIA" || item === "ADMIN"
+  );
+  const [isOpen, setIsOpen] = useState(false);
+  const disabled =
+    isCliente ||
+    !RESOLCES.some((item) => item === "ATRIBUIR_VISTORIA" || item === "ADMIN");
+
+  useEffect(() => {
+    console.log(isCliente);
+    console.log(agendamentoSession?.roles);
+  }, []);
+
+  return { isCliente, isOpen, setIsOpen, disabled, isAdmin };
 };
