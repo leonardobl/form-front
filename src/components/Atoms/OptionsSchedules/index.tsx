@@ -28,12 +28,25 @@ export const OptionsSchedules = ({
       <S.Menu data-open={isOpen}>
         {status === "AGENDADO" && !isCliente && (
           <div>
-            <button onClick={handleStart}>Iniciar</button>
+            <button
+              onClick={() => {
+                handleStart();
+                setIsOpen(false);
+              }}
+            >
+              Iniciar
+            </button>
           </div>
         )}
         {status === "AGENDADO" && isAdmin && (
           <div>
-            <button>Atribuir</button>
+            <button
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
+              Atribuir
+            </button>
           </div>
         )}
       </S.Menu>
