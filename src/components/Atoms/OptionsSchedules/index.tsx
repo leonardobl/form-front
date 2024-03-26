@@ -2,20 +2,31 @@ import React from "react";
 import * as S from "./styles";
 import { useOptionsSchedules } from "./useOptionsSchedules";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { Modal } from "@mui/material";
+import { Text } from "../Text";
+import { SimpleSelect } from "../Selects/SimpleSelect";
+import { Button } from "../Button";
 
 type OptionsSchedulesProps = {
   status: StatusAgendamentoEnum;
   handleStart: () => void;
-  handleSleep: () => void;
+  handleAttribute: () => void;
 };
 
 export const OptionsSchedules = ({
   status,
   handleStart,
-  handleSleep,
+  handleAttribute,
 }: OptionsSchedulesProps) => {
-  const { isCliente, isOpen, setIsOpen, disabled, isAdmin } =
-    useOptionsSchedules();
+  const {
+    isCliente,
+    isOpen,
+    setIsOpen,
+    disabled,
+    isAdmin,
+    modalIsOpen,
+    setModalIsOpen,
+  } = useOptionsSchedules();
 
   return (
     <S.Container>
@@ -42,6 +53,7 @@ export const OptionsSchedules = ({
           <div>
             <button
               onClick={() => {
+                setModalIsOpen(true);
                 setIsOpen(false);
               }}
             >
@@ -50,6 +62,17 @@ export const OptionsSchedules = ({
           </div>
         )}
       </S.Menu>
+      <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        <S.ContentModal>
+          <Text>
+            Escolha o <span className="textStrong">vistoriador</span> a qual
+            será atribuída a vistoria móvel.
+          </Text>
+          <SimpleSelect />
+
+          <Button>Confirmar</Button>
+        </S.ContentModal>
+      </Modal>
     </S.Container>
   );
 };

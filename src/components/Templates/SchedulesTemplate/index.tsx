@@ -240,7 +240,7 @@ export const SchedulesTemplate = () => {
                 <OptionsSchedules
                   status={item?.status}
                   handleStart={() => iniciarVistoria(item.uuid)}
-                  handleSleep={() => ""}
+                  handleAttribute={() => ""}
                 />
               </div>
             </S.ListItemMobile>
@@ -295,7 +295,7 @@ export const SchedulesTemplate = () => {
                 <OptionsSchedules
                   status={item?.status}
                   handleStart={() => iniciarVistoria(item.uuid)}
-                  handleSleep={() => ""}
+                  handleAttribute={() => ""}
                 />
               </S.WrapperActions>
             </S.ListItem>

@@ -51,3 +51,22 @@ export const Menu = styled.nav`
     display: block;
   }
 `;
+
+export const ContentModal = styled.div`
+  border: 1px solid #adb7b5;
+  background: #fff;
+  width: 799px;
+  height: 562px;
+  margin: 40px auto 0;
+  padding: 70px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 48px 0;
+
+  button {
+    margin: 0 auto;
+  }
+`;

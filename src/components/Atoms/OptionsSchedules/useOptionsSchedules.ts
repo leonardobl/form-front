@@ -17,6 +17,15 @@ export const useOptionsSchedules = () => {
   const disabled =
     isCliente ||
     !RESOLCES.some((item) => item === "ATRIBUIR_VISTORIA" || item === "ADMIN");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-  return { isCliente, isOpen, setIsOpen, disabled, isAdmin };
+  return {
+    isCliente,
+    isOpen,
+    setIsOpen,
+    disabled,
+    isAdmin,
+    modalIsOpen,
+    setModalIsOpen,
+  };
 };
