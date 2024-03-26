@@ -7,11 +7,9 @@ const RESOLCES = ["ATRIBUIR_VISTORIA", "ADMIN"];
 export const useOptionsSchedules = () => {
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
-
   const isCliente = !!agendamentoSession?.roles?.includes(
     RolesEnum.ROLE_CLIENTE
   );
-
   const isAdmin = RESOLCES.some(
     (item) => item === "ATRIBUIR_VISTORIA" || item === "ADMIN"
   );
@@ -19,11 +17,6 @@ export const useOptionsSchedules = () => {
   const disabled =
     isCliente ||
     !RESOLCES.some((item) => item === "ATRIBUIR_VISTORIA" || item === "ADMIN");
-
-  useEffect(() => {
-    console.log(isCliente);
-    console.log(agendamentoSession?.roles);
-  }, []);
 
   return { isCliente, isOpen, setIsOpen, disabled, isAdmin };
 };
