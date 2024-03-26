@@ -3,6 +3,7 @@ import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { useStores } from "./useStores";
 import { ButtonDots } from "../../Atoms/ButtonDots";
+import { IconEye } from "../../Atoms/IconEye";
 
 export const StoresTemplate = () => {
   const { agendamentos, iniciarVistoria, agendamentosEmEspera } = useStores();
@@ -34,7 +35,7 @@ export const StoresTemplate = () => {
                   <p>{_?.veiculo?.placa || "---"}</p>
                   <p>{_?.veiculo?.chassi || "---"}</p>
                   <S.WrapperActions>
-                    <S.Eye
+                    <IconEye
                       data-color-starcheck={
                         process.env.REACT_APP_PROJECT === "starcheck"
                       }
@@ -89,7 +90,7 @@ export const StoresTemplate = () => {
                   <p>{_?.veiculo?.placa || "---"}</p>
                   <p>{_?.veiculo?.chassi || "---"}</p>
                   <S.WrapperActions>
-                    <S.Eye
+                    <IconEye
                       data-color-starcheck={
                         process.env.REACT_APP_PROJECT === "starcheck"
                       }
