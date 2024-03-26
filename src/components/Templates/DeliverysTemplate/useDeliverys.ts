@@ -8,6 +8,9 @@ import { useContextSite } from "../../../context/Context";
 import { resetValues } from "../../../utils/resetObject";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 type FormFilterProps = {
   dataInicial?: string;
@@ -20,15 +23,38 @@ export const useDeliverys = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const { setIsLoad } = useContextSite();
+  const [token] = useSessionStorage("@token");
 
-  function handleDownload({ cidade, dia }: { cidade: string; dia: string }) {
-    Agendamento.downloadExc({ cidade, dia }).catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    );
+  async function handleDownload({
+    cidade,
+    dia,
+  }: {
+    cidade?: string;
+    dia: string;
+  }) {
+    try {
+      const response = await fetch(
+        `https://agendamentos-api-staging.mapa.app.br:8443/agendamento/listar-deliveries?dia=${dia}&cidade=${cidade}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "relatorio.xlsx";
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading Excel file:", error);
+      toast.error(error);
+    }
   }
 
   function getAgendamentos(prop?: FormFilterProps) {
