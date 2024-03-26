@@ -8,12 +8,12 @@ import { useContextSite } from "../../../context/Context";
 import { resetValues } from "../../../utils/resetObject";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
-import * as XLSX from "xlsx";
-import { saveAs } from "file-saver";
+
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 type FormFilterProps = {
   dataInicial?: string;
+  dataFinal?: string;
   cidade?: string;
 };
 
@@ -32,16 +32,21 @@ export const useDeliverys = () => {
     cidade?: string;
     dia: string;
   }) {
+    if (!agendamentos?.length) return;
+
+    let path = `https://agendamentos-api-staging.mapa.app.br:8443/agendamento/listar-deliveries?dia=${dia}`;
+
+    if (cidade) {
+      path = `https://agendamentos-api-staging.mapa.app.br:8443/agendamento/listar-deliveries?dia=${dia}&cidade=${cidade}`;
+    }
+
     try {
-      const response = await fetch(
-        `https://agendamentos-api-staging.mapa.app.br:8443/agendamento/listar-deliveries?dia=${dia}&cidade=${cidade}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
+      const response = await fetch(path, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
       const blob = await response.blob();
 
       const url = window.URL.createObjectURL(blob);
@@ -52,7 +57,6 @@ export const useDeliverys = () => {
       a.click();
       window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("Error downloading Excel file:", error);
       toast.error(error);
     }
   }
@@ -83,6 +87,7 @@ export const useDeliverys = () => {
     const PAYLOAD: FormFilterProps = {
       ...formFilter,
       dataInicial: reverseToIsoDate(date?.toLocaleDateString()),
+      dataFinal: reverseToIsoDate(date?.toLocaleDateString()),
     };
     const hasData = Object.values(PAYLOAD).some((item) => item);
     hasData && getAgendamentos(PAYLOAD);
@@ -118,6 +123,7 @@ export const useDeliverys = () => {
 
     getAgendamentos({
       dataInicial: reverseToIsoDate(date?.toLocaleDateString()),
+      dataFinal: reverseToIsoDate(date?.toLocaleDateString()),
     });
   }, []);
 
