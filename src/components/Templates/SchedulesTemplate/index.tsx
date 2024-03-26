@@ -14,6 +14,7 @@ import {
 import { ISelectOptions } from "../../../types/inputs";
 
 import { Status } from "../../Atoms/Status";
+import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
 
 export const SchedulesTemplate = () => {
   const {
@@ -220,23 +221,28 @@ export const SchedulesTemplate = () => {
             <S.ListItemMobile key={`${Math.random()}`}>
               <S.ListItemMobileContent>
                 <p>{`${item?.veiculo?.modelo} ${item.horaAgendada}`}</p>
-                <Status
-                  status={item?.status}
-                  onClick={() => {
-                    iniciarVistoria(item.uuid);
-                  }}
-                />
+
+                <Status status={item?.status} />
               </S.ListItemMobileContent>
-              <img
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                onClick={() =>
-                  window.open(
-                    `/meus-agendamentos/agendamento?id=${item?.uuid}`,
-                    "_blanck"
-                  )
-                }
-              />
+
+              <div>
+                <img
+                  src="/assets/svgs/eye.svg"
+                  alt="icone visualizacao"
+                  onClick={() =>
+                    window.open(
+                      `/meus-agendamentos/agendamento?id=${item?.uuid}`,
+                      "_blanck"
+                    )
+                  }
+                />
+
+                <OptionsSchedules
+                  status={item?.status}
+                  handleStart={() => iniciarVistoria(item.uuid)}
+                  handleSleep={() => ""}
+                />
+              </div>
             </S.ListItemMobile>
           ))}
         </S.ListMobile>
@@ -266,29 +272,32 @@ export const SchedulesTemplate = () => {
               <p>{`${reverseToBrDate(item?.diaAgendado)} - ${
                 item.horaAgendada
               }`}</p>
-              <Status
-                status={item?.status}
-                onClick={() => {
-                  iniciarVistoria(item.uuid);
-                }}
-              />
 
-              <S.Eye
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                data-color-starcheck={
-                  process.env.REACT_APP_PROJECT === "starcheck"
-                }
-                data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() =>
-                  window.open(
-                    `/meus-agendamentos/agendamento?id=${item?.uuid}`,
-                    "_blank"
-                  )
-                }
-              />
+              <Status status={item?.status} />
+
+              <S.WrapperActions>
+                <S.Eye
+                  src="/assets/svgs/eye.svg"
+                  alt="icone visualizacao"
+                  data-color-starcheck={
+                    process.env.REACT_APP_PROJECT === "starcheck"
+                  }
+                  data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                  data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                  data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                  onClick={() =>
+                    window.open(
+                      `/meus-agendamentos/agendamento?id=${item?.uuid}`,
+                      "_blank"
+                    )
+                  }
+                />
+                <OptionsSchedules
+                  status={item?.status}
+                  handleStart={() => iniciarVistoria(item.uuid)}
+                  handleSleep={() => ""}
+                />
+              </S.WrapperActions>
             </S.ListItem>
           ))}
         </S.List>

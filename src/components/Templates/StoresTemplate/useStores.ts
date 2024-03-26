@@ -44,7 +44,7 @@ export const useStores = () => {
   }
 
   function getData() {
-    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date("2024-04-06").toLocaleDateString());
 
     setIsLoad(true);
     Agendamento.getByHour({
