@@ -37,6 +37,7 @@ export const useDeliverys = () => {
       ...prop,
       tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
       size: 100,
+      sort: "horaAgendada,ASC",
     })
       .then(({ data }) => {
         setAgendamentos(data.content);
