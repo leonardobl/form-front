@@ -10,6 +10,11 @@ import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
+type ModalStartProps = {
+  open: boolean;
+  uuid?: string;
+};
+
 export const useStores = () => {
   const { setIsLoad } = useContextSite();
   const [agendamentosEmEspera, setAgendamentosEmEspera] = useState<
@@ -18,7 +23,9 @@ export const useStores = () => {
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>(
     [] as IAgendamentoDaHoraDTO[]
   );
-
+  const [modalStart, setModalStart] = useState<ModalStartProps>({
+    open: false,
+  });
   function transformData(data: IAgendamentoDaHoraDTO[]) {
     const result = data.flatMap((item) => item.agendamentos);
     return result.filter((item) => item.emEspera);
@@ -94,5 +101,12 @@ export const useStores = () => {
     getData();
   }, []);
 
-  return { iniciarVistoria, agendamentos, agendamentosEmEspera, handleWait };
+  return {
+    iniciarVistoria,
+    agendamentos,
+    agendamentosEmEspera,
+    handleWait,
+    modalStart,
+    setModalStart,
+  };
 };

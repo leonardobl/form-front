@@ -4,10 +4,20 @@ import { Title } from "../../Atoms/Title";
 import { useStores } from "./useStores";
 import { ButtonDots } from "../../Atoms/ButtonDots";
 import { IconEye } from "../../Atoms/IconEye";
+import { Modal } from "@mui/material";
+import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
+import { Button } from "../../Atoms/Button";
+import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 
 export const StoresTemplate = () => {
-  const { agendamentos, iniciarVistoria, agendamentosEmEspera, handleWait } =
-    useStores();
+  const {
+    agendamentos,
+    iniciarVistoria,
+    agendamentosEmEspera,
+    handleWait,
+    modalStart,
+    setModalStart,
+  } = useStores();
 
   return (
     <S.Container>
@@ -56,7 +66,9 @@ export const StoresTemplate = () => {
                     />
                     <ButtonDots
                       handleWait={() => handleWait({ uuid: _.uuid })}
-                      handleStart={() => iniciarVistoria(_.uuid)}
+                      handleStart={() =>
+                        setModalStart({ open: true, uuid: _?.uuid })
+                      }
                     />
                   </S.WrapperActions>
                 </S.BodyItem>
@@ -109,7 +121,11 @@ export const StoresTemplate = () => {
                       src="/assets/svgs/eye.svg"
                       alt="olho"
                     />
-                    <ButtonDots handleStart={() => iniciarVistoria(_.uuid)} />
+                    <ButtonDots
+                      handleStart={() =>
+                        setModalStart({ open: true, uuid: _?.uuid })
+                      }
+                    />
                   </S.WrapperActions>
                 </S.BodyItem>
               ))}
@@ -123,6 +139,23 @@ export const StoresTemplate = () => {
           Nenhum registro encontrado para a data de hoje.
         </S.TextNotFound>
       )}
+
+      <CustomConfirmModal
+        isOpen={modalStart?.open}
+        onRequestClose={() => setModalStart({ open: false })}
+      >
+        <S.formModal onSubmit={() => iniciarVistoria(modalStart?.uuid)}>
+          <div>
+            <SimpleSelect required label="Baia de Atendimento" />
+          </div>
+          <div>
+            <SimpleSelect required label="Vistoriador" />
+          </div>
+          <div>
+            <Button>Salvar</Button>
+          </div>
+        </S.formModal>
+      </CustomConfirmModal>
     </S.Container>
   );
 };

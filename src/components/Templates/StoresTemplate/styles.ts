@@ -140,3 +140,18 @@ export const WrapperActions = styled.div`
 export const TextNotFound = styled.p`
   text-align: center;
 `;
+
+export const formModal = styled.form`
+  border: 0.5px solid #000;
+  background: #fff;
+  width: 40.5rem;
+  height: 32.375rem;
+  padding: 7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem 0;
+
+  button {
+    margin: 0 auto;
+  }
+`;

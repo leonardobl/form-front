@@ -14,11 +14,25 @@ export const ButtonDots = ({ handleStart, handleWait }: IButtonDotsProps) => {
       <img src="/assets/svgs/dots.svg" alt="dots" />
       <S.WrapperButtons data-active={isOpen}>
         <div>
-          <button onClick={handleStart}>Iniciar</button>
+          <button
+            onClick={() => {
+              handleStart();
+              setIsOpen(false);
+            }}
+          >
+            Iniciar
+          </button>
         </div>
         {handleWait && (
           <div>
-            <button onClick={handleWait}>Em Espera</button>
+            <button
+              onClick={() => {
+                handleWait();
+                setIsOpen(false);
+              }}
+            >
+              Em Espera
+            </button>
           </div>
         )}
       </S.WrapperButtons>
