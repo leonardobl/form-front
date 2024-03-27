@@ -6,25 +6,45 @@ import { tipoVeiculoEnum } from "../enums/tipoVeiculo";
 import { IPageableObject, ISortObject } from "./delivery";
 import { IFaturaDTO } from "./pagamento";
 
+// -------------------------
 export interface IAgendamentoDTO {
+  atendimentoDomiciliar: IAtendimentoDomiciliarDTO;
   cliente: IClienteDTO;
   codigoPagamento: string;
   dataPagamento: string;
   dataRealizacao: string;
   delivery: IDeliveryDTO;
-  atendimentoDomiciliar: IAtendimentoDomiciliarDTO;
   diaAgendado: string;
-  horaAgendada: string;
-  loja: ILojaDTO;
+  emEspera: boolean;
   fatura: IFaturaDTO;
+  horaAgendada: string;
+  loja: IDeliveryDTO;
   primeiroAgendamento: string;
   revistoria: boolean;
   servico: IServicoDTO;
-  status: StatusAgendamentoEnum;
-  tipoAtendimento: TipoAtendimentoEnum;
+  status: string;
+  tipoAtendimento: string;
   uuid: string;
   veiculo: IVeiculoDTO;
 }
+
+export interface IDeliveryDTO {
+  cidade?: string;
+  horarioFinal: string;
+  horarioFinalAlmoco: string;
+  horarioFinalFds: string;
+  horarioInicial: string;
+  horarioInicialAlmoco: string;
+  horarioInicialFds: string;
+  quantidadeVagas: number;
+  tempoMedio: string;
+  uf?: string;
+  uuid: string;
+  endereco?: IEnderecoDTO;
+  nome?: string;
+}
+
+// -------------------------
 
 export interface IVeiculoDTO {
   uuid: string;
@@ -69,16 +89,6 @@ export interface IEnderecoDTO {
   numero?: string;
   uf: string;
   uuid?: string;
-}
-
-export interface IDeliveryDTO {
-  cidade: string;
-  horarioFinal: string;
-  horarioInicial: string;
-  quantidadeVagas: number;
-  tempoMedio: string;
-  uf: string;
-  uuid: string;
 }
 
 export interface ILojaDTO {
