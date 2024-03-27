@@ -21,7 +21,7 @@ export const useStores = () => {
 
   function transformData(data: IAgendamentoDaHoraDTO[]) {
     const result = data.flatMap((item) => item.agendamentos);
-    return result;
+    return result.filter((item) => item.emEspera);
   }
 
   function iniciarVistoria(uuidAgendamento: string) {
@@ -43,8 +43,29 @@ export const useStores = () => {
       .finally(() => setIsLoad(false));
   }
 
+  function handleWait({ uuid }: { uuid: string }) {
+    setIsLoad(true);
+    Agendamento.colocarEmEspera({ uuidAgendamento: uuid })
+      .then(({ data }) => {
+        toast.success("Agendamento em espera!");
+        getData();
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
+  }
+
   function getData() {
-    const hoje = reverseToIsoDate(new Date("2024-04-06").toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
 
     setIsLoad(true);
     Agendamento.getByHour({
@@ -53,7 +74,10 @@ export const useStores = () => {
     })
       .then(({ data }) => {
         const emEspera = transformData(data);
-        setAgendamentos(data);
+        const foraDeEspera = data.filter((item) =>
+          item.agendamentos.some((_) => !_.emEspera)
+        );
+        setAgendamentos(foraDeEspera);
         setAgendamentosEmEspera(emEspera);
       })
       .catch(
@@ -70,5 +94,5 @@ export const useStores = () => {
     getData();
   }, []);
 
-  return { iniciarVistoria, agendamentos, agendamentosEmEspera };
+  return { iniciarVistoria, agendamentos, agendamentosEmEspera, handleWait };
 };

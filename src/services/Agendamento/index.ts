@@ -168,4 +168,15 @@ export class Agendamento {
       uuid: uuidVeiculo,
     });
   }
+
+  static async colocarEmEspera({
+    uuidAgendamento,
+  }: {
+    uuidAgendamento: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.post(
+      `${basePath}/${uuidAgendamento}/alterar-em-espera`,
+      true
+    );
+  }
 }

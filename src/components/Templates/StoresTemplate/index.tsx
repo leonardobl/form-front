@@ -6,7 +6,8 @@ import { ButtonDots } from "../../Atoms/ButtonDots";
 import { IconEye } from "../../Atoms/IconEye";
 
 export const StoresTemplate = () => {
-  const { agendamentos, iniciarVistoria, agendamentosEmEspera } = useStores();
+  const { agendamentos, iniciarVistoria, agendamentosEmEspera, handleWait } =
+    useStores();
 
   return (
     <S.Container>
@@ -54,7 +55,7 @@ export const StoresTemplate = () => {
                       alt="olho"
                     />
                     <ButtonDots
-                      handleSleep={() => ""}
+                      handleWait={() => handleWait({ uuid: _.uuid })}
                       handleStart={() => iniciarVistoria(_.uuid)}
                     />
                   </S.WrapperActions>
@@ -108,10 +109,7 @@ export const StoresTemplate = () => {
                       src="/assets/svgs/eye.svg"
                       alt="olho"
                     />
-                    <ButtonDots
-                      handleSleep={() => ""}
-                      handleStart={() => iniciarVistoria(_.uuid)}
-                    />
+                    <ButtonDots handleStart={() => iniciarVistoria(_.uuid)} />
                   </S.WrapperActions>
                 </S.BodyItem>
               ))}
