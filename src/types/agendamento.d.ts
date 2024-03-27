@@ -22,8 +22,8 @@ export interface IAgendamentoDTO {
   primeiroAgendamento: string;
   revistoria: boolean;
   servico: IServicoDTO;
-  status: string;
-  tipoAtendimento: string;
+  status: StatusAgendamentoEnum;
+  tipoAtendimento: TipoAtendimentoEnum;
   uuid: string;
   veiculo: IVeiculoDTO;
 }
