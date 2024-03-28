@@ -36,6 +36,8 @@ export const useDeliverys = () => {
     setIsLoad(true);
     Agendamento.get({
       ...prop,
+      dataInicial: prop?.dataInicial,
+      dataFinal: prop?.dataInicial,
       tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
       statusAgendamento: StatusAgendamentoEnum.AGENDADO,
       size: 100,
