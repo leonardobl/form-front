@@ -88,7 +88,7 @@ export const List = styled.div`
 
 export const ListHeader = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1fr 1.4fr 1fr 1fr;
   padding: 1rem 2rem;
 
   > button {
@@ -122,7 +122,7 @@ export const ListBody = styled.div`
 
 export const ListItem = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1fr 1.4fr 1fr 1fr;
   padding: 1rem 2rem;
   border-radius: 0.625rem;
 
@@ -138,9 +138,34 @@ export const ListItem = styled.div`
   }
 `;
 
-export const WrapperImgsButton = styled.div`
+// export const WrapperImgsButton = styled.div`
+//   display: flex;
+//   gap: 0 1rem;
+//   align-items: center;
+//   justify-content: center;
+//   margin-right: 1rem;
+// `;
+
+export const CloudDownloadIcon =`
+  margin-right: 1rem;
+`;
+
+export const Button = styled.div`
+  color: rgba(32, 51, 47, 0.56);
+  font-family: Mulish;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem; /* 125% */
+  background-color: transparent;
+  margin: 0 auto;
+  display: block;
+`;
+
+export const ActionsButtons = styled.div`
   display: flex;
-  gap: 0 1rem;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 72.5625rem;
+  margin: 0 auto 1rem;
 `;

@@ -7,6 +7,9 @@ import { Button } from "../../Atoms/Button";
 import { useDeliverys } from "./useDeliverys";
 import { ISelectOptions } from "../../../types/inputs";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
+import { Box } from "@mui/material";
+import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
+import { margin } from "polished";
 
 export const DeliverysTemplates = () => {
   const {
@@ -66,6 +69,21 @@ export const DeliverysTemplates = () => {
         </S.GridFormFilter>
       </S.FormFilter>
 
+      <S.ActionsButtons>
+        <Button 
+          onClick={() => {
+            date &&
+              handleDownload({
+                dia: reverseToIsoDate(date.toLocaleDateString()),
+                cidade: formFilter?.cidade,
+              });
+          }}
+        >
+          <CloudDownloadIcon sx={{margin: '0 0.5rem 0 0'}}/>
+          Exportar
+        </Button>
+      </S.ActionsButtons>
+
       <S.List>
         <S.ListHeader>
           <h4>Cliente</h4>
@@ -74,23 +92,6 @@ export const DeliverysTemplates = () => {
           <h4>Chassi</h4>
           <h4>Cidade</h4>
           <h4>Horário</h4>
-          <button
-            onClick={() => {
-              date &&
-                handleDownload({
-                  dia: reverseToIsoDate(date.toLocaleDateString()),
-                  cidade: formFilter?.cidade,
-                });
-            }}
-          >
-            <S.WrapperImgsButton>
-              <img
-                src="/assets/svg/download-icon.svg"
-                alt="icone download documento"
-              />
-            </S.WrapperImgsButton>
-            Exportar
-          </button>
         </S.ListHeader>
         <S.ListBody>
           {agendamentos?.map((item) => (
@@ -99,9 +100,8 @@ export const DeliverysTemplates = () => {
               <p>{item?.veiculo?.modelo || "---"}</p>
               <p>{item?.veiculo?.placa || "---"}</p>
               <p>{item?.veiculo?.chassi || "---"}</p>
-              <p>{item?.cliente?.endereco?.cidade || "---"}</p>
+              <p>{item?.delivery?.cidade || "---"}</p>
               <p>{item?.horaAgendada || "---"}</p>
-              <p></p>
             </S.ListItem>
           ))}
         </S.ListBody>

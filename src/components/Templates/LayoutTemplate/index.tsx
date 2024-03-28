@@ -74,7 +74,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     Novo Agendamento
                   </NavLink>
                 </div>
-                {!isCliente && (
+                {/* {!isCliente && (
                   <div>
                     <NavLink
                       className={"navLink"}
@@ -84,7 +84,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                       Atendimento Loja
                     </NavLink>
                   </div>
-                )}
+                )} */}
 
                 {!isCliente && (
                   <div>
