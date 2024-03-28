@@ -65,6 +65,7 @@ export const StoresTemplate = () => {
                       alt="olho"
                     />
                     <ButtonDots
+                      statusAgendamento={_?.status}
                       handleWait={() => handleWait({ uuid: _.uuid })}
                       handleStart={() =>
                         setModalStart({ open: true, uuid: _?.uuid })
@@ -122,6 +123,7 @@ export const StoresTemplate = () => {
                       alt="olho"
                     />
                     <ButtonDots
+                      statusAgendamento={_?.status}
                       handleStart={() =>
                         setModalStart({ open: true, uuid: _?.uuid })
                       }
