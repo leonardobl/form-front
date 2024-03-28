@@ -8,6 +8,7 @@ import { useContextSite } from "../../../context/Context";
 import { resetValues } from "../../../utils/resetObject";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
 type FormFilterProps = {
   dataInicial?: string;
@@ -36,6 +37,7 @@ export const useDeliverys = () => {
     Agendamento.get({
       ...prop,
       tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
+      statusAgendamento: StatusAgendamentoEnum.AGENDADO,
       size: 100,
       sort: "horaAgendada,ASC",
     })
