@@ -37,4 +37,6 @@ export class Loja {
       `${basePath}/${uuidLoja}/horarios-disponiveis?dataAgendamento=${dataAgendamento}`
     );
   }
+
+  // static class getAtendentes({uuid} : {uuid: string}):Promise<AxiosResponse<>> {}
 }
