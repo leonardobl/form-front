@@ -6,7 +6,7 @@ import { RolesEnum } from "../../../enums/roles";
 
 type StatusProps = {
   status: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export const Status = ({ status, onClick }: StatusProps) => {
@@ -24,7 +24,7 @@ export const Status = ({ status, onClick }: StatusProps) => {
   return (
     <S.Container status={status}>
       <p>{removeUnderscore(status)}</p>
-      {status === "AGENDADO" && !isCliente && (
+      {onClick && status === "AGENDADO" && !isCliente && (
         <button onClick={handleClick}>INICIAR</button>
       )}
     </S.Container>

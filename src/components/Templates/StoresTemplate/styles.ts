@@ -82,7 +82,7 @@ export const Body = styled.div`
 
 export const HeaderBody = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1.6fr 1fr 1.6fr 0.4fr;
+  grid-template-columns: 2fr 1.6fr 1fr 1.6fr 1fr 0.4fr;
   padding: 16px 32px;
 
   > h4 {
@@ -98,7 +98,7 @@ export const HeaderBody = styled.div`
 
 export const BodyItem = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1.6fr 1fr 1.6fr 0.4fr;
+  grid-template-columns: 2fr 1.6fr 1fr 1.6fr 1fr 0.4fr;
   padding: 16px 32px;
 
   > p {
