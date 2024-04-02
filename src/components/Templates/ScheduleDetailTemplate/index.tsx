@@ -33,10 +33,7 @@ export const ScheduleDetailTemplate = () => {
             handleConfirmPayment={confirmarPagamento}
             handlePix={acessarFatura}
             handleTicket={acessarFatura}
-            // status={agendamento?.status}
             disabled={menuDisabled}
-            // tipoAtendimento={agendamento?.tipoAtendimento}
-            // uuidAgendamento={agendamento?.uuid}
             onCancel={cancelarAgendamento}
             agendamento={agendamento}
           />

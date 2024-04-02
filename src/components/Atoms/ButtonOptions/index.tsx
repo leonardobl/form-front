@@ -12,22 +12,16 @@ import { IAgendamentoDTO } from "../../../types/agendamento";
 
 interface IButtonOptions extends ComponentProps<"details"> {
   disabled?: boolean;
-  // tipoAtendimento: TipoAtendimentoEnum;
-  // uuidAgendamento: string;
   onCancel: () => void;
   handlePix: () => void;
   handleTicket: () => void;
   handleConfirmPayment: () => void;
   agendamento: IAgendamentoDTO;
-  // status: StatusAgendamentoEnum;
 }
 
 export const ButtonOptions = ({
-  // tipoAtendimento,
   disabled,
-  // uuidAgendamento,
   onCancel,
-  // status,
   handlePix,
   handleConfirmPayment,
   handleTicket,
@@ -46,19 +40,24 @@ export const ButtonOptions = ({
 
   function onRescheduling() {
     setIsLoad(true);
+    // setSessionagendamento({
+    //   ...sessionAgendamento,
+    //   uuidAgendamento: agendamento?.uuid,
+    //   reagendamento: true,
+    //   tipoAtendimento: agendamento.tipoAtendimento,
+    //   cliente: {
+    //     ...agendamento.cliente,
+    //   },
+    //   veiculo: { ...agendamento.veiculo },
+    // });
     setSessionagendamento({
       ...sessionAgendamento,
       uuidAgendamento: agendamento?.uuid,
       reagendamento: true,
-      tipoAtendimento: agendamento.tipoAtendimento,
-      cliente: {
-        ...agendamento.cliente,
-      },
-      veiculo: { ...agendamento.veiculo },
     });
     setTimeout(() => {
       isAdmGerente
-        ? navigate(`/novo-agendamento`)
+        ? navigate(`/novo-agendamento?id=${agendamento?.uuid}`)
         : navigate(
             `/agendamento/${agendamento.tipoAtendimento?.toLowerCase()}`
           );
