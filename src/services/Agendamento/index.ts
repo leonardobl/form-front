@@ -3,6 +3,7 @@ import { ApiBrave } from "../../Apis/Brave";
 import {
   IAgendamentoBasicoForm,
   IAgendamentoDTO,
+  IAgendamentoDaHoraDTO,
   IAgendamentoForm,
   IAtendimentoDomiciliarForm,
   IPageAgendamentoDTO,
@@ -40,6 +41,22 @@ export interface IGetAgendamentosProps extends IPageRequest {
   idCliente?: string;
 }
 
+type AgendamentoByHourProps = {
+  data?: string;
+  status?: StatusAgendamentoEnum[];
+};
+
+function propsToString(props: AgendamentoByHourProps) {
+  if (props?.data && props?.status) {
+    const statusString = props?.status?.join(",");
+    return `data=${props?.data}&status=${statusString}`;
+  }
+  if (props?.data) {
+    return `data=${props?.data}`;
+  }
+  return `status=${props?.status.join(",")}`;
+}
+
 type DownloadProps = {
   cidade?: string;
   dia: string;
@@ -59,6 +76,13 @@ export class Agendamento {
     uuid: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.get(`${basePath}/${uuid}`);
+  }
+
+  static getByHour(
+    props: AgendamentoByHourProps
+  ): Promise<AxiosResponse<IAgendamentoDaHoraDTO[]>> {
+    const path = propsToString(props);
+    return ApiBrave.get(`${basePath}/listar-por-horario?${path}`);
   }
 
   static async post(
@@ -102,7 +126,7 @@ export class Agendamento {
   ): Promise<AxiosResponse<string[]>> {
     const values = removeEmpty(props);
     const path = objectToParams(values);
-    return ApiBrave.put(`${basePath}/listar-deliveries?${path}`);
+    return ApiBrave.get(`${basePath}/listar-deliveries?${path}`);
   }
 
   static async cancelar({
@@ -143,5 +167,16 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-veiculo`, {
       uuid: uuidVeiculo,
     });
+  }
+
+  static async colocarEmEspera({
+    uuidAgendamento,
+  }: {
+    uuidAgendamento: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.post(
+      `${basePath}/${uuidAgendamento}/alterar-em-espera`,
+      true
+    );
   }
 }

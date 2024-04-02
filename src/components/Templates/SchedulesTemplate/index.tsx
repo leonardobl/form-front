@@ -14,6 +14,7 @@ import {
 import { ISelectOptions } from "../../../types/inputs";
 
 import { Status } from "../../Atoms/Status";
+import { IconEye } from "../../Atoms/IconEye";
 
 export const SchedulesTemplate = () => {
   const {
@@ -273,7 +274,7 @@ export const SchedulesTemplate = () => {
                 }}
               />
 
-              <S.Eye
+              <IconEye
                 src="/assets/svgs/eye.svg"
                 alt="icone visualizacao"
                 data-color-starcheck={

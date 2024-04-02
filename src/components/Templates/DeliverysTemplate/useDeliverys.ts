@@ -10,8 +10,11 @@ import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
+
 type FormFilterProps = {
   dataInicial?: string;
+  dataFinal?: string;
   cidade?: string;
 };
 
@@ -21,15 +24,42 @@ export const useDeliverys = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const { setIsLoad } = useContextSite();
+  const [token] = useSessionStorage("@token");
 
-  function handleDownload({ cidade, dia }: { cidade: string; dia: string }) {
-    Agendamento.downloadExc({ cidade, dia }).catch(
-      ({
-        response: {
-          data: { mensagem },
+  async function handleDownload({
+    cidade,
+    dia,
+  }: {
+    cidade?: string;
+    dia: string;
+  }) {
+    if (!agendamentos?.length) return;
+
+    let path = `https://agendamentos-api-staging.mapa.app.br:8443/agendamento/listar-deliveries?dia=${dia}`;
+
+    if (cidade) {
+      path = `https://agendamentos-api-staging.mapa.app.br:8443/agendamento/listar-deliveries?dia=${dia}&cidade=${cidade}`;
+    }
+
+    try {
+      const response = await fetch(path, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
         },
-      }) => toast.error(mensagem)
-    );
+      });
+      const blob = await response.blob();
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "relatorio.xlsx";
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      toast.error(error);
+    }
   }
 
   function getAgendamentos(prop?: FormFilterProps) {
@@ -62,6 +92,7 @@ export const useDeliverys = () => {
     const PAYLOAD: FormFilterProps = {
       ...formFilter,
       dataInicial: reverseToIsoDate(date?.toLocaleDateString()),
+      dataFinal: reverseToIsoDate(date?.toLocaleDateString()),
     };
     const hasData = Object.values(PAYLOAD).some((item) => item);
     hasData && getAgendamentos(PAYLOAD);
@@ -97,6 +128,7 @@ export const useDeliverys = () => {
 
     getAgendamentos({
       dataInicial: reverseToIsoDate(date?.toLocaleDateString()),
+      dataFinal: reverseToIsoDate(date?.toLocaleDateString()),
     });
   }, []);
 

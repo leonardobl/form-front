@@ -1,73 +1,163 @@
 import React from "react";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
+import { useStores } from "./useStores";
+import { ButtonDots } from "../../Atoms/ButtonDots";
+import { IconEye } from "../../Atoms/IconEye";
+import { Modal } from "@mui/material";
+import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
+import { Button } from "../../Atoms/Button";
+import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 
 export const StoresTemplate = () => {
+  const {
+    agendamentos,
+    iniciarVistoria,
+    agendamentosEmEspera,
+    handleWait,
+    modalStart,
+    setModalStart,
+  } = useStores();
+
   return (
     <S.Container>
       <Title>Atendimento Loja</Title>
-      <S.List>
-        <S.HeaderList>
-          <h4>Horário</h4>
-          <h4>Cliente</h4>
-          <h4>Veículo</h4>
-          <h4>Placa</h4>
-          <h4>Chassi</h4>
-          <h4>Status</h4>
-          <span></span>
-        </S.HeaderList>
-        <S.BodyList>
-          <S.RowList>
-            <p>8:00</p>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <span>
-              <button>INICIAR</button>
-              <button>EM ESPERA</button>
-            </span>
-            <img src="/assets/svgs/eye.svg" alt="icone olho" />
-          </S.RowList>
-          <S.RowList>
-            <p>8:00</p>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <span>
-              <button>INICIAR</button>
-              <button>EM ESPERA</button>
-            </span>
-            <img src="/assets/svgs/eye.svg" alt="icone olho" />
-          </S.RowList>
-          <S.RowList>
-            <p>8:00</p>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <span>
-              <button>INICIAR</button>
-              <button>EM ESPERA</button>
-            </span>
-            <img src="/assets/svgs/eye.svg" alt="icone olho" />
-          </S.RowList>
-          <S.RowList>
-            <p>8:00</p>
-            <p>NOME DO CLIENTE COMPLETO</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <span>
-              <button>INICIAR</button>
-              <button>EM ESPERA</button>
-            </span>
-            <img src="/assets/svgs/eye.svg" alt="icone olho" />
-          </S.RowList>
-          yarn starrt
-        </S.BodyList>
-      </S.List>
+
+      {agendamentos?.map((item) => (
+        <S.Wrapper key={Math.random()}>
+          <S.GridHeader>
+            <p>{item?.horaAgendada}</p>
+            <div></div>
+          </S.GridHeader>
+          <S.GridBody>
+            <div></div>
+            <S.Body>
+              <S.HeaderBody>
+                <h4>Cliente</h4>
+                <h4>Veículo</h4>
+                <h4>Placa</h4>
+                <h4>Chassi</h4>
+                <span></span>
+              </S.HeaderBody>
+              {item?.agendamentos?.map((_) => (
+                <S.BodyItem key={Math.random()}>
+                  <p>{_?.cliente?.nome || "---"}</p>
+                  <p>{_?.veiculo?.modelo || "---"}</p>
+                  <p>{_?.veiculo?.placa || "---"}</p>
+                  <p>{_?.veiculo?.chassi || "---"}</p>
+                  <S.WrapperActions>
+                    <IconEye
+                      data-color-starcheck={
+                        process.env.REACT_APP_PROJECT === "starcheck"
+                      }
+                      data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                      data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                      data-color-tokyo={
+                        process.env.REACT_APP_PROJECT === "tokyo"
+                      }
+                      onClick={() =>
+                        window.open(
+                          `/meus-agendamentos/agendamento?id=${_.uuid}`,
+                          "_blank"
+                        )
+                      }
+                      src="/assets/svgs/eye.svg"
+                      alt="olho"
+                    />
+                    <ButtonDots
+                      statusAgendamento={_?.status}
+                      handleWait={() => handleWait({ uuid: _.uuid })}
+                      handleStart={() =>
+                        setModalStart({ open: true, uuid: _?.uuid })
+                      }
+                    />
+                  </S.WrapperActions>
+                </S.BodyItem>
+              ))}
+            </S.Body>
+          </S.GridBody>
+        </S.Wrapper>
+      ))}
+
+      {agendamentosEmEspera?.length > 0 && (
+        <S.Wrapper>
+          <S.GridHeaderEmEspera>
+            <div></div>
+            <div>
+              <p>Em Espera</p>
+            </div>
+          </S.GridHeaderEmEspera>
+          <S.GridBody>
+            <div></div>
+            <S.Body>
+              <S.HeaderBody>
+                <h4>Cliente</h4>
+                <h4>Veículo</h4>
+                <h4>Placa</h4>
+                <h4>Chassi</h4>
+                <span></span>
+              </S.HeaderBody>
+              {agendamentosEmEspera?.map((_) => (
+                <S.BodyItem key={Math.random()}>
+                  <p>{_?.cliente?.nome || "---"}</p>
+                  <p>{_?.veiculo?.modelo || "---"}</p>
+                  <p>{_?.veiculo?.placa || "---"}</p>
+                  <p>{_?.veiculo?.chassi || "---"}</p>
+                  <S.WrapperActions>
+                    <IconEye
+                      data-color-starcheck={
+                        process.env.REACT_APP_PROJECT === "starcheck"
+                      }
+                      data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                      data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                      data-color-tokyo={
+                        process.env.REACT_APP_PROJECT === "tokyo"
+                      }
+                      onClick={() =>
+                        window.open(
+                          `/meus-agendamentos/agendamento?id=${_.uuid}`,
+                          "_blank"
+                        )
+                      }
+                      src="/assets/svgs/eye.svg"
+                      alt="olho"
+                    />
+                    <ButtonDots
+                      statusAgendamento={_?.status}
+                      handleStart={() =>
+                        setModalStart({ open: true, uuid: _?.uuid })
+                      }
+                    />
+                  </S.WrapperActions>
+                </S.BodyItem>
+              ))}
+            </S.Body>
+          </S.GridBody>
+        </S.Wrapper>
+      )}
+
+      {!(agendamentos?.length > 0) && !(agendamentosEmEspera.length > 0) && (
+        <S.TextNotFound>
+          Nenhum registro encontrado para a data de hoje.
+        </S.TextNotFound>
+      )}
+
+      <CustomConfirmModal
+        isOpen={modalStart?.open}
+        onRequestClose={() => setModalStart({ open: false })}
+      >
+        <S.formModal onSubmit={() => iniciarVistoria(modalStart?.uuid)}>
+          <div>
+            <SimpleSelect required label="Baia de Atendimento" />
+          </div>
+          <div>
+            <SimpleSelect required label="Vistoriador" />
+          </div>
+          <div>
+            <Button>Salvar</Button>
+          </div>
+        </S.formModal>
+      </CustomConfirmModal>
     </S.Container>
   );
 };
