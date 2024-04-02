@@ -24,36 +24,24 @@ export const useDeliverys = () => {
   const { setIsLoad } = useContextSite();
   const [token] = useSessionStorage("@token");
 
-  async function handleDownload({ cidade, dia }: { cidade: string; dia: string }) {
-    Agendamento.downloadExcPathBuilder({ cidade, dia })
-    .then(async (path) => {
-      try {
-        const response = await fetch(path, {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
+  async function handleDownload({
+    cidade,
+    dia,
+  }: {
+    cidade?: string;
+    dia: string;
+  }) {
+    if (!agendamentos?.length) return;
+
+    Agendamento.downloadExc({ dia, cidade })
+      .then()
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
           },
-        });
-        const blob = await response.blob();
-  
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "deliveries.xlsx";
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-      } catch (error) {
-        toast.error(error);
-      }
-    })
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    );
+        }) => toast.error(mensagem)
+      );
   }
 
   function getAgendamentos(prop?: FormFilterProps) {
