@@ -21,14 +21,24 @@ export const useDeliverys = () => {
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const { setIsLoad } = useContextSite();
 
-  function handleDownload({ cidade, dia }: { cidade: string; dia: string }) {
-    Agendamento.downloadExc({ cidade, dia }).catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    );
+  async function handleDownload({
+    cidade,
+    dia,
+  }: {
+    cidade?: string;
+    dia: string;
+  }) {
+    if (!agendamentos?.length) return;
+
+    Agendamento.downloadExc({ dia, cidade })
+      .then()
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      );
   }
 
   function getAgendamentos(prop?: FormFilterProps) {
