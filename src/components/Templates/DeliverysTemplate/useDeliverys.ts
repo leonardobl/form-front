@@ -9,6 +9,7 @@ import { resetValues } from "../../../utils/resetObject";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 type FormFilterProps = {
   dataInicial?: string;
@@ -21,9 +22,32 @@ export const useDeliverys = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const { setIsLoad } = useContextSite();
+  const [token] = useSessionStorage("@token");
 
-  function handleDownload({ cidade, dia }: { cidade: string; dia: string }) {
-    Agendamento.downloadExc({ cidade, dia }).catch(
+  async function handleDownload({ cidade, dia }: { cidade: string; dia: string }) {
+    Agendamento.downloadExcPathBuilder({ cidade, dia })
+    .then(async (path) => {
+      try {
+        const response = await fetch(path, {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        const blob = await response.blob();
+  
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "deliveries.xlsx";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        toast.error(error);
+      }
+    })
+    .catch(
       ({
         response: {
           data: { mensagem },

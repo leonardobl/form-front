@@ -102,7 +102,15 @@ export class Agendamento {
   ): Promise<AxiosResponse<string[]>> {
     const values = removeEmpty(props);
     const path = objectToParams(values);
-    return ApiBrave.put(`${basePath}/listar-deliveries?${path}`);
+    return ApiBrave.get(`${basePath}/listar-deliveries?${path}`);
+  }
+
+  static async downloadExcPathBuilder(
+    props: DownloadProps
+  ): Promise<string> {
+      const values = removeEmpty(props);
+      const path = objectToParams(values);
+      return `${basePath}/listar-deliveries?${path}`;
   }
 
   static async cancelar({
