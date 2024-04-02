@@ -31,7 +31,7 @@ export const ButtonDots = ({
             </button>
           </div>
         )}
-        {handleWait && (
+        {handleWait && statusAgendamento !== StatusAgendamentoEnum.INICIADO && (
           <div>
             <button
               onClick={() => {

@@ -77,7 +77,11 @@ export const useStores = () => {
     setIsLoad(true);
     Agendamento.getByHour({
       data: hoje,
-      status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
+      status: [
+        StatusAgendamentoEnum.AGENDADO,
+        StatusAgendamentoEnum.INICIADO,
+        StatusAgendamentoEnum.FINALIZADO,
+      ],
     })
       .then(({ data }) => {
         const emEspera = transformData(data);
