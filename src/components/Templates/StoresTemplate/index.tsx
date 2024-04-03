@@ -10,6 +10,7 @@ import { Button } from "../../Atoms/Button";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { Status } from "../../Atoms/Status";
 import { ISelectOptions } from "../../../types/inputs";
+import { Text } from "../../Atoms/Text";
 
 export const StoresTemplate = () => {
   const {

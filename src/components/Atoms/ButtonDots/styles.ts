@@ -49,3 +49,25 @@ export const WrapperButtons = styled.div`
     flex-direction: column;
   }
 `;
+
+export const ContentModalStay = styled.div`
+  width: 648px;
+  height: 518px;
+  border: 0.5px solid #000;
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 48px;
+
+  > p {
+    max-width: 466px;
+  }
+`;
+
+export const WrapperButtonsModal = styled.div`
+  display: flex;
+  gap: 0 48px;
+`;
