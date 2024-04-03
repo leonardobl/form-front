@@ -6,6 +6,7 @@ import {
   IAgendamentoDaHoraDTO,
   IAgendamentoForm,
   IAtendimentoDomiciliarForm,
+  IIniciarAgendamentoProps,
   IPageAgendamentoDTO,
   IReagendamentoForm,
 } from "../../types/agendamento";
@@ -113,12 +114,11 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuidAgendamento}/reagendar`, rest);
   }
 
-  static async iniciar({
-    uuid,
-  }: {
-    uuid: string;
-  }): Promise<AxiosResponse<IAgendamentoDTO>> {
-    return ApiBrave.put(`${basePath}/${uuid}/iniciar`);
+  static async iniciar(
+    props: IIniciarAgendamentoProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuid, ...rest } = props;
+    return ApiBrave.put(`${basePath}/${uuid}/iniciar`, rest);
   }
 
   static async downloadExc(

@@ -4,11 +4,15 @@ import { reverseToIsoDate } from "../../../utils/dateTransform";
 import {
   IAgendamentoDTO,
   IAgendamentoDaHoraDTO,
+  IAgendamentoIniciarForm,
 } from "../../../types/agendamento";
 
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { Loja } from "../../../services/Lojas";
+import { ISelectOptions } from "../../../types/inputs";
+import { resetValues } from "../../../utils/resetObject";
 
 type ModalStartProps = {
   open: boolean;
@@ -26,6 +30,15 @@ export const useStores = () => {
   const [modalStart, setModalStart] = useState<ModalStartProps>({
     open: false,
   });
+
+  const [formStart, setFormStart] = useState<IAgendamentoIniciarForm>(
+    {} as IAgendamentoIniciarForm
+  );
+  const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
+    ISelectOptions[]
+  >([]);
+  const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
+
   function transformData(data: IAgendamentoDaHoraDTO[]) {
     const result = data.flatMap((item) => item.agendamentos);
     return result.filter((item) => item.emEspera);
@@ -105,6 +118,37 @@ export const useStores = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    if (modalStart?.open) {
+      Loja.getAtendentes({ uuid: "1a49725e-f5e2-4682-ae6a-fe13ec2aa7df" }).then(
+        ({ data }) => {
+          const options = data.map((item) => ({
+            value: item.uuidUsuario,
+            label: item.nome,
+            element: item,
+          }));
+
+          setVistoriadoresOptions(options);
+        }
+      );
+
+      Loja.getBaias({ uuid: "1a49725e-f5e2-4682-ae6a-fe13ec2aa7df" }).then(
+        ({ data }) => {
+          const options = data.map((item) => ({
+            value: item.uuid,
+            label: item.nome,
+          }));
+          setBaiaOptions(options);
+        }
+      );
+
+      return;
+    }
+
+    const reset = resetValues(formStart);
+    setFormStart(reset);
+  }, [modalStart?.open]);
+
   return {
     iniciarVistoria,
     agendamentos,
@@ -112,5 +156,9 @@ export const useStores = () => {
     handleWait,
     modalStart,
     setModalStart,
+    formStart,
+    setFormStart,
+    vistoriadoresOptions,
+    baitasOptions,
   };
 };

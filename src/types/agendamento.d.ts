@@ -181,3 +181,12 @@ export interface IAgendamentoDaHoraDTO {
   agendamentos: IAgendamentoDTO[];
   horaAgendada: string;
 }
+
+export interface IAgendamentoIniciarForm {
+  uuidAtendente?: string;
+  uuidBaia?: string;
+}
+
+export interface IIniciarAgendamentoProps extends IAgendamentoIniciarForm {
+  uuid: string;
+}

@@ -9,6 +9,7 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { Status } from "../../Atoms/Status";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const StoresTemplate = () => {
   const {
@@ -18,6 +19,10 @@ export const StoresTemplate = () => {
     handleWait,
     modalStart,
     setModalStart,
+    vistoriadoresOptions,
+    formStart,
+    setFormStart,
+    baitasOptions,
   } = useStores();
 
   return (
@@ -153,10 +158,30 @@ export const StoresTemplate = () => {
       >
         <S.formModal onSubmit={() => iniciarVistoria(modalStart?.uuid)}>
           <div>
-            <SimpleSelect required label="Baia de Atendimento" />
+            <SimpleSelect
+              options={vistoriadoresOptions}
+              required
+              label="Baia de Atendimento"
+              value={vistoriadoresOptions?.find(
+                (item) => item?.value === formStart?.uuidAtendente
+              )}
+              onChange={(e: ISelectOptions) =>
+                setFormStart((prev) => ({ ...prev, uuidAtendente: e?.value }))
+              }
+            />
           </div>
           <div>
-            <SimpleSelect required label="Vistoriador" />
+            <SimpleSelect
+              options={baitasOptions}
+              value={baitasOptions?.find(
+                (item) => item?.value === formStart?.uuidBaia
+              )}
+              onChange={(e: ISelectOptions) =>
+                setFormStart((prev) => ({ ...prev, uuidBaia: e?.value }))
+              }
+              required
+              label="Vistoriador"
+            />
           </div>
           <div>
             <Button>Salvar</Button>
