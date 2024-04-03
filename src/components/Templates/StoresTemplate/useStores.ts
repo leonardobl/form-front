@@ -128,17 +128,19 @@ export const useStores = () => {
     if (modalStart?.open) {
       setFormStart((prev) => ({ ...prev, uuid: modalStart?.uuidAgendamento }));
 
-      Loja.getAtendentes({ uuid: modalStart?.uuidLoja }).then(({ data }) => {
-        const options = data.map((item) => ({
-          value: item.uuid,
-          label: item.nome,
-          element: item,
-        }));
+      Loja.getAtendentesLivres({ uuid: modalStart?.uuidLoja }).then(
+        ({ data }) => {
+          const options = data.map((item) => ({
+            value: item.uuid,
+            label: item.nome,
+            element: item,
+          }));
 
-        setVistoriadoresOptions(options);
-      });
+          setVistoriadoresOptions(options);
+        }
+      );
 
-      Loja.getBaias({ uuid: modalStart?.uuidLoja }).then(({ data }) => {
+      Loja.getBaiasLivres({ uuid: modalStart?.uuidLoja }).then(({ data }) => {
         const options = data.map((item) => ({
           value: item.uuid,
           label: item.nome,

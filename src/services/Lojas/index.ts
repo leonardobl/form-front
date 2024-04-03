@@ -60,12 +60,28 @@ export class Loja {
     return ApiBrave.get(`${basePath}/${uuid}/atendentes`);
   }
 
+  static async getAtendentesLivres({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IColaboradorDTO[]>> {
+    return ApiBrave.get(`${basePath}/${uuid}/atendentes-livres`);
+  }
+
   static async getBaias({
     uuid,
   }: {
     uuid: string;
   }): Promise<AxiosResponse<IBaiaDTO[]>> {
     return ApiBrave.get(`${basePath}/${uuid}/baias`);
+  }
+
+  static async getBaiasLivres({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IBaiaDTO[]>> {
+    return ApiBrave.get(`${basePath}/${uuid}/baias-livres`);
   }
 
   static async cadastroBaia(
