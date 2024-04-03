@@ -16,7 +16,8 @@ import { resetValues } from "../../../utils/resetObject";
 
 type ModalStartProps = {
   open: boolean;
-  uuid?: string;
+  uuidLoja?: string;
+  uuidAgendamento?: string;
 };
 
 export const useStores = () => {
@@ -125,11 +126,11 @@ export const useStores = () => {
 
   useEffect(() => {
     if (modalStart?.open) {
-      setFormStart((prev) => ({ ...prev, uuid: modalStart?.uuid }));
+      setFormStart((prev) => ({ ...prev, uuid: modalStart?.uuidAgendamento }));
 
-      Loja.getAtendentes({ uuid: modalStart?.uuid }).then(({ data }) => {
+      Loja.getAtendentes({ uuid: modalStart?.uuidLoja }).then(({ data }) => {
         const options = data.map((item) => ({
-          value: item.uuidUsuario,
+          value: item.uuid,
           label: item.nome,
           element: item,
         }));
@@ -137,7 +138,7 @@ export const useStores = () => {
         setVistoriadoresOptions(options);
       });
 
-      Loja.getBaias({ uuid: modalStart?.uuid }).then(({ data }) => {
+      Loja.getBaias({ uuid: modalStart?.uuidLoja }).then(({ data }) => {
         const options = data.map((item) => ({
           value: item.uuid,
           label: item.nome,

@@ -35,6 +35,7 @@ export interface IColaboradorDTO {
   sexo: string;
   tipo: string;
   uuidUsuario: string;
+  uuid: string;
 }
 
 export interface IBaiaDTO {

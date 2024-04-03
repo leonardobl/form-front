@@ -76,7 +76,11 @@ export const StoresTemplate = () => {
                       statusAgendamento={_?.status}
                       handleWait={() => handleWait({ uuid: _.uuid })}
                       handleStart={() =>
-                        setModalStart({ open: true, uuid: _?.uuid })
+                        setModalStart({
+                          open: true,
+                          uuidLoja: _?.loja?.uuid,
+                          uuidAgendamento: _?.uuid,
+                        })
                       }
                     />
                   </S.WrapperActions>
@@ -135,7 +139,11 @@ export const StoresTemplate = () => {
                     <ButtonDots
                       statusAgendamento={_?.status}
                       handleStart={() =>
-                        setModalStart({ open: true, uuid: _?.uuid })
+                        setModalStart({
+                          open: true,
+                          uuidLoja: _?.loja?.uuid,
+                          uuidAgendamento: _?.uuid,
+                        })
                       }
                     />
                   </S.WrapperActions>
@@ -159,20 +167,8 @@ export const StoresTemplate = () => {
         <S.formModal onSubmit={iniciarVistoria}>
           <div>
             <SimpleSelect
-              options={vistoriadoresOptions}
-              required
-              label="Baia de Atendimento"
-              value={vistoriadoresOptions?.find(
-                (item) => item?.value === formStart?.uuidAtendente
-              )}
-              onChange={(e: ISelectOptions) =>
-                setFormStart((prev) => ({ ...prev, uuidAtendente: e?.value }))
-              }
-            />
-          </div>
-          <div>
-            <SimpleSelect
               options={baitasOptions}
+              label="Baia de Atendimento"
               value={baitasOptions?.find(
                 (item) => item?.value === formStart?.uuidBaia
               )}
@@ -180,7 +176,19 @@ export const StoresTemplate = () => {
                 setFormStart((prev) => ({ ...prev, uuidBaia: e?.value }))
               }
               required
+            />
+          </div>
+          <div>
+            <SimpleSelect
+              options={vistoriadoresOptions}
+              required
               label="Vistoriador"
+              value={vistoriadoresOptions?.find(
+                (item) => item?.value === formStart?.uuidAtendente
+              )}
+              onChange={(e: ISelectOptions) =>
+                setFormStart((prev) => ({ ...prev, uuidAtendente: e?.value }))
+              }
             />
           </div>
           <S.WrapperButtons>
