@@ -156,7 +156,7 @@ export const StoresTemplate = () => {
         isOpen={modalStart?.open}
         onRequestClose={() => setModalStart({ open: false })}
       >
-        <S.formModal onSubmit={() => iniciarVistoria(modalStart?.uuid)}>
+        <S.formModal onSubmit={iniciarVistoria}>
           <div>
             <SimpleSelect
               options={vistoriadoresOptions}

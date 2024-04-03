@@ -4,7 +4,7 @@ import { reverseToIsoDate } from "../../../utils/dateTransform";
 import {
   IAgendamentoDTO,
   IAgendamentoDaHoraDTO,
-  IAgendamentoIniciarForm,
+  IIniciarAgendamentoProps,
 } from "../../../types/agendamento";
 
 import { useContextSite } from "../../../context/Context";
@@ -31,8 +31,8 @@ export const useStores = () => {
     open: false,
   });
 
-  const [formStart, setFormStart] = useState<IAgendamentoIniciarForm>(
-    {} as IAgendamentoIniciarForm
+  const [formStart, setFormStart] = useState<IIniciarAgendamentoProps>(
+    {} as IIniciarAgendamentoProps
   );
   const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
     ISelectOptions[]
@@ -44,14 +44,17 @@ export const useStores = () => {
     return result.filter((item) => item.emEspera);
   }
 
-  function iniciarVistoria(uuidAgendamento: string) {
+  function iniciarVistoria(e: React.SyntheticEvent) {
+    e.preventDefault();
     setIsLoad(true);
-    Agendamento.iniciar({ uuid: uuidAgendamento })
+    Agendamento.iniciar(formStart)
       .then(({ data }) => {
-        window.open(
-          `/meus-agendamentos/agendamento?id=${uuidAgendamento}`,
-          "_self"
-        );
+        // window.open(
+        //   `/meus-agendamentos/agendamento?id=${uuidAgendamento}`,
+        //   "_self"
+        // );
+        toast.success("Agendamento iniciado");
+        getData();
       })
       .catch(
         ({
@@ -60,7 +63,10 @@ export const useStores = () => {
           },
         }) => toast.error(mensagem)
       )
-      .finally(() => setIsLoad(false));
+      .finally(() => {
+        setIsLoad(false);
+        setModalStart({ open: false });
+      });
   }
 
   function handleWait({ uuid }: { uuid: string }) {
@@ -85,7 +91,8 @@ export const useStores = () => {
   }
 
   function getData() {
-    const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
+    // const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
 
     setIsLoad(true);
     Agendamento.getByHour({
@@ -120,27 +127,25 @@ export const useStores = () => {
 
   useEffect(() => {
     if (modalStart?.open) {
-      Loja.getAtendentes({ uuid: "1a49725e-f5e2-4682-ae6a-fe13ec2aa7df" }).then(
-        ({ data }) => {
-          const options = data.map((item) => ({
-            value: item.uuidUsuario,
-            label: item.nome,
-            element: item,
-          }));
+      setFormStart((prev) => ({ ...prev, uuid: modalStart?.uuid }));
 
-          setVistoriadoresOptions(options);
-        }
-      );
+      Loja.getAtendentes({ uuid: modalStart?.uuid }).then(({ data }) => {
+        const options = data.map((item) => ({
+          value: item.uuidUsuario,
+          label: item.nome,
+          element: item,
+        }));
 
-      Loja.getBaias({ uuid: "1a49725e-f5e2-4682-ae6a-fe13ec2aa7df" }).then(
-        ({ data }) => {
-          const options = data.map((item) => ({
-            value: item.uuid,
-            label: item.nome,
-          }));
-          setBaiaOptions(options);
-        }
-      );
+        setVistoriadoresOptions(options);
+      });
+
+      Loja.getBaias({ uuid: modalStart?.uuid }).then(({ data }) => {
+        const options = data.map((item) => ({
+          value: item.uuid,
+          label: item.nome,
+        }));
+        setBaiaOptions(options);
+      });
 
       return;
     }
