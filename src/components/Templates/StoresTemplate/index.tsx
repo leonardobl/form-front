@@ -183,9 +183,16 @@ export const StoresTemplate = () => {
               label="Vistoriador"
             />
           </div>
-          <div>
+          <S.WrapperButtons>
+            <Button
+              data-variant-danger
+              type="button"
+              onClick={() => setModalStart({ open: false })}
+            >
+              Cancelar
+            </Button>
             <Button>Salvar</Button>
-          </div>
+          </S.WrapperButtons>
         </S.formModal>
       </CustomConfirmModal>
     </S.Container>

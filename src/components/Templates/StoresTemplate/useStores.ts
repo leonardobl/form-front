@@ -49,10 +49,6 @@ export const useStores = () => {
     setIsLoad(true);
     Agendamento.iniciar(formStart)
       .then(({ data }) => {
-        // window.open(
-        //   `/meus-agendamentos/agendamento?id=${uuidAgendamento}`,
-        //   "_self"
-        // );
         toast.success("Agendamento iniciado");
         getData();
       })
@@ -61,7 +57,9 @@ export const useStores = () => {
           response: {
             data: { mensagem },
           },
-        }) => toast.error(mensagem)
+        }) => {
+          toast.error(mensagem);
+        }
       )
       .finally(() => {
         setIsLoad(false);
@@ -91,8 +89,8 @@ export const useStores = () => {
   }
 
   function getData() {
-    // const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
-    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
+    // const hoje = reverseToIsoDate(new Date().toLocaleDateString());
 
     setIsLoad(true);
     Agendamento.getByHour({

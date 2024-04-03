@@ -150,8 +150,10 @@ export const formModal = styled.form`
   display: flex;
   flex-direction: column;
   gap: 3.5rem 0;
+`;
 
-  button {
-    margin: 0 auto;
-  }
+export const WrapperButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 36px 48px;
 `;
