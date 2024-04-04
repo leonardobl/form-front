@@ -255,7 +255,14 @@ export const NewSchedulingTemplate = () => {
                 }
               />
             </div>
-            <div>
+            <div className="wrapperButtons">
+              <Button
+                data-variant-danger
+                type="button"
+                onClick={() => setModalIsOpen(false)}
+              >
+                Cancelar
+              </Button>
               <Button>Salvar</Button>
             </div>
           </S.GridModal>

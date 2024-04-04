@@ -167,9 +167,9 @@ export const GridModal = styled.div`
   > :nth-child(13) {
     grid-area: button;
 
-    button {
-      margin: 0 auto;
-    }
+    display: flex;
+    justify-content: center;
+    gap: 0 48px;
   }
 
   @media (max-width: 500px) {
