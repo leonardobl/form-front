@@ -173,8 +173,8 @@ export const WrapperButton = styled.div`
 export const ModalContent = styled.div`
   /* padding: 102px 132px; */
   /* background: #6fa599; */
-  width: 300px;
-  height: 220px;
+  width: 506px;
+  height: 328px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -192,9 +192,10 @@ export const ModalContent = styled.div`
     margin-bottom: 32px;
   }
 
-  button {
-    margin: 0 auto;
-    display: block;
+  .wrapperButtons {
+    display: flex;
+    justify-content: center;
+    gap: 0 48px;
   }
 
   @media (max-width: 500px) {

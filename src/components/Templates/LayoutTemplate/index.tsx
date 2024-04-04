@@ -138,9 +138,15 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
       >
         <S.ModalContent>
           <p>Tem certeza que deseja fazer logout ?</p>
-          <Button data-variant-dark onClick={logout}>
-            Confirmar
-          </Button>
+
+          <div className="wrapperButtons">
+            <Button data-variant-danger onClick={() => setModalIsOpen(false)}>
+              Cancelar
+            </Button>
+            <Button data-variant-dark onClick={logout}>
+              Confirmar
+            </Button>
+          </div>
         </S.ModalContent>
       </MyModal>
     </S.Container>

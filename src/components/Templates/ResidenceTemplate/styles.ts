@@ -80,9 +80,10 @@ export const ModalContent = styled.div`
     margin-bottom: 32px;
   }
 
-  button {
-    margin: 0 auto;
-    display: block;
+  .wrapperButtons {
+    display: flex;
+    justify-content: center;
+    gap: 0 48px;
   }
 
   @media (max-width: 500px) {
