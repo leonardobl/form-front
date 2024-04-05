@@ -8,6 +8,10 @@ export const Container = styled.div`
     > h1 {
       text-align: center;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 0;
+    }
   `}
 `;
 
@@ -15,6 +19,12 @@ export const Wrapper = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: 500px) {
+    .gridItemFake {
+      display: none;
+    }
+  }
 `;
 
 export const GridHeader = styled.div`
@@ -44,6 +54,15 @@ export const GridHeader = styled.div`
   > :nth-child(2) {
     background-color: ${(props) => props.theme.colors.main};
   }
+
+  @media (max-width: 500px) {
+    display: block;
+
+    > p {
+      padding: 0 8px;
+      justify-content: start;
+    }
+  }
 `;
 
 export const GridHeaderEmEspera = styled.div`
@@ -67,11 +86,19 @@ export const GridHeaderEmEspera = styled.div`
       text-transform: capitalize;
     }
   }
+
+  @media (max-width: 500px) {
+    display: block;
+  }
 `;
 
 export const GridBody = styled.div`
   display: grid;
   grid-template-columns: 100px 1fr;
+
+  @media (max-width: 500px) {
+    display: block;
+  }
 `;
 
 export const Body = styled.div`
@@ -93,6 +120,10 @@ export const HeaderBody = styled.div`
     font-weight: 700;
     line-height: 24px; /* 150% */
     letter-spacing: 0.48px;
+  }
+
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -122,6 +153,27 @@ export const BodyItem = styled.div`
 
   &:nth-child(even) {
     background: #e8e8e8;
+  }
+
+  .wrapperMobile {
+    > p {
+      white-space: nowrap;
+      color: #2d2d2d;
+      font-family: Mulish;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px; /* 200% */
+      letter-spacing: 0.36px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding: 16px 8px;
+    display: flex;
+    justify-content: space-between;
   }
 `;
 
@@ -156,4 +208,32 @@ export const WrapperButtons = styled.div`
   display: flex;
   justify-content: center;
   gap: 36px 48px;
+`;
+
+export const WrapperInfo = styled.div`
+  display: flex;
+  justify-content: end;
+  margin: 0 auto 32px;
+  max-width: 1200px;
+  width: 100%;
+
+  gap: 32px;
+
+  p {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.48px;
+  }
+
+  @media (max-width: 500px) {
+    display: block;
+
+    p:nth-child(2) {
+      margin-top: 10px;
+    }
+  }
 `;

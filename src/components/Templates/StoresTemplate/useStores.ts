@@ -13,6 +13,7 @@ import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { Loja } from "../../../services/Lojas";
 import { ISelectOptions } from "../../../types/inputs";
 import { resetValues } from "../../../utils/resetObject";
+import { useMediaQuery } from "react-responsive";
 
 type ModalStartProps = {
   open: boolean;
@@ -31,7 +32,7 @@ export const useStores = () => {
   const [modalStart, setModalStart] = useState<ModalStartProps>({
     open: false,
   });
-
+  const isMobile = useMediaQuery({ maxWidth: "500px" });
   const [formStart, setFormStart] = useState<IIniciarAgendamentoProps>(
     {} as IIniciarAgendamentoProps
   );
@@ -166,5 +167,6 @@ export const useStores = () => {
     setFormStart,
     vistoriadoresOptions,
     baitasOptions,
+    isMobile,
   };
 };

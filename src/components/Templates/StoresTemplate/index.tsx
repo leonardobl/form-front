@@ -24,17 +24,23 @@ export const StoresTemplate = () => {
     formStart,
     setFormStart,
     baitasOptions,
+    isMobile,
   } = useStores();
 
   return (
     <S.Container>
       <Title>Atendimento Loja</Title>
 
+      <S.WrapperInfo>
+        <p>N° de Vagas: xx</p>
+        <p>N° Agendamentos: xxx</p>
+      </S.WrapperInfo>
+
       {agendamentos?.map((item) => (
         <S.Wrapper key={Math.random()}>
           <S.GridHeader>
             <p>{item?.horaAgendada}</p>
-            <div></div>
+            <div className="gridItemFake"></div>
           </S.GridHeader>
           <S.GridBody>
             <div></div>
@@ -47,46 +53,89 @@ export const StoresTemplate = () => {
                 <h4>Status</h4>
                 <span></span>
               </S.HeaderBody>
-              {item?.agendamentos?.map((_) => (
-                <S.BodyItem key={Math.random()}>
-                  <p>{_?.cliente?.nome || "---"}</p>
-                  <p>{_?.veiculo?.modelo || "---"}</p>
-                  <p>{_?.veiculo?.placa || "---"}</p>
-                  <p>{_?.veiculo?.chassi || "---"}</p>
-                  <Status status={_?.status} />
-                  <S.WrapperActions>
-                    <IconEye
-                      data-color-starcheck={
-                        process.env.REACT_APP_PROJECT === "starcheck"
-                      }
-                      data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                      data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                      data-color-tokyo={
-                        process.env.REACT_APP_PROJECT === "tokyo"
-                      }
-                      onClick={() =>
-                        window.open(
-                          `/meus-agendamentos/agendamento?id=${_.uuid}`,
-                          "_blank"
-                        )
-                      }
-                      src="/assets/svgs/eye.svg"
-                      alt="olho"
-                    />
-                    <ButtonDots
-                      statusAgendamento={_?.status}
-                      handleWait={() => handleWait({ uuid: _.uuid })}
-                      handleStart={() =>
-                        setModalStart({
-                          open: true,
-                          uuidLoja: _?.loja?.uuid,
-                          uuidAgendamento: _?.uuid,
-                        })
-                      }
-                    />
-                  </S.WrapperActions>
-                </S.BodyItem>
-              ))}
+              {item?.agendamentos?.map((_) =>
+                isMobile ? (
+                  <S.BodyItem key={Math.random()}>
+                    <div className="wrapperMobile">
+                      <p>
+                        {_?.veiculo?.placa || "---"} /{" "}
+                        {_?.veiculo?.chassi || "---"}
+                      </p>{" "}
+                      <Status status={_?.status} />
+                    </div>
+                    <S.WrapperActions>
+                      <IconEye
+                        data-color-starcheck={
+                          process.env.REACT_APP_PROJECT === "starcheck"
+                        }
+                        data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                        data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                        data-color-tokyo={
+                          process.env.REACT_APP_PROJECT === "tokyo"
+                        }
+                        onClick={() =>
+                          window.open(
+                            `/meus-agendamentos/agendamento?id=${_.uuid}`,
+                            "_blank"
+                          )
+                        }
+                        src="/assets/svgs/eye.svg"
+                        alt="olho"
+                      />
+                      <ButtonDots
+                        statusAgendamento={_?.status}
+                        handleWait={() => handleWait({ uuid: _.uuid })}
+                        handleStart={() =>
+                          setModalStart({
+                            open: true,
+                            uuidLoja: _?.loja?.uuid,
+                            uuidAgendamento: _?.uuid,
+                          })
+                        }
+                      />
+                    </S.WrapperActions>
+                  </S.BodyItem>
+                ) : (
+                  <S.BodyItem key={Math.random()}>
+                    <p>{_?.cliente?.nome || "---"}</p>
+                    <p>{_?.veiculo?.modelo || "---"}</p>
+                    <p>{_?.veiculo?.placa || "---"}</p>
+                    <p>{_?.veiculo?.chassi || "---"}</p>
+                    <Status status={_?.status} />
+                    <S.WrapperActions>
+                      <IconEye
+                        data-color-starcheck={
+                          process.env.REACT_APP_PROJECT === "starcheck"
+                        }
+                        data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                        data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                        data-color-tokyo={
+                          process.env.REACT_APP_PROJECT === "tokyo"
+                        }
+                        onClick={() =>
+                          window.open(
+                            `/meus-agendamentos/agendamento?id=${_.uuid}`,
+                            "_blank"
+                          )
+                        }
+                        src="/assets/svgs/eye.svg"
+                        alt="olho"
+                      />
+                      <ButtonDots
+                        statusAgendamento={_?.status}
+                        handleWait={() => handleWait({ uuid: _.uuid })}
+                        handleStart={() =>
+                          setModalStart({
+                            open: true,
+                            uuidLoja: _?.loja?.uuid,
+                            uuidAgendamento: _?.uuid,
+                          })
+                        }
+                      />
+                    </S.WrapperActions>
+                  </S.BodyItem>
+                )
+              )}
             </S.Body>
           </S.GridBody>
         </S.Wrapper>
@@ -101,7 +150,7 @@ export const StoresTemplate = () => {
             </div>
           </S.GridHeaderEmEspera>
           <S.GridBody>
-            <div></div>
+            <div className="gridItemFake"></div>
             <S.Body>
               <S.HeaderBody>
                 <h4>Cliente</h4>
@@ -111,45 +160,87 @@ export const StoresTemplate = () => {
                 <h4>Status</h4>
                 <span></span>
               </S.HeaderBody>
-              {agendamentosEmEspera?.map((_) => (
-                <S.BodyItem key={Math.random()}>
-                  <p>{_?.cliente?.nome || "---"}</p>
-                  <p>{_?.veiculo?.modelo || "---"}</p>
-                  <p>{_?.veiculo?.placa || "---"}</p>
-                  <p>{_?.veiculo?.chassi || "---"}</p>
-                  <Status status={_?.status} />
-                  <S.WrapperActions>
-                    <IconEye
-                      data-color-starcheck={
-                        process.env.REACT_APP_PROJECT === "starcheck"
-                      }
-                      data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                      data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                      data-color-tokyo={
-                        process.env.REACT_APP_PROJECT === "tokyo"
-                      }
-                      onClick={() =>
-                        window.open(
-                          `/meus-agendamentos/agendamento?id=${_.uuid}`,
-                          "_blank"
-                        )
-                      }
-                      src="/assets/svgs/eye.svg"
-                      alt="olho"
-                    />
-                    <ButtonDots
-                      statusAgendamento={_?.status}
-                      handleStart={() =>
-                        setModalStart({
-                          open: true,
-                          uuidLoja: _?.loja?.uuid,
-                          uuidAgendamento: _?.uuid,
-                        })
-                      }
-                    />
-                  </S.WrapperActions>
-                </S.BodyItem>
-              ))}
+              {agendamentosEmEspera?.map((_) =>
+                isMobile ? (
+                  <S.BodyItem key={Math.random()}>
+                    <div className="wrapperMobile">
+                      <p>
+                        {_?.veiculo?.placa || "---"} /{" "}
+                        {_?.veiculo?.chassi || "---"}
+                      </p>{" "}
+                      <Status status={_?.status} />
+                    </div>
+                    <S.WrapperActions>
+                      <IconEye
+                        data-color-starcheck={
+                          process.env.REACT_APP_PROJECT === "starcheck"
+                        }
+                        data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                        data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                        data-color-tokyo={
+                          process.env.REACT_APP_PROJECT === "tokyo"
+                        }
+                        onClick={() =>
+                          window.open(
+                            `/meus-agendamentos/agendamento?id=${_.uuid}`,
+                            "_blank"
+                          )
+                        }
+                        src="/assets/svgs/eye.svg"
+                        alt="olho"
+                      />
+                      <ButtonDots
+                        statusAgendamento={_?.status}
+                        handleStart={() =>
+                          setModalStart({
+                            open: true,
+                            uuidLoja: _?.loja?.uuid,
+                            uuidAgendamento: _?.uuid,
+                          })
+                        }
+                      />
+                    </S.WrapperActions>
+                  </S.BodyItem>
+                ) : (
+                  <S.BodyItem key={Math.random()}>
+                    <p>{_?.cliente?.nome || "---"}</p>
+                    <p>{_?.veiculo?.modelo || "---"}</p>
+                    <p>{_?.veiculo?.placa || "---"}</p>
+                    <p>{_?.veiculo?.chassi || "---"}</p>
+                    <Status status={_?.status} />
+                    <S.WrapperActions>
+                      <IconEye
+                        data-color-starcheck={
+                          process.env.REACT_APP_PROJECT === "starcheck"
+                        }
+                        data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                        data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                        data-color-tokyo={
+                          process.env.REACT_APP_PROJECT === "tokyo"
+                        }
+                        onClick={() =>
+                          window.open(
+                            `/meus-agendamentos/agendamento?id=${_.uuid}`,
+                            "_blank"
+                          )
+                        }
+                        src="/assets/svgs/eye.svg"
+                        alt="olho"
+                      />
+                      <ButtonDots
+                        statusAgendamento={_?.status}
+                        handleStart={() =>
+                          setModalStart({
+                            open: true,
+                            uuidLoja: _?.loja?.uuid,
+                            uuidAgendamento: _?.uuid,
+                          })
+                        }
+                      />
+                    </S.WrapperActions>
+                  </S.BodyItem>
+                )
+              )}
             </S.Body>
           </S.GridBody>
         </S.Wrapper>
