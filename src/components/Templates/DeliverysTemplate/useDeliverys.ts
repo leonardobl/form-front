@@ -10,6 +10,7 @@ import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { useMediaQuery } from "react-responsive";
 
 type FormFilterProps = {
   dataInicial?: string;
@@ -23,6 +24,8 @@ export const useDeliverys = () => {
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const { setIsLoad } = useContextSite();
   const [token] = useSessionStorage("@token");
+  const isMobile = useMediaQuery({ maxWidth: "500px" });
+  const [filterOpen, setFilterOpen] = useState(isMobile ? false : true);
 
   async function handleDownload({
     cidade,
@@ -86,6 +89,7 @@ export const useDeliverys = () => {
 
     setFormFilter(reset);
     getAgendamentos({ dataInicial: date });
+    isMobile && setFilterOpen(false);
   }
 
   useEffect(() => {
@@ -122,5 +126,8 @@ export const useDeliverys = () => {
     cidadesOptions,
     handleDownload,
     agendamentos,
+    isMobile,
+    filterOpen,
+    setFilterOpen,
   };
 };
