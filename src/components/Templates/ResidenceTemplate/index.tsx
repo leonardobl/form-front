@@ -46,43 +46,6 @@ export const ResidenceTemplate = () => {
               }}
             />
           </div>
-          <div>
-            <Text>
-              Datas e horários <span className="textStrong">disponíveis</span>.{" "}
-            </Text>
-          </div>
-          <div>
-            <InputDate
-              showIcon
-              isLoading={isLoading}
-              minDate={new Date()}
-              label="Data"
-              required
-              disabled={!!!form?.uuidDelivery}
-              excludeDates={diasIndisponiveis}
-              onChange={(e) => {
-                setDate(e);
-              }}
-              placeholderText="__/__/__"
-              selected={date}
-            />
-          </div>
-          <div>
-            <SimpleSelect
-              label="Horário"
-              isDisabled={!date}
-              value={
-                horariosOptions?.find(
-                  (item) => item.value === form.horaAgendada
-                ) || null
-              }
-              onChange={(e: ISelectOptions) =>
-                setForm((prev) => ({ ...prev, horaAgendada: e?.value }))
-              }
-              options={horariosOptions}
-              required
-            />
-          </div>
 
           <div>
             <Button>Avançar</Button>
