@@ -1,29 +1,20 @@
 import React from "react";
-import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
-import { Text } from "../../Atoms/Text";
-import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { Button } from "../../Atoms/Button";
 import { useStore } from "./useStore";
 import { ISelectOptions } from "../../../types/inputs";
 import { Title } from "../../Atoms/Title";
-import { reverseToBrDate } from "../../../utils/dateTransform";
 import { MyModal } from "../../Atoms/MyModal";
 
 export const StoreTemplate = () => {
   const {
     lojasOptions,
-    date,
     form,
     setForm,
-    setDate,
-    diasIndisponiveis,
-    isLoading,
-    horariosOptions,
     modalIsOpen,
     handleSubmit,
-    handleReagendamento,
+    // handleReagendamento,
     setModalIsOpen,
   } = useStore();
 
@@ -51,7 +42,7 @@ export const StoreTemplate = () => {
         </S.GridWrapper>
       </S.Form>
 
-      <MyModal
+      {/* <MyModal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       >
@@ -61,7 +52,7 @@ export const StoreTemplate = () => {
           )} às ${form.horaAgendada}? `}</p>
           <Button onClick={handleReagendamento}>Confirmar</Button>
         </S.ModalContent>
-      </MyModal>
+      </MyModal> */}
     </S.Container>
   );
 };

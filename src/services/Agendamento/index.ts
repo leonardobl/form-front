@@ -67,6 +67,12 @@ export class Agendamento {
     return ApiBrave.post(basePath, props);
   }
 
+  static async postV2(
+    props: IAgendamentoCadastroForm
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.post(`${basePath}/v2`, props);
+  }
+
   static async put(props: IPutAgendamentoProps) {
     const { uuid, ...rest } = props;
     const params = removeEmpty(rest);
@@ -161,4 +167,9 @@ export class Agendamento {
       uuid: uuidVeiculo,
     });
   }
+}
+
+export interface IAgendamentoCadastroForm {
+  uuidDelivery: string;
+  uuidLoja: string;
 }
