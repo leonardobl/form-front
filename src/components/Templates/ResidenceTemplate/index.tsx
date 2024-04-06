@@ -1,9 +1,6 @@
 import React from "react";
-import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
-import { Text } from "../../Atoms/Text";
-import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { Button } from "../../Atoms/Button";
 import { useResidence } from "./useResidence";
 import { ISelectOptions } from "../../../types/inputs";
@@ -16,15 +13,10 @@ export const ResidenceTemplate = () => {
     cidadesOptions,
     form,
     setForm,
-    date,
     handleSubmit,
     setModalIsOpen,
-    setDate,
-    isLoading,
     modalIsOpen,
-    horariosOptions,
-    diasIndisponiveis,
-    handleReagendamento,
+    // handleReagendamento,
   } = useResidence();
 
   return (
@@ -52,7 +44,7 @@ export const ResidenceTemplate = () => {
           </div>
         </S.GridWrapper>
       </S.Form>
-      <MyModal
+      {/* <MyModal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       >
@@ -62,7 +54,7 @@ export const ResidenceTemplate = () => {
           )} às ${form.horaAgendada}? `}</p>
           <Button onClick={handleReagendamento}>Confirmar</Button>
         </S.ModalContent>
-      </MyModal>
+      </MyModal> */}
     </S.Container>
   );
 };
