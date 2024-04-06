@@ -61,12 +61,13 @@ export const GridWrapper = styled.div`
 export const ModalContent = styled.div`
   /* padding: 102px 132px; */
   /* background: #6fa599; */
-  width: 506px;
-  height: 328px;
+  max-width: 506px;
+  max-height: 328px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding: 64px;
 
   p {
     color: ${(props) => props.theme.colors.textColor};
@@ -87,13 +88,17 @@ export const ModalContent = styled.div`
   }
 
   @media (max-width: 500px) {
-    padding: 32px 48px;
+    padding: 32px;
 
     p {
       font-size: 18px;
       line-height: 24px;
       max-width: 200px;
       margin: 0 auto 24px;
+    }
+
+    .wrapperButtons {
+      gap: 0 32px;
     }
   }
 `;
