@@ -4,8 +4,12 @@ import { Text } from "../../Atoms/Text";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
+import { useScheduleConfirmation } from "./useScheduleConfirmation";
 
 export const ScheduleConfirmationTemplate = () => {
+  const { diasIndisponiveis, date, setDate, horarios } =
+    useScheduleConfirmation();
+
   return (
     <S.Container>
       <Text>
@@ -19,12 +23,20 @@ export const ScheduleConfirmationTemplate = () => {
             placeholderText="___/___/___"
             showIcon
             label="Data"
+            minDate={new Date()}
             required
-            onChange={() => ""}
+            selected={date}
+            excludeDates={diasIndisponiveis}
+            onChange={setDate}
           />
         </div>
         <div>
-          <SimpleSelect label="Horário" required />
+          <SimpleSelect
+            isDisabled={!date}
+            label="Horário"
+            required
+            options={horarios}
+          />
         </div>
 
         <div>
