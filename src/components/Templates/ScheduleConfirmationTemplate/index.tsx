@@ -5,13 +5,22 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
 import { useScheduleConfirmation } from "./useScheduleConfirmation";
+import { reverseToIsoDate } from "../../../utils/dateTransform";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const ScheduleConfirmationTemplate = () => {
-  const { diasIndisponiveis, date, setDate, horarios } =
-    useScheduleConfirmation();
+  const {
+    diasIndisponiveis,
+    date,
+    setDate,
+    horarios,
+    form,
+    setForm,
+    onSubmit,
+  } = useScheduleConfirmation();
 
   return (
-    <S.Container>
+    <S.Container onSubmit={onSubmit}>
       <Text>
         Selecione as datas e horários{" "}
         <span className="textStrong">disponíveis</span>.
@@ -27,7 +36,13 @@ export const ScheduleConfirmationTemplate = () => {
             required
             selected={date}
             excludeDates={diasIndisponiveis}
-            onChange={setDate}
+            onChange={(e) => {
+              setDate(e);
+              setForm((prev) => ({
+                ...prev,
+                diaAgendado: reverseToIsoDate(e?.toLocaleString()),
+              }));
+            }}
           />
         </div>
         <div>
@@ -36,6 +51,13 @@ export const ScheduleConfirmationTemplate = () => {
             label="Horário"
             required
             options={horarios}
+            onChange={(e: ISelectOptions) =>
+              setForm((prev) => ({ ...prev, horaAgendada: e?.value }))
+            }
+            value={
+              horarios.find((item) => item?.value === form?.horaAgendada) ||
+              null
+            }
           />
         </div>
 

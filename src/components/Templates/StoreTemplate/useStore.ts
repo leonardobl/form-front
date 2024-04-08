@@ -3,13 +3,10 @@ import { toast } from "react-toastify";
 import { Loja } from "../../../services/Lojas";
 import { ISelectOptions } from "../../../types/inputs";
 import { useContextSite } from "../../../context/Context";
-import {
-  Agendamento,
-  IAgendamentoCadastroForm,
-  IReagendamentoProps,
-} from "../../../services/Agendamento";
+import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useNavigate } from "react-router-dom";
+import { IAgendamentoCadastroForm } from "../../../types/agendamento";
 
 export const useStore = () => {
   const [token] = useSessionStorage("@token");

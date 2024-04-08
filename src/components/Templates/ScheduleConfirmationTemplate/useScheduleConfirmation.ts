@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
-import { IAgendamentoDTO } from "../../../types/agendamento";
+import {
+  IAgendamentoDTO,
+  IAgendamentoHorarioForm,
+} from "../../../types/agendamento";
 import { Loja } from "../../../services/Lojas";
 import { addDays } from "date-fns";
 import { useContextSite } from "../../../context/Context";
 import { Delivery } from "../../../services/Delivery";
 import { ISelectOptions } from "../../../types/inputs";
+import { resetValues } from "../../../utils/resetObject";
 
 export const useScheduleConfirmation = () => {
   const params = useParams();
@@ -16,6 +20,9 @@ export const useScheduleConfirmation = () => {
   const [date, setDate] = useState<Date>(null);
   const [horarios, setHorarios] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
+  );
+  const [form, setForm] = useState<IAgendamentoHorarioForm>(
+    {} as IAgendamentoHorarioForm
   );
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
     {} as IAgendamentoDTO
@@ -78,6 +85,9 @@ export const useScheduleConfirmation = () => {
 
   useEffect(() => {
     if (date) {
+      const reset = resetValues(form);
+      setForm(reset);
+
       const newDate = date.toLocaleDateString().split("/").reverse().join("-");
 
       if (agendamento?.loja?.uuid) {
@@ -114,5 +124,42 @@ export const useScheduleConfirmation = () => {
     }
   }, [date]);
 
-  return { diasIndisponiveis, date, setDate, horarios };
+  function onSubmit(e: React.SyntheticEvent) {
+    e.preventDefault();
+    setIsLoad(true);
+
+    const PAYLOAD = {
+      ...form,
+      uuid: agendamento?.uuid,
+    };
+
+    console.log(PAYLOAD);
+
+    return;
+
+    Agendamento.definirHorario(PAYLOAD)
+      .then(() => {
+        toast.success("agendamento confirmado!");
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => setIsLoad(false));
+  }
+
+  return {
+    diasIndisponiveis,
+    date,
+    setDate,
+    horarios,
+    form,
+    setForm,
+    onSubmit,
+  };
 };

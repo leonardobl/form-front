@@ -1,49 +1,22 @@
 import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
 import {
+  DownloadProps,
   IAgendamentoBasicoForm,
+  IAgendamentoCadastroForm,
   IAgendamentoDTO,
-  IAgendamentoForm,
   IAtendimentoDomiciliarForm,
+  IConfirmacaoHorarioProps,
+  IGetAgendamentosProps,
   IPageAgendamentoDTO,
-  IReagendamentoForm,
+  IPutAgendamentoProps,
+  IReagendamentoProps,
 } from "../../types/agendamento";
-import { IPageRequest } from "../../types/page";
-import { TipoAtendimentoEnum } from "../../enums/tipoAtendimento";
-import { StatusAgendamentoEnum } from "../../enums/statusAgendamento";
+
 import objectToParams from "../../utils/objectToParams";
 import { removeEmpty } from "../../utils/removeEmpty";
 
 const basePath = "/agendamento";
-
-export interface IPutAgendamentoProps extends IAgendamentoForm {
-  uuid: string;
-}
-
-export interface IReagendamentoProps extends IReagendamentoForm {
-  uuidAgendamento: string;
-}
-
-export interface IGetAgendamentosProps extends IPageRequest {
-  loja?: string;
-  nome?: string;
-  cpfCnpj?: string;
-  tipoAtendimento?: TipoAtendimentoEnum;
-  veiculo?: string;
-  cidade?: string;
-  dataInicial?: string;
-  dataFinal?: string;
-  placa?: string;
-  renavam?: string;
-  chassi?: string;
-  statusAgendamento?: StatusAgendamentoEnum;
-  idCliente?: string;
-}
-
-type DownloadProps = {
-  cidade?: string;
-  dia: string;
-};
 
 export class Agendamento {
   static async get(
@@ -128,6 +101,13 @@ export class Agendamento {
     window.URL.revokeObjectURL(url);
   }
 
+  static async definirHorario(
+    props: IConfirmacaoHorarioProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuid, ...rest } = props;
+    return ApiBrave.put(`${basePath}/${uuid}/definir-horario`, rest);
+  }
+
   static async cancelar({
     uuid,
   }: {
@@ -167,9 +147,4 @@ export class Agendamento {
       uuid: uuidVeiculo,
     });
   }
-}
-
-export interface IAgendamentoCadastroForm {
-  uuidDelivery: string;
-  uuidLoja: string;
 }
