@@ -34,11 +34,11 @@ import { ProtectedAdminRoute } from "./components/Atoms/ProtectedAdminRoute";
 import { Profile } from "./components/Pages/Profile";
 import { Deliverys } from "./components/Pages/Deliverys";
 import { Stores } from "./components/Pages/Stores";
+import { PixConfirmation } from "./components/Pages/PixConfirmation";
 
 export const App = () => {
   return (
     <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
-      {/* // <ThemeProvider theme={Theme["log"]}> */}
       <ToastContainer autoClose={2000} />
       <GlobalStyles />
       <ContextProvider>
@@ -120,6 +120,10 @@ export const App = () => {
                 />
                 <Route path="pix" element={<Pix />} />
                 <Route path="boleto" element={<Ticket />} />
+                <Route
+                  path="confirmacao-pagamento"
+                  element={<PixConfirmation />}
+                />
               </Route>
             </Route>
 
