@@ -3,8 +3,11 @@ import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { Text } from "../../Atoms/Text";
 import { Button } from "../../Atoms/Button";
+import { usePixConfirmation } from "./usePixConfirmation";
 
 export const PixConfirmationTemplate = () => {
+  const { navigate, params } = usePixConfirmation();
+
   return (
     <S.Container>
       <Title>Pagamento PIX</Title>
@@ -15,7 +18,13 @@ export const PixConfirmationTemplate = () => {
           Pagamento <span className="textStrong">confirmado</span>.
         </Text>
       </S.WrapperText>
-      <Button>Realizar Agendamento</Button>
+      <Button
+        onClick={() =>
+          navigate(`/agendamento/${params?.uuidAgendamento}/confirmar-horario`)
+        }
+      >
+        Realizar Agendamento
+      </Button>
     </S.Container>
   );
 };
