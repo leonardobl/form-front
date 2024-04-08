@@ -118,12 +118,14 @@ export const App = () => {
                     </ProtectedRoute>
                   }
                 />
-                <Route path="pix" element={<Pix />} />
+                <Route path="pix">
+                  <Route index element={<Pix />} />
+                  <Route
+                    path="confirmacao-pagamento"
+                    element={<PixConfirmation />}
+                  />
+                </Route>
                 <Route path="boleto" element={<Ticket />} />
-                <Route
-                  path="confirmacao-pagamento"
-                  element={<PixConfirmation />}
-                />
               </Route>
             </Route>
 
