@@ -3,7 +3,8 @@ import * as S from "./styles";
 import { Text } from "../../Atoms/Text";
 import { Input } from "../../Atoms/Inputs/Input";
 import { useConfirmAppointment } from "./useConfirmAppointment";
-import { maskCnpj, maskCpf, maskMoney } from "../../../utils/masks";
+import { maskCnpj, maskCpf, maskMoney, maskPhone } from "../../../utils/masks";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 
 export const ConfirmAppointmentTemplate = () => {
   const { agendamento } = useConfirmAppointment();
@@ -20,7 +21,7 @@ export const ConfirmAppointmentTemplate = () => {
       <S.Form>
         <div>
           <Input
-            value={agendamento?.veiculo?.tipo || " --- "}
+            value={agendamento?.tipoAtendimento || " --- "}
             readOnly
             label="Tipo de Agendamento"
           />
@@ -48,7 +49,7 @@ export const ConfirmAppointmentTemplate = () => {
 
         <div>
           <Input
-            value={agendamento?.cliente?.telefone || " --- "}
+            value={maskPhone(agendamento?.cliente?.telefone) || " --- "}
             readOnly
             label="Telefone"
           />
@@ -96,14 +97,22 @@ export const ConfirmAppointmentTemplate = () => {
 
         <div>
           <Input
-            value={maskMoney(agendamento?.servico?.valorPadrao)}
+            value={
+              agendamento?.tipoAtendimento === TipoAtendimentoEnum.DOMICILIO
+                ? maskMoney(agendamento?.servico?.valorDelivery / 100)
+                : maskMoney(agendamento?.servico?.valorPadrao / 100)
+            }
             readOnly
             label="Valor Pago"
           />
         </div>
 
         <div>
-          <Input readOnly label="Forma de Pagamento" />
+          <Input
+            value={agendamento?.fatura?.status || " --- "}
+            readOnly
+            label="Forma de Pagamento"
+          />
         </div>
       </S.Form>
     </S.Container>
