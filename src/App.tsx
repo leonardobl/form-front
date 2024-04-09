@@ -47,8 +47,11 @@ export const App = () => {
       <ContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route index element={<DocDownloads />} />
-            {/* <Route index element={<Navigate to={"/agendamento"} />} /> */}
+            <Route index element={<Navigate to={"/agendamento"} />} />
+            <Route
+              path="/download-comprovante/:id"
+              element={<DocDownloads />}
+            />
             <Route path="*" element={<NotFound />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
             <Route path="/offline" element={<Offline />} />

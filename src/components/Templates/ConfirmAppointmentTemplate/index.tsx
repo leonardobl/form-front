@@ -17,7 +17,13 @@ export const ConfirmAppointmentTemplate = () => {
           Confirme os{" "}
           <span className="textStrong">dados do seu agendamento</span>.
         </Text>
-        <img src="/assets/svgs/down-doc.svg" alt="icone download" />
+        <img
+          src="/assets/svgs/down-doc.svg"
+          alt="icone download"
+          onClick={() =>
+            window.open(`/download-comprovante/${agendamento?.uuid}`, "_black")
+          }
+        />
       </S.WrapperText>
       <S.Form>
         <div>

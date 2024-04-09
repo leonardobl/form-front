@@ -1,20 +1,18 @@
 import React from "react";
 import * as S from "./styles";
-import { IAgendamentoDTO } from "../../../types/agendamento";
 import { maskCnpj, maskCpf, maskMoney, maskPhone } from "../../../utils/masks";
 import { TipoPagamento } from "../../../enums/tipoPagamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { useDocDownload } from "./useDocDownload";
 
-interface IDocDownloadProps {
-  agendamento?: IAgendamentoDTO;
-}
+export const DocDownloads = () => {
+  const { agendamento } = useDocDownload();
 
-export const DocDownloads = ({ agendamento }: IDocDownloadProps) => {
   return (
-    <S.Container>
+    <S.Container id="container">
       <S.Bar>
         <img
-          src={`/assets/svgs/logo-${process.env.REACT_APP_PROJECT}.svg`}
+          src={`/assets/svgs/logo-${process.env.REACT_APP_PROJECT}.png`}
           alt="logo empresa"
         />
       </S.Bar>
