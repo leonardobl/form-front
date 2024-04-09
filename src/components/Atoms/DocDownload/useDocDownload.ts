@@ -24,7 +24,7 @@ export const useDocDownload = () => {
 
     setTimeout(() => {
       handleDownload();
-    }, 500);
+    }, 1000);
   }, [agendamento]);
 
   function handleDownload() {
