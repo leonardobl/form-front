@@ -85,9 +85,7 @@ export const useScheduleConfirmation = () => {
 
   useEffect(() => {
     if (date) {
-      const reset = resetValues(form);
-      setForm(reset);
-
+      setForm((prev) => ({ ...prev, horaAgendada: null }));
       const newDate = date.toLocaleDateString().split("/").reverse().join("-");
 
       if (agendamento?.loja?.uuid) {
@@ -126,7 +124,7 @@ export const useScheduleConfirmation = () => {
 
   function onSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    setIsLoad(true);
+    // setIsLoad(true);
 
     const PAYLOAD = {
       ...form,

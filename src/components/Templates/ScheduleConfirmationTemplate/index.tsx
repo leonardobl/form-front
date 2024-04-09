@@ -40,7 +40,7 @@ export const ScheduleConfirmationTemplate = () => {
               setDate(e);
               setForm((prev) => ({
                 ...prev,
-                diaAgendado: reverseToIsoDate(e?.toLocaleString()),
+                diaAgendado: reverseToIsoDate(e?.toLocaleDateString()),
               }));
             }}
           />
