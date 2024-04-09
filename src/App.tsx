@@ -37,6 +37,7 @@ import { Stores } from "./components/Pages/Stores";
 import { PixConfirmation } from "./components/Pages/PixConfirmation";
 import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
 import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
+import { DocDownloads } from "./components/Atoms/DocDownload";
 
 export const App = () => {
   return (
@@ -46,7 +47,8 @@ export const App = () => {
       <ContextProvider>
         <BrowserRouter>
           <Routes>
-            <Route index element={<Navigate to={"/agendamento"} />} />
+            <Route index element={<DocDownloads />} />
+            {/* <Route index element={<Navigate to={"/agendamento"} />} /> */}
             <Route path="*" element={<NotFound />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
             <Route path="/offline" element={<Offline />} />
