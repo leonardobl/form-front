@@ -5,6 +5,7 @@ import { Input } from "../../Atoms/Inputs/Input";
 import { useConfirmAppointment } from "./useConfirmAppointment";
 import { maskCnpj, maskCpf, maskMoney, maskPhone } from "../../../utils/masks";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { TipoPagamento } from "../../../enums/tipoPagamento";
 
 export const ConfirmAppointmentTemplate = () => {
   const { agendamento } = useConfirmAppointment();
@@ -109,7 +110,11 @@ export const ConfirmAppointmentTemplate = () => {
 
         <div>
           <Input
-            value={agendamento?.fatura?.status || " --- "}
+            value={
+              agendamento?.fatura?.pix
+                ? TipoPagamento.PIX
+                : TipoPagamento.BOLETO
+            }
             readOnly
             label="Forma de Pagamento"
           />
