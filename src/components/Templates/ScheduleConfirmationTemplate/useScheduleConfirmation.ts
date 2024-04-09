@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import {
@@ -15,6 +15,7 @@ import { resetValues } from "../../../utils/resetObject";
 
 export const useScheduleConfirmation = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const { setIsLoad } = useContextSite();
   const [date, setDate] = useState<Date>(null);
@@ -124,20 +125,16 @@ export const useScheduleConfirmation = () => {
 
   function onSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    // setIsLoad(true);
+    setIsLoad(true);
 
     const PAYLOAD = {
       ...form,
       uuid: agendamento?.uuid,
     };
 
-    console.log(PAYLOAD);
-
-    return;
-
     Agendamento.definirHorario(PAYLOAD)
       .then(() => {
-        toast.success("agendamento confirmado!");
+        navigate(`/agendamento/${agendamento?.uuid}/confirmar-agendamento`);
       })
       .catch(
         ({

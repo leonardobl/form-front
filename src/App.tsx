@@ -36,6 +36,7 @@ import { Deliverys } from "./components/Pages/Deliverys";
 import { Stores } from "./components/Pages/Stores";
 import { PixConfirmation } from "./components/Pages/PixConfirmation";
 import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
+import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
 
 export const App = () => {
   return (
@@ -98,6 +99,11 @@ export const App = () => {
               <Route
                 path="confirmar-horario"
                 element={<ScheduleConfirmation />}
+              />
+
+              <Route
+                path="confirmar-agendamento"
+                element={<ConfirmAppointment />}
               />
               <Route path="login-cadastro" element={<LoginRegister />} />
               <Route path="cadastro-usuario" element={<UserRegistration />} />
