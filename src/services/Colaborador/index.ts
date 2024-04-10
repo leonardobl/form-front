@@ -5,6 +5,8 @@ import {
   IColaboradorDTO,
   IColaboradorForm,
   IListarAgendamentosProps,
+  IlistarPorDeliveryProps,
+  IlistarPorLojaProps,
 } from "../../types/colaborador";
 import { IAgendamentoDTO } from "../../types/agendamento";
 
@@ -18,10 +20,27 @@ export class Colaborador {
   static async listarAgendamentos(
     props: IListarAgendamentosProps
   ): Promise<AxiosResponse<IAgendamentoDTO[]>> {
-    return ApiBrave.get(`${basePath}/listar-agendamentos`);
+    const params = objectToParams(props);
+    return ApiBrave.get(`${basePath}/listar-agendamentos?${params}`);
   }
 
-  static async put(): Promise<AxiosResponse<IColaboradorForm>> {
-    return ApiBrave.put(`${basePath}/cadastrar`);
+  static async listarPorDelivery(
+    props: IlistarPorDeliveryProps
+  ): Promise<AxiosResponse<IColaboradorDTO[]>> {
+    const params = objectToParams(props);
+    return ApiBrave.get(`${basePath}/listar-por-delivery?${params}`);
+  }
+
+  static async listarPorLoja(
+    props: IlistarPorLojaProps
+  ): Promise<AxiosResponse<IColaboradorDTO[]>> {
+    const params = objectToParams(props);
+    return ApiBrave.get(`${basePath}/listar-por-loja?${params}`);
+  }
+
+  static async put(
+    props: IColaboradorForm
+  ): Promise<AxiosResponse<IColaboradorDTO>> {
+    return ApiBrave.put(`${basePath}/cadastrar`, props);
   }
 }

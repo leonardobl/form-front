@@ -26,3 +26,14 @@ export interface IListarAgendamentosProps {
   uuidColaborador: string;
   data: string;
 }
+
+export interface IlistarPorDeliveryProps {
+  uuidDelivery: string;
+  tipo?: TipoColaboradorEnum;
+}
+
+export interface IlistarPorLojaProps {
+  uuidLoja: string;
+  tipo?: TipoColaboradorEnum;
+  disponivel?: boolean;
+}
