@@ -80,8 +80,8 @@ export const useStores = () => {
       status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
     })
       .then(({ data }) => {
-        const emEspera = transformData(data);
-        const foraDeEspera = data.filter((item) =>
+        const emEspera = transformData(data?.agendamentos);
+        const foraDeEspera = data.agendamentos.filter((item) =>
           item.agendamentos.some((_) => !_.emEspera)
         );
         setAgendamentos(foraDeEspera);
