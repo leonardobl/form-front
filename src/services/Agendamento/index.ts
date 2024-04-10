@@ -3,8 +3,8 @@ import { ApiBrave } from "../../Apis/Brave";
 import {
   IAgendamentoBasicoForm,
   IAgendamentoDTO,
-  IAgendamentoDaHoraDTO,
   IAgendamentoForm,
+  IAgendamentosDoDiaDTO,
   IAtendimentoDomiciliarForm,
   IPageAgendamentoDTO,
   IReagendamentoForm,
@@ -44,17 +44,21 @@ export interface IGetAgendamentosProps extends IPageRequest {
 type AgendamentoByHourProps = {
   data?: string;
   status?: StatusAgendamentoEnum[];
+  uuidLoja?: string;
+  uuidDelivery?: string;
 };
 
-function propsToString(props: AgendamentoByHourProps) {
-  if (props?.data && props?.status) {
-    const statusString = props?.status?.join(",");
-    return `data=${props?.data}&status=${statusString}`;
-  }
-  if (props?.data) {
-    return `data=${props?.data}`;
-  }
-  return `status=${props?.status.join(",")}`;
+function propsToString(params) {
+  const result = params
+    ? Object.entries(params)
+        .map((e) =>
+          Array.isArray(e[1]) ? `${e[0]}=${e[1].join(",")}` : e.join("=")
+        )
+        .flat()
+        .join("&")
+    : "";
+
+  return result;
 }
 
 type DownloadProps = {
@@ -80,7 +84,7 @@ export class Agendamento {
 
   static getByHour(
     props: AgendamentoByHourProps
-  ): Promise<AxiosResponse<IAgendamentoDaHoraDTO[]>> {
+  ): Promise<AxiosResponse<IAgendamentosDoDiaDTO>> {
     const path = propsToString(props);
     return ApiBrave.get(`${basePath}/listar-por-horario?${path}`);
   }

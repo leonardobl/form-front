@@ -177,7 +177,17 @@ export interface IReagendamentoForm {
   uuidLoja?: string;
 }
 
+// -----------------
+
+export interface IAgendamentosDoDiaDTO {
+  agendamentos: IAgendamentoDaHoraDTO[];
+  totalAgendamentos: number;
+  vagas: number;
+}
+
 export interface IAgendamentoDaHoraDTO {
   agendamentos: IAgendamentoDTO[];
   horaAgendada: string;
 }
+
+// -----------------
