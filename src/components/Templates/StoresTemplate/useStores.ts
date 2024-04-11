@@ -85,7 +85,7 @@ export const useStores = () => {
 
   const getData = () => {
     setIsLoad(true);
-    const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
     const uuids = {
       uuidDelivery: colaborador?.delivery?.uuid,
       uuidLoja: colaborador?.loja?.uuid,
