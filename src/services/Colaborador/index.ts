@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
 import objectToParams from "../../utils/objectToParams";
 import {
+  IColaboradorCompletoDTO,
   IColaboradorDTO,
   IColaboradorForm,
   IListarAgendamentosProps,
@@ -17,7 +18,7 @@ export class Colaborador {
     return ApiBrave.get(basePath);
   }
 
-  static async atual(): Promise<AxiosResponse<IColaboradorDTO[]>> {
+  static async atual(): Promise<AxiosResponse<IColaboradorCompletoDTO>> {
     return ApiBrave.get(`${basePath}/atual`);
   }
 

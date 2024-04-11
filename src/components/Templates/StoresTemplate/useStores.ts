@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Agendamento } from "../../../services/Agendamento";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import {
@@ -9,6 +9,9 @@ import {
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { Colaborador } from "../../../services/Colaborador";
+import { IColaboradorCompletoDTO } from "../../../types/colaborador";
+import { removeEmpty } from "../../../utils/removeEmpty";
 
 type ModalStartProps = {
   open: boolean;
@@ -26,10 +29,19 @@ export const useStores = () => {
   const [modalStart, setModalStart] = useState<ModalStartProps>({
     open: false,
   });
+  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
+    {} as IColaboradorCompletoDTO
+  );
   function transformData(data: IAgendamentoDaHoraDTO[]) {
     const result = data.flatMap((item) => item.agendamentos);
     return result.filter((item) => item.emEspera);
   }
+
+  const getColaborador = useCallback(async () => {
+    Colaborador.atual().then(({ data }) => {
+      setColaborador(data);
+    });
+  }, []);
 
   function iniciarVistoria(uuidAgendamento: string) {
     setIsLoad(true);
@@ -71,13 +83,20 @@ export const useStores = () => {
       });
   }
 
-  function getData() {
-    const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
-
+  const getData = () => {
     setIsLoad(true);
+    const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
+    const uuids = {
+      uuidDelivery: colaborador?.delivery?.uuid,
+      uuidLoja: colaborador?.loja?.uuid,
+    };
+
+    const filterEmpty = removeEmpty(uuids);
+
     Agendamento.getByHour({
       data: hoje,
       status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
+      ...filterEmpty,
     })
       .then(({ data }) => {
         const emEspera = transformData(data?.agendamentos);
@@ -95,11 +114,23 @@ export const useStores = () => {
         }) => toast.error(mensagem)
       )
       .finally(() => setIsLoad(false));
-  }
+  };
 
   useEffect(() => {
-    getData();
-  }, []);
+    getColaborador().catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => toast.error(mensagem)
+    );
+  }, [getColaborador]);
+
+  useEffect(() => {
+    if (colaborador?.uuid) {
+      getData();
+    }
+  }, [colaborador]);
 
   return {
     iniciarVistoria,
