@@ -125,12 +125,29 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuid}/iniciar`);
   }
 
-  static async downloadExc(
-    props: DownloadProps
-  ): Promise<AxiosResponse<string[]>> {
-    const values = removeEmpty(props);
-    const path = objectToParams(values);
-    return ApiBrave.get(`${basePath}/listar-deliveries?${path}`);
+  static async downloadExc(props: DownloadProps) {
+    const token = sessionStorage.getItem("@token");
+    let path = `${process.env.REACT_APP_BRAVE_API_URL}${basePath}/listar-deliveries?dia=${props.dia}`;
+
+    if (props?.cidade) {
+      path = `${process.env.REACT_APP_BRAVE_API_URL}${basePath}/listar-deliveries?dia=${props.dia}&cidade=${props.cidade}`;
+    }
+
+    const response = await fetch(path, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.replaceAll('"', ""),
+      },
+    });
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "relatorio.xlsx";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
   }
 
   static async cancelar({
