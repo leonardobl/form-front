@@ -14,6 +14,7 @@ import { Loja } from "../../../services/Lojas";
 import { ISelectOptions } from "../../../types/inputs";
 import { resetValues } from "../../../utils/resetObject";
 import { useMediaQuery } from "react-responsive";
+import { Colaborador } from "../../../services/Colaborador";
 
 type ModalStartProps = {
   open: boolean;
@@ -40,6 +41,7 @@ export const useStores = () => {
     ISelectOptions[]
   >([]);
   const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
+  let uuidLoja = "";
 
   function transformData(data: IAgendamentoDaHoraDTO[]) {
     const result = data.flatMap((item) => item.agendamentos);
@@ -121,8 +123,14 @@ export const useStores = () => {
       .finally(() => setIsLoad(false));
   }
 
+  async function getColaborador() {
+    return await Colaborador.atual().then(({ data }) => data);
+  }
+
   useEffect(() => {
-    getData();
+    getColaborador().then((data) => {
+      getData();
+    });
   }, []);
 
   useEffect(() => {
