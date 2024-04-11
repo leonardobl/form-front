@@ -1,5 +1,9 @@
 import { SexoEnum } from "../enums/sexo";
 import { TipoColaboradorEnum } from "../enums/tipoColaborador";
+<<<<<<< HEAD
+=======
+import { IDeliveryDTO } from "./delivery";
+>>>>>>> 8ef3b82af7bfd397c7ce34957e44fc5d2dd08075
 
 export interface IColaboradorDTO {
   cpf: string;
@@ -37,3 +41,18 @@ export interface IlistarPorLojaProps {
   tipo?: TipoColaboradorEnum;
   disponivel?: boolean;
 }
+<<<<<<< HEAD
+=======
+
+export interface IColaboradorCompletoDTO {
+  cpf: string;
+  dataNascimento: string;
+  delivery: IDeliveryDTO;
+  loja: IDeliveryDTO;
+  nome: string;
+  sexo: string;
+  tipo: string;
+  uuid: string;
+  uuidUsuario: string;
+}
+>>>>>>> 8ef3b82af7bfd397c7ce34957e44fc5d2dd08075

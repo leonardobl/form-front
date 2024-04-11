@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .container {
+        width: 595px;
+        margin: 0 auto;
+        padding-bottom: 40px;
+      }
+
+      .bar {
+        width: 100%;
+        height: 52px;
+        background-color: #266bf0;
+        margin-bottom: 40px;
+      }
+
+      #logo {
+        display: block;
+        max-height: 32px;
+        margin: 0 auto;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .wrapper {
+        width: 543px;
+        margin: 0 auto;
+
+        > div.card + div.card {
+          margin-top: 24px;
+        }
+      }
+
+      .card {
+        border: 1px solid #adb7b5;
+      }
+
+      .cardTitle {
+        color: #fff;
+        text-align: center;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        font-family: Roboto;
+        line-height: 24px;
+        letter-spacing: 0.48px;
+        background: #266bf0;
+      }
+
+      .cardContent {
+        padding: 16px;
+
+        > p {
+          color: #2d2d2d;
+          font-family: Roboto;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 20px;
+        }
+
+        > p + p {
+          margin-top: 8px;
+        }
+      }
+    </style>
+    <title>Recibo</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bar">
+        <img
+          id="logo"
+          src="../../../../public/assets/svgs/logo-starcheck.png"
+          alt="logo empresa"
+        />
+      </div>
+
+      <div class="wrapper">
+        <div class="card">
+          <h2 class="cardTitle">Cliente</h2>
+          <div class="cardContent">
+            <p>Nome:</p>
+            <p>CPF/CNPJ:</p>
+            <p>Telefone:</p>
+            <p>E-mail:</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="cardTitle">Informações do Agendamento</h2>
+          <div class="cardContent">
+            <p>Nome:</p>
+            <p>CPF/CNPJ:</p>
+            <p>Telefone:</p>
+            <p>E-mail:</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="cardTitle">Veículo</h2>
+          <div class="cardContent">
+            <p>Modelo:</p>
+            <p>Placa:</p>
+            <p>Ano do Veículo:</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="cardTitle">Pagamento</h2>
+          <div class="cardContent">
+            <p>Serviço:</p>
+            <p>Valor:</p>
+            <p>Forma de Pagamento:</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

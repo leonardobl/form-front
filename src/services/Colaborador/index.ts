@@ -17,6 +17,10 @@ export class Colaborador {
     return ApiBrave.get(basePath);
   }
 
+  static async atual(): Promise<AxiosResponse<IColaboradorDTO[]>> {
+    return ApiBrave.get(`${basePath}/atual`);
+  }
+
   static async listarAgendamentos(
     props: IListarAgendamentosProps
   ): Promise<AxiosResponse<IAgendamentoDTO[]>> {
