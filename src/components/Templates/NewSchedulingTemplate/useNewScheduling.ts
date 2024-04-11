@@ -1,5 +1,4 @@
-import { v4 } from "uuid";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useContextSite } from "../../../context/Context";
 import { ViaCep } from "../../../services/ViaCep";
 import { toast } from "react-toastify";
@@ -35,10 +34,9 @@ import {
   IPutAgendamentoProps,
   IReagendamentoProps,
 } from "../../../services/Agendamento";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Pagamento } from "../../../services/Pagamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { Vehicle } from "../../Pages/Vehicle";
 
 export const useNewScheduling = () => {
   const { setIsLoad } = useContextSite();
@@ -99,6 +97,9 @@ export const useNewScheduling = () => {
   const [formVihacle, setFormVihacle] = useState<IVeiculoDTO>(
     {} as IVeiculoDTO
   );
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  let uuidAgendamento = searchParams.get("id");
 
   useEffect(() => {
     if (tipoServico === OpcoesServicosEnum.VISTORIA) {
@@ -538,22 +539,25 @@ export const useNewScheduling = () => {
   }, [tipoAtendimento]);
 
   useEffect(() => {
-    if (agendamentoSession?.reagendamento) {
-      setCliente(agendamentoSession?.cliente);
-      setTipoAtendimento(
-        TipoAtendimentoEnum[agendamentoSession.tipoAtendimento]
-      );
-      setFormVihacle(agendamentoSession.veiculo);
+    if (agendamentoSession?.reagendamento && uuidAgendamento) {
+      setIsLoad(true);
+      Agendamento.getById({ uuid: uuidAgendamento })
+        .then(({ data }) => {
+          setCliente(data?.cliente);
+          setTipoAtendimento(TipoAtendimentoEnum[data.tipoAtendimento]);
+          setFormVihacle(data.veiculo);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => {
+            toast.error(mensagem);
+          }
+        )
+        .finally(() => setIsLoad(false));
     }
-
-    return () => {
-      setAgendamentoSession({
-        ...agendamentoSession,
-        cliente: null,
-        veiculo: null,
-        reagendamento: false,
-      });
-    };
   }, []);
 
   function handleClient(e: React.SyntheticEvent) {

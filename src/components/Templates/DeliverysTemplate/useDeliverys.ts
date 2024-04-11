@@ -9,7 +9,6 @@ import { resetValues } from "../../../utils/resetObject";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
-
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 type FormFilterProps = {
@@ -35,31 +34,15 @@ export const useDeliverys = () => {
   }) {
     if (!agendamentos?.length) return;
 
-    let path = `https://agendamentos-api-staging.mapa.app.br:8443/agendamento/listar-deliveries?dia=${dia}`;
-
-    if (cidade) {
-      path = `https://agendamentos-api-staging.mapa.app.br:8443/agendamento/listar-deliveries?dia=${dia}&cidade=${cidade}`;
-    }
-
-    try {
-      const response = await fetch(path, {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-      const blob = await response.blob();
-
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "relatorio.xlsx";
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      toast.error(error);
-    }
+    Agendamento.downloadExc({ dia, cidade })
+      .then()
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      );
   }
 
   function getAgendamentos(prop?: FormFilterProps) {
