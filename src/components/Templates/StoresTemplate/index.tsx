@@ -9,6 +9,7 @@ import { Button } from "../../Atoms/Button";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { Status } from "../../Atoms/Status";
 import { ISelectOptions } from "../../../types/inputs";
+import { resetValues } from "../../../utils/resetObject";
 
 export const StoresTemplate = () => {
   const {
@@ -19,8 +20,6 @@ export const StoresTemplate = () => {
     modalStart,
     setModalStart,
     vistoriadoresOptions,
-    formStart,
-    setFormStart,
     baitasOptions,
     isMobile,
     dataAgendamento,
@@ -87,8 +86,7 @@ export const StoresTemplate = () => {
                         handleStart={() =>
                           setModalStart({
                             open: true,
-                            uuidLoja: _?.loja?.uuid,
-                            uuidAgendamento: _?.uuid,
+                            uuid: _?.uuid,
                           })
                         }
                       />
@@ -126,8 +124,7 @@ export const StoresTemplate = () => {
                         handleStart={() =>
                           setModalStart({
                             open: true,
-                            uuidLoja: _?.loja?.uuid,
-                            uuidAgendamento: _?.uuid,
+                            uuid: _?.uuid,
                           })
                         }
                       />
@@ -193,8 +190,7 @@ export const StoresTemplate = () => {
                         handleStart={() =>
                           setModalStart({
                             open: true,
-                            uuidLoja: _?.loja?.uuid,
-                            uuidAgendamento: _?.uuid,
+                            uuid: _?.uuid,
                           })
                         }
                       />
@@ -231,8 +227,7 @@ export const StoresTemplate = () => {
                         handleStart={() =>
                           setModalStart({
                             open: true,
-                            uuidLoja: _?.loja?.uuid,
-                            uuidAgendamento: _?.uuid,
+                            uuid: _?.uuid,
                           })
                         }
                       />
@@ -261,10 +256,10 @@ export const StoresTemplate = () => {
               options={baitasOptions}
               label="Baia de Atendimento"
               value={baitasOptions?.find(
-                (item) => item?.value === formStart?.uuidBaia
+                (item) => item?.value === modalStart?.uuidBaia
               )}
               onChange={(e: ISelectOptions) =>
-                setFormStart((prev) => ({ ...prev, uuidBaia: e?.value }))
+                setModalStart((prev) => ({ ...prev, uuidBaia: e?.value }))
               }
               required
             />
@@ -275,10 +270,13 @@ export const StoresTemplate = () => {
               required
               label="Vistoriador"
               value={vistoriadoresOptions?.find(
-                (item) => item?.value === formStart?.uuidAtendente
+                (item) => item?.value === modalStart?.uuidVistoriador
               )}
               onChange={(e: ISelectOptions) =>
-                setFormStart((prev) => ({ ...prev, uuidAtendente: e?.value }))
+                setModalStart((prev) => ({
+                  ...prev,
+                  uuidVistoriador: e?.value,
+                }))
               }
             />
           </div>
@@ -286,7 +284,10 @@ export const StoresTemplate = () => {
             <Button
               data-variant-danger
               type="button"
-              onClick={() => setModalStart({ open: false })}
+              onClick={() => {
+                const reset = resetValues(modalStart);
+                setModalStart({ ...reset, open: false });
+              }}
             >
               Cancelar
             </Button>

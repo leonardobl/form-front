@@ -181,10 +181,11 @@ export interface IReagendamentoForm {
 export interface IAgendamentoIniciarForm {
   uuidAtendente?: string;
   uuidBaia?: string;
+  uuidVistoriador?: string;
 }
 
 export interface IIniciarAgendamentoProps extends IAgendamentoIniciarForm {
-  uuid: string;
+  uuid?: string;
 }
 
 export type AgendamentoByHourProps = {

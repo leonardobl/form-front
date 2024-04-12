@@ -17,12 +17,11 @@ import { useMediaQuery } from "react-responsive";
 import { Colaborador } from "../../../services/Colaborador";
 import { IColaboradorCompletoDTO } from "../../../types/colaborador";
 import { removeEmpty } from "../../../utils/removeEmpty";
+import { TipoColaboradorEnum } from "../../../enums/tipoColaborador";
 
-type ModalStartProps = {
+interface IModalStartProps extends IIniciarAgendamentoProps {
   open: boolean;
-  uuidLoja?: string;
-  uuidAgendamento?: string;
-};
+}
 
 type dataAgendamentoProps = {
   vagas: number;
@@ -40,13 +39,11 @@ export const useStores = () => {
   const [dataAgendamento, setDataAgendamento] = useState<dataAgendamentoProps>(
     {} as dataAgendamentoProps
   );
-  const [modalStart, setModalStart] = useState<ModalStartProps>({
+  const [modalStart, setModalStart] = useState<IModalStartProps>({
     open: false,
   });
   const isMobile = useMediaQuery({ maxWidth: "500px" });
-  const [formStart, setFormStart] = useState<IIniciarAgendamentoProps>(
-    {} as IIniciarAgendamentoProps
-  );
+
   const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
     {} as IColaboradorCompletoDTO
   );
@@ -62,8 +59,15 @@ export const useStores = () => {
 
   function iniciarVistoria(e: React.SyntheticEvent) {
     e.preventDefault();
+
+    const PAYLOAD: IIniciarAgendamentoProps = {
+      uuid: modalStart?.uuid,
+      uuidBaia: modalStart?.uuidBaia,
+      uuidVistoriador: modalStart?.uuidVistoriador,
+    };
+
     setIsLoad(true);
-    Agendamento.iniciar(formStart)
+    Agendamento.iniciar(PAYLOAD)
       .then(({ data }) => {
         toast.success("Agendamento iniciado");
         getData();
@@ -105,8 +109,8 @@ export const useStores = () => {
   }
 
   function getData() {
-    // const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
-    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
+    const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
+    // const hoje = reverseToIsoDate(new Date().toLocaleDateString());
 
     const uuids = removeEmpty({
       uuidDelivery: colaborador?.delivery?.uuid,
@@ -160,33 +164,32 @@ export const useStores = () => {
 
   useEffect(() => {
     if (modalStart?.open) {
-      setFormStart((prev) => ({ ...prev, uuid: modalStart?.uuidAgendamento }));
+      Colaborador.listarPorLoja({
+        tipo: TipoColaboradorEnum.VISTORIADOR,
+        disponivel: true,
+        uuidLoja: colaborador?.loja?.uuid,
+      }).then(({ data }) => {
+        const options = data.map((item) => ({
+          value: item.uuid,
+          label: item.nome,
+          element: item,
+        }));
 
-      Loja.getAtendentesLivres({ uuid: modalStart?.uuidLoja }).then(
+        setVistoriadoresOptions(options);
+      });
+
+      Loja.getBaiasLivres({ uuid: colaborador?.loja?.uuid }).then(
         ({ data }) => {
           const options = data.map((item) => ({
             value: item.uuid,
             label: item.nome,
-            element: item,
           }));
-
-          setVistoriadoresOptions(options);
+          setBaiaOptions(options);
         }
       );
 
-      Loja.getBaiasLivres({ uuid: modalStart?.uuidLoja }).then(({ data }) => {
-        const options = data.map((item) => ({
-          value: item.uuid,
-          label: item.nome,
-        }));
-        setBaiaOptions(options);
-      });
-
       return;
     }
-
-    const reset = resetValues(formStart);
-    setFormStart(reset);
   }, [modalStart?.open]);
 
   return {
@@ -196,8 +199,6 @@ export const useStores = () => {
     handleWait,
     modalStart,
     setModalStart,
-    formStart,
-    setFormStart,
     vistoriadoresOptions,
     baitasOptions,
     isMobile,
