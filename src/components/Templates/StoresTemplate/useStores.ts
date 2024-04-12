@@ -24,6 +24,11 @@ type ModalStartProps = {
   uuidAgendamento?: string;
 };
 
+type dataAgendamentoProps = {
+  vagas: number;
+  totalAgendamentos: number;
+};
+
 export const useStores = () => {
   const { setIsLoad } = useContextSite();
   const [agendamentosEmEspera, setAgendamentosEmEspera] = useState<
@@ -31,6 +36,9 @@ export const useStores = () => {
   >([] as IAgendamentoDTO[]);
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>(
     [] as IAgendamentoDaHoraDTO[]
+  );
+  const [dataAgendamento, setDataAgendamento] = useState<dataAgendamentoProps>(
+    {} as dataAgendamentoProps
   );
   const [modalStart, setModalStart] = useState<ModalStartProps>({
     open: false,
@@ -122,6 +130,10 @@ export const useStores = () => {
         );
         setAgendamentos(foraDeEspera);
         setAgendamentosEmEspera(emEspera);
+        setDataAgendamento({
+          totalAgendamentos: data.totalAgendamentos,
+          vagas: data.vagas,
+        });
       })
       .catch(
         ({
@@ -189,5 +201,6 @@ export const useStores = () => {
     vistoriadoresOptions,
     baitasOptions,
     isMobile,
+    dataAgendamento,
   };
 };

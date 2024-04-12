@@ -23,6 +23,7 @@ export const StoresTemplate = () => {
     setFormStart,
     baitasOptions,
     isMobile,
+    dataAgendamento,
   } = useStores();
 
   return (
@@ -30,8 +31,8 @@ export const StoresTemplate = () => {
       <Title>Atendimento Loja</Title>
 
       <S.WrapperInfo>
-        <p>N° de Vagas: xx</p>
-        <p>N° Agendamentos: xxx</p>
+        <p>N° de Vagas: {dataAgendamento?.vagas}</p>
+        <p>N° Agendamentos: {dataAgendamento?.totalAgendamentos}</p>
       </S.WrapperInfo>
 
       {agendamentos?.map((item) => (
