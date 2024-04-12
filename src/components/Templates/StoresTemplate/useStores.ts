@@ -16,7 +16,7 @@ import { resetValues } from "../../../utils/resetObject";
 import { useMediaQuery } from "react-responsive";
 import { Colaborador } from "../../../services/Colaborador";
 import { IColaboradorCompletoDTO } from "../../../types/colaborador";
-import { IColaboradorDTO } from "../../../types/loja";
+import { removeEmpty } from "../../../utils/removeEmpty";
 
 type ModalStartProps = {
   open: boolean;
@@ -100,6 +100,11 @@ export const useStores = () => {
     const hoje = reverseToIsoDate(new Date("2024-01-03").toLocaleDateString());
     // const hoje = reverseToIsoDate(new Date().toLocaleDateString());
 
+    const uuids = removeEmpty({
+      uuidDelivery: colaborador?.delivery?.uuid,
+      uuidLoja: colaborador?.loja?.uuid,
+    });
+
     setIsLoad(true);
     Agendamento.getByHour({
       data: hoje,
@@ -108,10 +113,11 @@ export const useStores = () => {
         StatusAgendamentoEnum.INICIADO,
         StatusAgendamentoEnum.FINALIZADO,
       ],
+      ...uuids,
     })
       .then(({ data }) => {
-        const emEspera = transformData(data);
-        const foraDeEspera = data.filter((item) =>
+        const emEspera = transformData(data.agendamentos);
+        const foraDeEspera = data.agendamentos.filter((item) =>
           item.agendamentos.some((_) => !_.emEspera)
         );
         setAgendamentos(foraDeEspera);

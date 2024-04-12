@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
-import { IAgendamentoBasicoForm } from "../../../types/agendamento";
+import {
+  IAgendamentoBasicoForm,
+  IReagendamentoProps,
+} from "../../../types/agendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
-import {
-  Agendamento,
-  IReagendamentoProps,
-} from "../../../services/Agendamento";
+import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { addDays } from "date-fns";
 import { Delivery } from "../../../services/Delivery";

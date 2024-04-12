@@ -1,67 +1,36 @@
 import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
 import {
+  AgendamentoByHourProps,
+  DownloadProps,
   IAgendamentoBasicoForm,
   IAgendamentoDTO,
-  IAgendamentoDaHoraDTO,
-  IAgendamentoForm,
+  IAgendamentosDoDiaDTO,
   IAtendimentoDomiciliarForm,
+  IGetAgendamentosProps,
   IIniciarAgendamentoProps,
   IPageAgendamentoDTO,
-  IReagendamentoForm,
+  IPutAgendamentoProps,
+  IReagendamentoProps,
 } from "../../types/agendamento";
-import { IPageRequest } from "../../types/page";
-import { TipoAtendimentoEnum } from "../../enums/tipoAtendimento";
-import { StatusAgendamentoEnum } from "../../enums/statusAgendamento";
+
 import objectToParams from "../../utils/objectToParams";
 import { removeEmpty } from "../../utils/removeEmpty";
 
 const basePath = "/agendamento";
 
-export interface IPutAgendamentoProps extends IAgendamentoForm {
-  uuid: string;
+function propsToString(params: AgendamentoByHourProps): string {
+  const result = params
+    ? Object.entries(params)
+        .map((e) =>
+          Array.isArray(e[1]) ? `${e[0]}=${e[1].join(",")}` : e.join("=")
+        )
+        .flat()
+        .join("&")
+    : "";
+
+  return result;
 }
-
-export interface IReagendamentoProps extends IReagendamentoForm {
-  uuidAgendamento: string;
-}
-
-export interface IGetAgendamentosProps extends IPageRequest {
-  loja?: string;
-  nome?: string;
-  cpfCnpj?: string;
-  tipoAtendimento?: TipoAtendimentoEnum;
-  veiculo?: string;
-  cidade?: string;
-  dataInicial?: string;
-  dataFinal?: string;
-  placa?: string;
-  renavam?: string;
-  chassi?: string;
-  statusAgendamento?: StatusAgendamentoEnum;
-  idCliente?: string;
-}
-
-type AgendamentoByHourProps = {
-  data?: string;
-  status?: StatusAgendamentoEnum[];
-};
-
-function propsToString(props: AgendamentoByHourProps) {
-  if (props?.data && props?.status) {
-    const statusString = props?.status?.join(",");
-    return `data=${props?.data}&status=${statusString}`;
-  }
-  if (props?.data) {
-    return `data=${props?.data}`;
-  }
-  return `status=${props?.status.join(",")}`;
-}
-
-type DownloadProps = {
-  cidade?: string;
-  dia: string;
-};
 
 export class Agendamento {
   static async get(
@@ -81,7 +50,7 @@ export class Agendamento {
 
   static getByHour(
     props: AgendamentoByHourProps
-  ): Promise<AxiosResponse<IAgendamentoDaHoraDTO[]>> {
+  ): Promise<AxiosResponse<IAgendamentosDoDiaDTO>> {
     const path = propsToString(props);
     return ApiBrave.get(`${basePath}/listar-por-horario?${path}`);
   }
