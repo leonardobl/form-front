@@ -7,9 +7,7 @@ import { Button } from "../../Atoms/Button";
 import { useDeliverys } from "./useDeliverys";
 import { ISelectOptions } from "../../../types/inputs";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
-import { Box } from "@mui/material";
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
-import { margin } from "polished";
+import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
 export const DeliverysTemplates = () => {
   const {
@@ -34,7 +32,6 @@ export const DeliverysTemplates = () => {
           <div>
             <InputDate
               required
-              isClearable
               label="Data"
               selected={date}
               placeholderText="___/___/___"
@@ -45,15 +42,15 @@ export const DeliverysTemplates = () => {
           </div>
           <div>
             <SimpleSelect
-              isClearable
+              required
               options={cidadesOptions}
               value={
                 cidadesOptions.find(
-                  (item) => item.label === formFilter?.cidade
+                  (item) => item?.value === formFilter?.cidade
                 ) || null
               }
               onChange={(e: ISelectOptions) =>
-                setFormFilter((prev) => ({ ...prev, cidade: e?.label }))
+                setFormFilter((prev) => ({ ...prev, cidade: e?.value }))
               }
               label="Cidade"
             />
@@ -70,16 +67,18 @@ export const DeliverysTemplates = () => {
       </S.FormFilter>
 
       <S.ActionsButtons>
-        <Button 
+        <Button
           onClick={() => {
             date &&
               handleDownload({
                 dia: reverseToIsoDate(date.toLocaleDateString()),
-                cidade: formFilter?.cidade,
+                cidade: cidadesOptions.find(
+                  (item) => item.value === formFilter?.cidade
+                )?.label,
               });
           }}
         >
-          <CloudDownloadIcon sx={{margin: '0 0.5rem 0 0'}}/>
+          <CloudDownloadIcon sx={{ margin: "0 0.5rem 0 0" }} />
           Exportar
         </Button>
       </S.ActionsButtons>
@@ -94,16 +93,18 @@ export const DeliverysTemplates = () => {
           <h4>Horário</h4>
         </S.ListHeader>
         <S.ListBody>
-          {agendamentos?.map((item) => (
-            <S.ListItem key={item?.uuid}>
-              <p>{item?.cliente?.nome || "---"}</p>
-              <p>{item?.veiculo?.modelo || "---"}</p>
-              <p>{item?.veiculo?.placa || "---"}</p>
-              <p>{item?.veiculo?.chassi || "---"}</p>
-              <p>{item?.delivery?.cidade || "---"}</p>
-              <p>{item?.horaAgendada || "---"}</p>
-            </S.ListItem>
-          ))}
+          {agendamentos?.map((group) =>
+            group?.agendamentos?.map((item) => (
+              <S.ListItem key={item?.uuid}>
+                <p>{item?.cliente?.nome || "---"}</p>
+                <p>{item?.veiculo?.modelo || "---"}</p>
+                <p>{item?.veiculo?.placa || "---"}</p>
+                <p>{item?.veiculo?.chassi || "---"}</p>
+                <p>{item?.delivery?.cidade || "---"}</p>
+                <p>{item?.horaAgendada || "---"}</p>
+              </S.ListItem>
+            ))
+          )}
         </S.ListBody>
       </S.List>
     </S.Container>

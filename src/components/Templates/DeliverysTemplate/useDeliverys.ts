@@ -3,17 +3,13 @@ import { ISelectOptions } from "../../../types/inputs";
 import { Delivery } from "../../../services/Delivery";
 import { toast } from "react-toastify";
 import { Agendamento } from "../../../services/Agendamento";
-import { IAgendamentoDTO } from "../../../types/agendamento";
+import { IAgendamentoDaHoraDTO } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
-import { resetValues } from "../../../utils/resetObject";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
-import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 type FormFilterProps = {
-  dataInicial?: string;
-  dataFinal?: string;
+  data?: string;
   cidade?: string;
 };
 
@@ -21,7 +17,7 @@ export const useDeliverys = () => {
   const [formFilter, setFormFilter] = useState<FormFilterProps>({});
   const [date, setDate] = useState(new Date());
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
-  const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
+  const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>([]);
   const { setIsLoad } = useContextSite();
 
   async function handleDownload({
@@ -44,19 +40,20 @@ export const useDeliverys = () => {
       );
   }
 
-  function getAgendamentos(prop?: FormFilterProps) {
+  function getAgendamentos(props?: FormFilterProps) {
     setIsLoad(true);
-    Agendamento.get({
-      ...prop,
-      dataInicial: prop?.dataInicial,
-      dataFinal: prop?.dataInicial,
-      tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
-      statusAgendamento: StatusAgendamentoEnum.AGENDADO,
-      size: 100,
-      sort: "horaAgendada,ASC",
+
+    Agendamento.getByHour({
+      data: props?.data,
+      uuidDelivery: props?.cidade,
+      status: [
+        StatusAgendamentoEnum.AGENDADO,
+        StatusAgendamentoEnum.INICIADO,
+        StatusAgendamentoEnum.FINALIZADO,
+      ],
     })
       .then(({ data }) => {
-        setAgendamentos(data.content);
+        setAgendamentos(data.agendamentos);
       })
       .catch(
         ({
@@ -73,20 +70,19 @@ export const useDeliverys = () => {
 
     const PAYLOAD: FormFilterProps = {
       ...formFilter,
-      dataInicial: reverseToIsoDate(date?.toLocaleDateString()),
-      dataFinal: reverseToIsoDate(date?.toLocaleDateString()),
+      data: reverseToIsoDate(date?.toLocaleDateString()),
     };
-    const hasData = Object.values(PAYLOAD).some((item) => item);
-    hasData && getAgendamentos(PAYLOAD);
+
+    getAgendamentos(PAYLOAD);
   }
 
   function handleClean() {
-    const reset = resetValues(formFilter);
-    const date = reverseToIsoDate(new Date().toLocaleDateString());
+    const data = reverseToIsoDate(new Date().toLocaleDateString());
+    const cidade = cidadesOptions[0]?.value;
     setDate(new Date());
 
-    setFormFilter(reset);
-    getAgendamentos({ dataInicial: date });
+    setFormFilter({ data, cidade });
+    getAgendamentos({ data, cidade });
   }
 
   useEffect(() => {
@@ -99,6 +95,15 @@ export const useDeliverys = () => {
         }));
 
         setCidadesOptions(options);
+        const date = reverseToIsoDate(new Date()?.toLocaleDateString());
+        const cidade = options[0]?.value;
+
+        setFormFilter({
+          data: date,
+          cidade,
+        });
+
+        getAgendamentos({ cidade, data: date });
       })
       .catch(
         ({
@@ -107,11 +112,6 @@ export const useDeliverys = () => {
           },
         }) => toast.error(mensagem)
       );
-
-    getAgendamentos({
-      dataInicial: reverseToIsoDate(date?.toLocaleDateString()),
-      dataFinal: reverseToIsoDate(date?.toLocaleDateString()),
-    });
   }, []);
 
   return {
