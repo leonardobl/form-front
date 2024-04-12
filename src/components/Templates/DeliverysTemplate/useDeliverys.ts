@@ -23,7 +23,6 @@ export const useDeliverys = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const { setIsLoad } = useContextSite();
-  const [token] = useSessionStorage("@token");
 
   async function handleDownload({
     cidade,

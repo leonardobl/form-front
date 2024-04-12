@@ -20,6 +20,7 @@ export interface IAgendamentoDTO {
   fatura: IFaturaDTO;
   horaAgendada: string;
   loja: IDeliveryDTO;
+  uuidVistoriador: string;
   primeiroAgendamento: string;
   revistoria: boolean;
   servico: IServicoDTO;

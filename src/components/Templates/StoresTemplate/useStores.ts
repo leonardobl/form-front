@@ -10,14 +10,13 @@ import {
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
-import { Loja } from "../../../services/Lojas";
-import { ISelectOptions } from "../../../types/inputs";
-import { resetValues } from "../../../utils/resetObject";
-import { useMediaQuery } from "react-responsive";
 import { Colaborador } from "../../../services/Colaborador";
 import { IColaboradorCompletoDTO } from "../../../types/colaborador";
 import { removeEmpty } from "../../../utils/removeEmpty";
+import { useMediaQuery } from "react-responsive";
+import { ISelectOptions } from "../../../types/inputs";
 import { TipoColaboradorEnum } from "../../../enums/tipoColaborador";
+import { Loja } from "../../../services/Lojas";
 
 interface IModalStartProps extends IIniciarAgendamentoProps {
   open: boolean;
@@ -108,15 +107,16 @@ export const useStores = () => {
       });
   }
 
-  function getData() {
+  const getData = () => {
+    setIsLoad(true);
     const hoje = reverseToIsoDate(new Date().toLocaleDateString());
-
-    const uuids = removeEmpty({
+    const uuids = {
       uuidDelivery: colaborador?.delivery?.uuid,
       uuidLoja: colaborador?.loja?.uuid,
-    });
+    };
 
-    setIsLoad(true);
+    const filterEmpty = removeEmpty(uuids);
+
     Agendamento.getByHour({
       data: hoje,
       status: [
@@ -146,7 +146,7 @@ export const useStores = () => {
         }) => toast.error(mensagem)
       )
       .finally(() => setIsLoad(false));
-  }
+  };
 
   const getColaborador = useCallback(async () => {
     return Colaborador.atual().then(({ data }) => data);
