@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Agendamento } from "../../../services/Agendamento";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import {
@@ -15,6 +15,8 @@ import { ISelectOptions } from "../../../types/inputs";
 import { resetValues } from "../../../utils/resetObject";
 import { useMediaQuery } from "react-responsive";
 import { Colaborador } from "../../../services/Colaborador";
+import { IColaboradorCompletoDTO } from "../../../types/colaborador";
+import { IColaboradorDTO } from "../../../types/loja";
 
 type ModalStartProps = {
   open: boolean;
@@ -37,11 +39,13 @@ export const useStores = () => {
   const [formStart, setFormStart] = useState<IIniciarAgendamentoProps>(
     {} as IIniciarAgendamentoProps
   );
+  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
+    {} as IColaboradorCompletoDTO
+  );
   const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
     ISelectOptions[]
   >([]);
   const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
-  let uuidLoja = "";
 
   function transformData(data: IAgendamentoDaHoraDTO[]) {
     const result = data.flatMap((item) => item.agendamentos);
@@ -123,15 +127,18 @@ export const useStores = () => {
       .finally(() => setIsLoad(false));
   }
 
-  async function getColaborador() {
-    return await Colaborador.atual().then(({ data }) => data);
-  }
+  const getColaborador = useCallback(async () => {
+    return Colaborador.atual().then(({ data }) => data);
+  }, []);
 
   useEffect(() => {
-    getColaborador().then((data) => {
-      getData();
-    });
-  }, []);
+    getColaborador().then((data) => setColaborador(data));
+  }, [getColaborador]);
+
+  useEffect(() => {
+    if (!colaborador?.uuid) return;
+    getData();
+  }, [colaborador]);
 
   useEffect(() => {
     if (modalStart?.open) {

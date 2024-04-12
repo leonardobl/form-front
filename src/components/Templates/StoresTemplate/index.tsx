@@ -4,13 +4,11 @@ import { Title } from "../../Atoms/Title";
 import { useStores } from "./useStores";
 import { ButtonDots } from "../../Atoms/ButtonDots";
 import { IconEye } from "../../Atoms/IconEye";
-import { Modal } from "@mui/material";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
 import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
 import { Status } from "../../Atoms/Status";
 import { ISelectOptions } from "../../../types/inputs";
-import { Text } from "../../Atoms/Text";
 
 export const StoresTemplate = () => {
   const {
