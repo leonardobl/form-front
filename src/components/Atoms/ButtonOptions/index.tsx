@@ -115,6 +115,22 @@ export const ButtonOptions = ({
           </div>
         </div>
 
+        {agendamento.status === StatusAgendamentoEnum.PAGO && (
+          <div>
+            <div>
+              <button
+                onClick={() =>
+                  navigate(
+                    `/agendamento/${agendamento?.uuid}/confirmar-horario`
+                  )
+                }
+              >
+                Realizar Agendamento
+              </button>
+            </div>
+          </div>
+        )}
+
         {agendamento.status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO && (
           <>
             <div>

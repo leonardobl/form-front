@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
-import { IAgendamentoBasicoForm } from "../../../types/agendamento";
+import {
+  IAgendamentoBasicoForm,
+  IAgendamentoCadastroForm,
+} from "../../../types/agendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
-import {
-  Agendamento,
-  IReagendamentoProps,
-} from "../../../services/Agendamento";
+import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { addDays } from "date-fns";
 import { Delivery } from "../../../services/Delivery";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -17,52 +16,48 @@ export const useResidence = () => {
   const [token] = useSessionStorage("@token");
   const { setIsLoad } = useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
-  const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
-  const [date, setDate] = useState<Date | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [form, setForm] = useState<IAgendamentoBasicoForm>(
-    {} as IAgendamentoBasicoForm
+  const [form, setForm] = useState<IAgendamentoCadastroForm>(
+    {} as IAgendamentoCadastroForm
   );
   const navigate = useNavigate();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
 
-  function handleReagendamento() {
-    setIsLoad(true);
-    setModalIsOpen(false);
+  // function handleReagendamento() {
+  //   setIsLoad(true);
+  //   setModalIsOpen(false);
 
-    const PAYLOAD: IReagendamentoProps = {
-      diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
-      horaAgendada: form.horaAgendada,
-      uuidAgendamento: agendamentoSession?.uuidAgendamento,
-      uuidLoja: form.uuidLoja,
-      uuidDelivery: form.uuidDelivery,
-    };
+  //   const PAYLOAD: IReagendamentoProps = {
+  //     diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
+  //     horaAgendada: form.horaAgendada,
+  //     uuidAgendamento: agendamentoSession?.uuidAgendamento,
+  //     uuidLoja: form.uuidLoja,
+  //     uuidDelivery: form.uuidDelivery,
+  //   };
 
-    Agendamento.reagendar(PAYLOAD)
-      .then(() => {
-        toast.success("Reagendamento efetuado com sucesso!");
-        setAgendamentoSession({
-          ...agendamentoSession,
-          reagendamento: false,
-        });
-        setTimeout(() => {
-          navigate(
-            `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
-          );
-        }, 2000);
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
-      .finally(() => setIsLoad(false));
-  }
+  //   Agendamento.reagendar(PAYLOAD)
+  //     .then(() => {
+  //       toast.success("Reagendamento efetuado com sucesso!");
+  //       setAgendamentoSession({
+  //         ...agendamentoSession,
+  //         reagendamento: false,
+  //       });
+  //       setTimeout(() => {
+  //         navigate(
+  //           `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
+  //         );
+  //       }, 2000);
+  //     })
+  //     .catch(
+  //       ({
+  //         response: {
+  //           data: { mensagem },
+  //         },
+  //       }) => toast.error(mensagem)
+  //     )
+  //     .finally(() => setIsLoad(false));
+  // }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -73,13 +68,7 @@ export const useResidence = () => {
     }
     setIsLoad(true);
 
-    const PAYLOAD: IAgendamentoBasicoForm = {
-      ...form,
-      tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
-      diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
-    };
-
-    Agendamento.post(PAYLOAD)
+    Agendamento.postV2(form)
       .then(({ data }) => {
         setAgendamentoSession({
           ...agendamentoSession,
@@ -110,49 +99,6 @@ export const useResidence = () => {
   }
 
   useEffect(() => {
-    setDate(null);
-
-    if (form?.uuidDelivery) {
-      setIsLoading(true);
-      Delivery.getDiasIndisponiveis({ uuidDelivery: form.uuidDelivery })
-        .then(({ data }) => {
-          const options = data.map((item) => addDays(new Date(item), 1));
-          setDiasIndisponiveis(options);
-        })
-        .catch(
-          ({
-            response: {
-              data: { mensagem },
-            },
-          }) => toast.error(mensagem)
-        )
-        .finally(() => setIsLoading(false));
-    }
-  }, [form?.uuidDelivery]);
-
-  useEffect(() => {
-    setForm((prev) => ({ ...prev, horaAgendada: null }));
-    if (date) {
-      const newDate = date.toLocaleDateString().split("/").reverse().join("-");
-
-      if (form?.uuidDelivery) {
-        Delivery.getHorariosDisponiveis({
-          uuidDelivery: form?.uuidDelivery,
-          dataAgendamento: newDate,
-        }).then(({ data }) => {
-          const options = data.map((item) => ({
-            value: item,
-            label: item,
-            element: item,
-          }));
-
-          setHorariosOptions(options);
-        });
-      }
-    }
-  }, [date]);
-
-  useEffect(() => {
     Delivery.get()
       .then(({ data }) => {
         const options = data.content.map((item) => ({
@@ -178,12 +124,7 @@ export const useResidence = () => {
     setForm,
     handleSubmit,
     setModalIsOpen,
-    date,
-    setDate,
-    isLoading,
-    diasIndisponiveis,
     modalIsOpen,
-    horariosOptions,
-    handleReagendamento,
+    // handleReagendamento,
   };
 };

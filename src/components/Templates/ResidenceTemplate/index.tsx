@@ -1,9 +1,6 @@
 import React from "react";
-import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
-import { Text } from "../../Atoms/Text";
-import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { Button } from "../../Atoms/Button";
 import { useResidence } from "./useResidence";
 import { ISelectOptions } from "../../../types/inputs";
@@ -16,15 +13,10 @@ export const ResidenceTemplate = () => {
     cidadesOptions,
     form,
     setForm,
-    date,
     handleSubmit,
     setModalIsOpen,
-    setDate,
-    isLoading,
     modalIsOpen,
-    horariosOptions,
-    diasIndisponiveis,
-    handleReagendamento,
+    // handleReagendamento,
   } = useResidence();
 
   return (
@@ -46,50 +38,13 @@ export const ResidenceTemplate = () => {
               }}
             />
           </div>
-          <div>
-            <Text>
-              Datas e horários <span className="textStrong">disponíveis</span>.{" "}
-            </Text>
-          </div>
-          <div>
-            <InputDate
-              showIcon
-              isLoading={isLoading}
-              minDate={new Date()}
-              label="Data"
-              required
-              disabled={!!!form?.uuidDelivery}
-              excludeDates={diasIndisponiveis}
-              onChange={(e) => {
-                setDate(e);
-              }}
-              placeholderText="__/__/__"
-              selected={date}
-            />
-          </div>
-          <div>
-            <SimpleSelect
-              label="Horário"
-              isDisabled={!date}
-              value={
-                horariosOptions?.find(
-                  (item) => item.value === form.horaAgendada
-                ) || null
-              }
-              onChange={(e: ISelectOptions) =>
-                setForm((prev) => ({ ...prev, horaAgendada: e?.value }))
-              }
-              options={horariosOptions}
-              required
-            />
-          </div>
 
           <div>
             <Button>Avançar</Button>
           </div>
         </S.GridWrapper>
       </S.Form>
-      <MyModal
+      {/* <MyModal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
       >
@@ -105,7 +60,7 @@ export const ResidenceTemplate = () => {
             <Button onClick={handleReagendamento}>Confirmar</Button>
           </div>
         </S.ModalContent>
-      </MyModal>
+      </MyModal> */}
     </S.Container>
   );
 };

@@ -1,17 +1,19 @@
 import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
 import {
+  DownloadProps,
   IAgendamentoBasicoForm,
+  IAgendamentoCadastroForm,
   IAgendamentoDTO,
   IAgendamentoDaHoraDTO,
-  IAgendamentoForm,
   IAtendimentoDomiciliarForm,
+  IConfirmacaoHorarioProps,
+  IGetAgendamentosProps,
   IPageAgendamentoDTO,
-  IReagendamentoForm,
+  IPutAgendamentoProps,
+  IReagendamentoProps,
 } from "../../types/agendamento";
-import { IPageRequest } from "../../types/page";
-import { TipoAtendimentoEnum } from "../../enums/tipoAtendimento";
-import { StatusAgendamentoEnum } from "../../enums/statusAgendamento";
+
 import objectToParams from "../../utils/objectToParams";
 import { removeEmpty } from "../../utils/removeEmpty";
 
@@ -91,6 +93,12 @@ export class Agendamento {
     return ApiBrave.post(basePath, props);
   }
 
+  static async postV2(
+    props: IAgendamentoCadastroForm
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.post(`${basePath}/v2`, props);
+  }
+
   static async put(props: IPutAgendamentoProps) {
     const { uuid, ...rest } = props;
     const params = removeEmpty(rest);
@@ -144,6 +152,13 @@ export class Agendamento {
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  static async definirHorario(
+    props: IConfirmacaoHorarioProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuid, ...rest } = props;
+    return ApiBrave.put(`${basePath}/${uuid}/definir-horario`, rest);
   }
 
   static async cancelar({
