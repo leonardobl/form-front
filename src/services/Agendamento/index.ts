@@ -5,7 +5,7 @@ import {
   IAgendamentoBasicoForm,
   IAgendamentoCadastroForm,
   IAgendamentoDTO,
-  IAgendamentoDaHoraDTO,
+  IAgendamentosDoDiaDTO,
   IAtendimentoDomiciliarForm,
   IConfirmacaoHorarioProps,
   IGetAgendamentosProps,
@@ -46,17 +46,21 @@ export interface IGetAgendamentosProps extends IPageRequest {
 type AgendamentoByHourProps = {
   data?: string;
   status?: StatusAgendamentoEnum[];
+  uuidLoja?: string;
+  uuidDelivery?: string;
 };
 
-function propsToString(props: AgendamentoByHourProps) {
-  if (props?.data && props?.status) {
-    const statusString = props?.status?.join(",");
-    return `data=${props?.data}&status=${statusString}`;
-  }
-  if (props?.data) {
-    return `data=${props?.data}`;
-  }
-  return `status=${props?.status.join(",")}`;
+function propsToString(params) {
+  const result = params
+    ? Object.entries(params)
+        .map((e) =>
+          Array.isArray(e[1]) ? `${e[0]}=${e[1].join(",")}` : e.join("=")
+        )
+        .flat()
+        .join("&")
+    : "";
+
+  return result;
 }
 
 type DownloadProps = {
@@ -82,7 +86,7 @@ export class Agendamento {
 
   static getByHour(
     props: AgendamentoByHourProps
-  ): Promise<AxiosResponse<IAgendamentoDaHoraDTO[]>> {
+  ): Promise<AxiosResponse<IAgendamentosDoDiaDTO>> {
     const path = propsToString(props);
     return ApiBrave.get(`${basePath}/listar-por-horario?${path}`);
   }
@@ -199,5 +203,16 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-veiculo`, {
       uuid: uuidVeiculo,
     });
+  }
+
+  static async colocarEmEspera({
+    uuidAgendamento,
+  }: {
+    uuidAgendamento: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.post(
+      `${basePath}/${uuidAgendamento}/alterar-em-espera`,
+      true
+    );
   }
 }

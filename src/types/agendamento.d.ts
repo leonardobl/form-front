@@ -7,17 +7,20 @@ import { IPageableObject, ISortObject } from "./delivery";
 import { IFaturaDTO } from "./pagamento";
 import { IPageRequest } from "./page";
 
+// -------------------------
 export interface IAgendamentoDTO {
+  atendimentoDomiciliar: IAtendimentoDomiciliarDTO;
   cliente: IClienteDTO;
   codigoPagamento: string;
   dataPagamento: string;
   dataRealizacao: string;
   delivery: IDeliveryDTO;
-  atendimentoDomiciliar: IAtendimentoDomiciliarDTO;
   diaAgendado: string;
-  horaAgendada: string;
-  loja: ILojaDTO;
+  emEspera: boolean;
   fatura: IFaturaDTO;
+  horaAgendada: string;
+  loja: IDeliveryDTO;
+  uuidVistoriador: string;
   primeiroAgendamento: string;
   revistoria: boolean;
   servico: IServicoDTO;
@@ -26,6 +29,24 @@ export interface IAgendamentoDTO {
   uuid: string;
   veiculo: IVeiculoDTO;
 }
+
+export interface IDeliveryDTO {
+  cidade?: string;
+  horarioFinal: string;
+  horarioFinalAlmoco: string;
+  horarioFinalFds: string;
+  horarioInicial: string;
+  horarioInicialAlmoco: string;
+  horarioInicialFds: string;
+  quantidadeVagas: number;
+  tempoMedio: string;
+  uf?: string;
+  uuid: string;
+  endereco?: IEnderecoDTO;
+  nome?: string;
+}
+
+// -------------------------
 
 export interface IVeiculoDTO {
   uuid: string;
@@ -70,16 +91,6 @@ export interface IEnderecoDTO {
   numero?: string;
   uf: string;
   uuid?: string;
-}
-
-export interface IDeliveryDTO {
-  cidade: string;
-  horarioFinal: string;
-  horarioInicial: string;
-  quantidadeVagas: number;
-  tempoMedio: string;
-  uf: string;
-  uuid: string;
 }
 
 export interface ILojaDTO {
@@ -168,10 +179,20 @@ export interface IReagendamentoForm {
   uuidLoja?: string;
 }
 
+// -----------------
+
+export interface IAgendamentosDoDiaDTO {
+  agendamentos: IAgendamentoDaHoraDTO[];
+  totalAgendamentos: number;
+  vagas: number;
+}
+
 export interface IAgendamentoDaHoraDTO {
   agendamentos: IAgendamentoDTO[];
   horaAgendada: string;
 }
+
+// -----------------
 
 export interface IPutAgendamentoProps extends IAgendamentoForm {
   uuid: string;

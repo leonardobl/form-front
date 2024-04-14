@@ -1,24 +1,48 @@
 import React, { ComponentProps, useState } from "react";
 import * as S from "./styles";
+import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
 interface IButtonDotsProps extends ComponentProps<"div"> {
   handleStart: () => void;
-  handleSleep: () => void;
+  handleWait?: () => void;
+  statusAgendamento: StatusAgendamentoEnum;
 }
 
-export const ButtonDots = (props: IButtonDotsProps) => {
+export const ButtonDots = ({
+  handleStart,
+  handleWait,
+  statusAgendamento,
+}: IButtonDotsProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <S.MyMenu onClick={() => setIsOpen((prev) => !prev)}>
       <img src="/assets/svgs/dots.svg" alt="dots" />
       <S.WrapperButtons data-active={isOpen}>
-        <div>
-          <button onClick={props.handleStart}>Iniciar</button>
-        </div>
-        <div>
-          <button onClick={props.handleSleep}>Em Espera</button>
-        </div>
+        {statusAgendamento !== StatusAgendamentoEnum.INICIADO && (
+          <div>
+            <button
+              onClick={() => {
+                handleStart();
+                setIsOpen(false);
+              }}
+            >
+              Iniciar
+            </button>
+          </div>
+        )}
+        {handleWait && (
+          <div>
+            <button
+              onClick={() => {
+                handleWait();
+                setIsOpen(false);
+              }}
+            >
+              Em Espera
+            </button>
+          </div>
+        )}
       </S.WrapperButtons>
     </S.MyMenu>
   );

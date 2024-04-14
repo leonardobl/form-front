@@ -14,6 +14,7 @@ import {
 import { ISelectOptions } from "../../../types/inputs";
 
 import { Status } from "../../Atoms/Status";
+import { IconEye } from "../../Atoms/IconEye";
 import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
 
 export const SchedulesTemplate = () => {
@@ -272,32 +273,29 @@ export const SchedulesTemplate = () => {
               <p>{`${reverseToBrDate(item?.diaAgendado)} - ${
                 item.horaAgendada
               }`}</p>
+              <Status
+                status={item?.status}
+                onClick={() => {
+                  iniciarVistoria(item.uuid);
+                }}
+              />
 
-              <Status status={item?.status} />
-
-              <S.WrapperActions>
-                <S.Eye
-                  src="/assets/svgs/eye.svg"
-                  alt="icone visualizacao"
-                  data-color-starcheck={
-                    process.env.REACT_APP_PROJECT === "starcheck"
-                  }
-                  data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                  data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                  data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                  onClick={() =>
-                    window.open(
-                      `/meus-agendamentos/agendamento?id=${item?.uuid}`,
-                      "_blank"
-                    )
-                  }
-                />
-                <OptionsSchedules
-                  status={item?.status}
-                  handleStart={() => iniciarVistoria(item.uuid)}
-                  handleAttribute={() => ""}
-                />
-              </S.WrapperActions>
+              <IconEye
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() =>
+                  window.open(
+                    `/meus-agendamentos/agendamento?id=${item?.uuid}`,
+                    "_blank"
+                  )
+                }
+              />
             </S.ListItem>
           ))}
         </S.List>

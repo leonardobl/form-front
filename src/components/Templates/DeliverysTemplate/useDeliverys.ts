@@ -25,7 +25,6 @@ export const useDeliverys = () => {
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const { setIsLoad } = useContextSite();
   const [token] = useSessionStorage("@token");
-  const [token] = useSessionStorage("@token");
   const isMobile = useMediaQuery({ maxWidth: "500px" });
   const [filterOpen, setFilterOpen] = useState(isMobile ? false : true);
 

@@ -82,7 +82,7 @@ export const Body = styled.div`
 
 export const HeaderBody = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1fr 0.6fr;
+  grid-template-columns: 2fr 1.6fr 1fr 1.6fr 0.4fr;
   padding: 16px 32px;
 
   > h4 {
@@ -98,7 +98,7 @@ export const HeaderBody = styled.div`
 
 export const BodyItem = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1fr 0.6fr;
+  grid-template-columns: 2fr 1.6fr 1fr 1.6fr 0.4fr;
   padding: 16px 32px;
 
   > p {
@@ -137,28 +137,21 @@ export const WrapperActions = styled.div`
   }
 `;
 
-export const Eye = styled.img`
-  &[data-color-starcheck="true"] {
-    filter: brightness(0) saturate(100%) invert(56%) sepia(88%) saturate(585%)
-      hue-rotate(180deg) brightness(98%) contrast(94%);
-  }
-
-  &[data-color-log="true"] {
-    filter: brightness(0) saturate(100%) invert(79%) sepia(16%) saturate(968%)
-      hue-rotate(76deg) brightness(96%) contrast(85%);
-  }
-
-  &[data-color-vlx="true"] {
-    filter: brightness(0) saturate(100%) invert(55%) sepia(0%) saturate(79%)
-      hue-rotate(181deg) brightness(95%) contrast(81%);
-  }
-
-  &[data-color-tokyo="true"] {
-    filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(4716%)
-      hue-rotate(328deg) brightness(103%) contrast(98%);
-  }
-`;
-
 export const TextNotFound = styled.p`
   text-align: center;
+`;
+
+export const formModal = styled.form`
+  border: 0.5px solid #000;
+  background: #fff;
+  width: 40.5rem;
+  height: 32.375rem;
+  padding: 7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem 0;
+
+  button {
+    margin: 0 auto;
+  }
 `;

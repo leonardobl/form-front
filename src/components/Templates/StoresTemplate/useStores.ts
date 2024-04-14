@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Agendamento } from "../../../services/Agendamento";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import {
@@ -9,6 +9,14 @@ import {
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { Colaborador } from "../../../services/Colaborador";
+import { IColaboradorCompletoDTO } from "../../../types/colaborador";
+import { removeEmpty } from "../../../utils/removeEmpty";
+
+type ModalStartProps = {
+  open: boolean;
+  uuid?: string;
+};
 
 export const useStores = () => {
   const { setIsLoad } = useContextSite();
@@ -18,11 +26,22 @@ export const useStores = () => {
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>(
     [] as IAgendamentoDaHoraDTO[]
   );
-
+  const [modalStart, setModalStart] = useState<ModalStartProps>({
+    open: false,
+  });
+  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
+    {} as IColaboradorCompletoDTO
+  );
   function transformData(data: IAgendamentoDaHoraDTO[]) {
     const result = data.flatMap((item) => item.agendamentos);
-    return result;
+    return result.filter((item) => item.emEspera);
   }
+
+  const getColaborador = useCallback(async () => {
+    Colaborador.atual().then(({ data }) => {
+      setColaborador(data);
+    });
+  }, []);
 
   function iniciarVistoria(uuidAgendamento: string) {
     setIsLoad(true);
@@ -43,17 +62,48 @@ export const useStores = () => {
       .finally(() => setIsLoad(false));
   }
 
-  function getData() {
-    const hoje = reverseToIsoDate(new Date("2024-04-06").toLocaleDateString());
-
+  function handleWait({ uuid }: { uuid: string }) {
     setIsLoad(true);
+    Agendamento.colocarEmEspera({ uuidAgendamento: uuid })
+      .then(({ data }) => {
+        toast.success("Agendamento em espera!");
+        getData();
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
+  }
+
+  const getData = () => {
+    setIsLoad(true);
+    const hoje = reverseToIsoDate(new Date().toLocaleDateString());
+    const uuids = {
+      uuidDelivery: colaborador?.delivery?.uuid,
+      uuidLoja: colaborador?.loja?.uuid,
+    };
+
+    const filterEmpty = removeEmpty(uuids);
+
     Agendamento.getByHour({
       data: hoje,
       status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
+      ...filterEmpty,
     })
       .then(({ data }) => {
-        const emEspera = transformData(data);
-        setAgendamentos(data);
+        const emEspera = transformData(data?.agendamentos);
+        const foraDeEspera = data.agendamentos.filter((item) =>
+          item.agendamentos.some((_) => !_.emEspera)
+        );
+        setAgendamentos(foraDeEspera);
         setAgendamentosEmEspera(emEspera);
       })
       .catch(
@@ -64,11 +114,30 @@ export const useStores = () => {
         }) => toast.error(mensagem)
       )
       .finally(() => setIsLoad(false));
-  }
+  };
 
   useEffect(() => {
-    getData();
-  }, []);
+    getColaborador().catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => toast.error(mensagem)
+    );
+  }, [getColaborador]);
 
-  return { iniciarVistoria, agendamentos, agendamentosEmEspera };
+  useEffect(() => {
+    if (colaborador?.uuid) {
+      getData();
+    }
+  }, [colaborador]);
+
+  return {
+    iniciarVistoria,
+    agendamentos,
+    agendamentosEmEspera,
+    handleWait,
+    modalStart,
+    setModalStart,
+  };
 };
