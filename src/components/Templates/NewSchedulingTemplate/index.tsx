@@ -255,7 +255,14 @@ export const NewSchedulingTemplate = () => {
                 }
               />
             </div>
-            <div>
+            <div className="wrapperButtons">
+              <Button
+                data-variant-danger
+                type="button"
+                onClick={() => setModalIsOpen(false)}
+              >
+                Cancelar
+              </Button>
               <Button>Salvar</Button>
             </div>
           </S.GridModal>
@@ -752,7 +759,16 @@ export const NewSchedulingTemplate = () => {
             <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
               dateAgendamento?.toLocaleDateString()
             )} às ${formAgendamento.horaAgendada}? `}</p>
-            <Button onClick={handleReagendamento}>Confirmar</Button>
+
+            <div className="wrapperButtons">
+              <Button
+                data-variant-danger
+                onClick={() => setModalReagendamentoIsOpen(false)}
+              >
+                Cancelar
+              </Button>
+              <Button onClick={handleReagendamento}>Confirmar</Button>
+            </div>
           </S.ModalContent>
         </MyModal>
       </S.Container>

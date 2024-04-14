@@ -1,4 +1,3 @@
-import { darken } from "polished";
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
@@ -9,16 +8,25 @@ export const Container = styled.div`
     > h1 {
       text-align: center;
     }
+
+    @media (max-width: 500px) {
+      padding: ${padding.mobile} 20px;
+    }
   `}
 `;
 
 export const FormFilter = styled.form`
   max-width: 49.1875rem;
   width: 100%;
+
   border-radius: 0.625rem;
   border: 1px solid ${(props) => props.theme.colors.main};
   margin: 0 auto;
   margin-bottom: 3rem;
+
+  @media (max-width: 500px) {
+    border: none;
+  }
 `;
 
 export const HeaderFormFilter = styled.div`
@@ -38,6 +46,10 @@ export const HeaderFormFilter = styled.div`
   font-weight: 700;
   line-height: 2rem; /* 133.333% */
   text-transform: uppercase;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const GridFormFilter = styled.div`
@@ -78,6 +90,13 @@ export const GridFormFilter = styled.div`
   > :nth-child(4) {
     grid-area: button2;
   }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "data cidade" "button1 button2";
+    gap: 1.5rem 1rem;
+    padding: 0;
+  }
 `;
 
 export const List = styled.div`
@@ -104,6 +123,10 @@ export const ListHeader = styled.div`
     align-items: center;
     justify-content: center;
     gap: 0 0.42rem;
+  }
+
+  @media (max-width: 500px) {
+    display: none;
   }
 `;
 
@@ -138,15 +161,37 @@ export const ListItem = styled.div`
   }
 `;
 
-// export const WrapperImgsButton = styled.div`
-//   display: flex;
-//   gap: 0 1rem;
-//   align-items: center;
-//   justify-content: center;
-//   margin-right: 1rem;
-// `;
+export const ListItemMobile = styled.div`
+  padding: 16px 8px;
 
-export const CloudDownloadIcon =`
+  p:first-child {
+    margin-bottom: 16px;
+    color: #595959;
+    font-family: Mulish;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 200% */
+    letter-spacing: 0.36px;
+    text-transform: uppercase;
+
+    span {
+      margin-left: 12px;
+    }
+  }
+  p:last-child {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 24px; /* 200% */
+    letter-spacing: 0.36px;
+    text-transform: uppercase;
+  }
+`;
+
+export const CloudDownloadIcon = `
   margin-right: 1rem;
 `;
 
@@ -168,4 +213,24 @@ export const ActionsButtons = styled.div`
   width: 100%;
   max-width: 72.5625rem;
   margin: 0 auto 1rem;
+
+  @media (max-width: 500px) {
+    justify-content: center;
+    gap: 0 24px;
+  }
+`;
+
+export const ButtonFilter = styled.button`
+  color: #2d2d2d;
+  text-align: center;
+  font-family: Mulish;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  display: flex;
+  gap: 0 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
 `;

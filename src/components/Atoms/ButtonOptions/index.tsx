@@ -138,15 +138,26 @@ export const ButtonOptions = ({
       <MyModal isOpen={isOpen} onRequestClose={() => setISOpen(false)}>
         <S.ModalContent>
           <p>Tem certeza que deseja cancelar sua vistoria?</p>
-          <Button
-            data-variant-dark
-            onClick={() => {
-              setISOpen(false);
-              onCancel();
-            }}
-          >
-            Confirmar
-          </Button>
+
+          <div className="wrapperButtons">
+            <Button
+              data-variant-danger
+              onClick={() => {
+                setISOpen(false);
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              data-variant-dark
+              onClick={() => {
+                setISOpen(false);
+                onCancel();
+              }}
+            >
+              Confirmar
+            </Button>
+          </div>
         </S.ModalContent>
       </MyModal>
     </S.Container>
