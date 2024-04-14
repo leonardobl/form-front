@@ -179,7 +179,53 @@ export interface IReagendamentoForm {
   uuidLoja?: string;
 }
 
-// -----------------
+export interface IAgendamentoIniciarForm {
+  uuidAtendente?: string;
+  uuidBaia?: string;
+  uuidVistoriador?: string;
+}
+
+export interface IIniciarAgendamentoProps extends IAgendamentoIniciarForm {
+  uuid?: string;
+}
+
+export type AgendamentoByHourProps = {
+  data?: string;
+  status?: StatusAgendamentoEnum[];
+  uuidLoja?: string;
+  uuidDelivery?: string;
+};
+
+export interface IPutAgendamentoProps extends IAgendamentoForm {
+  uuid: string;
+}
+
+export interface IReagendamentoProps extends IReagendamentoForm {
+  uuidAgendamento: string;
+}
+
+export type DownloadProps = {
+  cidade?: string;
+  dia: string;
+};
+
+export interface IGetAgendamentosProps extends IPageRequest {
+  loja?: string;
+  nome?: string;
+  cpfCnpj?: string;
+  tipoAtendimento?: TipoAtendimentoEnum;
+  veiculo?: string;
+  cidade?: string;
+  dataInicial?: string;
+  dataFinal?: string;
+  placa?: string;
+  renavam?: string;
+  chassi?: string;
+  statusAgendamento?: StatusAgendamentoEnum;
+  idCliente?: string;
+}
+
+// --------
 
 export interface IAgendamentosDoDiaDTO {
   agendamentos: IAgendamentoDaHoraDTO[];
@@ -192,7 +238,7 @@ export interface IAgendamentoDaHoraDTO {
   horaAgendada: string;
 }
 
-// -----------------
+// --------
 
 export interface IPutAgendamentoProps extends IAgendamentoForm {
   uuid: string;

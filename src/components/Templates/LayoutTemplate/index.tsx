@@ -74,7 +74,6 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     Novo Agendamento
                   </NavLink>
                 </div>
-
                 {!isCliente && (
                   <div>
                     <NavLink

@@ -4,6 +4,7 @@ import { ISelectOptions } from "../../../types/inputs";
 import {
   IAgendamentoBasicoForm,
   IAgendamentoCadastroForm,
+  IReagendamentoProps,
 } from "../../../types/agendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";

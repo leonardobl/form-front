@@ -91,7 +91,9 @@ export const DeliverysTemplates = () => {
             date &&
               handleDownload({
                 dia: reverseToIsoDate(date.toLocaleDateString()),
-                cidade: formFilter?.cidade,
+                cidade: cidadesOptions.find(
+                  (item) => item.value === formFilter?.cidade
+                )?.label,
               });
           }}
         >

@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Loja } from "../../../services/Lojas";
 import { ISelectOptions } from "../../../types/inputs";
+import {
+  IAgendamentoBasicoForm,
+  IReagendamentoProps,
+} from "../../../types/agendamento";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";

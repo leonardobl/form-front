@@ -1,3 +1,6 @@
+import { SexoEnum } from "../enums/sexo";
+import { TipoColaboradorEnum } from "../enums/tipoColaborador";
+import { TipoAtendimentoEnum } from "./../enums/tipoAtendimento";
 import { IEnderecoDTO } from "./agendamento";
 import { IPageableObject, ISortObject } from "./delivery";
 
@@ -23,4 +26,33 @@ export interface ILojaDTO {
   quantidadeVagas: number;
   tempoMedio: string;
   uuid: string;
+}
+
+export interface IColaboradorDTO {
+  cpf: string;
+  dataNascimento: string;
+  nome: string;
+  sexo: string;
+  tipo: string;
+  uuidUsuario: string;
+  uuid: string;
+}
+
+export interface IBaiaDTO {
+  nome: string;
+  uuid: string;
+}
+
+export interface IColaboradorForm {
+  cpf: string;
+  dataNascimento?: string;
+  nome: string;
+  sexo?: SexoEnum;
+  tipo: TipoColaboradorEnum;
+  uuidUsuario?: string;
+}
+
+export interface IBaiaForm {
+  nome: string;
+  uuid?: string;
 }

@@ -1,12 +1,26 @@
 import { AxiosResponse } from "axios";
 import { IPageRequest } from "../../types/page";
 import { ApiBrave } from "../../Apis/Brave/index";
-import { IPageLojaDTO } from "../../types/loja";
+import {
+  IBaiaDTO,
+  IBaiaForm,
+  IColaboradorDTO,
+  IColaboradorForm,
+  IPageLojaDTO,
+} from "../../types/loja";
 import { removeEmpty } from "../../utils/removeEmpty";
 import objectToParams from "../../utils/objectToParams";
 
 interface ILojaParams extends IPageRequest {
   nome?: string;
+}
+
+interface ICadastroAtendenteProps extends IColaboradorForm {
+  uuidLoja: string;
+}
+
+interface ICadastroBaiaProps extends IBaiaForm {
+  uuidLoja: string;
 }
 
 const basePath = "/loja";
@@ -36,5 +50,51 @@ export class Loja {
     return ApiBrave.get(
       `${basePath}/${uuidLoja}/horarios-disponiveis?dataAgendamento=${dataAgendamento}`
     );
+  }
+
+  static async getAtendentes({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IColaboradorDTO[]>> {
+    return ApiBrave.get(`${basePath}/${uuid}/atendentes`);
+  }
+
+  static async getAtendentesLivres({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IColaboradorDTO[]>> {
+    return ApiBrave.get(`${basePath}/${uuid}/atendentes-livres`);
+  }
+
+  static async getBaias({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IBaiaDTO[]>> {
+    return ApiBrave.get(`${basePath}/${uuid}/baias`);
+  }
+
+  static async getBaiasLivres({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IBaiaDTO[]>> {
+    return ApiBrave.get(`${basePath}/${uuid}/baias-livres`);
+  }
+
+  static async cadastroBaia(
+    props: ICadastroBaiaProps
+  ): Promise<AxiosResponse<IBaiaDTO>> {
+    const { uuidLoja, ...rest } = props;
+    return ApiBrave.put(`${basePath}/${uuidLoja}/baias`, rest);
+  }
+
+  static async cadastroAtendente(
+    props: ICadastroAtendenteProps
+  ): Promise<AxiosResponse<IColaboradorDTO[]>> {
+    const { uuidLoja, ...rest } = props;
+    return ApiBrave.put(`${basePath}/${uuidLoja}/atendentes/cadastrar`, rest);
   }
 }

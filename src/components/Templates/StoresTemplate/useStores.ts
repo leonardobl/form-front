@@ -4,6 +4,7 @@ import { reverseToIsoDate } from "../../../utils/dateTransform";
 import {
   IAgendamentoDTO,
   IAgendamentoDaHoraDTO,
+  IIniciarAgendamentoProps,
 } from "../../../types/agendamento";
 
 import { useContextSite } from "../../../context/Context";
@@ -12,10 +13,18 @@ import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { Colaborador } from "../../../services/Colaborador";
 import { IColaboradorCompletoDTO } from "../../../types/colaborador";
 import { removeEmpty } from "../../../utils/removeEmpty";
+import { useMediaQuery } from "react-responsive";
+import { ISelectOptions } from "../../../types/inputs";
+import { TipoColaboradorEnum } from "../../../enums/tipoColaborador";
+import { Loja } from "../../../services/Lojas";
 
-type ModalStartProps = {
+interface IModalStartProps extends IIniciarAgendamentoProps {
   open: boolean;
-  uuid?: string;
+}
+
+type dataAgendamentoProps = {
+  vagas: number;
+  totalAgendamentos: number;
 };
 
 export const useStores = () => {
@@ -26,40 +35,55 @@ export const useStores = () => {
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>(
     [] as IAgendamentoDaHoraDTO[]
   );
-  const [modalStart, setModalStart] = useState<ModalStartProps>({
+  const [dataAgendamento, setDataAgendamento] = useState<dataAgendamentoProps>(
+    {} as dataAgendamentoProps
+  );
+  const [modalStart, setModalStart] = useState<IModalStartProps>({
     open: false,
   });
+  const isMobile = useMediaQuery({ maxWidth: "500px" });
+
   const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
     {} as IColaboradorCompletoDTO
   );
+  const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
+    ISelectOptions[]
+  >([]);
+  const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
+
   function transformData(data: IAgendamentoDaHoraDTO[]) {
     const result = data.flatMap((item) => item.agendamentos);
     return result.filter((item) => item.emEspera);
   }
 
-  const getColaborador = useCallback(async () => {
-    Colaborador.atual().then(({ data }) => {
-      setColaborador(data);
-    });
-  }, []);
+  function iniciarVistoria(e: React.SyntheticEvent) {
+    e.preventDefault();
 
-  function iniciarVistoria(uuidAgendamento: string) {
+    const PAYLOAD: IIniciarAgendamentoProps = {
+      uuid: modalStart?.uuid,
+      uuidBaia: modalStart?.uuidBaia,
+      uuidVistoriador: modalStart?.uuidVistoriador,
+    };
+
     setIsLoad(true);
-    Agendamento.iniciar({ uuid: uuidAgendamento })
+    Agendamento.iniciar(PAYLOAD)
       .then(({ data }) => {
-        window.open(
-          `/meus-agendamentos/agendamento?id=${uuidAgendamento}`,
-          "_self"
-        );
+        toast.success("Agendamento iniciado");
+        getData();
       })
       .catch(
         ({
           response: {
             data: { mensagem },
           },
-        }) => toast.error(mensagem)
+        }) => {
+          toast.error(mensagem);
+        }
       )
-      .finally(() => setIsLoad(false));
+      .finally(() => {
+        setIsLoad(false);
+        setModalStart({ open: false });
+      });
   }
 
   function handleWait({ uuid }: { uuid: string }) {
@@ -95,16 +119,24 @@ export const useStores = () => {
 
     Agendamento.getByHour({
       data: hoje,
-      status: [StatusAgendamentoEnum.AGENDADO, StatusAgendamentoEnum.INICIADO],
-      ...filterEmpty,
+      status: [
+        StatusAgendamentoEnum.AGENDADO,
+        StatusAgendamentoEnum.INICIADO,
+        StatusAgendamentoEnum.FINALIZADO,
+      ],
+      ...uuids,
     })
       .then(({ data }) => {
-        const emEspera = transformData(data?.agendamentos);
+        const emEspera = transformData(data.agendamentos);
         const foraDeEspera = data.agendamentos.filter((item) =>
           item.agendamentos.some((_) => !_.emEspera)
         );
         setAgendamentos(foraDeEspera);
         setAgendamentosEmEspera(emEspera);
+        setDataAgendamento({
+          totalAgendamentos: data.totalAgendamentos,
+          vagas: data.vagas,
+        });
       })
       .catch(
         ({
@@ -116,21 +148,48 @@ export const useStores = () => {
       .finally(() => setIsLoad(false));
   };
 
+  const getColaborador = useCallback(async () => {
+    return Colaborador.atual().then(({ data }) => data);
+  }, []);
+
   useEffect(() => {
-    getColaborador().catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    );
+    getColaborador().then((data) => setColaborador(data));
   }, [getColaborador]);
 
   useEffect(() => {
-    if (colaborador?.uuid) {
-      getData();
-    }
+    if (!colaborador?.uuid) return;
+    getData();
   }, [colaborador]);
+
+  useEffect(() => {
+    if (modalStart?.open) {
+      Colaborador.listarPorLoja({
+        tipo: TipoColaboradorEnum.VISTORIADOR,
+        disponivel: true,
+        uuidLoja: colaborador?.loja?.uuid,
+      }).then(({ data }) => {
+        const options = data.map((item) => ({
+          value: item.uuid,
+          label: item.nome,
+          element: item,
+        }));
+
+        setVistoriadoresOptions(options);
+      });
+
+      Loja.getBaiasLivres({ uuid: colaborador?.loja?.uuid }).then(
+        ({ data }) => {
+          const options = data.map((item) => ({
+            value: item.uuid,
+            label: item.nome,
+          }));
+          setBaiaOptions(options);
+        }
+      );
+
+      return;
+    }
+  }, [modalStart?.open]);
 
   return {
     iniciarVistoria,
@@ -139,5 +198,9 @@ export const useStores = () => {
     handleWait,
     modalStart,
     setModalStart,
+    vistoriadoresOptions,
+    baitasOptions,
+    isMobile,
+    dataAgendamento,
   };
 };
