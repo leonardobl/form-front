@@ -11,9 +11,9 @@ export const Status = ({ status }: StatusProps) => {
   return (
     <S.Container status={status}>
       <p>{removeUnderscore(status)}</p>
-      {onClick && status === "AGENDADO" && !isCliente && (
+      {/* {onClick && status === "AGENDADO" && !isCliente && (
         <button onClick={handleClick}>INICIAR</button>
-      )}
+      )} */}
     </S.Container>
   );
 };

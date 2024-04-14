@@ -7,9 +7,7 @@ import { Button } from "../../Atoms/Button";
 import { useDeliverys } from "./useDeliverys";
 import { ISelectOptions } from "../../../types/inputs";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
-import { Box } from "@mui/material";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import { margin } from "polished";
 
 export const DeliverysTemplates = () => {
   const {
@@ -113,28 +111,30 @@ export const DeliverysTemplates = () => {
         </S.ListHeader>
         {isMobile ? (
           <S.ListBody>
-            {agendamentos?.map((item) => (
-              <S.ListItemMobile key={item?.uuid}>
+            {agendamentos?.map((agendaemntosPorHorario) => (
+              agendaemntosPorHorario?.agendamentos?.map((agendamento) => (
+                <S.ListItemMobile key={agendamento?.uuid}>
                 <p>
-                  {item?.veiculo?.modelo || "---"}{" "}
-                  <span>{item?.horaAgendada || "---"}</span>
+                  {agendamento?.veiculo?.modelo || "---"}{" "}
+                  <span>{agendamento?.horaAgendada || "---"}</span>
                 </p>
-                <p>{item?.cliente?.nome || "---"}</p>
+                <p>{agendamento?.cliente?.nome || "---"}</p>
               </S.ListItemMobile>
-            ))}
+            ))))}
           </S.ListBody>
         ) : (
           <S.ListBody>
-            {agendamentos?.map((item) => (
-              <S.ListItem key={item?.uuid}>
-                <p>{item?.cliente?.nome || "---"}</p>
-                <p>{item?.veiculo?.modelo || "---"}</p>
-                <p>{item?.veiculo?.placa || "---"}</p>
-                <p>{item?.veiculo?.chassi || "---"}</p>
-                <p>{item?.delivery?.cidade || "---"}</p>
-                <p>{item?.horaAgendada || "---"}</p>
-              </S.ListItem>
-            ))}
+            {agendamentos?.map((agendaemntosPorHorario) => (
+              agendaemntosPorHorario?.agendamentos?.map((agendamento) => (
+                <S.ListItem key={agendamento?.uuid}>
+                  <p>{agendamento?.cliente?.nome || "---"}</p>
+                  <p>{agendamento?.veiculo?.modelo || "---"}</p>
+                  <p>{agendamento?.veiculo?.placa || "---"}</p>
+                  <p>{agendamento?.veiculo?.chassi || "---"}</p>
+                  <p>{agendamento?.delivery?.cidade || "---"}</p>
+                  <p>{agendamento?.horaAgendada || "---"}</p>
+                </S.ListItem>
+            ))))}
           </S.ListBody>
         )}
       </S.List>
