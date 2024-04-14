@@ -175,9 +175,9 @@ export const List = styled.div`
 
 export const ListTitles = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.2fr;
+  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.3fr;
   width: 100%;
-  padding: 18px 38px;
+  padding: 18px 16px;
 
   > h3 {
     white-space: nowrap;
@@ -193,17 +193,11 @@ export const ListTitles = styled.div`
 
 export const ListItem = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.2fr;
+  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.3fr;
   width: 100%;
-  padding: 18px 38px;
+  padding: 18px 16px;
   border-radius: 10px;
   align-items: center;
-
-  > img {
-    display: block;
-    cursor: pointer;
-    margin-left: auto;
-  }
 
   & + div {
     margin-top: 1rem;
@@ -315,4 +309,14 @@ export const Eye = styled.img`
     filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(4716%)
       hue-rotate(328deg) brightness(103%) contrast(98%);
   }
+`;
+
+export const WrapperActions = styled.div`
+  > img {
+    cursor: pointer;
+  }
+
+  display: flex;
+  align-items: center;
+  gap: 0 10px;
 `;

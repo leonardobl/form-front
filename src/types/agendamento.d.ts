@@ -166,3 +166,8 @@ export interface IReagendamentoForm {
   uuidDelivery?: string;
   uuidLoja?: string;
 }
+
+export interface IAgendamentoDaHoraDTO {
+  agendamentos: IAgendamentoDTO[];
+  horaAgendada: string;
+}

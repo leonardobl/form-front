@@ -13,6 +13,7 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 type FormFilterProps = {
   dataInicial?: string;
+  dataFinal?: string;
   cidade?: string;
 };
 
@@ -22,6 +23,7 @@ export const useDeliverys = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
   const { setIsLoad } = useContextSite();
+  const [token] = useSessionStorage("@token");
   const [token] = useSessionStorage("@token");
 
   async function handleDownload({
@@ -74,6 +76,7 @@ export const useDeliverys = () => {
     const PAYLOAD: FormFilterProps = {
       ...formFilter,
       dataInicial: reverseToIsoDate(date?.toLocaleDateString()),
+      dataFinal: reverseToIsoDate(date?.toLocaleDateString()),
     };
     const hasData = Object.values(PAYLOAD).some((item) => item);
     hasData && getAgendamentos(PAYLOAD);
@@ -109,6 +112,7 @@ export const useDeliverys = () => {
 
     getAgendamentos({
       dataInicial: reverseToIsoDate(date?.toLocaleDateString()),
+      dataFinal: reverseToIsoDate(date?.toLocaleDateString()),
     });
   }, []);
 
