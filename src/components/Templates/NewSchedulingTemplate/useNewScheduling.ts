@@ -456,7 +456,7 @@ export const useNewScheduling = () => {
 
       setFormAddress({
         ...formAddress,
-        uuid: agendamento?.uuid
+        uuid: dataAgendamento?.data?.uuid
       });
 
       if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
