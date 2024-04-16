@@ -5,8 +5,12 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
 import { useScheduleConfirmation } from "./useScheduleConfirmation";
-import { reverseToIsoDate } from "../../../utils/dateTransform";
+import {
+  reverseToBrDate,
+  reverseToIsoDate,
+} from "../../../utils/dateTransform";
 import { ISelectOptions } from "../../../types/inputs";
+import { MyModal } from "../../Atoms/MyModal";
 
 export const ScheduleConfirmationTemplate = () => {
   const {
@@ -17,6 +21,9 @@ export const ScheduleConfirmationTemplate = () => {
     form,
     setForm,
     onSubmit,
+    isOpen,
+    setIsOpen,
+    handleReagendamento,
   } = useScheduleConfirmation();
 
   return (
@@ -65,6 +72,15 @@ export const ScheduleConfirmationTemplate = () => {
           <Button>Avançar</Button>
         </div>
       </S.Grid>
+
+      <MyModal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
+        <S.ModalContent>
+          <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
+            date?.toLocaleDateString()
+          )} às ${form.horaAgendada}? `}</p>
+          <Button onClick={handleReagendamento}>Confirmar</Button>
+        </S.ModalContent>
+      </MyModal>
     </S.Container>
   );
 };

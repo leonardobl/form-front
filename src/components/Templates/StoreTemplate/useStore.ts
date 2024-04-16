@@ -25,17 +25,7 @@ export const useStore = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoSession?.reagendamento) {
-      setModalIsOpen(true);
-      return;
-    }
     setIsLoad(true);
-
-    // const PAYLOAD: IAgendamentoBasicoForm = {
-    //   ...form,
-    //   tipoAtendimento: TipoAtendimentoEnum.LOJA,
-    //   diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
-    // };
 
     Agendamento.postV2(form)
       .then(({ data }) => {
@@ -92,7 +82,6 @@ export const useStore = () => {
     setForm,
     modalIsOpen,
     handleSubmit,
-    // handleReagendamento,
     setModalIsOpen,
   };
 };

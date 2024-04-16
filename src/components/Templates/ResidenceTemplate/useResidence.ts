@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ISelectOptions } from "../../../types/inputs";
-import {
-  IAgendamentoBasicoForm,
-  IAgendamentoCadastroForm,
-} from "../../../types/agendamento";
-import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
+import { IAgendamentoCadastroForm } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
@@ -16,7 +12,6 @@ export const useResidence = () => {
   const [token] = useSessionStorage("@token");
   const { setIsLoad } = useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [form, setForm] = useState<IAgendamentoCadastroForm>(
     {} as IAgendamentoCadastroForm
   );
@@ -62,10 +57,6 @@ export const useResidence = () => {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoSession?.reagendamento) {
-      setModalIsOpen(true);
-      return;
-    }
     setIsLoad(true);
 
     Agendamento.postV2(form)
@@ -123,8 +114,5 @@ export const useResidence = () => {
     form,
     setForm,
     handleSubmit,
-    setModalIsOpen,
-    modalIsOpen,
-    // handleReagendamento,
   };
 };
