@@ -454,10 +454,10 @@ export const useNewScheduling = () => {
       const dataAgendamento = await Agendamento.post(PAYLOAD_AGENDAMENTO);
       setAgendamento(dataAgendamento.data);
 
-      setFormAddress({
-        ...formAddress,
+      setFormAddress((values) => ({
+        ...values,
         uuid: dataAgendamento?.data?.uuid
-      });
+      }));
 
       if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
         await Agendamento.putAddress(formAddress);
