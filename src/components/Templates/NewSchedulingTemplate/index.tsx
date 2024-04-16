@@ -37,16 +37,10 @@ export const NewSchedulingTemplate = () => {
     tipoAtendimento,
     tipoPagamento,
     tipoServico,
-    isLoading,
     formAgendamento,
     setFormAgendamento,
     cidadesOptions,
-    dateAgendamento,
-    horariosOptions,
-    setDateAgendamento,
-    diasIndisponiveis,
     ufOptions,
-    // handleSubmitAgendamento,
     formService,
     setFormSerice,
     formVihacle,
@@ -60,9 +54,6 @@ export const NewSchedulingTemplate = () => {
     saveAgendamento,
     setFormAddress,
     agendamentoSession,
-    modalReagendamentoIsOpen,
-    setModalReagendamentoIsOpen,
-    handleReagendamento,
   } = useNewScheduling();
 
   // const { Option } = components;
@@ -693,18 +684,6 @@ export const NewSchedulingTemplate = () => {
             </Button>
           </S.MainForm>
         )}
-
-        <MyModal
-          isOpen={modalReagendamentoIsOpen}
-          onRequestClose={() => setModalReagendamentoIsOpen(false)}
-        >
-          <S.ModalContent>
-            <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
-              dateAgendamento?.toLocaleDateString()
-            )} às ${formAgendamento.horaAgendada}? `}</p>
-            <Button onClick={handleReagendamento}>Confirmar</Button>
-          </S.ModalContent>
-        </MyModal>
       </S.Container>
     </LayoutTemplate>
   );

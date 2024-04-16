@@ -19,12 +19,11 @@ import { ISelectOptions } from "../../../types/inputs";
 import { Ibge } from "../../../services/Ibge";
 import { resetValues } from "../../../utils/resetObject";
 import {
-  IAgendamentoBasicoForm,
+  IAgendamentoCadastroForm,
   IAgendamentoDTO,
   IAtendimentoDomiciliarForm,
   IClienteDTO,
   IPutAgendamentoProps,
-  IReagendamentoProps,
   IVeiculoDTO,
 } from "../../../types/agendamento";
 import { Loja } from "../../../services/Lojas";
@@ -47,8 +46,6 @@ export const useNewScheduling = () => {
   const navigate = useNavigate();
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalReagendamentoIsOpen, setModalReagendamentoIsOpen] =
-    useState(false);
   const [tipoAtendimento, setTipoAtendimento] = useState<TipoAtendimentoEnum>(
     TipoAtendimentoEnum.LOJA
   );
@@ -88,7 +85,7 @@ export const useNewScheduling = () => {
   const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
   const [formAgendamento, setFormAgendamento] =
-    useState<IAgendamentoBasicoForm>({} as IAgendamentoBasicoForm);
+    useState<IAgendamentoCadastroForm>({} as IAgendamentoCadastroForm);
   const [dateAgendamento, setDateAgendamento] = useState<Date>(null);
   const [disabled, setDisabled] = useState(false);
 
@@ -233,13 +230,23 @@ export const useNewScheduling = () => {
   async function saveAgendamento(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoSession?.reagendamento) {
-      setModalReagendamentoIsOpen(true);
-
-      return;
-    }
-
     setIsLoad(true);
+
+    if (agendamentoSession?.reagendamento) {
+      Agendamento.postV2(formAgendamento)
+        .then(({ data }) => {
+          navigate(`/agendamento/${data?.uuid}/confirmar-horario`);
+          return;
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => setIsLoad(false));
+    }
 
     const PAYLOAD: IPutAgendamentoProps = {
       ...agendamento,
@@ -384,72 +391,13 @@ export const useNewScheduling = () => {
     }
   }
 
-  function handleReagendamento() {
-    setIsLoad(true);
-    setModalReagendamentoIsOpen(false);
-
-    const PAYLOAD: IReagendamentoProps = {
-      diaAgendado: dateAgendamento
-        .toLocaleDateString()
-        .split("/")
-        .reverse()
-        .join("-"),
-      horaAgendada: formAgendamento?.horaAgendada,
-      uuidAgendamento: agendamentoSession?.uuidAgendamento,
-      uuidLoja: formAgendamento?.uuidLoja,
-      uuidDelivery: formAgendamento?.uuidDelivery,
-    };
-
-    Agendamento.reagendar(PAYLOAD)
-      .then(() => {
-        toast.success("Reagendamento efetuado com sucesso!");
-        setAgendamentoSession({
-          ...agendamentoSession,
-          reagendamento: false,
-          cliente: null,
-          veiculo: null,
-        });
-        setTimeout(() => {
-          navigate(
-            `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
-          );
-        }, 2000);
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
-      .finally(() => setIsLoad(false));
-  }
-
   async function handleSubmitAgendamento(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    console.log("aqui 1");
-    if (agendamentoSession?.reagendamento) {
-      setModalReagendamentoIsOpen(true);
-      console.log("aqui 2");
-
-      return;
-    }
-
     setIsLoad(true);
 
-    const PAYLOAD_AGENDAMENTO: IAgendamentoBasicoForm = {
-      ...formAgendamento,
-      tipoAtendimento: tipoAtendimento,
-      diaAgendado: dateAgendamento
-        ?.toLocaleDateString()
-        ?.split("/")
-        ?.reverse()
-        ?.join("-"),
-    };
-
     try {
-      const dataAgendamento = await Agendamento.post(PAYLOAD_AGENDAMENTO);
+      const dataAgendamento = await Agendamento.postV2(formAgendamento);
       setAgendamento(dataAgendamento.data);
 
       if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
@@ -603,9 +551,6 @@ export const useNewScheduling = () => {
     selectOptions,
     resetCliente,
     formAddress,
-    modalReagendamentoIsOpen,
-    setModalReagendamentoIsOpen,
-    handleReagendamento,
     setFormAddress,
     agendamentoSession,
   };
