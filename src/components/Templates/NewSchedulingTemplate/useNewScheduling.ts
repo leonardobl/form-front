@@ -233,23 +233,24 @@ export const useNewScheduling = () => {
     setIsLoad(true);
 
     if (agendamentoSession?.reagendamento) {
-      Agendamento.postV2(formAgendamento)
-        .then(({ data }) => {
-          navigate(`/agendamento/${data?.uuid}/confirmar-horario`);
-          return;
-        })
-        .catch(
-          ({
-            response: {
-              data: { mensagem },
-            },
-          }) => toast.error(mensagem)
-        )
-        .finally(() => setIsLoad(false));
+      navigate(`/agendamento/${agendamento?.uuid}/confirmar-horario`);
+      return;
     }
 
     const PAYLOAD: IPutAgendamentoProps = {
-      ...agendamento,
+      uuid: agendamento?.uuid,
+      codigoPagamento: agendamento?.codigoPagamento,
+      dataPagamento: agendamento?.dataPagamento,
+      dataRealizacao: agendamento?.dataRealizacao,
+      diaAgendado: agendamento?.diaAgendado,
+      horaAgendada: agendamento?.horaAgendada,
+      primeiroAgendamento: agendamento?.primeiroAgendamento,
+      revistoria: agendamento?.revistoria,
+      status: agendamento?.status,
+      tipoAtendimento: agendamento?.tipoAtendimento,
+      uuidDelivery: agendamento?.delivery?.uuid,
+      uuidLoja: agendamento?.loja?.uuid,
+      uuidServico: agendamento?.servico?.uuid,
       uuidVeiculo: formVihacle?.uuid,
       uuidCliente: cliente?.uuid,
     };
@@ -408,6 +409,7 @@ export const useNewScheduling = () => {
 
     try {
       const dataAgendamento = await Agendamento.postV2(formAgendamento);
+
       setAgendamento(dataAgendamento.data);
 
       if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
