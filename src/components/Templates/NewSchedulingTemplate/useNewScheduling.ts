@@ -254,34 +254,44 @@ export const useNewScheduling = () => {
       uuidCliente: cliente?.uuid,
     };
 
-    try {
-      await Agendamento.put(PAYLOAD);
+    Agendamento.put(PAYLOAD)
+      .then(() => {
+        Pagamento.gerarFatura({
+          uuidAgendamento: agendamento?.uuid,
+          formaPagamento: tipoPagamento,
+        })
+          .then(() => {
+            setAgendamentoSession({
+              ...agendamentoSession,
+              reagendamento: false,
+            });
 
-      Pagamento.gerarFatura({
-        uuidAgendamento: agendamento?.uuid,
-        formaPagamento: tipoPagamento,
+            navigate(
+              `/agendamento/${
+                agendamento?.uuid
+              }/pagamento/${tipoPagamento.toLowerCase()}`
+            );
+          })
+          .catch(
+            ({
+              response: {
+                data: { mensagem },
+              },
+            }) => {
+              toast.error(mensagem);
+            }
+          );
       })
-        .then(() =>
-          navigate(
-            `/agendamento/${
-              agendamento?.uuid
-            }/pagamento/${tipoPagamento.toLowerCase()}`
-          )
-        )
-        .catch(
-          ({
-            response: {
-              data: { mensagem },
-            },
-          }) => {
-            toast.error(mensagem);
-          }
-        );
-    } catch (error) {
-      toast.error(error.mensagem);
-    } finally {
-      setIsLoad(false);
-    }
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
   }
 
   function handleCep(forms: any, setForms: any) {
@@ -503,7 +513,10 @@ export const useNewScheduling = () => {
           }
         )
         .finally(() => setIsLoad(false));
+      return;
     }
+
+    setAgendamentoSession({ ...agendamentoSession, reagendamento: false });
   }, []);
 
   function handleClient(e: React.SyntheticEvent) {
