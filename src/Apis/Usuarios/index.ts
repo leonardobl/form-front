@@ -11,7 +11,7 @@ ApiUsuarios.interceptors.request.use(
   (config) => {
     let token;
     if (typeof window !== "undefined") {
-      const localToken = sessionStorage.getItem("@token");
+      const localToken = localStorage.getItem("@token");
 
       if (localToken) {
         token = localToken.replaceAll('"', "");
