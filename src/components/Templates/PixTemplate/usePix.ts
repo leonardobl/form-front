@@ -4,7 +4,9 @@ import { IFaturaDTO } from "../../../types/pagamento";
 import { Pagamento } from "../../../services/Pagamento";
 import { toast } from "react-toastify";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Agendamento } from "../../../services/Agendamento";
+import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
 export const usePix = () => {
   const { setIsLoad } = useContextSite();
@@ -12,6 +14,7 @@ export const usePix = () => {
   const params = useParams();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
+  const navigate = useNavigate();
 
   // function acessarFatura() {
   //   window.open(
@@ -21,7 +24,10 @@ export const usePix = () => {
   // }
 
   useEffect(() => {
-    if (!params?.uuidAgendamento) return;
+    if (!params?.uuidAgendamento) {
+      toast.error("agendamento não encontrado!");
+      return;
+    }
 
     setIsLoad(true);
 
@@ -39,6 +45,33 @@ export const usePix = () => {
         }) => toast.error(mensagem)
       )
       .finally(() => setIsLoad(false));
+  }, [params]);
+
+  useEffect(() => {
+    if (!params?.uuidAgendamento) {
+      toast.error("agendamento não encontrado!");
+      return;
+    }
+
+    setTimeout(() => {
+      setInterval(() => {
+        Agendamento.getById({ uuid: params?.uuidAgendamento })
+          .then(({ data }) => {
+            if (data?.status === StatusAgendamentoEnum.PAGO) {
+              navigate("/agendamento/pagamento/pix/confirmacao-pagamento");
+            }
+          })
+          .catch(
+            ({
+              response: {
+                data: { mensagem },
+              },
+            }) => {
+              toast.error(mensagem);
+            }
+          );
+      }, 5000);
+    }, 10000);
   }, [params]);
 
   return { pagamento };

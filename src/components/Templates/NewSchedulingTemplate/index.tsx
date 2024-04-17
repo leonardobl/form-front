@@ -37,16 +37,10 @@ export const NewSchedulingTemplate = () => {
     tipoAtendimento,
     tipoPagamento,
     tipoServico,
-    isLoading,
     formAgendamento,
     setFormAgendamento,
     cidadesOptions,
-    dateAgendamento,
-    horariosOptions,
-    setDateAgendamento,
-    diasIndisponiveis,
     ufOptions,
-    // handleSubmitAgendamento,
     formService,
     setFormSerice,
     formVihacle,
@@ -60,9 +54,6 @@ export const NewSchedulingTemplate = () => {
     saveAgendamento,
     setFormAddress,
     agendamentoSession,
-    modalReagendamentoIsOpen,
-    setModalReagendamentoIsOpen,
-    handleReagendamento,
   } = useNewScheduling();
 
   // const { Option } = components;
@@ -383,56 +374,6 @@ export const NewSchedulingTemplate = () => {
                     }
                   />
                 </div>
-
-                <div>
-                  <Text>
-                    Datas e horários{" "}
-                    <span className="textStrong">disponíveis</span>.
-                  </Text>
-                </div>
-
-                <div>
-                  <InputDate
-                    required
-                    label="Data"
-                    showIcon
-                    key={`${tipoAtendimento}`}
-                    isLoading={isLoading}
-                    minDate={new Date()}
-                    disabled={
-                      tipoAtendimento === TipoAtendimentoEnum.LOJA
-                        ? !!!formAgendamento?.uuidLoja
-                        : !!!formAgendamento?.uuidDelivery
-                    }
-                    excludeDates={diasIndisponiveis}
-                    onChange={(e) => {
-                      setDateAgendamento(e);
-                    }}
-                    placeholderText="__/__/__"
-                    selected={dateAgendamento}
-                  />
-                </div>
-
-                <div>
-                  <SimpleSelect
-                    label="Horário"
-                    required
-                    key={`${tipoAtendimento}`}
-                    isDisabled={!dateAgendamento}
-                    value={
-                      horariosOptions?.find(
-                        (item) => item.value === formAgendamento.horaAgendada
-                      ) || null
-                    }
-                    onChange={(e: ISelectOptions) =>
-                      setFormAgendamento((prev) => ({
-                        ...prev,
-                        horaAgendada: e?.value,
-                      }))
-                    }
-                    options={horariosOptions}
-                  />
-                </div>
               </S.GridAtendece>
 
               {tipoAtendimento === TipoAtendimentoEnum.DOMICILIO && (
@@ -743,18 +684,6 @@ export const NewSchedulingTemplate = () => {
             </Button>
           </S.MainForm>
         )}
-
-        <MyModal
-          isOpen={modalReagendamentoIsOpen}
-          onRequestClose={() => setModalReagendamentoIsOpen(false)}
-        >
-          <S.ModalContent>
-            <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
-              dateAgendamento?.toLocaleDateString()
-            )} às ${formAgendamento.horaAgendada}? `}</p>
-            <Button onClick={handleReagendamento}>Confirmar</Button>
-          </S.ModalContent>
-        </MyModal>
       </S.Container>
     </LayoutTemplate>
   );

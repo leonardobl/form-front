@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { IPagination } from "../../../types/pagination";
-import {
-  Agendamento,
-  IGetAgendamentosProps,
-} from "../../../services/Agendamento";
+import { Agendamento } from "../../../services/Agendamento";
 import { useContextSite } from "../../../context/Context";
-import { IAgendamentoDTO } from "../../../types/agendamento";
+import {
+  IAgendamentoDTO,
+  IGetAgendamentosProps,
+} from "../../../types/agendamento";
 import { toast } from "react-toastify";
 import { RolesEnum } from "../../../enums/roles";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  Agendamento,
-  IPutAgendamentoProps,
-} from "../../../services/Agendamento";
+import { Agendamento } from "../../../services/Agendamento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
-import { IVeiculoDTO } from "../../../types/agendamento";
+import { IPutAgendamentoProps, IVeiculoDTO } from "../../../types/agendamento";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 

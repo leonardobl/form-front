@@ -1,0 +1,45 @@
+import React, { useEffect, useState } from "react";
+import { IAgendamentoDTO } from "../../../types/agendamento";
+import { useParams } from "react-router-dom";
+import { Agendamento } from "../../../services/Agendamento";
+import { toast } from "react-toastify";
+import { useContextSite } from "../../../context/Context";
+import { Pagamento } from "../../../services/Pagamento";
+
+export const useConfirmAppointment = () => {
+  const params = useParams();
+  const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
+    {} as IAgendamentoDTO
+  );
+  const { setIsLoad } = useContextSite();
+
+  function handleDownload() {
+    Pagamento.downloadFatura({ uuidAgendamento: agendamento.uuid })
+      .then()
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      );
+  }
+
+  useEffect(() => {
+    if (params?.uuidAgendamento) {
+      setIsLoad(true);
+      Agendamento.getById({ uuid: params?.uuidAgendamento })
+        .then(({ data }) => setAgendamento(data))
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => setIsLoad(false));
+    }
+  }, [params]);
+
+  return { agendamento, handleDownload };
+};
