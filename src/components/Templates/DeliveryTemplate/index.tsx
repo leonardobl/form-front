@@ -3,17 +3,25 @@ import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
+import { useDelivery } from "./useDeliveryAgente";
 
-export const DeliveryAgentTemplate = () => {
+export const DeliveryTemplate = () => {
+  const { cidadesOptions, localOptions, form, setForm, handleSubmit } =
+    useDelivery();
+
   return (
     <S.Container>
       <Title>Delivery</Title>
-      <S.Form>
+      <S.Form onSubmit={handleSubmit}>
         <div>
-          <SimpleSelect />
+          <SimpleSelect options={cidadesOptions} label="Cidade" required />
         </div>
         <div>
-          <SimpleSelect />
+          <SimpleSelect
+            options={localOptions}
+            label="Local de Atendimento"
+            required
+          />
         </div>
 
         <div>

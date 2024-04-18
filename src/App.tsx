@@ -7,7 +7,6 @@ import { Home } from "./components/Pages/home";
 import { Theme } from "./Global/Theme";
 import { GlobalStyles } from "./Global/GlobalStyles";
 import { Store } from "./components/Pages/Store";
-import { Residence } from "./components/Pages/Residence";
 import "react-toastify/dist/ReactToastify.css";
 import { LoginRegister } from "./components/Pages/LoginRegister";
 import { Login } from "./components/Pages/Login";
@@ -38,7 +37,7 @@ import { PixConfirmation } from "./components/Pages/PixConfirmation";
 import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
 import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
 import { DocDownloads } from "./components/Atoms/DocDownload";
-import { DeliveryAgentTemplate } from "./components/Templates/DeliveryAgentTemplate";
+import { Delivery } from "./components/Pages/Delivery";
 
 export const App = () => {
   return (
@@ -78,10 +77,6 @@ export const App = () => {
             <Route path="/agendamento" element={<LayoutTemplate />}>
               <Route index element={<Home />} />
 
-              <Route path="agente">
-                <Route path="delivery" element={<DeliveryAgentTemplate />} />
-              </Route>
-
               <Route
                 path="loja"
                 element={
@@ -94,7 +89,7 @@ export const App = () => {
                 path="domicilio"
                 element={
                   <ProtectedClientRoute>
-                    <Residence />
+                    <Delivery />
                   </ProtectedClientRoute>
                 }
               />
