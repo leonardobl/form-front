@@ -19,6 +19,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
     token,
     modalIsOpen,
     navigate,
+    isAdmin,
     setModalIsOpen,
     isCliente,
     LINKS,
@@ -94,6 +95,13 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                       to={"/meus-agendamentos/deliverys"}
                     >
                       Deliverys
+                    </NavLink>
+                  </div>
+                )}
+                {isAdmin && (
+                  <div>
+                    <NavLink className={"navLink"} end to={"/configuracoes"}>
+                      Configurações
                     </NavLink>
                   </div>
                 )}
