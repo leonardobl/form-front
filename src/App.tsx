@@ -38,6 +38,7 @@ import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
 import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
 import { DocDownloads } from "./components/Atoms/DocDownload";
 import { Delivery } from "./components/Pages/Delivery";
+import { AddressServiceRegistration } from "./components/Pages/AddressServiceRegistration";
 
 export const App = () => {
   return (
@@ -120,6 +121,11 @@ export const App = () => {
                 <Route
                   path="cadastro-endereco"
                   element={<AddressRegistration />}
+                />
+
+                <Route
+                  path="cadastro-endereco-servico"
+                  element={<AddressServiceRegistration />}
                 />
                 <Route path="emplacamento" element={<License />} />
                 <Route path="vistoria" element={<Survey />} />

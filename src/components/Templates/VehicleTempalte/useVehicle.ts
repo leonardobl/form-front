@@ -46,7 +46,7 @@ export const useVehicle = () => {
               uuidAgendamento: PAYLOAD.uuid,
               uuidVeiculo: agendamentoSession?.uuidVeiculo,
             })
-              .then(() => {
+              .then(({ data }) => {
                 if (PAYLOAD.revistoria) {
                   setAgendamentoSession({
                     ...agendamentoSession,
@@ -67,6 +67,14 @@ export const useVehicle = () => {
                   }
 
                   navigate(`/agendamento/${params.uuidAgendamento}/pagamento`);
+                  return;
+                }
+
+                if (data?.delivery?.uuid) {
+                  navigate(
+                    `/agendamento/${params.uuidAgendamento}/servicos/cadastro-endereco-servico`
+                  );
+
                   return;
                 }
 
