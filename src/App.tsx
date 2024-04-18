@@ -39,6 +39,7 @@ import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
 import { DocDownloads } from "./components/Atoms/DocDownload";
 import { Delivery } from "./components/Pages/Delivery";
 import { AddressServiceRegistration } from "./components/Pages/AddressServiceRegistration";
+import { Settings } from "./components/Pages/Settings";
 
 export const App = () => {
   return (
@@ -49,6 +50,7 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route index element={<Navigate to={"/agendamento"} />} />
+            <Route path="configuracoes" element={<Settings />} />
             <Route
               path="/download-comprovante/:id"
               element={<DocDownloads />}
