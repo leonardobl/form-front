@@ -7,6 +7,7 @@ import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { Delivery } from "../../../services/Delivery";
 import { useNavigate, useParams } from "react-router-dom";
+import { TipoClienteEnum } from "../../../enums/tipoCliente";
 
 export const useResidence = () => {
   const [token] = useSessionStorage("@token");
@@ -18,41 +19,6 @@ export const useResidence = () => {
   const navigate = useNavigate();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
-
-  // function handleReagendamento() {
-  //   setIsLoad(true);
-  //   setModalIsOpen(false);
-
-  //   const PAYLOAD: IReagendamentoProps = {
-  //     diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
-  //     horaAgendada: form.horaAgendada,
-  //     uuidAgendamento: agendamentoSession?.uuidAgendamento,
-  //     uuidLoja: form.uuidLoja,
-  //     uuidDelivery: form.uuidDelivery,
-  //   };
-
-  //   Agendamento.reagendar(PAYLOAD)
-  //     .then(() => {
-  //       toast.success("Reagendamento efetuado com sucesso!");
-  //       setAgendamentoSession({
-  //         ...agendamentoSession,
-  //         reagendamento: false,
-  //       });
-  //       setTimeout(() => {
-  //         navigate(
-  //           `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
-  //         );
-  //       }, 2000);
-  //     })
-  //     .catch(
-  //       ({
-  //         response: {
-  //           data: { mensagem },
-  //         },
-  //       }) => toast.error(mensagem)
-  //     )
-  //     .finally(() => setIsLoad(false));
-  // }
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -90,6 +56,15 @@ export const useResidence = () => {
   }
 
   useEffect(() => {
+    if (
+      [TipoClienteEnum.CONCESSIONARIA, TipoClienteEnum.DESPACHANTE].includes(
+        agendamentoSession?.tipo
+      )
+    ) {
+      navigate("/agendamento/agente/delivery");
+      return;
+    }
+
     Delivery.get()
       .then(({ data }) => {
         const options = data.content.map((item) => ({

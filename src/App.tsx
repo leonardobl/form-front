@@ -38,6 +38,7 @@ import { PixConfirmation } from "./components/Pages/PixConfirmation";
 import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
 import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
 import { DocDownloads } from "./components/Atoms/DocDownload";
+import { DeliveryAgentTemplate } from "./components/Templates/DeliveryAgentTemplate";
 
 export const App = () => {
   return (
@@ -76,6 +77,11 @@ export const App = () => {
 
             <Route path="/agendamento" element={<LayoutTemplate />}>
               <Route index element={<Home />} />
+
+              <Route path="agente">
+                <Route path="delivery" element={<DeliveryAgentTemplate />} />
+              </Route>
+
               <Route
                 path="loja"
                 element={
