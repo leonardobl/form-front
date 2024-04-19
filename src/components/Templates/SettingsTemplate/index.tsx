@@ -22,7 +22,7 @@ export const SettingsTemplate = () => {
             </div>
 
             <div>
-              <SimpleSelect />
+              <SimpleSelect label="Cidade" />
             </div>
 
             <div>
@@ -34,6 +34,96 @@ export const SettingsTemplate = () => {
             </div>
           </S.FilterContent>
         </S.Filter>
+
+        <S.List>
+          <S.ListTitles>
+            <h2>Nome</h2>
+            <h2>CNPJ</h2>
+            <h2>Cidade</h2>
+            <button>
+              Cadastrar{" "}
+              <S.Icon
+                src="/assets/svgs/plus-round.svg"
+                alt="icone +"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </button>
+          </S.ListTitles>
+          <S.WrapperListItens>
+            <S.ListItem>
+              <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+              <p>xxxxxxxxxxx</p>
+              <p>Cidade do atendimento</p>
+              <S.Icon
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </S.ListItem>
+
+            <S.ListItem>
+              <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+              <p>xxxxxxxxxxx</p>
+              <p>Cidade do atendimento</p>
+              <S.Icon
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </S.ListItem>
+
+            <S.ListItem>
+              <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+              <p>xxxxxxxxxxx</p>
+              <p>Cidade do atendimento</p>
+              <S.Icon
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </S.ListItem>
+            <S.ListItem>
+              <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</p>
+              <p>xxxxxxxxxxx</p>
+              <p>Cidade do atendimento</p>
+              <S.Icon
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </S.ListItem>
+          </S.WrapperListItens>
+        </S.List>
       </S.Container>
     </LayoutTemplate>
   );
