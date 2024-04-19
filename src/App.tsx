@@ -40,6 +40,7 @@ import { DocDownloads } from "./components/Atoms/DocDownload";
 import { Delivery } from "./components/Pages/Delivery";
 import { AddressServiceRegistration } from "./components/Pages/AddressServiceRegistration";
 import { Settings } from "./components/Pages/Settings";
+import { Concessionaire } from "./components/Pages/Concessionaire";
 
 export const App = () => {
   return (
@@ -50,7 +51,13 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route index element={<Navigate to={"/agendamento"} />} />
-            <Route path="configuracoes" element={<Settings />} />
+            <Route path="configuracoes" element={<LayoutTemplate />}>
+              <Route index element={<Settings />} />
+              <Route
+                path="cadastro-concessionaria"
+                element={<Concessionaire />}
+              />
+            </Route>
             <Route
               path="/download-comprovante/:id"
               element={<DocDownloads />}
