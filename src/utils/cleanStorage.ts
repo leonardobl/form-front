@@ -1,6 +1,6 @@
 export function cleanStorage() {
-  localStorage.removeItem("agendamento");
-  localStorage.removeItem("reagendamento");
-  localStorage.removeItem("@token");
-  localStorage.removeItem("agendamentoSession");
+  sessionStorage.removeItem("agendamento");
+  sessionStorage.removeItem("reagendamento");
+  sessionStorage.removeItem("@token");
+  sessionStorage.removeItem("agendamentoSession");
 }
