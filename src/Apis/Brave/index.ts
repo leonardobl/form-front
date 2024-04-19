@@ -11,7 +11,7 @@ ApiBrave.interceptors.request.use(
   (config) => {
     let token;
     if (typeof window !== "undefined") {
-      const localToken = localStorage.getItem("@token");
+      const localToken = sessionStorage.getItem("@token");
 
       if (localToken) {
         token = localToken.replaceAll('"', "");

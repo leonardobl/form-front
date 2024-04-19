@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 export function useSessionStorage(key: string, initalValue = "") {
   const [state, setState] = useState(() => {
     try {
-      const storageValue = localStorage.getItem(key);
+      const storageValue = sessionStorage.getItem(key);
 
       return storageValue ? JSON.parse(storageValue) : initalValue;
     } catch {
@@ -15,7 +15,7 @@ export function useSessionStorage(key: string, initalValue = "") {
     (value: string) => {
       try {
         setState(value);
-        localStorage.setItem(key, JSON.stringify(value));
+        sessionStorage.setItem(key, JSON.stringify(value));
       } catch (error) {
         console.log(error);
       }
