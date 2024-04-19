@@ -12,7 +12,7 @@ ApiUsuarios.interceptors.request.use(
   (config) => {
     let token;
     if (typeof window !== "undefined") {
-      const localToken = sessionStorage.getItem("@token");
+      const localToken = localStorage.getItem("@token");
 
       if (localToken) {
         token = localToken.replaceAll('"', "");
@@ -29,7 +29,6 @@ ApiUsuarios.interceptors.request.use(
   (error) => {
     if (error.response.status === 403) {
       localStorage.clear();
-      sessionStorage.clear();
       toast.error("Token expirado");
       window.location.href = "/agendamento/login";
     }

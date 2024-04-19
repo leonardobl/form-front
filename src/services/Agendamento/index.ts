@@ -98,7 +98,7 @@ export class Agendamento {
   }
 
   static async downloadExc(props: DownloadProps) {
-    const token = sessionStorage.getItem("@token");
+    const token = localStorage.getItem("@token");
     let path = `${process.env.REACT_APP_BRAVE_API_URL}${basePath}/listar-deliveries?dia=${props.dia}`;
 
     if (props?.cidade) {

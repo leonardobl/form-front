@@ -120,7 +120,7 @@ export const useLogin = () => {
                 },
               }) => {
                 toast.error(mensagem);
-                sessionStorage.removeItem("@token");
+                localStorage.removeItem("@token");
                 setTokenContext("");
               }
             );
