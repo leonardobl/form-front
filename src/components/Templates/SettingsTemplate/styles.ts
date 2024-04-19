@@ -15,11 +15,11 @@ export const Container = styled.div`
 export const Filter = styled.form`
   overflow: hidden;
   border-radius: 10px 10px 0px 0px;
-  border: 1px solid #12d1a7;
+  border: 1px solid ${(props) => props.theme.colors.main};
 `;
 
 export const FilterTitle = styled.h2`
-  background: #12d1a7;
+  background: ${(props) => props.theme.colors.main};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 20px 0;
   color: #fff;
@@ -35,8 +35,8 @@ export const FilterTitle = styled.h2`
 export const FilterContent = styled.div`
   padding: 40px 90px 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-areas: "nome nome nome nome" "cnpj cidade limpar buscar";
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas: "nome nome nome nome nome nome" "cnpj cnpj cidade cidade limpar buscar";
   gap: 32px 16px;
 
   > :nth-child(1) {
