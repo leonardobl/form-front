@@ -224,7 +224,6 @@ export const FormAtendence = styled.div`
 export const GridAtendece = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 48px 40px;
 
   grid-template-areas: ". loja loja ." ". texto texto ." "data data horario horario";
 

@@ -5,19 +5,9 @@ import { Button } from "../../Atoms/Button";
 import { useResidence } from "./useResidence";
 import { ISelectOptions } from "../../../types/inputs";
 import { Title } from "../../Atoms/Title";
-import { MyModal } from "../../Atoms/MyModal";
-import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const ResidenceTemplate = () => {
-  const {
-    cidadesOptions,
-    form,
-    setForm,
-    handleSubmit,
-    setModalIsOpen,
-    modalIsOpen,
-    // handleReagendamento,
-  } = useResidence();
+  const { cidadesOptions, form, setForm, handleSubmit } = useResidence();
 
   return (
     <S.Container>
@@ -44,23 +34,6 @@ export const ResidenceTemplate = () => {
           </div>
         </S.GridWrapper>
       </S.Form>
-      {/* <MyModal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-      >
-        <S.ModalContent>
-          <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
-            date?.toLocaleDateString()
-          )} às ${form.horaAgendada}? `}</p>
-
-          <div className="wrapperButtons">
-            <Button data-variant-danger onClick={() => setModalIsOpen(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleReagendamento}>Confirmar</Button>
-          </div>
-        </S.ModalContent>
-      </MyModal> */}
     </S.Container>
   );
 };

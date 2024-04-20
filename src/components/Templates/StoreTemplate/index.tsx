@@ -5,18 +5,9 @@ import { Button } from "../../Atoms/Button";
 import { useStore } from "./useStore";
 import { ISelectOptions } from "../../../types/inputs";
 import { Title } from "../../Atoms/Title";
-import { MyModal } from "../../Atoms/MyModal";
 
 export const StoreTemplate = () => {
-  const {
-    lojasOptions,
-    form,
-    setForm,
-    modalIsOpen,
-    handleSubmit,
-    // handleReagendamento,
-    setModalIsOpen,
-  } = useStore();
+  const { lojasOptions, form, setForm, handleSubmit } = useStore();
 
   return (
     <S.Container>
@@ -41,24 +32,6 @@ export const StoreTemplate = () => {
           </div>
         </S.GridWrapper>
       </S.Form>
-
-      {/* <MyModal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-      >
-        <S.ModalContent>
-          <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
-            date?.toLocaleDateString()
-          )} às ${form.horaAgendada}? `}</p>
-
-          <div className="wrapperButtons">
-            <Button data-variant-danger onClick={() => setModalIsOpen(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleReagendamento}>Confirmar</Button>
-          </div>
-        </S.ModalContent>
-      </MyModal> */}
     </S.Container>
   );
 };

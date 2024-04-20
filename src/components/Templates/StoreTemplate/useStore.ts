@@ -27,52 +27,10 @@ export const useStore = () => {
 
   const navigate = useNavigate();
 
-  // function handleReagendamento() {
-  //   setIsLoad(true);
-  //   setModalIsOpen(false);
-
-  //   const PAYLOAD: IReagendamentoProps = {
-  //     diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
-  //     horaAgendada: form.horaAgendada,
-  //     uuidAgendamento: agendamentoSession?.uuidAgendamento,
-  //     uuidLoja: form.uuidLoja,
-  //     uuidDelivery: form.uuidDelivery,
-  //   };
-
-  //   Agendamento.reagendar(PAYLOAD)
-  //     .then(() => {
-  //       toast.success("Reagendamento efetuado com sucesso!");
-  //       setAgendamentoSession({ ...agendamentoSession, reagendamento: false });
-  //       setTimeout(() => {
-  //         navigate(
-  //           `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
-  //         );
-  //       }, 2000);
-  //     })
-  //     .catch(
-  //       ({
-  //         response: {
-  //           data: { mensagem },
-  //         },
-  //       }) => toast.error(mensagem)
-  //     )
-  //     .finally(() => setIsLoad(false));
-  // }
-
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    if (agendamentoSession?.reagendamento) {
-      setModalIsOpen(true);
-      return;
-    }
     setIsLoad(true);
-
-    // const PAYLOAD: IAgendamentoBasicoForm = {
-    //   ...form,
-    //   tipoAtendimento: TipoAtendimentoEnum.LOJA,
-    //   diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
-    // };
 
     Agendamento.postV2(form)
       .then(({ data }) => {
@@ -129,7 +87,6 @@ export const useStore = () => {
     setForm,
     modalIsOpen,
     handleSubmit,
-    // handleReagendamento,
     setModalIsOpen,
   };
 };

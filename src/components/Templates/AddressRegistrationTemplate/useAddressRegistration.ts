@@ -39,7 +39,7 @@ export const useAddressRegistration = () => {
               ...agendamentoSession,
               uuidAgendamento: PAYLOAD.uuid,
             });
-            navigate(`/meus-agendamentos/agendamento?${PAYLOAD.uuid}`);
+            navigate(`/agendamento/${PAYLOAD.uuid}/confirmar-horario`);
             return;
           }
 

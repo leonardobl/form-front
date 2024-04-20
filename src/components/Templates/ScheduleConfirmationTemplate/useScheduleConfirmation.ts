@@ -5,13 +5,14 @@ import { toast } from "react-toastify";
 import {
   IAgendamentoDTO,
   IAgendamentoHorarioForm,
+  IReagendamentoProps,
 } from "../../../types/agendamento";
 import { Loja } from "../../../services/Lojas";
 import { addDays } from "date-fns";
 import { useContextSite } from "../../../context/Context";
 import { Delivery } from "../../../services/Delivery";
 import { ISelectOptions } from "../../../types/inputs";
-import { resetValues } from "../../../utils/resetObject";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useScheduleConfirmation = () => {
   const params = useParams();
@@ -22,6 +23,9 @@ export const useScheduleConfirmation = () => {
   const [horarios, setHorarios] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
   );
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
+  const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState<IAgendamentoHorarioForm>(
     {} as IAgendamentoHorarioForm
   );
@@ -82,7 +86,7 @@ export const useScheduleConfirmation = () => {
           }
         );
     }
-  }, [params]);
+  }, [params?.uuidAgendamento]);
 
   useEffect(() => {
     if (date) {
@@ -125,6 +129,12 @@ export const useScheduleConfirmation = () => {
 
   function onSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+
+    if (agendamentoSession?.reagendamento) {
+      setIsOpen(true);
+      return;
+    }
+
     setIsLoad(true);
 
     const PAYLOAD = {
@@ -133,8 +143,8 @@ export const useScheduleConfirmation = () => {
     };
 
     Agendamento.definirHorario(PAYLOAD)
-      .then(() => {
-        navigate(`/agendamento/${agendamento?.uuid}/confirmar-agendamento`);
+      .then(({ data }) => {
+        navigate(`/agendamento/${data.uuid}/confirmar-agendamento`);
       })
       .catch(
         ({
@@ -148,6 +158,31 @@ export const useScheduleConfirmation = () => {
       .finally(() => setIsLoad(false));
   }
 
+  function handleReagendamento() {
+    setIsLoad(true);
+
+    const PAYLOAD: IReagendamentoProps = {
+      ...form,
+      uuidAgendamento: agendamento?.uuid,
+    };
+
+    Agendamento.reagendar(PAYLOAD)
+      .then(({ data }) => {
+        navigate(`/meus-agendamentos/agendamento?id=${data.uuid}`);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => {
+        setIsLoad(false);
+        setIsOpen(false);
+      });
+  }
+
   return {
     diasIndisponiveis,
     date,
@@ -156,5 +191,8 @@ export const useScheduleConfirmation = () => {
     form,
     setForm,
     onSubmit,
+    isOpen,
+    setIsOpen,
+    handleReagendamento,
   };
 };
