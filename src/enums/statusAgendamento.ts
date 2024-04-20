@@ -5,4 +5,6 @@ export enum StatusAgendamentoEnum {
   FINALIZADO = "FINALIZADO",
   INICIADO = "INICIADO",
   CANCELADO = "CANCELADO",
+  PAGO = "PAGO",
+  REEMBOLSADO = "REEMBOLSADO",
 }

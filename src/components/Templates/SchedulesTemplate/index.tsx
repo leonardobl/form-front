@@ -14,6 +14,8 @@ import {
 import { ISelectOptions } from "../../../types/inputs";
 
 import { Status } from "../../Atoms/Status";
+import { IconEye } from "../../Atoms/IconEye";
+import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
 
 export const SchedulesTemplate = () => {
   const {
@@ -220,23 +222,28 @@ export const SchedulesTemplate = () => {
             <S.ListItemMobile key={`${Math.random()}`}>
               <S.ListItemMobileContent>
                 <p>{`${item?.veiculo?.modelo} ${item.horaAgendada}`}</p>
-                <Status
-                  status={item?.status}
-                  onClick={() => {
-                    iniciarVistoria(item.uuid);
-                  }}
-                />
+
+                <Status status={item?.status} />
               </S.ListItemMobileContent>
-              <img
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                onClick={() =>
-                  window.open(
-                    `/meus-agendamentos/agendamento?id=${item?.uuid}`,
-                    "_blanck"
-                  )
-                }
-              />
+
+              <div>
+                <img
+                  src="/assets/svgs/eye.svg"
+                  alt="icone visualizacao"
+                  onClick={() =>
+                    window.open(
+                      `/meus-agendamentos/agendamento?id=${item?.uuid}`,
+                      "_blanck"
+                    )
+                  }
+                />
+
+                <OptionsSchedules
+                  status={item?.status}
+                  handleStart={() => iniciarVistoria(item.uuid)}
+                  handleAttribute={() => ""}
+                />
+              </div>
             </S.ListItemMobile>
           ))}
         </S.ListMobile>
@@ -263,9 +270,7 @@ export const SchedulesTemplate = () => {
                   ? item?.loja?.endereco?.cidade
                   : item?.delivery?.cidade}
               </p>
-              <p>{`${reverseToBrDate(item?.diaAgendado)} - ${
-                item.horaAgendada
-              }`}</p>
+              <p>{item?.diaAgendado ? `${reverseToBrDate(item?.diaAgendado)} - ${item.horaAgendada}` : ''}</p>
               <Status
                 status={item?.status}
                 onClick={() => {
@@ -273,7 +278,7 @@ export const SchedulesTemplate = () => {
                 }}
               />
 
-              <S.Eye
+              <IconEye
                 src="/assets/svgs/eye.svg"
                 alt="icone visualizacao"
                 data-color-starcheck={

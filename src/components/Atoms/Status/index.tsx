@@ -1,32 +1,19 @@
 import React from "react";
 import * as S from "./styles";
 import { removeUnderscore } from "../../../utils/removeUnderscore";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { RolesEnum } from "../../../enums/roles";
 
 type StatusProps = {
   status: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
-export const Status = ({ status, onClick }: StatusProps) => {
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
-
-  const isCliente = !!agendamentoSession?.roles?.includes(
-    RolesEnum.ROLE_CLIENTE
-  );
-
-  function handleClick() {
-    onClick();
-  }
-
+export const Status = ({ status }: StatusProps) => {
   return (
     <S.Container status={status}>
       <p>{removeUnderscore(status)}</p>
-      {status === "AGENDADO" && !isCliente && (
+      {/* {onClick && status === "AGENDADO" && !isCliente && (
         <button onClick={handleClick}>INICIAR</button>
-      )}
+      )} */}
     </S.Container>
   );
 };

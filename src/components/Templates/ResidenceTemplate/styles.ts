@@ -24,49 +24,34 @@ export const Form = styled.form`
 
 export const GridWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas: ". loja loja ." ". text text ." "data data horario horario" ". button button .";
-  gap: ${pxToRem(40)};
+  grid-template-columns: 1fr;
+  max-width: 400px;
+  margin: 0 auto;
+  grid-template-areas: "cidade" "button";
+  gap: ${pxToRem(48)} 0;
 
   > :nth-child(1) {
-    grid-area: loja;
+    grid-area: cidade;
   }
 
   > :nth-child(2) {
-    grid-area: text;
-  }
-
-  > :nth-child(3) {
-    grid-area: data;
-  }
-
-  > :nth-child(4) {
-    grid-area: horario;
-  }
-
-  > :nth-child(5) {
     grid-area: button;
-
     button {
       margin: 0 auto;
     }
-  }
-
-  @media (max-width: 500px) {
-    grid-template-columns: 1fr;
-    grid-template-areas: "loja" "text" "data" "horario" "button";
   }
 `;
 
 export const ModalContent = styled.div`
   /* padding: 102px 132px; */
   /* background: #6fa599; */
-  width: 506px;
-  height: 328px;
+  max-width: 506px;
+  max-height: 328px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding: 64px;
 
   p {
     color: ${(props) => props.theme.colors.textColor};
@@ -80,19 +65,24 @@ export const ModalContent = styled.div`
     margin-bottom: 32px;
   }
 
-  button {
-    margin: 0 auto;
-    display: block;
+  .wrapperButtons {
+    display: flex;
+    justify-content: center;
+    gap: 0 48px;
   }
 
   @media (max-width: 500px) {
-    padding: 32px 48px;
+    padding: 32px;
 
     p {
       font-size: 18px;
       line-height: 24px;
       max-width: 200px;
       margin: 0 auto 24px;
+    }
+
+    .wrapperButtons {
+      gap: 0 32px;
     }
   }
 `;

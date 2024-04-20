@@ -175,9 +175,9 @@ export const List = styled.div`
 
 export const ListTitles = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.2fr;
+  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.3fr;
   width: 100%;
-  padding: 18px 38px;
+  padding: 18px 16px;
 
   > h3 {
     white-space: nowrap;
@@ -193,17 +193,11 @@ export const ListTitles = styled.div`
 
 export const ListItem = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.2fr;
+  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.3fr;
   width: 100%;
-  padding: 18px 38px;
+  padding: 18px 16px;
   border-radius: 10px;
   align-items: center;
-
-  > img {
-    display: block;
-    cursor: pointer;
-    margin-left: auto;
-  }
 
   & + div {
     margin-top: 1rem;
@@ -295,24 +289,12 @@ export const ListItemMobileContent = styled.div`
   }
 `;
 
-export const Eye = styled.img`
-  &[data-color-starcheck="true"] {
-    filter: brightness(0) saturate(100%) invert(56%) sepia(88%) saturate(585%)
-      hue-rotate(180deg) brightness(98%) contrast(94%);
+export const WrapperActions = styled.div`
+  > img {
+    cursor: pointer;
   }
 
-  &[data-color-log="true"] {
-    filter: brightness(0) saturate(100%) invert(79%) sepia(16%) saturate(968%)
-      hue-rotate(76deg) brightness(96%) contrast(85%);
-  }
-
-  &[data-color-vlx="true"] {
-    filter: brightness(0) saturate(100%) invert(55%) sepia(0%) saturate(79%)
-      hue-rotate(181deg) brightness(95%) contrast(81%);
-  }
-
-  &[data-color-tokyo="true"] {
-    filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(4716%)
-      hue-rotate(328deg) brightness(103%) contrast(98%);
-  }
+  display: flex;
+  align-items: center;
+  gap: 0 10px;
 `;

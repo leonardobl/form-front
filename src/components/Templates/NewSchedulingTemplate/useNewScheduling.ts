@@ -23,17 +23,15 @@ import {
   IAgendamentoDTO,
   IAtendimentoDomiciliarForm,
   IClienteDTO,
+  IPutAgendamentoProps,
+  IReagendamentoProps,
   IVeiculoDTO,
 } from "../../../types/agendamento";
 import { Loja } from "../../../services/Lojas";
 import { Delivery } from "../../../services/Delivery";
 import { IConsultaUnionProps } from "../../../types/veiculo";
 import { Veiculo } from "../../../services/Veiculo";
-import {
-  Agendamento,
-  IPutAgendamentoProps,
-  IReagendamentoProps,
-} from "../../../services/Agendamento";
+import { Agendamento } from "../../../services/Agendamento";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Pagamento } from "../../../services/Pagamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";

@@ -26,6 +26,13 @@ export const Button = styled.button`
     &[data-color-tokyo="true"] {
       background: linear-gradient(180deg, #fe4f59 0%, #e42e30 100%);
     }
+
+    &[data-variant-danger="true"] {
+      border-radius: 10px;
+      background: #ed0000;
+      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+    }
+
     box-shadow: 0px 4px 4px 0px #00000033;
 
     font-family: Mulish;

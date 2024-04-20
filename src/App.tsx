@@ -34,17 +34,24 @@ import { ProtectedAdminRoute } from "./components/Atoms/ProtectedAdminRoute";
 import { Profile } from "./components/Pages/Profile";
 import { Deliverys } from "./components/Pages/Deliverys";
 import { Stores } from "./components/Pages/Stores";
+import { PixConfirmation } from "./components/Pages/PixConfirmation";
+import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
+import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
+import { DocDownloads } from "./components/Atoms/DocDownload";
 
 export const App = () => {
   return (
     <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
-      {/* // <ThemeProvider theme={Theme["log"]}> */}
       <ToastContainer autoClose={2000} />
       <GlobalStyles />
       <ContextProvider>
         <BrowserRouter>
           <Routes>
             <Route index element={<Navigate to={"/agendamento"} />} />
+            <Route
+              path="/download-comprovante/:id"
+              element={<DocDownloads />}
+            />
             <Route path="*" element={<NotFound />} />
             <Route path="/alterar-senha" element={<ResetPassword />} />
             <Route path="/offline" element={<Offline />} />
@@ -94,6 +101,15 @@ export const App = () => {
               <Route path="recuperar-senha" element={<ForgotPassword />} />
 
               <Route path="login" element={<Login />} />
+              <Route
+                path="confirmar-horario"
+                element={<ScheduleConfirmation />}
+              />
+
+              <Route
+                path="confirmar-agendamento"
+                element={<ConfirmAppointment />}
+              />
               <Route path="login-cadastro" element={<LoginRegister />} />
               <Route path="cadastro-usuario" element={<UserRegistration />} />
 
@@ -118,7 +134,13 @@ export const App = () => {
                     </ProtectedRoute>
                   }
                 />
-                <Route path="pix" element={<Pix />} />
+                <Route path="pix">
+                  <Route index element={<Pix />} />
+                  <Route
+                    path="confirmacao-pagamento"
+                    element={<PixConfirmation />}
+                  />
+                </Route>
                 <Route path="boleto" element={<Ticket />} />
               </Route>
             </Route>
@@ -134,7 +156,7 @@ export const App = () => {
               <Route index element={<Schedules />} />
               <Route path="agendamento" element={<ScheduleDetail />} />
               <Route path="deliverys" element={<Deliverys />} />
-              <Route path="atendimento-loja" element={<Stores />} />
+              <Route path="atendimentos-loja" element={<Stores />} />
             </Route>
           </Routes>
         </BrowserRouter>

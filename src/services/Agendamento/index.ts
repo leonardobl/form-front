@@ -1,49 +1,38 @@
 import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
 import {
+  AgendamentoByHourProps,
+  DownloadProps,
   IAgendamentoBasicoForm,
+  IAgendamentoCadastroForm,
   IAgendamentoDTO,
-  IAgendamentoForm,
+  IAgendamentosDoDiaDTO,
   IAtendimentoDomiciliarForm,
+  IConfirmacaoHorarioProps,
+  IGetAgendamentosProps,
+  IIniciarAgendamentoProps,
   IPageAgendamentoDTO,
-  IReagendamentoForm,
+  IPutAgendamentoProps,
+  IReagendamentoProps,
 } from "../../types/agendamento";
-import { IPageRequest } from "../../types/page";
-import { TipoAtendimentoEnum } from "../../enums/tipoAtendimento";
-import { StatusAgendamentoEnum } from "../../enums/statusAgendamento";
+
 import objectToParams from "../../utils/objectToParams";
 import { removeEmpty } from "../../utils/removeEmpty";
 
 const basePath = "/agendamento";
 
-export interface IPutAgendamentoProps extends IAgendamentoForm {
-  uuid: string;
-}
+function propsToString(params: AgendamentoByHourProps): string {
+  const result = params
+    ? Object.entries(params)
+        .map((e) =>
+          Array.isArray(e[1]) ? `${e[0]}=${e[1].join(",")}` : e.join("=")
+        )
+        .flat()
+        .join("&")
+    : "";
 
-export interface IReagendamentoProps extends IReagendamentoForm {
-  uuidAgendamento: string;
+  return result;
 }
-
-export interface IGetAgendamentosProps extends IPageRequest {
-  loja?: string;
-  nome?: string;
-  cpfCnpj?: string;
-  tipoAtendimento?: TipoAtendimentoEnum;
-  veiculo?: string;
-  cidade?: string;
-  dataInicial?: string;
-  dataFinal?: string;
-  placa?: string;
-  renavam?: string;
-  chassi?: string;
-  statusAgendamento?: StatusAgendamentoEnum;
-  idCliente?: string;
-}
-
-type DownloadProps = {
-  cidade?: string;
-  dia: string;
-};
 
 export class Agendamento {
   static async get(
@@ -61,10 +50,23 @@ export class Agendamento {
     return ApiBrave.get(`${basePath}/${uuid}`);
   }
 
+  static getByHour(
+    props: AgendamentoByHourProps
+  ): Promise<AxiosResponse<IAgendamentosDoDiaDTO>> {
+    const path = propsToString(props);
+    return ApiBrave.get(`${basePath}/listar-por-horario?${path}`);
+  }
+
   static async post(
     props: IAgendamentoBasicoForm
   ): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.post(basePath, props);
+  }
+
+  static async postV2(
+    props: IAgendamentoCadastroForm
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.post(`${basePath}/v2`, props);
   }
 
   static async put(props: IPutAgendamentoProps) {
@@ -89,12 +91,11 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuidAgendamento}/reagendar`, rest);
   }
 
-  static async iniciar({
-    uuid,
-  }: {
-    uuid: string;
-  }): Promise<AxiosResponse<IAgendamentoDTO>> {
-    return ApiBrave.put(`${basePath}/${uuid}/iniciar`);
+  static async iniciar(
+    props: IIniciarAgendamentoProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuid, ...rest } = props;
+    return ApiBrave.put(`${basePath}/${uuid}/iniciar`, rest);
   }
 
   static async downloadExc(props: DownloadProps) {
@@ -120,6 +121,13 @@ export class Agendamento {
     document.body.appendChild(a);
     a.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  static async definirHorario(
+    props: IConfirmacaoHorarioProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuid, ...rest } = props;
+    return ApiBrave.put(`${basePath}/${uuid}/definir-horario`, rest);
   }
 
   static async cancelar({
@@ -160,5 +168,16 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-veiculo`, {
       uuid: uuidVeiculo,
     });
+  }
+
+  static async colocarEmEspera({
+    uuidAgendamento,
+  }: {
+    uuidAgendamento: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.post(
+      `${basePath}/${uuidAgendamento}/alterar-em-espera`,
+      true
+    );
   }
 }

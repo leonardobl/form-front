@@ -74,17 +74,17 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     Novo Agendamento
                   </NavLink>
                 </div>
-                {/* {!isCliente && (
+                {!isCliente && (
                   <div>
                     <NavLink
                       className={"navLink"}
                       end
-                      to={"/meus-agendamentos/atendimento-loja"}
+                      to={"/meus-agendamentos/atendimentos-loja"}
                     >
                       Atendimento Loja
                     </NavLink>
                   </div>
-                )} */}
+                )}
 
                 {!isCliente && (
                   <div>
@@ -138,9 +138,15 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
       >
         <S.ModalContent>
           <p>Tem certeza que deseja fazer logout ?</p>
-          <Button data-variant-dark onClick={logout}>
-            Confirmar
-          </Button>
+
+          <div className="wrapperButtons">
+            <Button data-variant-danger onClick={() => setModalIsOpen(false)}>
+              Cancelar
+            </Button>
+            <Button data-variant-dark onClick={logout}>
+              Confirmar
+            </Button>
+          </div>
         </S.ModalContent>
       </MyModal>
     </S.Container>
