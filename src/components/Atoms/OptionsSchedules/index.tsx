@@ -10,7 +10,7 @@ import { Button } from "../Button";
 type OptionsSchedulesProps = {
   status: StatusAgendamentoEnum;
   handleStart: () => void;
-  handleAttribute: () => void;
+  handleAttribute?: () => void;
 };
 
 export const OptionsSchedules = ({
@@ -49,7 +49,7 @@ export const OptionsSchedules = ({
             </button>
           </div>
         )}
-        {status === "AGENDADO" && isAdmin && (
+        {status === "AGENDADO" && isAdmin && handleAttribute && (
           <div>
             <button
               onClick={() => {

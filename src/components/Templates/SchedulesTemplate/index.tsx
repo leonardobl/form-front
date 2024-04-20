@@ -241,7 +241,7 @@ export const SchedulesTemplate = () => {
                 <OptionsSchedules
                   status={item?.status}
                   handleStart={() => iniciarVistoria(item.uuid)}
-                  handleAttribute={() => ""}
+                  // handleAttribute={() => ""}
                 />
               </div>
             </S.ListItemMobile>
@@ -270,7 +270,13 @@ export const SchedulesTemplate = () => {
                   ? item?.loja?.endereco?.cidade
                   : item?.delivery?.cidade}
               </p>
-              <p>{item?.diaAgendado ? `${reverseToBrDate(item?.diaAgendado)} - ${item.horaAgendada}` : ''}</p>
+              <p>
+                {item?.diaAgendado
+                  ? `${reverseToBrDate(item?.diaAgendado)} - ${
+                      item.horaAgendada
+                    }`
+                  : ""}
+              </p>
               <Status
                 status={item?.status}
                 onClick={() => {
@@ -278,22 +284,30 @@ export const SchedulesTemplate = () => {
                 }}
               />
 
-              <IconEye
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                data-color-starcheck={
-                  process.env.REACT_APP_PROJECT === "starcheck"
-                }
-                data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() =>
-                  window.open(
-                    `/meus-agendamentos/agendamento?id=${item?.uuid}`,
-                    "_blank"
-                  )
-                }
-              />
+              <S.WrapperActions>
+                <IconEye
+                  src="/assets/svgs/eye.svg"
+                  alt="icone visualizacao"
+                  data-color-starcheck={
+                    process.env.REACT_APP_PROJECT === "starcheck"
+                  }
+                  data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                  data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                  data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                  onClick={() =>
+                    window.open(
+                      `/meus-agendamentos/agendamento?id=${item?.uuid}`,
+                      "_blank"
+                    )
+                  }
+                />
+
+                <OptionsSchedules
+                  status={item?.status}
+                  handleStart={() => iniciarVistoria(item.uuid)}
+                  // handleAttribute={() => ""}
+                />
+              </S.WrapperActions>
             </S.ListItem>
           ))}
         </S.List>
