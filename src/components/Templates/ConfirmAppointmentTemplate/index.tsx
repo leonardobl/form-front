@@ -8,7 +8,7 @@ import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { TipoPagamento } from "../../../enums/tipoPagamento";
 
 export const ConfirmAppointmentTemplate = () => {
-  const { agendamento } = useConfirmAppointment();
+  const { agendamento, handleDownload } = useConfirmAppointment();
 
   return (
     <S.Container>
@@ -20,9 +20,7 @@ export const ConfirmAppointmentTemplate = () => {
         <img
           src="/assets/svgs/down-doc.svg"
           alt="icone download"
-          onClick={() =>
-            window.open(`/download-comprovante/${agendamento?.uuid}`, "_black")
-          }
+          onClick={handleDownload}
         />
       </S.WrapperText>
       <S.Form>

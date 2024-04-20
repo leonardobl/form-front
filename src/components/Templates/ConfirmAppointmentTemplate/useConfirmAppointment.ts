@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
+import { Pagamento } from "../../../services/Pagamento";
 
 export const useConfirmAppointment = () => {
   const params = useParams();
@@ -11,6 +12,18 @@ export const useConfirmAppointment = () => {
     {} as IAgendamentoDTO
   );
   const { setIsLoad } = useContextSite();
+
+  function handleDownload() {
+    Pagamento.downloadFatura({ uuidAgendamento: agendamento.uuid })
+      .then()
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      );
+  }
 
   useEffect(() => {
     if (params?.uuidAgendamento) {
@@ -28,5 +41,5 @@ export const useConfirmAppointment = () => {
     }
   }, [params]);
 
-  return { agendamento };
+  return { agendamento, handleDownload };
 };
