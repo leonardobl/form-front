@@ -7,7 +7,8 @@ import { Button } from "../../Atoms/Button";
 import { useAddressServiceRegistration } from "./useAddressServiceRegistration";
 
 export const AddressServiceRegistrationTemplate = () => {
-  const { maskPhone, handleSubmit } = useAddressServiceRegistration();
+  const { maskPhone, handleSubmit, selectOptions } =
+    useAddressServiceRegistration();
 
   return (
     <S.Container>
@@ -18,10 +19,21 @@ export const AddressServiceRegistrationTemplate = () => {
           <Input label="Nome" required />
         </div>
         <div>
-          <Input label="Telefone" required />
+          <Input
+            label="Telefone"
+            maxLength={15}
+            required
+            onChange={(e) => {
+              maskPhone(e.target.value);
+            }}
+          />
         </div>
         <div>
-          <SimpleSelect label="Concessionária" required />
+          <SimpleSelect
+            label="Concessionária"
+            required
+            options={selectOptions}
+          />
         </div>
 
         <div>

@@ -1,8 +1,8 @@
 import { StatusAgendamentoEnum } from "../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
-import { TipoClienteEnum } from "../enums/tipoCliente";
 import { TipoServicoEnum } from "../enums/tipoServico";
 import { tipoVeiculoEnum } from "../enums/tipoVeiculo";
+import { IClienteDTO } from "./cliente";
 import { IPageableObject, ISortObject } from "./delivery";
 import { IFaturaDTO } from "./pagamento";
 import { IPageRequest } from "./page";
@@ -48,30 +48,6 @@ export interface IColaboradorDTO {
   tipo: string;
   uuid: string;
   uuidUsuario: string;
-}
-
-export interface IClienteDTO {
-  cpfCnpj: string;
-  email: string;
-  endereco: IEnderecoDTO;
-  nome: string;
-  telefone: string;
-  tipo: TipoClienteEnum;
-  uuid: string;
-}
-
-export interface IPageClienteDTO {
-  content: IClienteDTO[];
-  empty: boolean;
-  first: boolean;
-  last: boolean;
-  number: number;
-  numberOfElements: number;
-  pageable: IPageableObject;
-  size: number;
-  sort: ISortObject;
-  totalElements: number;
-  totalPages: number;
 }
 
 export interface IEnderecoDTO {

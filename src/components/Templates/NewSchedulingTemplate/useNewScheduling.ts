@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useContextSite } from "../../../context/Context";
 import { ViaCep } from "../../../services/ViaCep";
 import { toast } from "react-toastify";
-import { IClienteForm } from "../../../types/cliente";
+import { IClienteDTO, IClienteForm } from "../../../types/cliente";
 import { Cliente } from "../../../services/Cliente";
 import { addDays } from "date-fns";
 import {
@@ -22,7 +22,6 @@ import {
   IAgendamentoCadastroForm,
   IAgendamentoDTO,
   IAtendimentoDomiciliarForm,
-  IClienteDTO,
   IPutAgendamentoProps,
   IVeiculoDTO,
 } from "../../../types/agendamento";
@@ -414,7 +413,7 @@ export const useNewScheduling = () => {
 
       setFormAddress((values) => ({
         ...values,
-        uuid: dataAgendamento?.data?.uuid
+        uuid: dataAgendamento?.data?.uuid,
       }));
 
       if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {

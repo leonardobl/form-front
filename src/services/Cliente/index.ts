@@ -1,9 +1,15 @@
 import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
-import { IClienteForm } from "../../types/cliente";
-import { IClienteDTO, IPageClienteDTO } from "../../types/agendamento";
+import {
+  IClienteDTO,
+  IClienteForm,
+  IConcessionariaProps,
+  IPageClienteDTO,
+} from "../../types/cliente";
+
 import { IPageRequest } from "../../types/page";
 import objectToParams from "../../utils/objectToParams";
+import { removeEmpty } from "../../utils/removeEmpty";
 
 const basePath = "/cliente";
 
@@ -14,6 +20,14 @@ interface IClienteList extends IPageRequest {
 export class Cliente {
   static async post(props: IClienteForm): Promise<AxiosResponse<IClienteDTO>> {
     return ApiBrave.post(`${basePath}`, props);
+  }
+
+  static async getConcessionarias(
+    props: IConcessionariaProps
+  ): Promise<AxiosResponse<IPageClienteDTO>> {
+    const values = removeEmpty(props);
+    const params = objectToParams(values);
+    return ApiBrave.get(`${basePath}/listar-concessionarias?${params}`);
   }
 
   static async lista(
