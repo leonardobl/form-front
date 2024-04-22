@@ -8,16 +8,18 @@ import { IFaturaDTO } from "./pagamento";
 import { IPageRequest } from "./page";
 
 export interface IAgendamentoDTO {
+  atendimentoDomiciliar: IAtendimentoDomiciliarDTO;
   cliente: IClienteDTO;
   codigoPagamento: string;
+  concessionaria: boolean;
   dataPagamento: string;
   dataRealizacao: string;
   delivery: IDeliveryDTO;
-  atendimentoDomiciliar: IAtendimentoDomiciliarDTO;
   diaAgendado: string;
-  horaAgendada: string;
-  loja: ILojaDTO;
+  emEspera: boolean;
   fatura: IFaturaDTO;
+  horaAgendada: HoraAgendada;
+  loja: ILojaDTO;
   primeiroAgendamento: string;
   revistoria: boolean;
   servico: IServicoDTO;
@@ -25,6 +27,7 @@ export interface IAgendamentoDTO {
   tipoAtendimento: TipoAtendimentoEnum;
   uuid: string;
   veiculo: IVeiculoDTO;
+  vistoriador: IColaboradorDTO;
 }
 
 export interface IVeiculoDTO {
@@ -35,6 +38,16 @@ export interface IVeiculoDTO {
   placa: string;
   chassi: string;
   tipo: tipoVeiculoEnum;
+}
+
+export interface IColaboradorDTO {
+  cpf: string;
+  dataNascimento: string;
+  nome: string;
+  sexo: string;
+  tipo: string;
+  uuid: string;
+  uuidUsuario: string;
 }
 
 export interface IClienteDTO {
@@ -198,8 +211,9 @@ export type DownloadProps = {
 };
 
 export interface IAgendamentoCadastroForm {
-  uuidDelivery: string;
-  uuidLoja: string;
+  uuidDelivery?: string;
+  uuidLoja?: string;
+  concessionaria?: boolean;
 }
 
 export interface IAgendamentoHorarioForm {

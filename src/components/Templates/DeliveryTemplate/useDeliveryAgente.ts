@@ -6,8 +6,19 @@ import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import { IAgendamentoCadastroForm } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
+import { useNavigate } from "react-router-dom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
+
+type FormDeliveryProps = {
+  uuidDelivery: string;
+  local: string;
+};
 
 export const useDelivery = () => {
+  const navigate = useNavigate();
+  const [token] = useSessionStorage("@token");
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
   );
@@ -15,9 +26,7 @@ export const useDelivery = () => {
     value: item[0],
     label: item[1],
   }));
-  const [form, setForm] = useState<IAgendamentoCadastroForm>(
-    {} as IAgendamentoCadastroForm
-  );
+  const [form, setForm] = useState<FormDeliveryProps>({} as FormDeliveryProps);
   const { setIsLoad } = useContextSite();
 
   const getCidades = useCallback(() => {
@@ -40,11 +49,38 @@ export const useDelivery = () => {
     e.preventDefault();
     setIsLoad(true);
 
-    Agendamento.postV2(form)
-      .then(({ data }) => {})
-      .catch(({ response: { data: mensagem } }) => {
-        toast.error(mensagem);
+    const PAYLOAD: IAgendamentoCadastroForm = {
+      concessionaria: !!(form.local === "CONCESSIONARIA"),
+      uuidDelivery: form.uuidDelivery,
+    };
+
+    Agendamento.postV2(PAYLOAD)
+      .then(({ data }) => {
+        setAgendamentoSession({
+          ...agendamentoSession,
+          uuidAgendamento: data.uuid,
+          cidade: data?.delivery?.cidade,
+        });
+
+        if (token) {
+          Agendamento.vincularAgendamentoAoCliente({
+            uuidAgendamento: data.uuid,
+            uuidCliente: agendamentoSession?.uuidCliente,
+          }).then(() => {
+            navigate(`/agendamento/${data.uuid}/servicos`);
+            return;
+          });
+        }
+
+        navigate(`/agendamento/${data.uuid}/login-cadastro`);
       })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
       .finally(() => setIsLoad(false));
   }
 
