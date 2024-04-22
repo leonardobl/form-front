@@ -17,11 +17,11 @@ export const ConfirmAppointmentTemplate = () => {
           Confirme os{" "}
           <span className="textStrong">dados do seu agendamento</span>.
         </Text>
-        <img
+        {/* <img
           src="/assets/svgs/down-doc.svg"
           alt="icone download"
           onClick={handleDownload}
-        />
+        /> */}
       </S.WrapperText>
       <S.Form>
         <div>
@@ -86,7 +86,7 @@ export const ConfirmAppointmentTemplate = () => {
 
         <div>
           <Input
-            value={agendamento?.veiculo?.renavam || " --- "}
+            value={agendamento?.veiculo?.renavam && agendamento?.veiculo?.renavam !== "0" ? agendamento?.veiculo?.renavam : " --- "}
             readOnly
             label="Renavam"
           />

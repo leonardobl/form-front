@@ -233,7 +233,7 @@ export const useNewScheduling = () => {
     setIsLoad(true);
 
     if (agendamentoSession?.reagendamento) {
-      navigate(`/agendamento/${agendamento?.uuid}/confirmar-horario`);
+      navigate(`/agendamento/${agendamentoSession?.uuidAgendamento}/confirmar-horario`);
       return;
     }
 

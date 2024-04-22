@@ -103,15 +103,17 @@ export const ButtonOptions = ({
             </div>
           )}
 
-        <div>
+        {agendamento.status === StatusAgendamentoEnum.AGENDADO && (
           <div>
-            <button onClick={onRescheduling}>reagendar</button>
+            <div>
+              <button onClick={onRescheduling}>Reagendar</button>
+            </div>
           </div>
-        </div>
+        )}
 
         <div>
           <div>
-            <button onClick={() => setISOpen(true)}>cancelar</button>
+            <button onClick={() => setISOpen(true)}>Cancelar</button>
           </div>
         </div>
 

@@ -63,7 +63,7 @@ export class Pagamento {
     uuidAgendamento: string;
   }) {
     const token = sessionStorage.getItem("@token");
-    let path = `${process.env.REACT_APP_BRAVE_API_URL}${basePath}/agendamento/${uuidAgendamento}/download-fatura`;
+    let path = `${process.env.REACT_APP_BRAVE_API_URL}pagamento/agendamento/${uuidAgendamento}/download-fatura`;
 
     const response = await fetch(path, {
       method: "GET",

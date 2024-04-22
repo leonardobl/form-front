@@ -164,6 +164,8 @@ export const useScheduleConfirmation = () => {
     const PAYLOAD: IReagendamentoProps = {
       ...form,
       uuidAgendamento: agendamento?.uuid,
+      uuidLoja: agendamento?.loja?.uuid,
+      uuidDelivery: agendamento?.delivery?.uuid
     };
 
     Agendamento.reagendar(PAYLOAD)

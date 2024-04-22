@@ -515,7 +515,7 @@ export const NewSchedulingTemplate = () => {
                       <SimpleSelect
                         label="Cidade"
                         required
-                        key={`${Math.random()}-${formAddress?.endereco?.uf}`}
+                        key={`${Math.random()}`}
                         placeholder=""
                         value={cidadesOptions.find(
                           (item) => item.value === formAddress?.endereco?.cidade
