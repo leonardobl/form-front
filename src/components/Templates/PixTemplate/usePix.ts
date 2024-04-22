@@ -58,7 +58,9 @@ export const usePix = () => {
         Agendamento.getById({ uuid: params?.uuidAgendamento })
           .then(({ data }) => {
             if (data?.status === StatusAgendamentoEnum.PAGO) {
-              navigate("/agendamento/pagamento/pix/confirmacao-pagamento");
+              navigate(
+                `/agendamento/${data?.uuid}pagamento/pix/confirmacao-pagamento`
+              );
             }
           })
           .catch(
