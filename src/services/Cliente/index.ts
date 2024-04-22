@@ -23,11 +23,15 @@ export class Cliente {
   }
 
   static async getConcessionarias(
-    props: IConcessionariaProps
+    props?: IConcessionariaProps
   ): Promise<AxiosResponse<IPageClienteDTO>> {
     const values = removeEmpty(props);
     const params = objectToParams(values);
-    return ApiBrave.get(`${basePath}/listar-concessionarias?${params}`);
+    return ApiBrave.get(
+      params
+        ? `${basePath}/listar-concessionarias?${params}`
+        : `${basePath}/listar-concessionarias`
+    );
   }
 
   static async lista(
