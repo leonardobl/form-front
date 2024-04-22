@@ -51,11 +51,11 @@ export const DeliverysTemplates = () => {
                 options={cidadesOptions}
                 value={
                   cidadesOptions.find(
-                    (item) => item.label === formFilter?.cidade
+                    (item) => item.value === formFilter?.cidade
                   ) || null
                 }
                 onChange={(e: ISelectOptions) =>
-                  setFormFilter((prev) => ({ ...prev, cidade: e?.label }))
+                  setFormFilter((prev) => ({ ...prev, cidade: e?.value }))
                 }
                 label="Cidade"
               />
@@ -111,20 +111,21 @@ export const DeliverysTemplates = () => {
         </S.ListHeader>
         {isMobile ? (
           <S.ListBody>
-            {agendamentos?.map((agendaemntosPorHorario) => (
+            {agendamentos?.map((agendaemntosPorHorario) =>
               agendaemntosPorHorario?.agendamentos?.map((agendamento) => (
                 <S.ListItemMobile key={agendamento?.uuid}>
-                <p>
-                  {agendamento?.veiculo?.modelo || "---"}{" "}
-                  <span>{agendamento?.horaAgendada || "---"}</span>
-                </p>
-                <p>{agendamento?.cliente?.nome || "---"}</p>
-              </S.ListItemMobile>
-            ))))}
+                  <p>
+                    {agendamento?.veiculo?.modelo || "---"}{" "}
+                    <span>{agendamento?.horaAgendada || "---"}</span>
+                  </p>
+                  <p>{agendamento?.cliente?.nome || "---"}</p>
+                </S.ListItemMobile>
+              ))
+            )}
           </S.ListBody>
         ) : (
           <S.ListBody>
-            {agendamentos?.map((agendaemntosPorHorario) => (
+            {agendamentos?.map((agendaemntosPorHorario) =>
               agendaemntosPorHorario?.agendamentos?.map((agendamento) => (
                 <S.ListItem key={agendamento?.uuid}>
                   <p>{agendamento?.cliente?.nome || "---"}</p>
@@ -134,7 +135,8 @@ export const DeliverysTemplates = () => {
                   <p>{agendamento?.delivery?.cidade || "---"}</p>
                   <p>{agendamento?.horaAgendada || "---"}</p>
                 </S.ListItem>
-            ))))}
+              ))
+            )}
           </S.ListBody>
         )}
       </S.List>
