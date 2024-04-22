@@ -59,7 +59,7 @@ export const usePix = () => {
           .then(({ data }) => {
             if (data?.status === StatusAgendamentoEnum.PAGO) {
               navigate(
-                `/agendamento/${data?.uuid}pagamento/pix/confirmacao-pagamento`
+                `/agendamento/${data?.uuid}/pagamento/pix/confirmacao-pagamento`
               );
             }
           })
