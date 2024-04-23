@@ -8,7 +8,6 @@ import { Delivery } from "../../../services/Delivery";
 import { IPagination } from "../../../types/pagination";
 import { useMediaQuery } from "react-responsive";
 import { resetValues } from "../../../utils/resetObject";
-import { IPageRequest } from "../../../types/page";
 
 export const useSettings = () => {
   const navigate = useNavigate();
@@ -24,6 +23,7 @@ export const useSettings = () => {
   const [numberPage, setNumberPage] = useState(0);
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const size = 5;
+  const [isOpen, setIsOpen] = useState(isMobile ? false : true);
 
   function getConcessionarias(props?: IConcessionariaProps) {
     setIsLoad(true);
@@ -60,6 +60,7 @@ export const useSettings = () => {
   function handleClean() {
     const reset = resetValues(form);
     setForm(reset);
+    setIsOpen(false);
     getConcessionarias();
   }
 
@@ -84,9 +85,10 @@ export const useSettings = () => {
     cidadesOptions,
     form,
     setForm,
-    numberPage,
     setNumberPage,
     pagination,
     isMobile,
+    isOpen,
+    setIsOpen,
   };
 };

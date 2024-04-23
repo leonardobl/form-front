@@ -18,6 +18,11 @@ export const Filter = styled.form`
   margin: 0 auto 120px;
   border-radius: 10px 10px 0px 0px;
   border: 1px solid ${(props) => props.theme.colors.main};
+
+  @media (max-width: 500px) {
+    border: none;
+    margin: 0 auto 32px;
+  }
 `;
 
 export const FilterTitle = styled.h2`
@@ -33,6 +38,10 @@ export const FilterTitle = styled.h2`
   line-height: 32px; /* 133.333% */
   text-transform: uppercase;
   text-align: center;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 export const FilterContent = styled.div`
@@ -73,6 +82,12 @@ export const FilterContent = styled.div`
     display: flex;
     align-items: center;
   }
+
+  @media (max-width: 500px) {
+    padding: 0;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "nome nome" "cnpj cidade" "limpar buscar";
+  }
 `;
 
 export const List = styled.div`
@@ -86,8 +101,7 @@ export const ListTitles = styled.div`
   grid-template-columns: 3fr 2fr 2fr 0.8fr;
   padding: 20px 16px;
 
-  > h2,
-  > button {
+  > h2 {
     color: #2d2d2d;
     font-family: Mulish;
     font-size: 16px;
@@ -97,16 +111,42 @@ export const ListTitles = styled.div`
     letter-spacing: 0.48px;
   }
 
-  > button {
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    gap: 0 6px;
-  }
-
   > :last-child {
     margin-left: auto;
   }
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+`;
+
+export const ButtonRegister = styled.button`
+  color: #2d2d2d;
+  font-family: Mulish;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0.48px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0 6px;
+`;
+
+export const ButtonFilter = styled.button`
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0 10px;
+
+  color: #2d2d2d;
+  text-align: center;
+  font-family: Mulish;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px; /* 150% */
 `;
 
 export const WrapperListItens = styled.div`
@@ -159,5 +199,16 @@ export const Icon = styled.img`
   &[data-color-tokyo="true"] {
     filter: brightness(0) saturate(100%) invert(58%) sepia(89%) saturate(4716%)
       hue-rotate(328deg) brightness(103%) contrast(98%);
+  }
+`;
+
+export const MenuMobile = styled.div`
+  display: none;
+
+  @media (max-width: 500px) {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding: 0 10px;
   }
 `;
