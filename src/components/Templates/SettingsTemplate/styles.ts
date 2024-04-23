@@ -178,6 +178,41 @@ export const ListItem = styled.div`
   }
 `;
 
+export const ListItemMobile = styled.div`
+  display: flex;
+  padding: 16px 12px;
+  justify-content: space-between;
+
+  #wrapper {
+    > p {
+      color: #2d2d2d;
+      font-family: Mulish;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 24px; /* 200% */
+      letter-spacing: 0.36px;
+      text-transform: uppercase;
+    }
+  }
+  #text {
+    display: flex;
+    gap: 0 12px;
+    margin-bottom: 16px;
+
+    > p {
+      color: #595959;
+      font-family: Mulish;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px; /* 200% */
+      letter-spacing: 0.36px;
+      text-transform: uppercase;
+    }
+  }
+`;
+
 export const Icon = styled.img`
   cursor: pointer;
 

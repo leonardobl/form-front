@@ -129,33 +129,59 @@ export const SettingsTemplate = () => {
           </S.ButtonRegister>
         </S.ListTitles>
         <S.WrapperListItens>
-          {data?.map((item) => (
-            <S.ListItem key={`${Math.random()}`}>
-              <p>{item?.nome || " --- "}</p>
-              <p>{maskCnpj(item?.cpfCnpj) || " --- "}</p>
-              <p>{item?.endereco?.cidade || " --- "}</p>
-              <S.Icon
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                data-color-starcheck={
-                  process.env.REACT_APP_PROJECT === "starcheck"
-                }
-                data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() => ""}
-              />
-            </S.ListItem>
-          ))}
+          {data?.map((item) =>
+            isMobile ? (
+              <S.ListItemMobile key={`${Math.random()}`}>
+                <div id="wrapper">
+                  <div id="text">
+                    <p>{maskCnpj(item?.cpfCnpj) || " --- "}</p>
+                    <p>{item?.endereco?.cidade || " --- "}</p>
+                  </div>
+                  <p>{item?.nome || " --- "}</p>
+                </div>
+
+                <S.Icon
+                  src="/assets/svgs/eye.svg"
+                  alt="icone visualizacao"
+                  data-color-starcheck={
+                    process.env.REACT_APP_PROJECT === "starcheck"
+                  }
+                  data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                  data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                  data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                  onClick={() => ""}
+                />
+              </S.ListItemMobile>
+            ) : (
+              <S.ListItem key={`${Math.random()}`}>
+                <p>{item?.nome || " --- "}</p>
+                <p>{maskCnpj(item?.cpfCnpj) || " --- "}</p>
+                <p>{item?.endereco?.cidade || " --- "}</p>
+                <S.Icon
+                  src="/assets/svgs/eye.svg"
+                  alt="icone visualizacao"
+                  data-color-starcheck={
+                    process.env.REACT_APP_PROJECT === "starcheck"
+                  }
+                  data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                  data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                  data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                  onClick={() => ""}
+                />
+              </S.ListItem>
+            )
+          )}
         </S.WrapperListItens>
-        <Pagination
-          key={`${Math.random()} - ${data?.length}`}
-          totalPage={pagination.totalPage}
-          maxPageNumbersDisplayed={isMobile ? 3 : 10}
-          totalRegister={pagination.totalPage}
-          actualPage={pagination.actualPage}
-          setNumberPage={setNumberPage}
-        />
+        {data.length > 0 && (
+          <Pagination
+            key={`${Math.random()} - ${data?.length}`}
+            totalPage={pagination.totalPage}
+            maxPageNumbersDisplayed={isMobile ? 3 : 10}
+            totalRegister={pagination.totalPage}
+            actualPage={pagination.actualPage}
+            setNumberPage={setNumberPage}
+          />
+        )}
       </S.List>
     </S.Container>
   );
