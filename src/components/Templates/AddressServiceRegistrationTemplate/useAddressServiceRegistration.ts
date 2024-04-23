@@ -4,10 +4,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ISelectOptions } from "../../../types/inputs";
 import { Cliente } from "../../../services/Cliente";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { IAtualizarConcessionariaProps } from "../../../types/agendamento";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
+import { IAtendimentoConcessionariaProps } from "../../../types/agendamento";
 
 export const useAddressServiceRegistration = () => {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ export const useAddressServiceRegistration = () => {
   const params = useParams();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
-  const [form, setForm] = useState<IAtualizarConcessionariaProps>(
-    {} as IAtualizarConcessionariaProps
+  const [form, setForm] = useState<IAtendimentoConcessionariaProps>(
+    {} as IAtendimentoConcessionariaProps
   );
   const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
@@ -51,12 +51,12 @@ export const useAddressServiceRegistration = () => {
     e.preventDefault();
     setIsLoad(true);
 
-    const PAYLOAD: IAtualizarConcessionariaProps = {
+    const PAYLOAD: IAtendimentoConcessionariaProps = {
       ...form,
       uuid: params?.uuidAgendamento,
     };
 
-    Agendamento.putAddressService(PAYLOAD)
+    Agendamento.AtualizarConcessionariaAtedimento(PAYLOAD)
       .then(({ data }) => {
         if (agendamentoSession?.reagendamento) {
           setAgendamentoSession({

@@ -1,21 +1,31 @@
 import React from "react";
 import * as S from "./styles";
-import { LayoutTemplate } from "../LayoutTemplate";
 import { Title } from "../../Atoms/Title";
 import { Input } from "../../Atoms/Inputs/Input";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { Button } from "../../Atoms/Button";
 import { useSettings } from "./useSettings";
 import { maskCnpj } from "../../../utils/masks";
-import { IAtualizarConcessionariaProps } from "../../../types/agendamento";
 import { ISelectOptions } from "../../../types/inputs";
+import { Pagination } from "../../Atoms/Pagination";
 
 export const SettingsTemplate = () => {
-  const { navigate, data, cidadesOptions, form, setForm } = useSettings();
+  const {
+    navigate,
+    data,
+    cidadesOptions,
+    form,
+    setForm,
+    pagination,
+    setNumberPage,
+    isMobile,
+    handleClean,
+    handleFilter,
+  } = useSettings();
   return (
     <S.Container>
       <Title>Concessionárias Cadastradas</Title>
-      <S.Filter>
+      <S.Filter onSubmit={handleFilter}>
         <S.FilterTitle>Filtro</S.FilterTitle>
         <S.FilterContent>
           <div>
@@ -23,7 +33,7 @@ export const SettingsTemplate = () => {
               label="Nome"
               value={form?.nome}
               onChange={(e) =>
-                setForm((prev) => ({ ...prev, nome: e.target.value }))
+                setForm((prev) => ({ ...prev, nome: e?.target?.value }))
               }
             />
           </div>
@@ -45,15 +55,17 @@ export const SettingsTemplate = () => {
             <SimpleSelect
               options={cidadesOptions}
               label="Cidade"
-              value={cidadesOptions.find((item) => item.value === form?.cidade)}
+              value={cidadesOptions.find((item) => item.label === form?.cidade)}
               onChange={(e: ISelectOptions) =>
-                setForm((prev) => ({ ...prev, cidade: e?.value }))
+                setForm((prev) => ({ ...prev, cidade: e?.label }))
               }
             />
           </div>
 
           <div>
-            <button>Limpar tudo</button>
+            <button type="button" onClick={handleClean}>
+              Limpar tudo
+            </button>
           </div>
 
           <div>
@@ -103,6 +115,14 @@ export const SettingsTemplate = () => {
             </S.ListItem>
           ))}
         </S.WrapperListItens>
+        <Pagination
+          key={`${Math.random()} - ${data?.length}`}
+          totalPage={pagination.totalPage}
+          maxPageNumbersDisplayed={isMobile ? 3 : 10}
+          totalRegister={pagination.totalPage}
+          actualPage={pagination.actualPage}
+          setNumberPage={setNumberPage}
+        />
       </S.List>
     </S.Container>
   );

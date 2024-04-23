@@ -110,6 +110,8 @@ export const ListTitles = styled.div`
 `;
 
 export const WrapperListItens = styled.div`
+  margin-bottom: 40px;
+
   > :nth-child(odd) {
     border-radius: 10px;
     background: #e8e8e8;

@@ -121,13 +121,6 @@ export interface IAtendimentoDomiciliarForm {
   uuid: string;
 }
 
-export interface IAtualizarConcessionariaProps {
-  uuid: string;
-  nome: string;
-  telefone: string;
-  uuidConcessionaria: string;
-}
-
 export interface IAtendimentoDomiciliarDTO {
   nome: string;
   telefone: string;

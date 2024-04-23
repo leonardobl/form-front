@@ -2,9 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cliente } from "../../../services/Cliente";
 import { useContextSite } from "../../../context/Context";
-import { IClienteDTO, IConcessionariaProps } from "../../../types/cliente";
+import { IClienteDTO } from "../../../types/cliente";
 import { ISelectOptions } from "../../../types/inputs";
 import { Delivery } from "../../../services/Delivery";
+import { IPagination } from "../../../types/pagination";
+import { useMediaQuery } from "react-responsive";
+import { resetValues } from "../../../utils/resetObject";
 import { IPageRequest } from "../../../types/page";
 
 interface IFormProps extends IPageRequest {
@@ -21,16 +24,30 @@ export const useSettings = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
   );
+  const isMobile = useMediaQuery({ maxWidth: "500px" });
+  const [numberPage, setNumberPage] = useState(0);
+  const [pagination, setPagination] = useState<IPagination>({} as IPagination);
+  const size = 5;
 
-  function getConcessionarias() {
+  function getConcessionarias(props?: IFormProps) {
     setIsLoad(true);
-    Cliente.getConcessionarias()
+    Cliente.getConcessionarias({ ...props, size })
       .then(({ data }) => {
         setData(data?.content);
+
+        setPagination({
+          actualPage: data.number,
+          totalPage: data.totalPages,
+          totalRegister: data.totalElements,
+        });
       })
       .catch()
       .finally(() => setIsLoad(false));
   }
+
+  useEffect(() => {
+    getConcessionarias({ ...form, page: numberPage });
+  }, [numberPage]);
 
   const getCidades = useCallback(() => {
     Delivery.get().then(({ data }) => {
@@ -44,10 +61,35 @@ export const useSettings = () => {
     });
   }, []);
 
+  function handleClean() {
+    const reset = resetValues(form);
+    setForm(reset);
+    getConcessionarias();
+  }
+
+  function handleFilter() {
+    const hasValue = Object.values(form).some((item) => item);
+    if (hasValue) {
+      getConcessionarias(form);
+    }
+  }
+
   useEffect(() => {
     getCidades();
     getConcessionarias();
   }, []);
 
-  return { navigate, data, cidadesOptions, form, setForm };
+  return {
+    handleClean,
+    handleFilter,
+    navigate,
+    data,
+    cidadesOptions,
+    form,
+    setForm,
+    numberPage,
+    setNumberPage,
+    pagination,
+    isMobile,
+  };
 };
