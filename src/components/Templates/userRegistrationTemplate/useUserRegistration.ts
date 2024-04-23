@@ -63,7 +63,13 @@ export const useUserRegistration = () => {
           navigate("/agendamento/login");
         }, 2000);
       })
-      .catch((error) => toast.error(error?.message))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
       .finally(() => {
         setIsLoad(false);
       });
