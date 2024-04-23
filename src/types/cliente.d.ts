@@ -39,6 +39,7 @@ export interface IPageClienteDTO {
 }
 
 export interface IConcessionariaProps extends IPageRequest {
-  nomeCpfCnpj?: string;
+  nome?: string;
+  cpfCnpj?: string;
   cidade?: string;
 }

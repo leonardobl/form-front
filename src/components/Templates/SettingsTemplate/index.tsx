@@ -40,12 +40,12 @@ export const SettingsTemplate = () => {
           <div>
             <Input
               label="CNPJ"
-              value={form?.cnpj}
+              value={form?.cpfCnpj}
               maxLength={18}
               onChange={(e) =>
                 setForm((prev) => ({
                   ...prev,
-                  cnpj: maskCnpj(e?.target?.value),
+                  cpfCnpj: maskCnpj(e?.target?.value),
                 }))
               }
             />
@@ -55,7 +55,10 @@ export const SettingsTemplate = () => {
             <SimpleSelect
               options={cidadesOptions}
               label="Cidade"
-              value={cidadesOptions.find((item) => item.label === form?.cidade)}
+              value={
+                cidadesOptions.find((item) => item.label === form?.cidade) ||
+                null
+              }
               onChange={(e: ISelectOptions) =>
                 setForm((prev) => ({ ...prev, cidade: e?.label }))
               }

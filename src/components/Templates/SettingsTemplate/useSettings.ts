@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cliente } from "../../../services/Cliente";
 import { useContextSite } from "../../../context/Context";
-import { IClienteDTO } from "../../../types/cliente";
+import { IClienteDTO, IConcessionariaProps } from "../../../types/cliente";
 import { ISelectOptions } from "../../../types/inputs";
 import { Delivery } from "../../../services/Delivery";
 import { IPagination } from "../../../types/pagination";
@@ -10,15 +10,11 @@ import { useMediaQuery } from "react-responsive";
 import { resetValues } from "../../../utils/resetObject";
 import { IPageRequest } from "../../../types/page";
 
-interface IFormProps extends IPageRequest {
-  nome?: string;
-  cnpj?: string;
-  cidade?: string;
-}
-
 export const useSettings = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState<IFormProps>({} as IFormProps);
+  const [form, setForm] = useState<IConcessionariaProps>(
+    {} as IConcessionariaProps
+  );
   const [data, setData] = useState<IClienteDTO[]>([] as IClienteDTO[]);
   const { setIsLoad } = useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>(
@@ -29,7 +25,7 @@ export const useSettings = () => {
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const size = 5;
 
-  function getConcessionarias(props?: IFormProps) {
+  function getConcessionarias(props?: IConcessionariaProps) {
     setIsLoad(true);
     Cliente.getConcessionarias({ ...props, size })
       .then(({ data }) => {
@@ -67,7 +63,8 @@ export const useSettings = () => {
     getConcessionarias();
   }
 
-  function handleFilter() {
+  function handleFilter(e: React.SyntheticEvent) {
+    e.preventDefault();
     const hasValue = Object.values(form).some((item) => item);
     if (hasValue) {
       getConcessionarias(form);
