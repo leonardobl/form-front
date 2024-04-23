@@ -53,27 +53,27 @@ export const usePix = () => {
       return;
     }
 
-    setTimeout(() => {
-      setInterval(() => {
-        Agendamento.getById({ uuid: params?.uuidAgendamento })
-          .then(({ data }) => {
-            if (data?.status === StatusAgendamentoEnum.PAGO) {
-              navigate(
-                `/agendamento/${data?.uuid}/pagamento/pix/confirmacao-pagamento`
-              );
-            }
-          })
-          .catch(
-            ({
-              response: {
-                data: { mensagem },
-              },
-            }) => {
-              toast.error(mensagem);
-            }
-          );
-      }, 5000);
-    }, 10000);
+    const timeInterval = setInterval(() => {
+      Agendamento.getById({ uuid: params?.uuidAgendamento })
+        .then(({ data }) => {
+          if (data?.status === StatusAgendamentoEnum.PAGO) {
+            navigate(
+              `/agendamento/${data?.uuid}/pagamento/pix/confirmacao-pagamento`
+            );
+          }
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => {
+            toast.error(mensagem);
+          }
+        );
+    }, 3000);
+
+    return () => clearInterval(timeInterval);
   }, [params]);
 
   return { pagamento };
