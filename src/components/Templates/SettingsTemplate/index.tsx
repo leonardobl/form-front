@@ -149,7 +149,11 @@ export const SettingsTemplate = () => {
                   data-color-log={process.env.REACT_APP_PROJECT === "log"}
                   data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
                   data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                  onClick={() => ""}
+                  onClick={() =>
+                    navigate(
+                      `/configuracoes/cadastro-concessionaria?id=${item.uuid}`
+                    )
+                  }
                 />
               </S.ListItemMobile>
             ) : (
@@ -166,7 +170,11 @@ export const SettingsTemplate = () => {
                   data-color-log={process.env.REACT_APP_PROJECT === "log"}
                   data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
                   data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                  onClick={() => ""}
+                  onClick={() =>
+                    navigate(
+                      `/configuracoes/cadastro-concessionaria?id=${item.uuid}`
+                    )
+                  }
                 />
               </S.ListItem>
             )

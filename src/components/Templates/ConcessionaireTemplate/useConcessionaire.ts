@@ -9,7 +9,7 @@ import { TipoClienteEnum } from "../../../enums/tipoCliente";
 import { useContextSite } from "../../../context/Context";
 import { Cliente } from "../../../services/Cliente";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ViaCep } from "../../../services/ViaCep";
 import { Ibge } from "../../../services/Ibge";
 import { ISelectOptions } from "../../../types/inputs";
@@ -19,8 +19,18 @@ export const useConcessionaire = () => {
   const { setIsLoad } = useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
-
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  let uuidConcessionaria = searchParams.get("id");
+  let concessionariaEdit = searchParams.get("edit");
+  const [isReadOnly, setIsReadOnly] = useState(false);
+
+  useEffect(() => {
+    if (concessionariaEdit) {
+      setIsReadOnly(false);
+      return;
+    }
+  }, [uuidConcessionaria, concessionariaEdit]);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -115,5 +125,6 @@ export const useConcessionaire = () => {
     ufOptions,
     maskCnpj,
     maskCep,
+    isReadOnly,
   };
 };

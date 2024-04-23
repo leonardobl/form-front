@@ -54,4 +54,12 @@ export class Cliente {
   ): Promise<AxiosResponse<IClienteDTO>> {
     return ApiBrave.post(`${basePath}/atualizar`, props);
   }
+
+  static async byId({
+    uuidCliente,
+  }: {
+    uuidCliente: string;
+  }): Promise<AxiosResponse<IClienteDTO>> {
+    return ApiBrave.get(`${basePath}/buscar/${uuidCliente}`);
+  }
 }
