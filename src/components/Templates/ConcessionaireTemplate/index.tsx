@@ -29,7 +29,7 @@ export const ConcessionaireTemplate = () => {
         <div>
           <Input
             label="Nome"
-            required
+            required={isReadOnly ? false : true}
             readOnly={isReadOnly}
             value={form?.nome}
             onChange={(e) =>
@@ -50,14 +50,14 @@ export const ConcessionaireTemplate = () => {
                 cpfCnpj: maskCnpj(e.target.value),
               }))
             }
-            required
+            required={isReadOnly ? false : true}
           />
         </div>
 
         <div>
           <Input
             label="E-mail"
-            required
+            required={isReadOnly ? false : true}
             readOnly={isReadOnly}
             type="emails"
             value={form?.email}
@@ -70,7 +70,7 @@ export const ConcessionaireTemplate = () => {
         <div>
           <Input
             label="Telefone"
-            required
+            required={isReadOnly ? false : true}
             readOnly={isReadOnly}
             type="tel"
             maxLength={15}
@@ -88,7 +88,7 @@ export const ConcessionaireTemplate = () => {
           <Input
             onBlur={handleCep}
             label="CEP"
-            required
+            required={isReadOnly ? false : true}
             readOnly={isReadOnly}
             maxLength={9}
             value={form?.endereco?.cep}
@@ -104,7 +104,7 @@ export const ConcessionaireTemplate = () => {
         <div>
           <Input
             label="Endereço (Rua)"
-            required
+            required={isReadOnly ? false : true}
             readOnly={isReadOnly}
             value={form?.endereco?.logradouro}
             onChange={(e) =>
@@ -119,7 +119,7 @@ export const ConcessionaireTemplate = () => {
         <div>
           <Input
             label="Número"
-            required
+            required={isReadOnly ? false : true}
             readOnly={isReadOnly}
             type="number"
             value={form?.endereco?.numero}
@@ -135,6 +135,7 @@ export const ConcessionaireTemplate = () => {
         <div>
           <Input
             label="Complemento"
+            readOnly={isReadOnly}
             value={form?.endereco?.complemento}
             onChange={(e) =>
               setForm((prev) => ({
@@ -148,7 +149,7 @@ export const ConcessionaireTemplate = () => {
         <div>
           <Input
             label="Bairro"
-            required
+            required={isReadOnly ? false : true}
             readOnly={isReadOnly}
             value={form?.endereco?.bairro}
             onChange={(e) =>
@@ -163,7 +164,7 @@ export const ConcessionaireTemplate = () => {
         <div>
           <SimpleSelect
             label="UF"
-            required
+            required={isReadOnly ? false : true}
             isDisabled={isReadOnly}
             options={ufOptions}
             value={ufOptions.find((item) => item.value === form?.endereco?.uf)}
@@ -180,7 +181,7 @@ export const ConcessionaireTemplate = () => {
           <SimpleSelect
             label="Cidade"
             key={`${Math.random()}-${form?.endereco?.uf}`}
-            required
+            required={isReadOnly ? false : true}
             isDisabled={isReadOnly}
             options={cidadesOptions}
             value={cidadesOptions.find(
@@ -196,7 +197,7 @@ export const ConcessionaireTemplate = () => {
         </div>
 
         <div>
-          <Button>Cadastrar</Button>
+          <Button>{isReadOnly ? "Voltar" : "Cadastrar"}</Button>
         </div>
       </S.Form>
     </S.Container>

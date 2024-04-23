@@ -26,14 +26,36 @@ export const useConcessionaire = () => {
   const [isReadOnly, setIsReadOnly] = useState(false);
 
   useEffect(() => {
+    if (uuidConcessionaria) {
+      setIsLoad(true);
+      Cliente.byId({ uuidCliente: uuidConcessionaria })
+        .then(({ data }) => {
+          setIsReadOnly(true);
+          setForm(data);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => setIsLoad(false));
+    }
+
     if (concessionariaEdit) {
       setIsReadOnly(false);
-      return;
     }
   }, [uuidConcessionaria, concessionariaEdit]);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+
+    if (isReadOnly) {
+      navigate(-1);
+
+      return;
+    }
 
     const PAYLOAD: IClienteForm = {
       ...form,
