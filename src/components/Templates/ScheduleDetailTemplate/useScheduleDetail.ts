@@ -68,8 +68,23 @@ export const useScheduleDetail = () => {
       .finally(() => setIsLoad(false));
   }
 
+  function retornarStatusIniciado() {
+    setIsLoad(true);
+    Agendamento.retornarStatusIniciado({ uuid: uuidAgendamento })
+      .then(({ data }) => setAgendamento(data))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
+
   return {
     confirmarPagamento,
+    retornarStatusIniciado,
     acessarFatura,
     agendamento,
     setAgendamento,

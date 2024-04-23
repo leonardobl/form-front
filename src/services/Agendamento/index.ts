@@ -146,6 +146,14 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuid}/confirmacao-manual`);
   }
 
+  static async retornarStatusIniciado({
+    uuid,
+  }:{
+    uuid: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.put(`${basePath}/${uuid}/retornar-status-iniciado`);
+  }
+
   static async vincularAgendamentoAoCliente({
     uuidAgendamento,
     uuidCliente,

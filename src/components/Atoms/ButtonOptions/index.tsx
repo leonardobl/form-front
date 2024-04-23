@@ -16,6 +16,7 @@ interface IButtonOptions extends ComponentProps<"details"> {
   handlePix: () => void;
   handleTicket: () => void;
   handleConfirmPayment: () => void;
+  handleReturnStatus: () => void;
   agendamento: IAgendamentoDTO;
 }
 
@@ -24,6 +25,7 @@ export const ButtonOptions = ({
   onCancel,
   handlePix,
   handleConfirmPayment,
+  handleReturnStatus,
   handleTicket,
   agendamento,
 }: IButtonOptions) => {
@@ -33,9 +35,9 @@ export const ButtonOptions = ({
     useSessionStorage("agendamentoSession");
   const navigate = useNavigate();
 
-  const isAdmGerente = sessionAgendamento?.roles?.some(
+  const isIntern = sessionAgendamento?.roles?.some(
     (regra) =>
-      regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE
+      regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE || regra === RolesEnum.ROLE_COLABORADOR || regra === RolesEnum.ROLE_SUPORTE
   );
 
   function onRescheduling() {
@@ -56,7 +58,7 @@ export const ButtonOptions = ({
       reagendamento: true,
     });
     setTimeout(() => {
-      isAdmGerente
+      isIntern
         ? navigate(`/novo-agendamento?id=${agendamento?.uuid}`)
         : navigate(
             `/agendamento/${agendamento.tipoAtendimento?.toLowerCase()}`
@@ -102,6 +104,17 @@ export const ButtonOptions = ({
               </div>
             </div>
           )}
+
+        {agendamento.status === StatusAgendamentoEnum.INICIADO && 
+        [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_GERENTE].some((role) => sessionAgendamento?.roles?.includes(role)) && (
+          <div>
+              <div>
+                <button onClick={handleReturnStatus}>
+                  Retornar status
+                </button>
+              </div>
+            </div>
+        )}
 
         {agendamento.status === StatusAgendamentoEnum.AGENDADO && (
           <div>

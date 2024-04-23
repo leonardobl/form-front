@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 export const ScheduleDetailTemplate = () => {
   const {
     confirmarPagamento,
+    retornarStatusIniciado,
     acessarFatura,
     agendamento,
     menuDisabled,
@@ -54,6 +55,7 @@ export const ScheduleDetailTemplate = () => {
 
           <ButtonOptions
             handleConfirmPayment={confirmarPagamento}
+            handleReturnStatus={retornarStatusIniciado}
             handlePix={acessarFatura}
             handleTicket={acessarFatura}
             disabled={menuDisabled}

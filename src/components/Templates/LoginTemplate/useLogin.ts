@@ -56,7 +56,7 @@ export const useLogin = () => {
 
         const is_high_level = decoded?.perfis?.some(
           (perfil) =>
-            perfil === RolesEnum.ROLE_ADMIN || perfil === RolesEnum.ROLE_GERENTE
+            perfil === RolesEnum.ROLE_ADMIN || perfil === RolesEnum.ROLE_GERENTE || perfil === RolesEnum.ROLE_COLABORADOR || perfil === RolesEnum.ROLE_SUPORTE
         );
 
         if (is_high_level) {
