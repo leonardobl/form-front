@@ -207,3 +207,14 @@ export interface IAgendamentoHorarioForm {
 export interface IConfirmacaoHorarioProps extends IAgendamentoHorarioForm {
   uuid: string;
 }
+
+export interface IAtendimentoConcessionariaForm {
+  nome: string;
+  telefone: string;
+  uuidConcessionaria: string;
+}
+
+export interface IAtendimentoConcessionariaProps
+  extends IAtendimentoConcessionariaForm {
+  uuid: string;
+}
