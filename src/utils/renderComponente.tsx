@@ -19,5 +19,5 @@ export const renderComponente = (children: React.ReactElement) => {
     </ThemeProvider>
   );
 
-  return history;
+  return { history };
 };

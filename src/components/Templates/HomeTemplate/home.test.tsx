@@ -15,15 +15,23 @@ test("Deve exibir 2 botoes", () => {
   expect(residenceButton).toBeInTheDocument();
 });
 
-// test("Deve direcionar para '/loja'", async () => {
-//   render(<Home />, { wrapper: customWrapper });
+test("Deve direcionar para '/agendamento/loja'", async () => {
+  const { history } = renderComponente(<Home />);
 
-//   const storeButton = screen.getByRole("button", { name: "Loja Física" });
-//   user.click(storeButton);
+  const storeButton = screen.getByRole("button", { name: "Loja Física" });
 
-//   const title = screen.getByText("Loja Física");
+  user.click(storeButton);
 
-//   console.log(title);
+  expect(history.location.pathname).toEqual("/agendamento/loja");
+});
 
-//   expect(title).toBeInTheDocument();
-// });
+test("Deve direcionar para '/agendamento/domicilio'", async () => {
+  const { history } = renderComponente(<Home />);
+
+  const residenceButton = screen.getByRole("button", {
+    name: "Domicílio",
+  });
+  user.click(residenceButton);
+
+  expect(history.location.pathname).toEqual("/agendamento/domicilio");
+});
