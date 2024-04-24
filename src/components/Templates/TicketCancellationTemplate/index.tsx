@@ -5,9 +5,10 @@ import { Text } from "../../Atoms/Text";
 import { SwitchOptions } from "../../Atoms/SwitchOptions";
 import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { useTicketCancellation } from "./useTicketCancellation";
-import { TipoPagamento } from "../../../enums/tipoPagamento";
 import { Input } from "../../Atoms/Inputs/Input";
 import { Button } from "../../Atoms/Button";
+import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
+import { Buttons } from "../../Atoms/Pagination/styles";
 
 export const TicketCancellationTemplate = () => {
   const { tipoPagamento, setTipoPagamento } = useTicketCancellation();
@@ -52,7 +53,31 @@ export const TicketCancellationTemplate = () => {
           <Button>Confirmar</Button>
         </S.FormPix>
       ) : (
-        <S.FormTicket></S.FormTicket>
+        <S.FormTicket>
+          <div>
+            <Input required label="Titular" />
+          </div>
+
+          <div>
+            <SimpleSelect required label="Banco" />
+          </div>
+
+          <div>
+            <Input required label="Agência" />
+          </div>
+
+          <div>
+            <Input required label="Conta" />
+          </div>
+
+          <div>
+            <Input label="Operação" />
+          </div>
+
+          <div>
+            <Button>Confirmar</Button>
+          </div>
+        </S.FormTicket>
       )}
     </S.Container>
   );
