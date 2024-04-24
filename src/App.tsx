@@ -38,6 +38,7 @@ import { PixConfirmation } from "./components/Pages/PixConfirmation";
 import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
 import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
 import { DocDownloads } from "./components/Atoms/DocDownload";
+import { PixCancellation } from "./components/Pages/PixCancellation";
 
 export const App = () => {
   return (
@@ -142,6 +143,7 @@ export const App = () => {
                   />
                 </Route>
                 <Route path="boleto" element={<Ticket />} />
+                <Route path="cancelamento-pix" element={<PixCancellation />} />
               </Route>
             </Route>
 

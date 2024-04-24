@@ -198,7 +198,15 @@ export const ButtonOptions = ({
 
             <S.WrapperButtonsModal>
               <button onClick={() => setISOpen(false)}>Cancelar</button>
-              <Button onClick={() => navigate("")}>Confirmar</Button>
+              <Button
+                onClick={() =>
+                  navigate(
+                    `/agendamento/${agendamento.uuid}/pagamento/cancelamento-pix`
+                  )
+                }
+              >
+                Confirmar
+              </Button>
             </S.WrapperButtonsModal>
           </S.WrapperText>
         </S.ModalContent>
