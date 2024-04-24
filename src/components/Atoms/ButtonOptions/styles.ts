@@ -179,46 +179,80 @@ export const ArrowDown = styled.img`
 `;
 
 export const ModalContent = styled.div`
-  /* padding: 102px 132px; */
-  /* background: #6fa599; */
-  max-width: 506px;
-  max-height: 328px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 64px;
+  width: 685px;
+  height: fit-content;
+  background: #e8e8e8;
+  box-shadow: 4px 4px 16.3px 0px rgba(0, 0, 0, 0.25);
+`;
 
-  p {
-    color: ${(props) => props.theme.colors.textColor};
-    text-align: center;
+export const HeaderModal = styled.div`
+  border-bottom: 1px solid #ccc;
+  padding: 24px;
+
+  > p {
+    text-align: start;
+  }
+`;
+
+export const WrapperButtonClose = styled.div`
+  display: flex;
+  justify-content: end;
+
+  button {
+    color: #2d2d2d;
     font-family: Mulish;
+    background-color: transparent;
     font-size: 24px;
     font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 166.667% */
+  }
+`;
+
+export const WrapperText = styled.div`
+  padding: 24px;
+
+  > h4 {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
     font-weight: 700;
-    line-height: 40px;
-    max-width: 270px;
-    margin-bottom: 32px;
+    line-height: 24px; /* 150% */
+    margin-bottom: 10px;
   }
 
-  .wrapperButtons {
-    display: flex;
-    justify-content: center;
-    gap: 0 48px;
+  > p {
+    color: #7c848b;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    margin-bottom: 24px;
+
+    span {
+      font-weight: 700;
+    }
   }
 
-  @media (max-width: 500px) {
-    padding: 32px;
+  p:nth-child(4) {
+    margin-bottom: 48px;
+  }
+`;
 
-    p {
-      font-size: 18px;
-      line-height: 24px;
-      max-width: 200px;
-      margin: 0 auto 24px;
-    }
+export const WrapperButtonsModal = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 0 16px;
 
-    .wrapperButtons {
-      gap: 0 32px;
-    }
+  > :nth-child(1) {
+    background-color: transparent;
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
   }
 `;
