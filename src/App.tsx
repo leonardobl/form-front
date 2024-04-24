@@ -39,6 +39,7 @@ import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
 import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
 import { DocDownloads } from "./components/Atoms/DocDownload";
 import { PixCancellation } from "./components/Pages/PixCancellation";
+import { TicketCancellation } from "./components/Pages/TicketCancellation";
 
 export const App = () => {
   return (
@@ -144,6 +145,10 @@ export const App = () => {
                 </Route>
                 <Route path="boleto" element={<Ticket />} />
                 <Route path="cancelamento-pix" element={<PixCancellation />} />
+                <Route
+                  path="cancelamento-boleto"
+                  element={<TicketCancellation />}
+                />
               </Route>
             </Route>
 
