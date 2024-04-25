@@ -7,6 +7,7 @@ import {
   IReembolsoResponse,
 } from "../../types/pagamento";
 import { FormaPagamentoEnum } from "../../enums/formaPagamento";
+import { IReembolsoProps } from "../../types/agendamento";
 
 const basePath = "/pagamento";
 
@@ -47,14 +48,11 @@ export class Pagamento {
     );
   }
 
-  static async reembolso({
-    uuidAgendamento,
-  }: {
-    uuidAgendamento: string;
-  }): Promise<AxiosResponse<IReembolsoResponse>> {
-    return ApiBrave.post(
-      `${basePath}/agendamento/${uuidAgendamento}/reembolsar`
-    );
+  static async reembolso(
+    props: IReembolsoProps
+  ): Promise<AxiosResponse<IReembolsoResponse>> {
+    const { uuid, ...rest } = props;
+    return ApiBrave.post(`${basePath}/agendamento/${uuid}/reembolsar`, rest);
   }
 
   static async downloadFatura({
