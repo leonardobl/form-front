@@ -4,6 +4,8 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useNavigate } from "react-router-dom";
 import { RolesEnum } from "../../../enums/roles";
 import { IAgendamentoDTO } from "../../../types/agendamento";
+import { Agendamento } from "../../../services/Agendamento";
+import { toast } from "react-toastify";
 
 export const useButtonOptions = () => {
   const { setIsLoad } = useContextSite();
@@ -23,14 +25,24 @@ export const useButtonOptions = () => {
   function handleCancel(agendamento: IAgendamentoDTO) {
     const tipoCancelamento = agendamento?.fatura?.pix ? "pix" : "boleto";
 
-    setIsLoad(true);
     if (tipoCancelamento === "pix") {
+      setIsLoad(true);
+      Agendamento.cancelar({ uuid: agendamento.uuid })
+        .then(() => {
+          navigate(`/agendamento/pagamento/cancelamento-pix`);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => setIsLoad(false));
       return;
     }
 
-    navigate(
-      `/agendamento/${agendamento.uuid}/pagamento/cancelamento-${tipoCancelamento}`
-    );
+    navigate(`/agendamento/${agendamento.uuid}/pagamento/cancelamento-boleto`);
   }
 
   return {
