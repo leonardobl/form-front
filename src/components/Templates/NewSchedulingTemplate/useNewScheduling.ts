@@ -233,7 +233,9 @@ export const useNewScheduling = () => {
     setIsLoad(true);
 
     if (agendamentoSession?.reagendamento) {
-      navigate(`/agendamento/${agendamentoSession?.uuidAgendamento}/confirmar-horario`);
+      navigate(
+        `/agendamento/${agendamentoSession?.uuidAgendamento}/confirmar-horario`
+      );
       return;
     }
 
@@ -256,7 +258,17 @@ export const useNewScheduling = () => {
     };
 
     Agendamento.put(PAYLOAD)
-      .then(() => {
+      .then(({ data }) => {
+        if (data?.fatura?.pix) {
+          navigate(`/agendamento/${data.uuid}/pagamento/pix`);
+          return;
+        }
+
+        if (data?.fatura?.boleto) {
+          navigate(`/agendamento/${data.uuid}/pagamento/boleto`);
+          return;
+        }
+
         Pagamento.gerarFatura({
           uuidAgendamento: agendamento?.uuid,
           formaPagamento: tipoPagamento,
@@ -414,7 +426,7 @@ export const useNewScheduling = () => {
 
       setFormAddress((values) => ({
         ...values,
-        uuid: dataAgendamento?.data?.uuid
+        uuid: dataAgendamento?.data?.uuid,
       }));
 
       if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
