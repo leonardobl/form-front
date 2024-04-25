@@ -11,8 +11,14 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { ISelectOptions } from "../../../types/inputs";
 
 export const TicketCancellationTemplate = () => {
-  const { tipoPagamento, setTipoPagamento, form, setForm, handleCancel } =
-    useTicketCancellation();
+  const {
+    tipoPagamento,
+    setTipoPagamento,
+    form,
+    setForm,
+    handleCancel,
+    bancoOptions,
+  } = useTicketCancellation();
 
   return (
     <S.Container>
@@ -83,10 +89,15 @@ export const TicketCancellationTemplate = () => {
           <div>
             <SimpleSelect
               required
+              options={bancoOptions}
               label="Banco"
-              value={form?.banco}
+              value={
+                bancoOptions.find(
+                  (item) => item.value === form?.codigoDoBanco
+                ) || null
+              }
               onChange={(e: ISelectOptions) =>
-                setForm((prev) => ({ ...prev, banco: e?.value }))
+                setForm((prev) => ({ ...prev, codigoDoBanco: e?.value }))
               }
             />
           </div>
@@ -94,6 +105,7 @@ export const TicketCancellationTemplate = () => {
           <div>
             <Input
               required
+              type="number"
               label="Agência"
               value={form?.agencia}
               onChange={(e) =>
@@ -106,6 +118,7 @@ export const TicketCancellationTemplate = () => {
             <Input
               required
               label="Conta"
+              type="number"
               value={form?.conta}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, conta: e.target.value }))
@@ -116,6 +129,7 @@ export const TicketCancellationTemplate = () => {
           <div>
             <Input
               label="Operação"
+              type="number"
               value={form?.operacao}
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, operacao: e.target.value }))

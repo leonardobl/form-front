@@ -6,6 +6,8 @@ import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Banco } from "../../../services/Banco";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const useTicketCancellation = () => {
   const [tipoPagamento, setTipoPagamento] = useState<FormaPagamentoEnum>(
@@ -14,6 +16,9 @@ export const useTicketCancellation = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState<IReembolsoForm>({} as IReembolsoForm);
   const { setIsLoad } = useContextSite();
+  const [bancoOptions, setBancoOptions] = useState<ISelectOptions[]>(
+    [] as ISelectOptions[]
+  );
   const params = useParams();
 
   function handleCancel(e: React.SyntheticEvent) {
@@ -54,9 +59,26 @@ export const useTicketCancellation = () => {
   }
 
   useEffect(() => {
+    Banco.list().then(({ data }) => {
+      const options = data.map((item) => ({
+        value: item.codigo,
+        label: `${item.codigo} - ${item.nome}`,
+      }));
+      setBancoOptions(options);
+    });
+  }, []);
+
+  useEffect(() => {
     const reset = resetValues(form);
     setForm(reset);
   }, [tipoPagamento]);
 
-  return { tipoPagamento, setTipoPagamento, form, setForm, handleCancel };
+  return {
+    tipoPagamento,
+    setTipoPagamento,
+    form,
+    setForm,
+    handleCancel,
+    bancoOptions,
+  };
 };

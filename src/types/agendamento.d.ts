@@ -285,7 +285,7 @@ export interface IConfirmacaoHorarioProps extends IAgendamentoHorarioForm {
 
 export interface IReembolsoForm {
   agencia?: string;
-  banco?: string;
+  codigoDoBanco?: string;
   chavepix?: string;
   conta?: string;
   operacao?: string;
