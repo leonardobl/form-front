@@ -23,8 +23,13 @@ export const useStore = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [form, setForm] = useState<IAgendamentoCadastroForm>({} as IAgendamentoCadastroForm);
-  const [reagendamentoForm, setReagendamentoForm] = useState<IReagendamentoProps>({} as IReagendamentoProps);
+  const [form, setForm] = useState<IAgendamentoCadastroForm>(
+    {} as IAgendamentoCadastroForm
+  );
+  const [reagendamentoForm, setReagendamentoForm] =
+    useState<IReagendamentoProps>({} as IReagendamentoProps);
+  const [sessionAgendamento, setSessionagendamento] =
+    useSessionStorage("agendamentoSession");
 
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("agendamentoSession");
@@ -169,7 +174,7 @@ export const useStore = () => {
     lojasOptions,
     form,
     setForm,
-    reagendamentoForm, 
+    reagendamentoForm,
     setReagendamentoForm,
     date,
     setDate,
@@ -180,5 +185,6 @@ export const useStore = () => {
     handleSubmit,
     handleReagendamento,
     setModalIsOpen,
+    sessionAgendamento,
   };
 };

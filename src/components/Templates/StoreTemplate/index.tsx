@@ -7,16 +7,17 @@ import { Button } from "../../Atoms/Button";
 import { useStore } from "./useStore";
 import { ISelectOptions } from "../../../types/inputs";
 import { Title } from "../../Atoms/Title";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
+
 import { reverseToBrDate } from "../../../utils/dateTransform";
 import { MyModal } from "../../Atoms/MyModal";
 
 export const StoreTemplate = () => {
-  const { lojasOptions,
+  const {
+    lojasOptions,
     date,
     form,
     setForm,
-    reagendamentoForm, 
+    reagendamentoForm,
     setReagendamentoForm,
     setDate,
     diasIndisponiveis,
@@ -25,8 +26,9 @@ export const StoreTemplate = () => {
     modalIsOpen,
     handleSubmit,
     handleReagendamento,
-    setModalIsOpen, } = useStore();
-  const [sessionAgendamento, setSessionagendamento] = useSessionStorage("agendamentoSession");
+    sessionAgendamento,
+    setModalIsOpen,
+  } = useStore();
 
   return (
     <S.Container>
@@ -38,9 +40,12 @@ export const StoreTemplate = () => {
               <SimpleSelect
                 required
                 label="Loja"
+                inputId="loja"
                 options={lojasOptions}
                 placeholder={"Selecione a uma das nossas unidades"}
-                value={lojasOptions?.find((item) => item.value === form.uuidLoja)}
+                value={lojasOptions?.find(
+                  (item) => item.value === form.uuidLoja
+                )}
                 onChange={(e: ISelectOptions) => {
                   setForm((prev) => ({ ...prev, uuidLoja: e?.value }));
                 }}
@@ -51,24 +56,33 @@ export const StoreTemplate = () => {
               <Button>Avançar</Button>
             </div>
           </S.GridWrapper>
-      </S.Form>
+        </S.Form>
       ) : (
-        <><S.Form onSubmit={handleSubmit}>
+        <>
+          <S.Form onSubmit={handleSubmit}>
             <S.RescheduleGridWrapper>
               <div>
                 <SimpleSelect
                   required
                   label="Loja"
+                  id="loja"
                   options={lojasOptions}
                   placeholder={"Selecione a uma das nossas unidades"}
-                  value={lojasOptions?.find((item) => item.value === reagendamentoForm.uuidLoja)}
+                  value={lojasOptions?.find(
+                    (item) => item.value === reagendamentoForm.uuidLoja
+                  )}
                   onChange={(e: ISelectOptions) => {
-                    setReagendamentoForm((prev) => ({ ...prev, uuidLoja: e?.value }));
-                  } } />
+                    setReagendamentoForm((prev) => ({
+                      ...prev,
+                      uuidLoja: e?.value,
+                    }));
+                  }}
+                />
               </div>
               <div>
                 <Text>
-                  Datas e horários <span className="textStrong">disponíveis</span>.{" "}
+                  Datas e horários{" "}
+                  <span className="textStrong">disponíveis</span>.{" "}
                 </Text>
               </div>
               <div>
@@ -82,20 +96,29 @@ export const StoreTemplate = () => {
                   excludeDates={diasIndisponiveis}
                   onChange={(e) => {
                     setDate(e);
-                  } }
+                  }}
                   placeholderText="__/__/__"
-                  selected={date} />
+                  selected={date}
+                />
               </div>
               <div>
                 <SimpleSelect
                   label="Horário"
                   isDisabled={!date}
-                  value={horariosOptions?.find(
-                    (item) => item.value === reagendamentoForm.horaAgendada
-                  ) || null}
-                  onChange={(e: ISelectOptions) => setReagendamentoForm((prev) => ({ ...prev, horaAgendada: e?.value }))}
+                  value={
+                    horariosOptions?.find(
+                      (item) => item.value === reagendamentoForm.horaAgendada
+                    ) || null
+                  }
+                  onChange={(e: ISelectOptions) =>
+                    setReagendamentoForm((prev) => ({
+                      ...prev,
+                      horaAgendada: e?.value,
+                    }))
+                  }
                   options={horariosOptions}
-                  required />
+                  required
+                />
               </div>
 
               <div>
@@ -113,9 +136,9 @@ export const StoreTemplate = () => {
               )} às ${reagendamentoForm.horaAgendada}? `}</p>
               <Button onClick={handleReagendamento}>Confirmar</Button>
             </S.ModalContent>
-          </MyModal></>
+          </MyModal>
+        </>
       )}
-      
     </S.Container>
   );
 };

@@ -125,7 +125,10 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     return (
       <S.Container $isLabel={!!props.label}>
         {props.label && (
-          <S.Label data-variant-modal={myVariant === "modal"}>
+          <S.Label
+            data-variant-modal={myVariant === "modal"}
+            htmlFor={props.inputId}
+          >
             {props.label}{" "}
             <S.Required $isRequired={!!props.required}>*</S.Required>
           </S.Label>
