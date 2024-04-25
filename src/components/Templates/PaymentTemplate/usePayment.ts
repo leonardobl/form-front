@@ -11,10 +11,8 @@ export const usePayment = () => {
   const params = useParams();
   const [payment, setPayment] = useState<FormaPagamentoEnum>();
   const [btnFaturaGerada, setBtnFaturaGerada] = useState(false);
-  // const [pagamento, setPagamento] = useState<IAgendamentoDTO>(
-  //   {} as IAgendamentoDTO
-  // );
-  // const { agendamentoContext, setIsLoad } = useContextSite();
+
+  const { setIsLoad } = useContextSite();
   const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
@@ -25,40 +23,56 @@ export const usePayment = () => {
       uuidAgendamento: params?.uuidAgendamento,
       formaPagamento: payment,
     })
-    .then(() => navigate(
-      `/agendamento/${
-        params.uuidAgendamento
-      }/pagamento/${payment.toLowerCase()}`
-    ))
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => {
-        toast.error(mensagem);
-        setBtnFaturaGerada(false);
-      }
-    );
+      .then(() =>
+        navigate(
+          `/agendamento/${
+            params.uuidAgendamento
+          }/pagamento/${payment.toLowerCase()}`
+        )
+      )
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+          setBtnFaturaGerada(false);
+        }
+      );
   }
 
-  // useEffect(() => {
-  //   if (!agendamentoContext?.uuidAgendamento) return;
-  //   setIsLoad(true);
+  useEffect(() => {
+    if (!params?.uuidAgendamento) return;
+    setIsLoad(true);
 
-  //   Agendamento.getById({ uuid: agendamentoContext?.uuidAgendamento })
-  //     .then(({ data }) => {
-  //       setPagamento(data);
-  //     })
-  //     .catch(
-  //       ({
-  //         response: {
-  //           data: { mensagem },
-  //         },
-  //       }) => toast.error(mensagem)
-  //     )
-  //     .finally(() => setIsLoad(false));
-  // }, [agendamentoContext?.uuidAgendamento]);
+    Agendamento.getById({ uuid: params?.uuidAgendamento })
+      .then(({ data }) => {
+        if (data?.fatura?.pix) {
+          navigate(`/agendamento/${data.uuid}/pagamento/pix`);
+          return;
+        }
 
-  return { setPayment, handleSubmit, payment, btnFaturaGerada, setBtnFaturaGerada };
+        if (data?.fatura?.boleto) {
+          navigate(`/agendamento/${data.uuid}/pagamento/boleto`);
+          return;
+        }
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }, [params?.uuidAgendamento]);
+
+  return {
+    setPayment,
+    handleSubmit,
+    payment,
+    btnFaturaGerada,
+    setBtnFaturaGerada,
+  };
 };
