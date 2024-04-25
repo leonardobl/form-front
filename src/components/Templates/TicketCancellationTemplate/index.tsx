@@ -8,10 +8,11 @@ import { useTicketCancellation } from "./useTicketCancellation";
 import { Input } from "../../Atoms/Inputs/Input";
 import { Button } from "../../Atoms/Button";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
-import { Buttons } from "../../Atoms/Pagination/styles";
+import { ISelectOptions } from "../../../types/inputs";
 
 export const TicketCancellationTemplate = () => {
-  const { tipoPagamento, setTipoPagamento } = useTicketCancellation();
+  const { tipoPagamento, setTipoPagamento, form, setForm, handleCancel } =
+    useTicketCancellation();
 
   return (
     <S.Container>
@@ -41,37 +42,85 @@ export const TicketCancellationTemplate = () => {
       <Title>Reembolso via PIX</Title>
 
       {tipoPagamento === FormaPagamentoEnum.PIX ? (
-        <S.FormPix>
+        <S.FormPix onSubmit={handleCancel}>
           <div>
-            <Input label="Titular" required />
+            <Input
+              label="Titular"
+              required
+              value={form?.titular}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, titular: e?.target?.value }))
+              }
+            />
           </div>
 
           <div>
-            <Input label="Chave PIX" required />
+            <Input
+              label="Chave PIX"
+              required
+              value={form?.chavepix}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, chavepix: e?.target?.value }))
+              }
+            />
           </div>
 
           <Button>Confirmar</Button>
         </S.FormPix>
       ) : (
-        <S.FormTicket>
+        <S.FormTicket onSubmit={handleCancel}>
           <div>
-            <Input required label="Titular" />
+            <Input
+              required
+              label="Titular"
+              value={form?.titular}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, titular: e?.target?.value }))
+              }
+            />
           </div>
 
           <div>
-            <SimpleSelect required label="Banco" />
+            <SimpleSelect
+              required
+              label="Banco"
+              value={form?.banco}
+              onChange={(e: ISelectOptions) =>
+                setForm((prev) => ({ ...prev, banco: e?.value }))
+              }
+            />
           </div>
 
           <div>
-            <Input required label="Agência" />
+            <Input
+              required
+              label="Agência"
+              value={form?.agencia}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, agencia: e.target.value }))
+              }
+            />
           </div>
 
           <div>
-            <Input required label="Conta" />
+            <Input
+              required
+              label="Conta"
+              value={form?.conta}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, conta: e.target.value }))
+              }
+            />
           </div>
 
           <div>
-            <Input label="Operação" />
+            <Input
+              label="Operação"
+              value={form?.operacao}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, operacao: e.target.value }))
+              }
+            />
           </div>
 
           <div>

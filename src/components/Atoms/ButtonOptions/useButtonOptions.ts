@@ -38,7 +38,10 @@ export const useButtonOptions = () => {
             },
           }) => toast.error(mensagem)
         )
-        .finally(() => setIsLoad(false));
+        .finally(() => {
+          setIsLoad(false);
+          setISOpen(false);
+        });
       return;
     }
 
