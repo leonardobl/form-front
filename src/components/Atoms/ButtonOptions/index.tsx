@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { MyModal } from "../MyModal";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { Text } from "../Text";
+import { useButtonOptions } from "./useButtonOptions";
 
 interface IButtonOptions extends ComponentProps<"details"> {
   disabled?: boolean;
@@ -30,19 +31,16 @@ export const ButtonOptions = ({
   handleTicket,
   agendamento,
 }: IButtonOptions) => {
-  const { setIsLoad } = useContextSite();
-  const [isOpen, setISOpen] = useState(false);
-  const [sessionAgendamento, setSessionagendamento] =
-    useSessionStorage("agendamentoSession");
-  const navigate = useNavigate();
-
-  const isIntern = sessionAgendamento?.roles?.some(
-    (regra) =>
-      regra === RolesEnum.ROLE_ADMIN ||
-      regra === RolesEnum.ROLE_GERENTE ||
-      regra === RolesEnum.ROLE_COLABORADOR ||
-      regra === RolesEnum.ROLE_SUPORTE
-  );
+  const {
+    isIntern,
+    isOpen,
+    navigate,
+    setISOpen,
+    setIsLoad,
+    sessionAgendamento,
+    setSessionagendamento,
+    handleCancel,
+  } = useButtonOptions();
 
   function onRescheduling() {
     setIsLoad(true);
@@ -198,13 +196,7 @@ export const ButtonOptions = ({
 
             <S.WrapperButtonsModal>
               <button onClick={() => setISOpen(false)}>Cancelar</button>
-              <Button
-                onClick={() =>
-                  navigate(
-                    `/agendamento/${agendamento.uuid}/pagamento/cancelamento-pix`
-                  )
-                }
-              >
+              <Button onClick={() => handleCancel(agendamento)}>
                 Confirmar
               </Button>
             </S.WrapperButtonsModal>

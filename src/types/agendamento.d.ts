@@ -282,3 +282,16 @@ export interface IAgendamentoHorarioForm {
 export interface IConfirmacaoHorarioProps extends IAgendamentoHorarioForm {
   uuid: string;
 }
+
+export interface IReembolsoForm {
+  agencia?: string;
+  banco?: string;
+  chavepix?: string;
+  conta?: string;
+  operacao?: string;
+  titular?: string;
+}
+
+export interface IReembolsoProps extends IReembolsoForm {
+  uuid: string;
+}
