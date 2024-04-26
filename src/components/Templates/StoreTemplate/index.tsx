@@ -28,27 +28,33 @@ export const StoreTemplate = () => {
     handleReagendamento,
     sessionAgendamento,
     setModalIsOpen,
+    submit,
+    register,
+    Controller,
+    control,
   } = useStore();
 
   return (
     <S.Container>
       <Title className="title">Loja Física</Title>
       {!sessionAgendamento?.reagendamento ? (
-        <S.Form onSubmit={handleSubmit}>
+        <S.Form onSubmit={handleSubmit(submit)}>
           <S.GridWrapper>
             <div>
-              <SimpleSelect
-                required
-                label="Loja"
-                inputId="loja"
-                options={lojasOptions}
-                placeholder={"Selecione a uma das nossas unidades"}
-                value={lojasOptions?.find(
-                  (item) => item.value === form.uuidLoja
+              <Controller
+                control={control}
+                name={"uuidLoja"}
+                render={({ field: { onChange, value } }) => (
+                  <SimpleSelect
+                    required
+                    label="Loja"
+                    inputId="loja"
+                    value={value}
+                    onChange={onChange}
+                    options={lojasOptions}
+                    placeholder={"Selecione a uma das nossas unidades"}
+                  />
                 )}
-                onChange={(e: ISelectOptions) => {
-                  setForm((prev) => ({ ...prev, uuidLoja: e?.value }));
-                }}
               />
             </div>
 
@@ -59,7 +65,7 @@ export const StoreTemplate = () => {
         </S.Form>
       ) : (
         <>
-          <S.Form onSubmit={handleSubmit}>
+          <S.Form onSubmit={handleSubmit(submit)}>
             <S.RescheduleGridWrapper>
               <div>
                 <SimpleSelect

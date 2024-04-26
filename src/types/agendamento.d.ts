@@ -270,8 +270,8 @@ export type DownloadProps = {
 };
 
 export interface IAgendamentoCadastroForm {
-  uuidDelivery: string;
-  uuidLoja: string;
+  uuidDelivery?: string;
+  uuidLoja?: string;
 }
 
 export interface IAgendamentoHorarioForm {

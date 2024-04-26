@@ -13,6 +13,7 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useNavigate } from "react-router-dom";
 import { IAgendamentoCadastroForm } from "../../../types/agendamento";
 import { addDays } from "date-fns";
+import { Controller, useForm } from "react-hook-form";
 
 export const useStore = () => {
   const [token] = useSessionStorage("@token");
@@ -36,9 +37,16 @@ export const useStore = () => {
 
   const navigate = useNavigate();
 
-  function handleSubmit(e: React.SyntheticEvent) {
-    e.preventDefault();
+  const { register, handleSubmit, control } = useForm({
+    defaultValues: {
+      uuidLoja: "",
+    },
+  });
 
+  function submit(data: any) {
+    console.log(data);
+
+    return;
     if (agendamentoSession?.reagendamento) {
       setModalIsOpen(true);
       return;
@@ -183,8 +191,12 @@ export const useStore = () => {
     isLoading,
     horariosOptions,
     handleSubmit,
+    submit,
+    register,
     handleReagendamento,
     setModalIsOpen,
     sessionAgendamento,
+    Controller,
+    control,
   };
 };
