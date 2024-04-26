@@ -6,9 +6,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loja } from "../../../services/Lojas";
 import { toast } from "react-toastify";
+import { Agendamento } from "../../../services/Agendamento";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { useContextSite } from "../../../context/Context";
+import { useNavigate } from "react-router-dom";
 
 export const useFormStoreScheduling = () => {
   const [lojasOptions, setLojasOptions] = useState<ISelectOptions[]>([]);
+  const [token] = useSessionStorage("@token");
+  const { setIsLoad } = useContextSite();
+  const navigate = useNavigate();
+  const [clienteSession] = useSessionStorage("cliente");
 
   const schemaAgendamento = z.object({
     uuidDelivery: z
@@ -51,5 +59,43 @@ export const useFormStoreScheduling = () => {
       );
   }, []);
 
-  return { lojasOptions, errors, control, Controller, handleSubmit };
+  function submitAgendamento(data: IAgendamentoCadastroForm) {
+    console.log(data);
+
+    return;
+
+    setIsLoad(true);
+
+    Agendamento.postV2(data)
+      .then(({ data }) => {
+        if (token) {
+          Agendamento.vincularAgendamentoAoCliente({
+            uuidAgendamento: data.uuid,
+            uuidCliente: clienteSession?.uuidCliente,
+          }).then(() => {
+            navigate(`/agendamento/${data.uuid}/servicos`);
+            return;
+          });
+        }
+
+        navigate(`/agendamento/${data.uuid}/login-cadastro`);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
+
+  return {
+    lojasOptions,
+    errors,
+    control,
+    Controller,
+    handleSubmit,
+    submitAgendamento,
+  };
 };
