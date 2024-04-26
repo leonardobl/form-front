@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { IAgendamentoCadastroForm } from "../../../types/agendamento";
 import { addDays } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
 
 export const useStore = () => {
   const [token] = useSessionStorage("@token");
@@ -37,10 +38,17 @@ export const useStore = () => {
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, control } = useForm({
+  const { register, handleSubmit, control, formState } = useForm({
     defaultValues: {
       uuidLoja: "",
     },
+  });
+
+  const { isSubmitting } = formState;
+
+  const schema = z.object({
+    uuidDelivery: z.string().optional(),
+    uuidLoja: z.string().optional(),
   });
 
   function submit(data: any) {
