@@ -74,7 +74,10 @@ export const App = () => {
               }
             />
 
-            <Route path="/agendamento" element={<LayoutTemplate />}>
+            <Route
+              path="/agendamento/:uuidAgendamento?"
+              element={<LayoutTemplate />}
+            >
               <Route index element={<Home />} />
               <Route
                 path="loja"
@@ -92,12 +95,6 @@ export const App = () => {
                   </ProtectedClientRoute>
                 }
               />
-            </Route>
-
-            <Route
-              path="/agendamento/:uuidAgendamento?"
-              element={<LayoutTemplate />}
-            >
               <Route path="recuperar-senha" element={<ForgotPassword />} />
 
               <Route path="login" element={<Login />} />

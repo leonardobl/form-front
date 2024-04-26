@@ -48,10 +48,6 @@ export const useStore = () => {
   //   }
   // }, [reagendamentoForm?.uuidLoja]);
 
-  useEffect(() => {
-    console.log(reagendamento);
-  }, [reagendamento]);
-
   return {
     reagendamento,
   };

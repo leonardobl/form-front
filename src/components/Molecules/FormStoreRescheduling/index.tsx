@@ -2,14 +2,12 @@ import React from "react";
 import { SimpleSelectRHF } from "../../Atoms/SelectsRHF/SimpleSelectRHF";
 import { Button } from "../../Atoms/Button";
 import * as S from "./styles";
-import { ISelectOptions } from "../../../types/inputs";
-import { MessageErroForm } from "../../Atoms/MessageErroForm";
-import { IAgendamentoCadastroForm } from "../../../types/agendamento";
 import { useFormStoreRescheduling } from "./useFormStoreRescheduling";
 import { MyModal } from "../../Atoms/MyModal";
-import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { Text } from "../../Atoms/Text";
-import { reverseToBrDate } from "../../../utils/dateTransform";
+import { ISelectOptions } from "../../../types/inputs";
+import { InputDateRHF } from "../../Atoms/InputsRHF/InputDateRHF";
+import { MessageErroForm } from "../../Atoms/MessageErroForm";
 
 interface IFormStoreSchedulingProps extends React.ComponentProps<"form"> {}
 
@@ -23,34 +21,37 @@ export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
     date,
     horariosOptions,
     setDate,
-    modalIsOpen,
-    setModalIsOpen,
+    handleReagendamento,
     diasIndisponiveis,
-    isSubmitting,
-    register,
-    submitReagendamento,
+    watch,
+    isLoading,
+    modal,
+    setModal,
+    submitForm,
   } = useFormStoreRescheduling();
 
   return (
-    <S.Form {...props} onSubmit={handleSubmit(submitReagendamento)}>
+    <S.Form {...props} onSubmit={handleSubmit(submitForm)}>
       <S.RescheduleGridWrapper>
         <div>
-          <SimpleSelectRHF
-            required
-            label="Loja"
-            id="loja"
-            options={lojasOptions}
-            placeholder={"Selecione a uma das nossas unidades"}
-            // value={lojasOptions?.find(
-            //   (item) => item.value === reagendamentoForm.uuidLoja
-            // )}
-            // onChange={(e: ISelectOptions) => {
-            //   setReagendamentoForm((prev) => ({
-            //     ...prev,
-            //     uuidLoja: e?.value,
-            //   }));
-            // }}
+          <Controller
+            control={control}
+            name="uuidLoja"
+            render={({ field: { value, onChange } }) => (
+              <SimpleSelectRHF
+                required
+                label="Loja"
+                id="loja"
+                value={lojasOptions.find((item) => item.value === value)}
+                options={lojasOptions}
+                placeholder={"Selecione a uma das nossas unidades"}
+                onChange={(e: ISelectOptions) => onChange(e.value)}
+              />
+            )}
           />
+          {errors?.uuidLoja?.message && (
+            <MessageErroForm>{errors.uuidLoja.message}</MessageErroForm>
+          )}
         </div>
         <div>
           <Text>
@@ -58,39 +59,53 @@ export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
           </Text>
         </div>
         <div>
-          <InputDate
-            showIcon
-            isLoading={isSubmitting}
-            minDate={new Date()}
-            label="Data"
-            required
-            // disabled={!!!reagendamentoForm?.uuidLoja}
-            excludeDates={diasIndisponiveis}
-            onChange={(e) => {
-              setDate(e);
-            }}
-            placeholderText="__/__/__"
-            selected={date}
+          <Controller
+            control={control}
+            name={"diaAgendado"}
+            render={({ field: { onChange, value } }) => (
+              <InputDateRHF
+                showIcon
+                isLoading={isLoading}
+                minDate={new Date()}
+                label="Data"
+                required
+                disabled={!!!watch("uuidLoja")}
+                excludeDates={diasIndisponiveis}
+                onChange={(e) => {
+                  setDate(e);
+                  onChange(
+                    e?.toLocaleDateString()?.split("/")?.reverse()?.join("-")
+                  );
+                }}
+                placeholderText="__/__/__"
+                selected={date}
+              />
+            )}
           />
+          {errors?.diaAgendado?.message && (
+            <MessageErroForm>{errors.diaAgendado.message}</MessageErroForm>
+          )}
         </div>
         <div>
-          <SimpleSelectRHF
-            label="Horário"
-            isDisabled={!date}
-            // value={
-            //   horariosOptions?.find(
-            //     (item) => item.value === reagendamentoForm.horaAgendada
-            //   ) || null
-            // }
-            // onChange={(e: ISelectOptions) =>
-            //   setReagendamentoForm((prev) => ({
-            //     ...prev,
-            //     horaAgendada: e?.value,
-            //   }))
-            // }
-            options={horariosOptions}
-            required
+          <Controller
+            control={control}
+            name="horaAgendada"
+            render={({ field: { value, onChange } }) => (
+              <SimpleSelectRHF
+                label="Horário"
+                isDisabled={!date}
+                value={
+                  horariosOptions?.find((item) => item.value === value) || null
+                }
+                onChange={(e: ISelectOptions) => onChange(e.value)}
+                options={horariosOptions}
+                required
+              />
+            )}
           />
+          {errors?.horaAgendada?.message && (
+            <MessageErroForm>{errors.horaAgendada.message}</MessageErroForm>
+          )}
         </div>
 
         <div>
@@ -99,16 +114,14 @@ export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
       </S.RescheduleGridWrapper>
 
       <MyModal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        isOpen={modal.isOpen}
+        onRequestClose={() => setModal({ isOpen: false })}
       >
         <S.ModalContent>
-          {/* <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
-            date?.toLocaleDateString()
-          )} às ${reagendamentoForm.horaAgendada}? `}</p> */}
-          <Button type="submit" onClick={() => setModalIsOpen(false)}>
-            Confirmar
-          </Button>
+          <p>{`Confirma sua vistoria para o dia ${watch(
+            "diaAgendado"
+          )} às ${watch("horaAgendada")}? `}</p>
+          <Button onClick={handleReagendamento}>Confirmar</Button>
         </S.ModalContent>
       </MyModal>
     </S.Form>

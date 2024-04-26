@@ -19,15 +19,10 @@ export const useFormStoreScheduling = () => {
   const [clienteSession] = useSessionStorage("cliente");
 
   const schemaAgendamento = z.object({
-    uuidDelivery: z
-      .string()
-      .min(1, "Você precisa selecionar uma cidade")
-      .optional(),
-    uuidLoja: z.string().min(1, "Você precisa selecionar uma loja").optional(),
+    uuidLoja: z.string().min(1, "Você precisa selecionar uma loja"),
   });
 
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -60,10 +55,6 @@ export const useFormStoreScheduling = () => {
   }, []);
 
   function submitAgendamento(data: IAgendamentoCadastroForm) {
-    console.log(data);
-
-    return;
-
     setIsLoad(true);
 
     Agendamento.postV2(data)

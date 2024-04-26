@@ -11,58 +11,59 @@ import { Agendamento } from "../../../services/Agendamento";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContextSite } from "../../../context/Context";
 
+type ModalProps = {
+  isOpen: boolean;
+  reagendamento?: IReagendamentoProps;
+};
+
 export const useFormStoreRescheduling = () => {
   const [lojasOptions, setLojasOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
   const [date, setDate] = useState<Date>(null);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modal, setModal] = useState<ModalProps>({ isOpen: false });
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const { setIsLoad } = useContextSite();
 
   const schemaReAgendamento = z.object({
-    uuidAgendamento: z.string(),
-    bairro: z.string(),
-    cep: z.string(),
-    cidade: z.string(),
-    complemento: z.string(),
-    diaAgendado: z.string(),
-    horaAgendada: z.string(),
-    logradouro: z.string(),
-    nome: z.string(),
-    numero: z.string(),
-    telefone: z.string(),
-    uf: z.string(),
-    uuidDelivery: z.string(),
-    uuidLoja: z.string(),
+    diaAgendado: z.string().min(1, "Você precisa selecionar um dia"),
+    horaAgendada: z.string().min(1, "Você precisa selecionar um horario"),
+    uuidLoja: z.string().min(1, "Você precisa selecionar uma cidade"),
   });
 
   const {
-    register,
     handleSubmit,
     control,
     watch,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<IReagendamentoProps>({
-    defaultValues: {},
+    defaultValues: {
+      diaAgendado: "",
+      uuidLoja: "",
+      horaAgendada: "",
+    },
     resolver: zodResolver(schemaReAgendamento),
-    reValidateMode: "onSubmit",
+    reValidateMode: "onChange",
   });
 
-  function submitReagendamento(data: IReagendamentoProps) {
-    setIsLoad(true);
-
+  function submitForm(data: IReagendamentoProps) {
     const PAYLOAD: IReagendamentoProps = {
-      diaAgendado: data.diaAgendado,
-      horaAgendada: data.horaAgendada,
+      ...data,
       uuidAgendamento: params?.uuidAgendamento,
-      uuidLoja: data.uuidLoja,
-      uuidDelivery: data.uuidDelivery,
     };
 
-    Agendamento.reagendar(PAYLOAD)
+    setModal({ isOpen: true, reagendamento: PAYLOAD });
+  }
+
+  function handleReagendamento() {
+    setIsLoad(true);
+
+    setModal({ isOpen: false });
+
+    Agendamento.reagendar(modal?.reagendamento)
       .then(({ data }) => {
         toast.success("Reagendamento efetuado com sucesso!");
 
@@ -102,7 +103,9 @@ export const useFormStoreRescheduling = () => {
 
   useEffect(() => {
     setDate(null);
+    setValue("diaAgendado", "");
     if (watch("uuidLoja")) {
+      setIsLoading(true);
       Loja.getDiasIndisponiveis({ uuidLoja: watch("uuidLoja") })
         .then(({ data }) => {
           const options = data.map((item) => addDays(new Date(item), 1));
@@ -115,20 +118,21 @@ export const useFormStoreRescheduling = () => {
               data: { mensagem },
             },
           }) => toast.error(mensagem)
-        );
+        )
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   }, [watch("uuidLoja")]);
 
   useEffect(() => {
-    setValue("horaAgendada", null);
+    setValue("horaAgendada", "");
 
     if (date) {
-      const newDate = date.toLocaleDateString().split("/").reverse().join("-");
-
       if (watch("uuidLoja")) {
         Loja.getHorariosDisponiveis({
           uuidLoja: watch("uuidLoja"),
-          dataAgendamento: newDate,
+          dataAgendamento: watch("diaAgendado"),
         }).then(({ data }) => {
           const options = data.map((item) => ({
             value: item,
@@ -149,13 +153,14 @@ export const useFormStoreRescheduling = () => {
     Controller,
     handleSubmit,
     date,
+    watch,
     horariosOptions,
     setDate,
-    modalIsOpen,
-    setModalIsOpen,
+    handleReagendamento,
     diasIndisponiveis,
-    isSubmitting,
-    register,
-    submitReagendamento,
+    isLoading,
+    submitForm,
+    modal,
+    setModal,
   };
 };

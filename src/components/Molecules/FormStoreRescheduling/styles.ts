@@ -69,7 +69,7 @@ export const RescheduleGridWrapper = styled.div`
   }
 `;
 
-export const ModalContent = styled.div`
+export const ModalContent = styled.form`
   /* padding: 102px 132px; */
   /* background: #6fa599; */
   max-width: 506px;
