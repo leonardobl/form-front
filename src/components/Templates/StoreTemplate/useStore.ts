@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useSearchParams } from "react-router-dom";
 
 export const useStore = () => {
   const [searchParams] = useSearchParams();
-  const reagendamento = searchParams.get("reagendamento");
-
+  const reagendamento = !!(searchParams.get("reagendamento") === "true");
   // useEffect(() => {
   //   setReagendamentoForm((prev) => ({ ...prev, horaAgendada: null }));
   //   if (date) {
@@ -48,6 +47,10 @@ export const useStore = () => {
   //       .finally(() => setIsLoading(false));
   //   }
   // }, [reagendamentoForm?.uuidLoja]);
+
+  useEffect(() => {
+    console.log(reagendamento);
+  }, [reagendamento]);
 
   return {
     reagendamento,
