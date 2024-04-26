@@ -10,13 +10,14 @@ import { Title } from "../../Atoms/Title";
 
 import { reverseToBrDate } from "../../../utils/dateTransform";
 import { MyModal } from "../../Atoms/MyModal";
+import { SimpleSelectRHF } from "../../Atoms/SelectsRHF/SimpleSelectRHF";
+import { MessageErroForm } from "../../Atoms/MessageErroForm";
+import { FormStoreScheduling } from "../../Molecules/FormStoreScheduling";
 
 export const StoreTemplate = () => {
   const {
     lojasOptions,
     date,
-    form,
-    setForm,
     reagendamentoForm,
     setReagendamentoForm,
     setDate,
@@ -25,47 +26,23 @@ export const StoreTemplate = () => {
     horariosOptions,
     modalIsOpen,
     handleSubmit,
-    handleReagendamento,
-    sessionAgendamento,
     setModalIsOpen,
-    submit,
+    reagendamento,
+    submitAgendamento,
     register,
     Controller,
     control,
+    errors,
   } = useStore();
 
   return (
     <S.Container>
       <Title className="title">Loja Física</Title>
-      {!sessionAgendamento?.reagendamento ? (
-        <S.Form onSubmit={handleSubmit(submit)}>
-          <S.GridWrapper>
-            <div>
-              <Controller
-                control={control}
-                name={"uuidLoja"}
-                render={({ field: { onChange, value } }) => (
-                  <SimpleSelect
-                    required
-                    label="Loja"
-                    inputId="loja"
-                    value={value}
-                    onChange={onChange}
-                    options={lojasOptions}
-                    placeholder={"Selecione a uma das nossas unidades"}
-                  />
-                )}
-              />
-            </div>
-
-            <div>
-              <Button>Avançar</Button>
-            </div>
-          </S.GridWrapper>
-        </S.Form>
+      {!reagendamento ? (
+        <FormStoreScheduling submit={submitAgendamento} />
       ) : (
         <>
-          <S.Form onSubmit={handleSubmit(submit)}>
+          <S.Form onSubmit={handleSubmit(submitAgendamento)}>
             <S.RescheduleGridWrapper>
               <div>
                 <SimpleSelect
@@ -131,18 +108,21 @@ export const StoreTemplate = () => {
                 <Button>Avançar</Button>
               </div>
             </S.RescheduleGridWrapper>
+
+            <MyModal
+              isOpen={modalIsOpen}
+              onRequestClose={() => setModalIsOpen(false)}
+            >
+              <S.ModalContent>
+                <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
+                  date?.toLocaleDateString()
+                )} às ${reagendamentoForm.horaAgendada}? `}</p>
+                <Button type="submit" onClick={() => setModalIsOpen(false)}>
+                  Confirmar
+                </Button>
+              </S.ModalContent>
+            </MyModal>
           </S.Form>
-          <MyModal
-            isOpen={modalIsOpen}
-            onRequestClose={() => setModalIsOpen(false)}
-          >
-            <S.ModalContent>
-              <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
-                date?.toLocaleDateString()
-              )} às ${reagendamentoForm.horaAgendada}? `}</p>
-              <Button onClick={handleReagendamento}>Confirmar</Button>
-            </S.ModalContent>
-          </MyModal>
         </>
       )}
     </S.Container>

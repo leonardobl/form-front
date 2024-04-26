@@ -10,14 +10,17 @@ import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { IAgendamentoCadastroForm } from "../../../types/agendamento";
 import { addDays } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { z } from "zod";
 
 export const useStore = () => {
   const [token] = useSessionStorage("@token");
+  const [clienteSession] = useSessionStorage("cliente");
   const { setIsLoad } = useContextSite();
   const [lojasOptions, setLojasOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
@@ -25,54 +28,50 @@ export const useStore = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [form, setForm] = useState<IAgendamentoCadastroForm>(
-    {} as IAgendamentoCadastroForm
-  );
+
+  const [searchParams] = useSearchParams();
+  const params = useParams();
+  const reagendamento = searchParams.get("reagendamento");
+
   const [reagendamentoForm, setReagendamentoForm] =
     useState<IReagendamentoProps>({} as IReagendamentoProps);
-  const [sessionAgendamento, setSessionagendamento] =
-    useSessionStorage("agendamentoSession");
-
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
 
   const navigate = useNavigate();
 
-  const { register, handleSubmit, control, formState } = useForm({
+  const schemaAgendamento = z.object({
+    uuidDelivery: z
+      .string()
+      .min(1, "Você precisa selecionar uma cidade")
+      .optional(),
+    uuidLoja: z.string().min(1, "Você precisa selecionar uma loja").optional(),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IAgendamentoCadastroForm>({
     defaultValues: {
       uuidLoja: "",
     },
+    resolver: zodResolver(schemaAgendamento),
+    reValidateMode: "onSubmit",
   });
 
-  const { isSubmitting } = formState;
-
-  const schema = z.object({
-    uuidDelivery: z.string().optional(),
-    uuidLoja: z.string().optional(),
-  });
-
-  function submit(data: any) {
+  function submitAgendamento(data: IAgendamentoCadastroForm) {
     console.log(data);
 
     return;
-    if (agendamentoSession?.reagendamento) {
-      setModalIsOpen(true);
-      return;
-    }
 
     setIsLoad(true);
 
-    Agendamento.postV2(form)
+    Agendamento.postV2(data)
       .then(({ data }) => {
-        setAgendamentoSession({
-          ...agendamentoSession,
-          uuidAgendamento: data.uuid,
-        });
-
         if (token) {
           Agendamento.vincularAgendamentoAoCliente({
             uuidAgendamento: data.uuid,
-            uuidCliente: agendamentoSession?.uuidCliente,
+            uuidCliente: clienteSession?.uuidCliente,
           }).then(() => {
             navigate(`/agendamento/${data.uuid}/servicos`);
             return;
@@ -91,26 +90,24 @@ export const useStore = () => {
       .finally(() => setIsLoad(false));
   }
 
-  function handleReagendamento() {
+  function submitReagendamento(data: IReagendamentoProps) {
     setIsLoad(true);
     setModalIsOpen(false);
 
     const PAYLOAD: IReagendamentoProps = {
       diaAgendado: date.toLocaleDateString().split("/").reverse().join("-"),
       horaAgendada: reagendamentoForm.horaAgendada,
-      uuidAgendamento: agendamentoSession?.uuidAgendamento,
+      uuidAgendamento: params?.uuidAgendamento,
       uuidLoja: reagendamentoForm.uuidLoja,
       uuidDelivery: reagendamentoForm.uuidDelivery,
     };
 
     Agendamento.reagendar(PAYLOAD)
-      .then(() => {
+      .then(({ data }) => {
         toast.success("Reagendamento efetuado com sucesso!");
-        setAgendamentoSession({ ...agendamentoSession, reagendamento: false });
+
         setTimeout(() => {
-          navigate(
-            `/meus-agendamentos/agendamento?id=${agendamentoSession?.uuidAgendamento}`
-          );
+          navigate(`/meus-agendamentos/agendamento?id=${data?.uuid}`);
         }, 2000);
       })
       .catch(
@@ -188,8 +185,6 @@ export const useStore = () => {
 
   return {
     lojasOptions,
-    form,
-    setForm,
     reagendamentoForm,
     setReagendamentoForm,
     date,
@@ -199,12 +194,12 @@ export const useStore = () => {
     isLoading,
     horariosOptions,
     handleSubmit,
-    submit,
+    submitAgendamento,
     register,
-    handleReagendamento,
     setModalIsOpen,
-    sessionAgendamento,
+    reagendamento,
     Controller,
     control,
+    errors,
   };
 };
