@@ -233,7 +233,9 @@ export const useNewScheduling = () => {
     setIsLoad(true);
 
     if (agendamentoSession?.reagendamento) {
-      navigate(`/agendamento/${agendamentoSession?.uuidAgendamento}/confirmar-horario`);
+      navigate(
+        `/agendamento/${agendamentoSession?.uuidAgendamento}/confirmar-horario`
+      );
       return;
     }
 
@@ -414,7 +416,7 @@ export const useNewScheduling = () => {
 
       setFormAddress((values) => ({
         ...values,
-        uuid: dataAgendamento?.data?.uuid
+        uuid: dataAgendamento?.data?.uuid,
       }));
 
       if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
@@ -446,7 +448,7 @@ export const useNewScheduling = () => {
 
       setFormVihacle(veiculo?.data);
     } catch (error) {
-      toast.error(error.mensagem);
+      toast.error(error?.response?.data.message);
     } finally {
       setIsLoad(false);
     }
