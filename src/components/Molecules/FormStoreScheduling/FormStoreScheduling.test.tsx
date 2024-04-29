@@ -1,4 +1,4 @@
-import { render, screen, act, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { FormStoreScheduling } from ".";
 import { fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -37,7 +37,9 @@ describe("<FormStoreScheduling/>", () => {
     userEvent.click(await screen.findByRole("combobox", { name: "Loja *" }));
     userEvent.click(await screen.findByText(MockLojas[0].value));
     fireEvent.submit(await screen.findByRole("button", { name: "Avançar" }));
+    const msg = screen.queryByText("Você precisa selecionar uma loja");
 
+    expect(msg).not.toBeInTheDocument();
     await waitFor(() => {
       expect(mockSubmit).toHaveBeenCalledWith(
         { uuidLoja: MockLojas[0].value },
