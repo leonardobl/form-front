@@ -6,13 +6,17 @@ import { FormStoreScheduling } from "../../Molecules/FormStoreScheduling";
 import { FormStoreRescheduling } from "../../Molecules/FormStoreRescheduling";
 
 export const StoreTemplate = () => {
-  const { reagendamento } = useStore();
+  const { reagendamento, submitAgendamento } = useStore();
 
   return (
     <S.Container>
       <Title className="title">Loja Física</Title>
 
-      {!reagendamento ? <FormStoreScheduling /> : <FormStoreRescheduling />}
+      {!reagendamento ? (
+        <FormStoreScheduling onSubmitForm={submitAgendamento} />
+      ) : (
+        <FormStoreRescheduling />
+      )}
     </S.Container>
   );
 };

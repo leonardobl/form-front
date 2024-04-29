@@ -5,21 +5,21 @@ import { Button } from "../../Atoms/Button";
 import * as S from "./styles";
 import { ISelectOptions } from "../../../types/inputs";
 import { MessageErroForm } from "../../Atoms/MessageErroForm";
+import { IAgendamentoCadastroForm } from "../../../types/agendamento";
 
-interface IFormStoreSchedulingProps extends React.ComponentProps<"form"> {}
+interface IFormStoreSchedulingProps extends React.ComponentProps<"form"> {
+  onSubmitForm: (data: IAgendamentoCadastroForm) => void;
+}
 
-export const FormStoreScheduling = (props: IFormStoreSchedulingProps) => {
-  const {
-    lojasOptions,
-    errors,
-    Controller,
-    control,
-    handleSubmit,
-    submitAgendamento,
-  } = useFormStoreScheduling();
+export const FormStoreScheduling = ({
+  onSubmitForm,
+  ...rest
+}: IFormStoreSchedulingProps) => {
+  const { lojasOptions, errors, Controller, control, handleSubmit } =
+    useFormStoreScheduling();
 
   return (
-    <S.Form {...props} onSubmit={handleSubmit(submitAgendamento)}>
+    <S.Form {...rest} onSubmit={handleSubmit(onSubmitForm)}>
       <S.GridWrapper>
         <div>
           <Controller
