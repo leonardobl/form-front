@@ -1,6 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { getByText, render, screen } from "@testing-library/react";
 import { FormStoreScheduling } from ".";
 import userEvent from "@testing-library/user-event";
+import { fireEvent } from "@testing-library/react";
+
+Object.defineProperty(HTMLFormElement.prototype, "submit", {
+  writable: true,
+  value: jest.fn(),
+});
 
 jest.mock("./useFormStoreScheduling", () => ({
   useFormStoreScheduling: () => ({
@@ -10,25 +16,46 @@ jest.mock("./useFormStoreScheduling", () => ({
       { label: "Loja C", value: "C" },
     ],
     handleSubmit: jest.fn(),
-    errors: { uuidLoja: { message: "uuidLoja?.message" } },
+    errors: { uuidLoja: { message: "Você precisa selecionar uma loja" } },
     Controller: ({ render, control, name }) =>
       render({ field: { onChange: jest.fn(), value: "" } }),
   }),
 }));
 
-const onSubmit = jest.fn();
+const mockSubmit = jest.fn();
 
-test("Deve submeter o form com o select preenchido", async () => {
-  render(<FormStoreScheduling onSubmitForm={onSubmit} />);
+describe("<FormStoreScheduling/>", () => {
+  test("Não deve submeter o form e exibir msg erro", async () => {
+    render(<FormStoreScheduling onSubmitForm={mockSubmit} />);
 
-  const Select = screen.getByRole("combobox", { name: "Loja *" });
+    const Select = screen.getByRole("combobox", { name: "Loja *" });
 
-  const ButtonSubmit = screen.getByRole("button", { name: "Avançar" });
+    const ButtonSubmit = screen.getByRole("button", { name: "Avançar" });
 
-  await userEvent.click(ButtonSubmit);
+    await fireEvent.submit(ButtonSubmit);
 
-  const msg = await screen.findByText("Você precisa selecionar uma loja");
+    const msg = screen.getByText("Você precisa selecionar uma loja");
 
-  screen.debug();
-  // userEvent.click(ButtonSubmit);
+    expect(msg).toBeVisible();
+    expect(mockSubmit).not.toHaveBeenCalled();
+  });
+
+  test("Deve submeter o form com o select preenchido", async () => {
+    render(<FormStoreScheduling onSubmitForm={mockSubmit} />);
+
+    const Select = screen.getByRole("combobox", { name: "Loja *" });
+
+    await userEvent.click(Select);
+
+    await userEvent.click(screen.getByText("Loja A"));
+
+    const ButtonSubmit = screen.getByRole("button", { name: "Avançar" });
+
+    await fireEvent.submit(ButtonSubmit);
+
+    const msg = screen.getByText("Você precisa selecionar uma loja");
+
+    expect(msg).not.toBeVisible();
+    // expect(mockSubmit).not.toHaveBeenCalled();
+  });
 });
