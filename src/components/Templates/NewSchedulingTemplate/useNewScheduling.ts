@@ -458,7 +458,7 @@ export const useNewScheduling = () => {
 
       setFormVihacle(veiculo?.data);
     } catch (error) {
-      toast.error(error.mensagem);
+      toast.error(error?.response?.data.message);
     } finally {
       setIsLoad(false);
     }
