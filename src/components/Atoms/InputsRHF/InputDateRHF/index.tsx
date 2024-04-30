@@ -18,7 +18,7 @@ export const InputDateRHF = (props: InputDateProps) => {
   return (
     <S.Container $showIcon={props.showIcon}>
       {props.label && (
-        <S.Label>
+        <S.Label htmlFor={props.id}>
           {props.label}
           <S.Required $isRequired={!!props.required}>*</S.Required>
         </S.Label>

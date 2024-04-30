@@ -7,25 +7,13 @@ import { z } from "zod";
 import { Loja } from "../../../services/Lojas";
 import { toast } from "react-toastify";
 import { addDays } from "date-fns";
-import { Agendamento } from "../../../services/Agendamento";
-import { useNavigate, useParams } from "react-router-dom";
-import { useContextSite } from "../../../context/Context";
-
-type ModalProps = {
-  isOpen: boolean;
-  reagendamento?: IReagendamentoProps;
-};
 
 export const useFormStoreRescheduling = () => {
   const [lojasOptions, setLojasOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
   const [date, setDate] = useState<Date>(null);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
-  const [modal, setModal] = useState<ModalProps>({ isOpen: false });
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const params = useParams();
-  const { setIsLoad } = useContextSite();
 
   const schemaReAgendamento = z.object({
     diaAgendado: z.string().min(1, "Você precisa selecionar um dia"),
@@ -48,38 +36,6 @@ export const useFormStoreRescheduling = () => {
     resolver: zodResolver(schemaReAgendamento),
     reValidateMode: "onChange",
   });
-
-  function submitForm(data: IReagendamentoProps) {
-    const PAYLOAD: IReagendamentoProps = {
-      ...data,
-      uuidAgendamento: params?.uuidAgendamento,
-    };
-
-    setModal({ isOpen: true, reagendamento: PAYLOAD });
-  }
-
-  function handleReagendamento() {
-    setIsLoad(true);
-
-    setModal({ isOpen: false });
-
-    Agendamento.reagendar(modal?.reagendamento)
-      .then(({ data }) => {
-        toast.success("Reagendamento efetuado com sucesso!");
-
-        setTimeout(() => {
-          navigate(`/meus-agendamentos/agendamento?id=${data?.uuid}`);
-        }, 2000);
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
-      .finally(() => setIsLoad(false));
-  }
 
   useEffect(() => {
     Loja.get()
@@ -156,11 +112,7 @@ export const useFormStoreRescheduling = () => {
     watch,
     horariosOptions,
     setDate,
-    handleReagendamento,
     diasIndisponiveis,
     isLoading,
-    submitForm,
-    modal,
-    setModal,
   };
 };

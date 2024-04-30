@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { IAgendamentoCadastroForm } from "../../../types/agendamento";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import {
+  IAgendamentoCadastroForm,
+  IReagendamentoProps,
+} from "../../../types/agendamento";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useContextSite } from "../../../context/Context";
+
+type ModalProps = {
+  isOpen: boolean;
+  reagendamento?: IReagendamentoProps;
+};
 
 export const useStore = () => {
   const [searchParams] = useSearchParams();
@@ -14,6 +22,40 @@ export const useStore = () => {
   const { setIsLoad } = useContextSite();
   const navigate = useNavigate();
   const [clienteSession] = useSessionStorage("cliente");
+  const params = useParams();
+  const [modal, setModal] = useState<ModalProps>({ isOpen: false });
+
+  function submitReagendamentoForm(data: IReagendamentoProps) {
+    const PAYLOAD: IReagendamentoProps = {
+      ...data,
+      uuidAgendamento: params?.uuidAgendamento,
+    };
+
+    setModal({ isOpen: true, reagendamento: PAYLOAD });
+  }
+
+  function handleReagendamento() {
+    setIsLoad(true);
+
+    setModal({ isOpen: false });
+
+    Agendamento.reagendar(modal?.reagendamento)
+      .then(({ data }) => {
+        toast.success("Reagendamento efetuado com sucesso!");
+
+        setTimeout(() => {
+          navigate(`/meus-agendamentos/agendamento?id=${data?.uuid}`);
+        }, 2000);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
 
   function submitAgendamento(data: IAgendamentoCadastroForm) {
     setIsLoad(true);
@@ -45,5 +87,9 @@ export const useStore = () => {
   return {
     reagendamento,
     submitAgendamento,
+    modal,
+    setModal,
+    submitReagendamentoForm,
+    handleReagendamento,
   };
 };

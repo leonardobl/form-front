@@ -3,15 +3,20 @@ import { SimpleSelectRHF } from "../../Atoms/SelectsRHF/SimpleSelectRHF";
 import { Button } from "../../Atoms/Button";
 import * as S from "./styles";
 import { useFormStoreRescheduling } from "./useFormStoreRescheduling";
-import { MyModal } from "../../Atoms/MyModal";
 import { Text } from "../../Atoms/Text";
 import { ISelectOptions } from "../../../types/inputs";
 import { InputDateRHF } from "../../Atoms/InputsRHF/InputDateRHF";
 import { MessageErroForm } from "../../Atoms/MessageErroForm";
+import { IReagendamentoProps } from "../../../types/agendamento";
 
-interface IFormStoreSchedulingProps extends React.ComponentProps<"form"> {}
+interface IFormStoreSchedulingProps extends React.ComponentProps<"form"> {
+  onSubmitForm: (data: IReagendamentoProps) => void;
+}
 
-export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
+export const FormStoreRescheduling = ({
+  onSubmitForm,
+  ...rest
+}: IFormStoreSchedulingProps) => {
   const {
     lojasOptions,
     errors,
@@ -21,17 +26,13 @@ export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
     date,
     horariosOptions,
     setDate,
-    handleReagendamento,
     diasIndisponiveis,
     watch,
     isLoading,
-    modal,
-    setModal,
-    submitForm,
   } = useFormStoreRescheduling();
 
   return (
-    <S.Form {...props} onSubmit={handleSubmit(submitForm)}>
+    <S.Form {...rest} onSubmit={handleSubmit(onSubmitForm)}>
       <S.RescheduleGridWrapper>
         <div>
           <Controller
@@ -41,7 +42,7 @@ export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
               <SimpleSelectRHF
                 required
                 label="Loja"
-                id="loja"
+                inputId="loja"
                 value={lojasOptions.find((item) => item.value === value)}
                 options={lojasOptions}
                 placeholder={"Selecione a uma das nossas unidades"}
@@ -65,6 +66,7 @@ export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
             render={({ field: { onChange, value } }) => (
               <InputDateRHF
                 showIcon
+                id="data"
                 isLoading={isLoading}
                 minDate={new Date()}
                 label="Data"
@@ -89,11 +91,12 @@ export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
         <div>
           <Controller
             control={control}
-            name="horaAgendada"
+            name={"horaAgendada"}
             render={({ field: { value, onChange } }) => (
               <SimpleSelectRHF
                 label="Horário"
-                isDisabled={!date}
+                isDisabled={!watch("diaAgendado")}
+                inputId="horario"
                 value={
                   horariosOptions?.find((item) => item.value === value) || null
                 }
@@ -112,18 +115,6 @@ export const FormStoreRescheduling = (props: IFormStoreSchedulingProps) => {
           <Button>Avançar</Button>
         </div>
       </S.RescheduleGridWrapper>
-
-      <MyModal
-        isOpen={modal.isOpen}
-        onRequestClose={() => setModal({ isOpen: false })}
-      >
-        <S.ModalContent>
-          <p>{`Confirma sua vistoria para o dia ${watch(
-            "diaAgendado"
-          )} às ${watch("horaAgendada")}? `}</p>
-          <Button onClick={handleReagendamento}>Confirmar</Button>
-        </S.ModalContent>
-      </MyModal>
     </S.Form>
   );
 };

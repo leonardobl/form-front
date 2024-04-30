@@ -9,7 +9,7 @@ import { render } from "@testing-library/react";
 export const renderComponente = (children: React.ReactElement) => {
   const history = createMemoryHistory();
 
-  render(
+  const view = render(
     <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
       <ContextProvider>
         <Router location={history.location} navigator={history}>
@@ -19,5 +19,5 @@ export const renderComponente = (children: React.ReactElement) => {
     </ThemeProvider>
   );
 
-  return { history };
+  return { history, view };
 };
