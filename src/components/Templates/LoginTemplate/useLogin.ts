@@ -18,7 +18,7 @@ export const useLogin = () => {
   const [token, setToken] = useSessionStorage("@token");
   const params = useParams();
   const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
+    useSessionStorage("cliente");
 
   const navigate = useNavigate();
 
@@ -56,13 +56,15 @@ export const useLogin = () => {
 
         const is_high_level = decoded?.perfis?.some(
           (perfil) =>
-            perfil === RolesEnum.ROLE_ADMIN || perfil === RolesEnum.ROLE_GERENTE || perfil === RolesEnum.ROLE_COLABORADOR || perfil === RolesEnum.ROLE_SUPORTE
+            perfil === RolesEnum.ROLE_ADMIN ||
+            perfil === RolesEnum.ROLE_GERENTE ||
+            perfil === RolesEnum.ROLE_COLABORADOR ||
+            perfil === RolesEnum.ROLE_SUPORTE
         );
 
         if (is_high_level) {
           toast.success("Login efetuado com sucesso");
           setAgendamentoSession({
-            ...agendamentoSession,
             uuidUsuario: decoded.uuid,
             usuarioCpfCnpj: decoded.sub,
             roles: decoded.perfis,
@@ -77,7 +79,6 @@ export const useLogin = () => {
           Cliente.getByUsuario({ uuidUsuario: decoded.uuid })
             .then(({ data }) => {
               setAgendamentoSession({
-                ...agendamentoSession,
                 uuidUsuario: decoded.uuid,
                 uuidCliente: data.uuid,
                 roles: decoded.perfis,

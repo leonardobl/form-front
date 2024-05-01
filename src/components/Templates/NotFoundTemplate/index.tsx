@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
-import { Button } from "../../Atoms/Button/styles";
+import { Button } from "../../Atoms/Button";
 import { useNavigate } from "react-router-dom";
 
 export const NotFoundTemplate = () => {

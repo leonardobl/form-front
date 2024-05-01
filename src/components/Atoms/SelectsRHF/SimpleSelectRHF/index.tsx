@@ -11,7 +11,7 @@ import Select, {
 } from "react-select";
 import { IoCloseOutline } from "react-icons/io5";
 
-export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
+export const SimpleSelectRHF = React.forwardRef<SelectInstance, Props>(
   function ReactSelect<
     Option,
     IsMulti extends boolean = false,
@@ -136,6 +136,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         <Select
           {...props}
           name={props.name}
+          required={false}
           ref={ref}
           components={{ DropdownIndicator, ClearIndicator }}
           theme={(theme) => ({ ...theme, borderRadius: 10 })}

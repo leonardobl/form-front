@@ -148,7 +148,7 @@ export class Agendamento {
 
   static async retornarStatusIniciado({
     uuid,
-  }:{
+  }: {
     uuid: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuid}/retornar-status-iniciado`);
@@ -159,7 +159,7 @@ export class Agendamento {
     uuidCliente,
   }: {
     uuidAgendamento: string;
-    uuidCliente: string;
+    uuidCliente?: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-cliente`, {
       uuid: uuidCliente,

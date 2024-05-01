@@ -37,7 +37,10 @@ export const ButtonOptions = ({
 
   const isIntern = sessionAgendamento?.roles?.some(
     (regra) =>
-      regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE || regra === RolesEnum.ROLE_COLABORADOR || regra === RolesEnum.ROLE_SUPORTE
+      regra === RolesEnum.ROLE_ADMIN ||
+      regra === RolesEnum.ROLE_GERENTE ||
+      regra === RolesEnum.ROLE_COLABORADOR ||
+      regra === RolesEnum.ROLE_SUPORTE
   );
 
   function onRescheduling() {
@@ -61,7 +64,9 @@ export const ButtonOptions = ({
       isIntern
         ? navigate(`/novo-agendamento?id=${agendamento?.uuid}`)
         : navigate(
-            `/agendamento/${agendamento.tipoAtendimento?.toLowerCase()}`
+            `/agendamento/${
+              agendamento.uuid
+            }/${agendamento.tipoAtendimento?.toLowerCase()}?reagendamento=true`
           );
 
       setIsLoad(false);
@@ -105,16 +110,16 @@ export const ButtonOptions = ({
             </div>
           )}
 
-        {agendamento.status === StatusAgendamentoEnum.INICIADO && 
-        [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_GERENTE].some((role) => sessionAgendamento?.roles?.includes(role)) && (
-          <div>
+        {agendamento.status === StatusAgendamentoEnum.INICIADO &&
+          [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_GERENTE].some((role) =>
+            sessionAgendamento?.roles?.includes(role)
+          ) && (
+            <div>
               <div>
-                <button onClick={handleReturnStatus}>
-                  Retornar status
-                </button>
+                <button onClick={handleReturnStatus}>Retornar status</button>
               </div>
             </div>
-        )}
+          )}
 
         {agendamento.status === StatusAgendamentoEnum.AGENDADO && (
           <div>
