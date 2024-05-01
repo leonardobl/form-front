@@ -22,16 +22,21 @@ export const useFormResidenceRescheduling = () => {
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
 
-  const { watch, control, handleSubmit, setValue } =
-    useForm<IReagendamentoForm>({
-      defaultValues: {
-        uuidDelivery: "",
-        diaAgendado: "",
-        horaAgendada: "",
-      },
-      mode: "onChange",
-      resolver: zodResolver(schema),
-    });
+  const {
+    watch,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IReagendamentoForm>({
+    defaultValues: {
+      uuidDelivery: "",
+      diaAgendado: "",
+      horaAgendada: "",
+    },
+    mode: "onChange",
+    resolver: zodResolver(schema),
+  });
 
   useEffect(() => {
     setDate(null);
@@ -110,5 +115,6 @@ export const useFormResidenceRescheduling = () => {
     control,
     handleSubmit,
     watch,
+    errors,
   };
 };

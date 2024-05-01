@@ -20,11 +20,11 @@ export const useResidence = () => {
   const { setIsLoad } = useContextSite();
   const [modal, setModal] = useState<IModalProps>({ isOpen: false });
   const navigate = useNavigate();
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
+  const [cliente] = useSessionStorage("cliente");
   const { uuidAgendamento } = useParams();
   const [searchParams] = useSearchParams();
   const reagendamento = !!(searchParams.get("reagendamento") === "true");
+
   function onSubmitReagendamentoForm(data: IReagendamentoForm) {
     setModal({ isOpen: true, dataForm: data });
   }
@@ -33,16 +33,11 @@ export const useResidence = () => {
     setIsLoad(true);
 
     const PAYLOAD: IReagendamentoProps = {
-      // diaAgendado: data.diaAgendado.toLocaleDateString().split("/").reverse().join("-"),
       diaAgendado: modal.dataForm.diaAgendado,
       horaAgendada: modal.dataForm.horaAgendada,
       uuidAgendamento,
       uuidDelivery: modal.dataForm.uuidDelivery,
     };
-
-    console.log(PAYLOAD);
-
-    return;
 
     Agendamento.reagendar(PAYLOAD)
       .then(({ data }) => {
@@ -72,7 +67,7 @@ export const useResidence = () => {
         if (token) {
           Agendamento.vincularAgendamentoAoCliente({
             uuidAgendamento: data.uuid,
-            uuidCliente: agendamentoSession?.uuidCliente,
+            uuidCliente: cliente.uuidCliente,
           }).then(() => {
             navigate(`/agendamento/${data.uuid}/servicos`);
             return;

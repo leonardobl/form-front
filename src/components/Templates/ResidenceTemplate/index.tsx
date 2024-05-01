@@ -7,6 +7,7 @@ import { Title } from "../../Atoms/Title";
 import { MyModal } from "../../Atoms/MyModal";
 import { FormResidenceScheduling } from "../../Molecules/FormResidenceScheduling";
 import { FormResidenceRescheduling } from "../../Molecules/FormResidenceRescheduling";
+import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const ResidenceTemplate = () => {
   const {
@@ -31,7 +32,9 @@ export const ResidenceTemplate = () => {
             onRequestClose={() => setModal({ isOpen: false })}
           >
             <S.ModalContent>
-              <p>{`Confirma sua vistoria para o dia ${modal?.dataForm?.diaAgendado} às ${modal?.dataForm?.horaAgendada}? `}</p>
+              <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
+                modal?.dataForm?.diaAgendado
+              )} às ${modal?.dataForm?.horaAgendada}? `}</p>
               <Button onClick={handleReagendamento}>Confirmar</Button>
             </S.ModalContent>
           </MyModal>

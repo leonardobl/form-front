@@ -8,6 +8,7 @@ import { useFormResidenceRescheduling } from "./useFormResidenceRescheduling";
 import { IReagendamentoForm } from "../../../types/agendamento";
 import { ISelectOptions } from "../../../types/inputs";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
+import { MessageErroForm } from "../../Atoms/MessageErroForm";
 
 interface IFormResidenceReschedulingProps extends ComponentProps<"form"> {
   onSubmitForm: (data: IReagendamentoForm) => void;
@@ -28,6 +29,7 @@ export const FormResidenceRescheduling = ({
     control,
     handleSubmit,
     watch,
+    errors,
   } = useFormResidenceRescheduling();
 
   return (
@@ -41,6 +43,7 @@ export const FormResidenceRescheduling = ({
               <SimpleSelectRHF
                 required
                 label="Cidade"
+                inputId="cidade"
                 options={cidadesOptions}
                 placeholder={"Selecione a uma das nossas unidades"}
                 value={cidadesOptions.find((item) => item.value === value)}
@@ -50,6 +53,9 @@ export const FormResidenceRescheduling = ({
               />
             )}
           />
+          {errors?.uuidDelivery?.message && (
+            <MessageErroForm>{errors.uuidDelivery.message}</MessageErroForm>
+          )}
         </div>
         <div>
           <Text>
@@ -67,6 +73,7 @@ export const FormResidenceRescheduling = ({
                 minDate={new Date()}
                 label="Data"
                 required
+                id="data"
                 disabled={!watch("uuidDelivery")}
                 excludeDates={diasIndisponiveis}
                 onChange={(e) => {
@@ -78,6 +85,9 @@ export const FormResidenceRescheduling = ({
               />
             )}
           />
+          {errors?.diaAgendado?.message && (
+            <MessageErroForm>{errors.diaAgendado.message}</MessageErroForm>
+          )}
         </div>
         <div>
           <Controller
@@ -86,6 +96,7 @@ export const FormResidenceRescheduling = ({
             render={({ field: { value, onChange } }) => (
               <SimpleSelectRHF
                 label="Horário"
+                inputId="horario"
                 isDisabled={!watch("diaAgendado")}
                 value={
                   horariosOptions?.find((item) => item.value === value) || null
@@ -96,6 +107,9 @@ export const FormResidenceRescheduling = ({
               />
             )}
           />
+          {errors?.horaAgendada?.message && (
+            <MessageErroForm>{errors.horaAgendada.message}</MessageErroForm>
+          )}
         </div>
 
         <div>
