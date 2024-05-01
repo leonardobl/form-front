@@ -65,10 +65,6 @@ export const useResidence = () => {
   }
 
   function handleSubmitAgendamentoForm(data: IAgendamentoCadastroForm) {
-    console.log(data);
-
-    return;
-
     setIsLoad(true);
 
     Agendamento.postV2(data)

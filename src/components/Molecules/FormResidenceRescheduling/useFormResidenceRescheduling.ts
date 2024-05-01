@@ -1,8 +1,19 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useEffect, useState } from "react";
 import { ISelectOptions } from "../../../types/inputs";
 import { toast } from "react-toastify";
 import { addDays } from "date-fns";
 import { Delivery } from "../../../services/Delivery";
+import { useForm } from "react-hook-form";
+import { Controller } from "react-hook-form";
+import { IReagendamentoForm } from "../../../types/agendamento";
+import { z } from "zod";
+
+const schema = z.object({
+  diaAgendado: z.string().min(1, "Você precisa selecionar um dia"),
+  horaAgendada: z.string().min(1, "Você precisa selecionar um horario"),
+  uuidDelivery: z.string().min(1, "Você precisa selecionar uma cidade"),
+});
 
 export const useFormResidenceRescheduling = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
@@ -11,13 +22,25 @@ export const useFormResidenceRescheduling = () => {
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
 
+  const { watch, control, handleSubmit, setValue } =
+    useForm<IReagendamentoForm>({
+      defaultValues: {
+        uuidDelivery: "",
+        diaAgendado: "",
+        horaAgendada: "",
+      },
+      mode: "onChange",
+      resolver: zodResolver(schema),
+    });
+
   useEffect(() => {
     setDate(null);
+    setValue("diaAgendado", "");
 
-    if (reagendamentoForm?.uuidDelivery) {
+    if (watch("uuidDelivery")) {
       setIsLoading(true);
       Delivery.getDiasIndisponiveis({
-        uuidDelivery: reagendamentoForm.uuidDelivery,
+        uuidDelivery: watch("uuidDelivery"),
       })
         .then(({ data }) => {
           const options = data.map((item) => addDays(new Date(item), 1));
@@ -32,7 +55,7 @@ export const useFormResidenceRescheduling = () => {
         )
         .finally(() => setIsLoading(false));
     }
-  }, [reagendamentoForm?.uuidDelivery]);
+  }, [watch("uuidDelivery")]);
 
   useEffect(() => {
     Delivery.get()
@@ -55,13 +78,13 @@ export const useFormResidenceRescheduling = () => {
   }, []);
 
   useEffect(() => {
-    setReagendamentoForm((prev) => ({ ...prev, horaAgendada: null }));
+    setValue("horaAgendada", "");
     if (date) {
       const newDate = date.toLocaleDateString().split("/").reverse().join("-");
 
-      if (reagendamentoForm?.uuidDelivery) {
+      if (watch("uuidDelivery")) {
         Delivery.getHorariosDisponiveis({
-          uuidDelivery: reagendamentoForm?.uuidDelivery,
+          uuidDelivery: watch("uuidDelivery"),
           dataAgendamento: newDate,
         }).then(({ data }) => {
           const options = data.map((item) => ({
@@ -83,5 +106,9 @@ export const useFormResidenceRescheduling = () => {
     diasIndisponiveis,
     horariosOptions,
     setDate,
+    Controller,
+    control,
+    handleSubmit,
+    watch,
   };
 };
