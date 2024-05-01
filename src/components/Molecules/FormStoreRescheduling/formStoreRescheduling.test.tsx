@@ -1,19 +1,9 @@
 import { FormStoreRescheduling } from "./index";
-import {
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  logRoles,
-  act,
-} from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { renderComponente } from "../../../utils/renderComponente";
 import { MockLojas } from "../../../Mocks/MockLojas";
 import { MockHorarios } from "../../../Mocks/MockHorarios";
-import { MockDiasIndisponiveis } from "../../../Mocks/MockDiasIndisponiveis";
-
-import { useFormStoreRescheduling } from "./useFormStoreRescheduling";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 
 jest.mock("./useFormStoreRescheduling", () => {
@@ -62,7 +52,9 @@ describe("<FormStoreRescheduling />", () => {
   test("Deve submeter o formulario ao preencher os dados e click no botão avançar", async () => {
     const mockSubmitForm = jest.fn();
 
-    renderComponente(<FormStoreRescheduling onSubmitForm={mockSubmitForm} />);
+    const { history } = renderComponente(
+      <FormStoreRescheduling onSubmitForm={mockSubmitForm} />
+    );
 
     userEvent.click(screen.getByRole("combobox", { name: "Loja *" }));
 
@@ -70,7 +62,9 @@ describe("<FormStoreRescheduling />", () => {
 
     fireEvent.focus(screen.getByRole("textbox", { name: "Data *" }));
 
-    userEvent.click(await screen.findByText(new Date().getDate()));
+    const date = await screen.findAllByText(new Date().getDate());
+
+    userEvent.click(date[0]);
 
     userEvent.click(
       await screen.findByRole("combobox", {
