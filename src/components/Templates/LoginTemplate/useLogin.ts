@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
-import { maskCnpj, maskCpf, removeDigitos } from "../../../utils/masks";
+import { removeDigitos } from "../../../utils/masks";
 import { IAutenticacaoForm, IDecodedToken } from "../../../types/autenticacao";
 import { RolesEnum } from "../../../enums/roles";
 import { Cliente } from "../../../services/Cliente";
@@ -10,51 +10,14 @@ import { Autenticacao } from "../../../services/Autenticacao";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useNavigate, useParams } from "react-router-dom";
 import { Agendamento } from "../../../services/Agendamento";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-const schema = z.object({
-  cpfCNPJ: z.string().min(14, "CPF/CNPJ invalido"),
-  senha: z.string().min(1, "Campo obrigatorio"),
-});
 
 export const useLogin = () => {
   const { setIsLoad } = useContextSite();
   const [token, setToken] = useSessionStorage("@token");
   const params = useParams();
+  const navigate = useNavigate();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("cliente");
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<IAutenticacaoForm>({
-    mode: "onChange",
-    defaultValues: {
-      cpfCNPJ: "",
-      senha: "",
-    },
-    resolver: zodResolver(schema),
-  });
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    let newValue = "";
-
-    if (watch("cpfCNPJ")?.length > 14) {
-      newValue = maskCnpj(watch("cpfCNPJ")) as string;
-      setValue("cpfCNPJ", newValue);
-
-      return;
-    }
-    newValue = maskCpf(watch("cpfCNPJ")) as string;
-    setValue("cpfCNPJ", newValue);
-  }, [watch("cpfCNPJ")]);
 
   async function onSubmitForm(data: IAutenticacaoForm) {
     setIsLoad(true);
@@ -111,10 +74,9 @@ export const useLogin = () => {
                     uuidCliente: data.uuid,
                   })
                     .then(() => {
-                      // navigate(
-                      //   `/agendamento/${params.uuidAgendamento}/servicos`
-                      // );
-                      navigate("/meus-agendamentos");
+                      navigate(
+                        `/agendamento/${params?.uuidAgendamento}/servicos`
+                      );
                     })
                     .catch(
                       ({
@@ -157,10 +119,6 @@ export const useLogin = () => {
   }
 
   return {
-    navigate,
-    handleSubmit,
-    register,
-    errors,
     onSubmitForm,
   };
 };
