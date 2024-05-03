@@ -7,7 +7,7 @@ import { maskCnpj, maskCpf } from "../../../utils/masks";
 import { z } from "zod";
 
 const schema = z.object({
-  cpfCNPJ: z.string().min(14, "CPF/CNPJ invalido"),
+  cpfCNPJ: z.string().min(1, "Campo obrigatorio").min(14, "CPF/CNPJ invalido"),
   senha: z.string().min(1, "Campo obrigatorio"),
 });
 
@@ -19,7 +19,7 @@ export const useFormLogin = () => {
     watch,
     formState: { errors },
   } = useForm<IAutenticacaoForm>({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       cpfCNPJ: "",
       senha: "",
