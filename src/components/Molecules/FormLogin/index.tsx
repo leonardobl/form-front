@@ -19,6 +19,7 @@ export const FormLogin = ({ onSubmitForm, ...rest }: IFormLoginProps) => {
         <InputRHF
           {...register("cpfCNPJ")}
           label="CPF/ CNPJ"
+          id="login"
           required
           maxLength={18}
         />
@@ -32,6 +33,7 @@ export const FormLogin = ({ onSubmitForm, ...rest }: IFormLoginProps) => {
           {...register("senha")}
           label="Senha"
           required
+          id="password"
           type="password"
         />
 

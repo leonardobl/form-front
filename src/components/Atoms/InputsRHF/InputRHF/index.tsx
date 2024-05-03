@@ -24,6 +24,7 @@ export const InputRHF = React.forwardRef<HTMLInputElement, InputCustomProps>(
           <S.Label
             $isRequired={!!props.required}
             data-variant-modal={props.variant === "modal"}
+            htmlFor={props?.id}
           >
             {props.label}
             <span>*</span>
