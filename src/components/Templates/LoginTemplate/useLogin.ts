@@ -10,45 +10,63 @@ import { Autenticacao } from "../../../services/Autenticacao";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useNavigate, useParams } from "react-router-dom";
 import { Agendamento } from "../../../services/Agendamento";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const schema = z.object({
+  cpfCNPJ: z.string().min(14, "CPF/CNPJ invalido"),
+  senha: z.string().min(1, "Campo obrigatorio"),
+});
 
 export const useLogin = () => {
-  const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
-  const { isLoad, setIsLoad, setTokenContext } = useContextSite();
-  const [isDisable, setIsDisable] = useState(false);
+  const { setIsLoad } = useContextSite();
   const [token, setToken] = useSessionStorage("@token");
   const params = useParams();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("cliente");
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<IAutenticacaoForm>({
+    mode: "onChange",
+    defaultValues: {
+      cpfCNPJ: "",
+      senha: "",
+    },
+    resolver: zodResolver(schema),
+  });
+
   const navigate = useNavigate();
 
-  function handleCpf(e: string) {
+  useEffect(() => {
     let newValue = "";
 
-    if (e.length > 14) {
-      newValue = maskCnpj(e) as string;
-      setForm((prev) => ({ ...prev, cpfCNPJ: newValue }));
+    if (watch("cpfCNPJ")?.length > 14) {
+      newValue = maskCnpj(watch("cpfCNPJ")) as string;
+      setValue("cpfCNPJ", newValue);
 
       return;
     }
-    newValue = maskCpf(e) as string;
-    setForm((prev) => ({ ...prev, cpfCNPJ: newValue }));
-  }
+    newValue = maskCpf(watch("cpfCNPJ")) as string;
+    setValue("cpfCNPJ", newValue);
+  }, [watch("cpfCNPJ")]);
 
-  async function handleSubmit(e: React.SyntheticEvent) {
-    e.preventDefault();
+  async function onSubmitForm(data: IAutenticacaoForm) {
     setIsLoad(true);
-    setIsDisable(true);
 
     const PAYLOAD: IAutenticacaoForm = {
-      cpfCNPJ: removeDigitos(form.cpfCNPJ),
-      senha: form.senha,
+      cpfCNPJ: removeDigitos(data.cpfCNPJ),
+      senha: data.senha,
     };
 
     await Autenticacao.post(PAYLOAD)
       .then(({ data }) => {
         setToken(data.token);
-        setTokenContext(data.token);
         return data.token;
       })
       .then((token) => {
@@ -87,8 +105,6 @@ export const useLogin = () => {
               toast.success("Login efetuado com sucesso");
 
               setTimeout(() => {
-                setIsDisable(false);
-
                 if (params?.uuidAgendamento) {
                   Agendamento.vincularAgendamentoAoCliente({
                     uuidAgendamento: params?.uuidAgendamento,
@@ -123,7 +139,6 @@ export const useLogin = () => {
               }) => {
                 toast.error(mensagem);
                 sessionStorage.removeItem("@token");
-                setTokenContext("");
               }
             );
       })
@@ -138,17 +153,14 @@ export const useLogin = () => {
       )
       .finally(() => {
         setIsLoad(false);
-        setIsDisable(false);
       });
   }
 
   return {
-    form,
-    setForm,
-    handleCpf,
-    isDisable,
-    isLoad,
     navigate,
     handleSubmit,
+    register,
+    errors,
+    onSubmitForm,
   };
 };

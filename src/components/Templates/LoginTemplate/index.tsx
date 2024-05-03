@@ -3,37 +3,40 @@ import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { Button } from "../../Atoms/Button";
 import { useLogin } from "./useLogin";
-import { Input } from "../../Atoms/Inputs/Input";
+import { MessageErroForm } from "../../Atoms/MessageErroForm";
+import { InputRHF } from "../../Atoms/InputsRHF/InputRHF";
 
 export const LoginTemplate = () => {
-  const { form, setForm, handleCpf, handleSubmit, navigate } = useLogin();
+  const { handleSubmit, navigate, errors, onSubmitForm, register } = useLogin();
 
   return (
     <S.Container>
       <Title className="title">LOGIN</Title>
 
-      <S.Form onSubmit={handleSubmit}>
+      <S.Form onSubmit={handleSubmit(onSubmitForm)}>
         <div>
-          <Input
+          <InputRHF
+            {...register("cpfCNPJ")}
             label="CPF/ CNPJ"
             required
             maxLength={18}
-            value={form?.cpfCNPJ}
-            onChange={(e) => {
-              handleCpf(e.target.value);
-            }}
           />
+
+          {errors?.cpfCNPJ?.message && (
+            <MessageErroForm>{errors?.cpfCNPJ?.message}</MessageErroForm>
+          )}
         </div>
         <div>
-          <Input
+          <InputRHF
+            {...register("senha")}
             label="Senha"
             required
             type="password"
-            value={form.senha}
-            onChange={(e) =>
-              setForm((prev) => ({ ...prev, senha: e.target.value }))
-            }
           />
+
+          {errors?.senha?.message && (
+            <MessageErroForm>{errors?.senha?.message}</MessageErroForm>
+          )}
         </div>
 
         {/* <S.ButtonForgot
