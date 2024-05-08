@@ -19,13 +19,14 @@ export const useUserRegistration = () => {
 
   function handleSubmit(data: IClienteForm) {
     const PAYLOAD: IClienteForm = {
-      ...data,
+      email: data.email,
+      endereco: data.endereco,
+      nome: data.nome,
+      senha: data.senha,
+      telefone: data.telefone,
       cpfCnpj: removerCaracteresEspeciais(data.cpfCnpj),
       tipo: TipoClienteEnum.PARTICULAR,
     };
-
-    console.log(PAYLOAD);
-    return;
 
     setIsLoad(true);
 
@@ -49,7 +50,13 @@ export const useUserRegistration = () => {
           navigate("/agendamento/login");
         }, 2000);
       })
-      .catch((error) => toast.error(error?.message))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
       .finally(() => {
         setIsLoad(false);
       });
