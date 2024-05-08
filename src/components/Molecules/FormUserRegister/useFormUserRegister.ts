@@ -19,35 +19,32 @@ interface IIClienteFormProps extends IClienteForm {
 const schema = z
   .object({
     cpfCnpj: z
-      .string()
-      .min(1, "Campo obrigatorio")
+      .string({ message: "Campo obrigatorio" })
       .min(14, "CPF/CNPJ invalido"),
-    email: z.string().min(1, "Campo obrigatorio").email("Email invalido"),
+    email: z.string({ message: "Campo obrigatorio" }).email("Email invalido"),
     nome: z
-      .string()
-      .min(1, "Campo obrigatorio")
-      .min(8, "Favor preencher o nome completo"),
+      .string({ message: "Campo obrigatorio" })
+      .min(8, "Por favor preencher o nome completo"),
     senha: z
-      .string()
-      .min(1, "Campo obrigatorio")
-      .min(3, "Minimo de 3 caracteres"),
+      .string({ message: "Campo obrigatorio" })
+      .min(6, "Minimo de 6 caracteres"),
     confirmSenha: z
-      .string()
-      .min(1, "Campo obrigatorio")
-      .min(3, "Minimo de 3 caracteres"),
+      .string({ message: "Campo obrigatorio" })
+      .min(6, "Minimo de 6 caracteres"),
     telefone: z
-      .union([z.string().min(14, "Telefone invalido"), z.string().length(0)])
+      .string({ message: "Campo obrigatorio" })
+      .min(14, "Telefone invalido")
       .optional()
-      .transform((e) => (e === "" ? undefined : e)),
+      .or(z.literal("")),
     tipo: z.string().optional(),
     endereco: z.object({
-      bairro: z.string().min(1, "Campo obrigatorio"),
-      cep: z.string().min(1, "Campo obrigatorio").min(18, "Cep invalido"),
-      cidade: z.string().min(1, "Campo obrigatorio"),
+      bairro: z.string({ message: "Campo obrigatorio" }),
+      cep: z.string({ message: "Campo obrigatorio" }).min(18, "Cep invalido"),
+      cidade: z.string({ message: "Campo obrigatorio" }),
       complemento: z.string().optional(),
-      logradouro: z.string().min(1, "Campo obrigatorio"),
-      numero: z.string().min(1, "Campo obrigatorio"),
-      uf: z.string().min(1, "Campo obrigatorio"),
+      logradouro: z.string({ message: "Campo obrigatorio" }),
+      numero: z.string({ message: "Campo obrigatorio" }),
+      uf: z.string({ message: "Campo obrigatorio" }),
     }),
   })
   .refine(
@@ -91,7 +88,7 @@ export const useFormUserRegister = () => {
       },
     },
     mode: "onSubmit",
-    criteriaMode: "all",
+    criteriaMode: "firstError",
     resolver: zodResolver(schema),
   });
 
