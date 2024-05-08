@@ -16,6 +16,24 @@ interface IIClienteFormProps extends IClienteForm {
   confirmSenha: string;
 }
 
+const enderecoSchema = z.object({
+  bairro: z
+    .string({ message: "Campo obrigatorio" })
+    .min(1, "Campo obrigatorio"),
+  cep: z.string({ message: "Campo obrigatorio" }).min(9, "Cep invalido"),
+  cidade: z
+    .string({ message: "Campo obrigatorio" })
+    .min(1, "Campo obrigatorio"),
+  complemento: z.string().optional(),
+  logradouro: z
+    .string({ message: "Campo obrigatorio" })
+    .min(1, "Campo obrigatorio"),
+  numero: z
+    .string({ message: "Campo obrigatorio" })
+    .min(1, "Campo obrigatorio"),
+  uf: z.string({ message: "Campo obrigatorio" }).min(1, "Campo obrigatorio"),
+});
+
 const schema = z
   .object({
     cpfCnpj: z
@@ -24,35 +42,26 @@ const schema = z
     email: z.string({ message: "Campo obrigatorio" }).email("Email invalido"),
     nome: z
       .string({ message: "Campo obrigatorio" })
-      .min(8, "Por favor preencher o nome completo"),
-    senha: z
-      .string({ message: "Campo obrigatorio" })
-      .min(6, "Minimo de 6 caracteres"),
-    confirmSenha: z
-      .string({ message: "Campo obrigatorio" })
-      .min(6, "Minimo de 6 caracteres"),
+      .min(8, "Por favor preencha o nome completo"),
+    senha: z.string().min(6, "Minimo de 6 caracteres"),
+    confirmSenha: z.string().min(6, "Minimo de 6 caracteres"),
     telefone: z
       .string({ message: "Campo obrigatorio" })
       .min(14, "Telefone invalido")
       .optional()
       .or(z.literal("")),
     tipo: z.string().optional(),
-    endereco: z.object({
-      bairro: z.string({ message: "Campo obrigatorio" }),
-      cep: z.string({ message: "Campo obrigatorio" }).min(18, "Cep invalido"),
-      cidade: z.string({ message: "Campo obrigatorio" }),
-      complemento: z.string().optional(),
-      logradouro: z.string({ message: "Campo obrigatorio" }),
-      numero: z.string({ message: "Campo obrigatorio" }),
-      uf: z.string({ message: "Campo obrigatorio" }),
-    }),
+    endereco: enderecoSchema,
   })
-  .refine(
-    (value) => {
-      return value.senha !== value.confirmSenha;
-    },
-    { message: "As senhas não conferem", path: ["confirmSenha"] }
-  );
+  .superRefine(({ confirmSenha, senha }, ctx) => {
+    if (senha !== confirmSenha) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["confirmSenha"],
+        message: "As senhas não conferem",
+      });
+    }
+  });
 
 export const useFormUserRegister = () => {
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
@@ -87,8 +96,7 @@ export const useFormUserRegister = () => {
         uuid: "",
       },
     },
-    mode: "onSubmit",
-    criteriaMode: "firstError",
+
     resolver: zodResolver(schema),
   });
 

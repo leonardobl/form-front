@@ -7,6 +7,7 @@ import { useFormUserRegister } from "./useFormUserRegister";
 import { IClienteForm } from "../../../types/cliente";
 import { ISelectOptions } from "../../../types/inputs";
 import { MessageErroForm } from "../../Atoms/MessageErroForm";
+import { error } from "console";
 
 interface IFormUserRegister extends ComponentProps<"form"> {
   onSubmitForm: (data: IClienteForm) => void;
@@ -175,15 +176,10 @@ export const FormUserRegister = ({
 
       <div>
         <InputRHF
+          {...register("senha")}
           label="Senha"
           required
           type="password"
-          // ref={inpSenhaRef}
-          // value={form?.senha}
-          // onChange={(e) => {
-          //   setForm((prev) => ({ ...prev, senha: e.target.value }));
-          //   checkPass && checkPass();
-          // }}
         />
         {errors?.senha?.message && (
           <MessageErroForm>{errors?.senha?.message}</MessageErroForm>
@@ -192,11 +188,10 @@ export const FormUserRegister = ({
 
       <div>
         <InputRHF
+          {...register("confirmSenha")}
           type="password"
           label="Confirmar Senha"
           required
-          // ref={inpConfirSenha}
-          // onChange={(e) => checkPass && checkPass()}
         />
         {errors?.confirmSenha?.message && (
           <MessageErroForm>{errors?.confirmSenha?.message}</MessageErroForm>
