@@ -42,9 +42,13 @@ const schema = z
     email: z.string({ message: "Campo obrigatorio" }).email("Email invalido"),
     nome: z
       .string({ message: "Campo obrigatorio" })
-      .min(8, "Por favor preencha o nome completo"),
-    senha: z.string().min(6, "Minimo de 6 caracteres"),
-    confirmSenha: z.string().min(6, "Minimo de 6 caracteres"),
+      .min(12, "Por favor preencha o nome completo"),
+    senha: z
+      .string({ message: "Campo obrigatorio" })
+      .min(6, "Minimo de 6 caracteres"),
+    confirmSenha: z
+      .string({ message: "Campo obrigatorio" })
+      .min(6, "Minimo de 6 caracteres"),
     telefone: z
       .string({ message: "Campo obrigatorio" })
       .min(14, "Telefone invalido")
@@ -53,14 +57,9 @@ const schema = z
     tipo: z.string().optional(),
     endereco: enderecoSchema,
   })
-  .superRefine(({ confirmSenha, senha }, ctx) => {
-    if (senha !== confirmSenha) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["confirmSenha"],
-        message: "As senhas não conferem",
-      });
-    }
+  .refine(({ confirmSenha, senha }) => confirmSenha === senha, {
+    path: ["confirmSenha"],
+    message: "As senhas não coferem",
   });
 
 export const useFormUserRegister = () => {
@@ -96,7 +95,8 @@ export const useFormUserRegister = () => {
         uuid: "",
       },
     },
-
+    mode: "onChange",
+    criteriaMode: "firstError",
     resolver: zodResolver(schema),
   });
 
@@ -115,8 +115,6 @@ export const useFormUserRegister = () => {
   }, []);
 
   function handleCep() {
-    console.log("CEp");
-
     if (watch("endereco.cep").length === 9) {
       setIsLoad(true);
       setTimeout(() => {
