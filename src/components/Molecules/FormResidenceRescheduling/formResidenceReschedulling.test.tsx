@@ -55,7 +55,7 @@ describe("<FormStoreRescheduling />", () => {
   });
 
   test("Deve submeter o formulario ao preencher os dados e click no botão avançar", async () => {
-    const { history } = renderComponente(
+    renderComponente(
       <FormResidenceRescheduling onSubmitForm={MockSubmitForm} />
     );
 
