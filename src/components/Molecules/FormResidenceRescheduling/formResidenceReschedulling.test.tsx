@@ -3,7 +3,10 @@ import { FormResidenceRescheduling } from ".";
 import { MockLojas } from "../../../mocks/mock.lojas";
 import { MockHorarios } from "../../../Mocks/MockHorarios";
 import userEvent from "@testing-library/user-event";
-import { reverseToIsoDate } from "../../../utils/dateTransform";
+import {
+  reverseToBrDate,
+  reverseToIsoDate,
+} from "../../../utils/dateTransform";
 import { renderComponente } from "../../../utils/renderComponente";
 
 jest.mock("./useFormResidenceRescheduling", () => {
@@ -60,11 +63,11 @@ describe("<FormStoreRescheduling />", () => {
 
     userEvent.click(screen.getByText(MockLojas[0].label));
 
-    fireEvent.focus(screen.getByRole("textbox", { name: "Data *" }));
+    const inputDate = await screen.findByRole("textbox", { name: "Data *" });
 
-    userEvent.click(
-      await screen.findByText(new RegExp(`\\b${new Date().getDate()}\\b`))
-    );
+    fireEvent.change(inputDate, {
+      target: { value: reverseToBrDate(new Date().toLocaleDateString()) },
+    });
 
     userEvent.click(
       await screen.findByRole("combobox", {
