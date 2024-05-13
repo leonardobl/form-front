@@ -39,7 +39,10 @@ const schema = z
     cpfCnpj: z
       .string({ message: "Campo obrigatorio" })
       .min(14, "CPF/CNPJ invalido"),
-    email: z.string({ message: "Campo obrigatorio" }).email("Email invalido"),
+    email: z
+      .string({ message: "Campo obrigatorio" })
+      .email("Email invalido")
+      .optional(),
     nome: z
       .string({ message: "Campo obrigatorio" })
       .min(12, "Por favor preencha o nome completo"),

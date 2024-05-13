@@ -21,7 +21,7 @@ jest.mock("./useFormResidenceRescheduling", () => {
         cidadesOptions: MockLojas,
         horariosOptions: MockHorarios,
         diasIndisponiveis: [],
-        // submitForm: jest.fn(),
+        submitForm: jest.fn(),
       };
     },
   };

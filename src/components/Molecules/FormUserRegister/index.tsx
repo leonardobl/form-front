@@ -96,6 +96,7 @@ export const FormUserRegister = ({
           {...register("endereco.logradouro")}
           label="Endereço (Rua)"
           required
+          id="rua"
         />
 
         {errors?.endereco?.logradouro?.message && (
@@ -110,6 +111,7 @@ export const FormUserRegister = ({
           {...register("endereco.numero")}
           label="Número"
           required
+          id="numero"
           type="number"
         />
         {errors?.endereco?.numero?.message && (
@@ -127,7 +129,12 @@ export const FormUserRegister = ({
       </div>
 
       <div>
-        <InputRHF {...register("endereco.bairro")} label="Bairro" required />
+        <InputRHF
+          {...register("endereco.bairro")}
+          label="Bairro"
+          required
+          id="bairro"
+        />
         {errors?.endereco?.bairro?.message && (
           <MessageErroForm>{errors?.endereco?.bairro?.message}</MessageErroForm>
         )}
@@ -141,6 +148,7 @@ export const FormUserRegister = ({
             <SimpleSelectRHF
               label="UF"
               required
+              inputId="estado"
               key={`${Math.random()}`}
               options={ufOptions}
               value={ufOptions.find((_) => _.value === value) || null}
@@ -179,7 +187,9 @@ export const FormUserRegister = ({
           {...register("senha")}
           label="Senha"
           required
+          id="senha"
           type="password"
+          data-testid="senha"
         />
         {errors?.senha?.message && (
           <MessageErroForm>{errors?.senha?.message}</MessageErroForm>
@@ -191,7 +201,9 @@ export const FormUserRegister = ({
           {...register("confirmSenha")}
           type="password"
           label="Confirmar Senha"
+          id="confirmaSenha"
           required
+          data-testid="confirmSenha"
         />
         {errors?.confirmSenha?.message && (
           <MessageErroForm>{errors?.confirmSenha?.message}</MessageErroForm>
