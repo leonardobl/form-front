@@ -80,7 +80,8 @@ export const Container = styled.details`
 
     margin-top: 6px;
 
-    button {
+    button,
+    a {
       color: #fff;
       text-align: center;
       font-family: Mulish;

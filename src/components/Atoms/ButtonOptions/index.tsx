@@ -37,7 +37,10 @@ export const ButtonOptions = ({
 
   const isIntern = sessionAgendamento?.roles?.some(
     (regra) =>
-      regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE || regra === RolesEnum.ROLE_COLABORADOR || regra === RolesEnum.ROLE_SUPORTE
+      regra === RolesEnum.ROLE_ADMIN ||
+      regra === RolesEnum.ROLE_GERENTE ||
+      regra === RolesEnum.ROLE_COLABORADOR ||
+      regra === RolesEnum.ROLE_SUPORTE
   );
 
   function onRescheduling() {
@@ -105,16 +108,16 @@ export const ButtonOptions = ({
             </div>
           )}
 
-        {agendamento.status === StatusAgendamentoEnum.INICIADO && 
-        [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_GERENTE].some((role) => sessionAgendamento?.roles?.includes(role)) && (
-          <div>
+        {agendamento.status === StatusAgendamentoEnum.INICIADO &&
+          [RolesEnum.ROLE_ADMIN, RolesEnum.ROLE_GERENTE].some((role) =>
+            sessionAgendamento?.roles?.includes(role)
+          ) && (
+            <div>
               <div>
-                <button onClick={handleReturnStatus}>
-                  Retornar status
-                </button>
+                <button onClick={handleReturnStatus}>Retornar status</button>
               </div>
             </div>
-        )}
+          )}
 
         {agendamento.status === StatusAgendamentoEnum.AGENDADO && (
           <div>
@@ -161,6 +164,14 @@ export const ButtonOptions = ({
             </div> */}
           </>
         )}
+
+        <div>
+          <div>
+            <a href="/assets/docs/checklist-mapa.pdf" download>
+              Baixar Checklist
+            </a>
+          </div>
+        </div>
       </div>
       <div className="summary-chevron-down">
         <S.ArrowDown src="/assets/svgs/arrow-right.svg" alt="seta direita" />
