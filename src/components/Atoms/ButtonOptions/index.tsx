@@ -167,7 +167,10 @@ export const ButtonOptions = ({
 
         <div>
           <div>
-            <a href="/assets/docs/checklist-mapa.pdf" download>
+            <a
+              href={`/assets/docs/checklist-${process.env.REACT_APP_PROJECT}.pdf`}
+              download
+            >
               Baixar Checklist
             </a>
           </div>
