@@ -94,10 +94,9 @@ export const useLogin = () => {
                     uuidCliente: data.uuid,
                   })
                     .then(() => {
-                      // navigate(
-                      //   `/agendamento/${params.uuidAgendamento}/servicos`
-                      // );
-                      navigate("/meus-agendamentos");
+                      navigate(
+                        `/agendamento/${params.uuidAgendamento}/servicos`
+                      );
                     })
                     .catch(
                       ({

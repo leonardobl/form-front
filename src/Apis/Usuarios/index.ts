@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const ApiUsuarios = axios.create({
   baseURL: process.env.REACT_APP_USUARIOS_API_URL,
@@ -25,5 +26,14 @@ ApiUsuarios.interceptors.request.use(
     return config;
   },
 
-  (error) => Promise.reject(error)
+  (error) => {
+    if (error.response.status === 403) {
+      localStorage.clear();
+      sessionStorage.clear();
+      toast.error("Token expirado");
+      window.location.href = "/agendamento/login";
+    }
+
+    return Promise.reject(error);
+  }
 );
