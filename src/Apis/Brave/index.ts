@@ -8,30 +8,33 @@ export const ApiBrave = axios.create({
   },
 });
 
-ApiBrave.interceptors.request.use(
-  (config) => {
-    let token;
-    if (typeof window !== "undefined") {
-      const localToken = sessionStorage.getItem("@token");
+ApiBrave.interceptors.request.use((config) => {
+  let token = "";
+  if (typeof window !== "undefined") {
+    const localToken = localStorage.getItem("@token");
 
-      if (localToken) {
-        token = localToken.replaceAll('"', "");
-      }
-
-      if (token && config.headers !== undefined) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+    if (localToken) {
+      token = localToken.replaceAll('"', "");
     }
 
-    return config;
-  },
+    if (token && config.headers !== undefined) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
 
+  return config;
+});
+
+ApiBrave.interceptors.response.use(
+  (response) => response,
   (error) => {
     if (error.response.status === 403) {
-      localStorage.clear();
-      sessionStorage.clear();
       toast.error("Token expirado");
-      window.location.href = "/agendamento/login";
+
+      setTimeout(() => {
+        localStorage.clear();
+        window.location.href = "/agendamento/login";
+      }, 3000);
     }
 
     return Promise.reject(error);
