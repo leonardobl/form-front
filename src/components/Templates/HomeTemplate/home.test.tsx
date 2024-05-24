@@ -1,27 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { Home } from "../../Pages/home";
-import { ThemeProvider } from "styled-components";
-import { Theme } from "../../../Global/Theme";
-import userEvent from "@testing-library/user-event";
-import { createMemoryHistory } from "history";
-import { Router } from "react-router-dom";
-
-function renderHome() {
-  const history = createMemoryHistory();
-
-  render(
-    <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
-      <Router location={history.location} navigator={history}>
-        <Home />
-      </Router>
-    </ThemeProvider>
-  );
-
-  return { history };
-}
+import { renderComponente } from "../../../utils/renderComponente";
 
 test("Deve exibir 2 botoes", () => {
-  renderHome();
+  renderComponente(<Home />);
 
   const storeButton = screen.getByRole("button", { name: "Loja Física" });
   const residenceButton = screen.getByRole("button", {
@@ -33,23 +15,22 @@ test("Deve exibir 2 botoes", () => {
 });
 
 test("Deve direcionar para '/agendamento/loja'", async () => {
-  const { history } = renderHome();
+  const { history } = renderComponente(<Home />);
 
   const storeButton = screen.getByRole("button", { name: "Loja Física" });
 
-  userEvent.click(storeButton);
+  user.click(storeButton);
 
   expect(history.location.pathname).toEqual("/agendamento/loja");
 });
 
-test("Deve direcionar para '/agendamento/domicilio'", () => {
-  const { history } = renderHome();
+test("Deve direcionar para '/agendamento/domicilio'", async () => {
+  const { history } = renderComponente(<Home />);
 
   const residenceButton = screen.getByRole("button", {
     name: "Domicílio",
   });
-
-  userEvent.click(residenceButton);
+  user.click(residenceButton);
 
   expect(history.location.pathname).toEqual("/agendamento/domicilio");
 });

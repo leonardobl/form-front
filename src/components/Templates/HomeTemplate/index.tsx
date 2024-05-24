@@ -1,15 +1,11 @@
 import React from "react";
-import { LayoutTemplate } from "../LayoutTemplate";
 import * as S from "./styles";
 import { Button } from "../../Atoms/Button";
 import { Text } from "../../Atoms/Text";
-import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
-import { Link } from "react-router-dom";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { useHome } from "./useHome";
 
 export const HomeTemplate = () => {
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
+  const { navigate } = useHome();
 
   return (
     <S.Container>
@@ -21,32 +17,13 @@ export const HomeTemplate = () => {
         </Text>
 
         <S.FlexWrapper>
-          <Link to={`/agendamento/${TipoAtendimentoEnum.LOJA.toLowerCase()}`}>
-            <Button
-              onClick={() =>
-                setAgendamentoSession({
-                  ...agendamentoSession,
-                  tipoAtendimento: TipoAtendimentoEnum.LOJA,
-                })
-              }
-            >
-              Loja Física
-            </Button>
-          </Link>
-          <Link
-            to={`/agendamento/${TipoAtendimentoEnum.DOMICILIO.toLowerCase()}`}
-          >
-            <Button
-              onClick={() =>
-                setAgendamentoSession({
-                  ...agendamentoSession,
-                  tipoAtendimento: TipoAtendimentoEnum.DOMICILIO,
-                })
-              }
-            >
-              Domicílio
-            </Button>
-          </Link>
+          <Button onClick={() => navigate("/agendamento/loja")}>
+            Loja Física
+          </Button>
+
+          <Button onClick={() => navigate("/agendamento/domicilio")}>
+            Domicílio
+          </Button>
         </S.FlexWrapper>
       </S.Wrapper>
     </S.Container>
