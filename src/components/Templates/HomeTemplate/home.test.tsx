@@ -1,46 +1,55 @@
 import { render, screen } from "@testing-library/react";
-import user from "@testing-library/user-event";
 import { Home } from "../../Pages/home";
 import { ThemeProvider } from "styled-components";
 import { Theme } from "../../../Global/Theme";
-import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
-import { ContextProvider } from "../../../context/Context";
-import { BrowserRouter } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";
 
-function customWrapper({ children }: { children: ReactJSXElement }) {
-  return (
-    <>
-      <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
-        <ContextProvider>
-          <BrowserRouter>{children}</BrowserRouter>
-        </ContextProvider>
-      </ThemeProvider>
-    </>
+function renderHome() {
+  const history = createMemoryHistory();
+
+  render(
+    <ThemeProvider theme={Theme[process.env.REACT_APP_PROJECT]}>
+      <Router location={history.location} navigator={history}>
+        <Home />
+      </Router>
+    </ThemeProvider>
   );
+
+  return { history };
 }
 
 test("Deve exibir 2 botoes", () => {
-  render(<Home />, { wrapper: customWrapper });
+  renderHome();
 
   const storeButton = screen.getByRole("button", { name: "Loja Física" });
   const residenceButton = screen.getByRole("button", {
     name: "Domicílio",
-    exact: true,
   });
 
   expect(storeButton).toBeInTheDocument();
   expect(residenceButton).toBeInTheDocument();
 });
 
-test("Deve direcionar para '/loja'", async () => {
-  render(<Home />, { wrapper: customWrapper });
+test("Deve direcionar para '/agendamento/loja'", async () => {
+  const { history } = renderHome();
 
   const storeButton = screen.getByRole("button", { name: "Loja Física" });
-  user.click(storeButton);
 
-  const title = screen.getByText("Loja Física");
+  userEvent.click(storeButton);
 
-  console.log(title);
+  expect(history.location.pathname).toEqual("/agendamento/loja");
+});
 
-  expect(title).toBeInTheDocument();
+test("Deve direcionar para '/agendamento/domicilio'", () => {
+  const { history } = renderHome();
+
+  const residenceButton = screen.getByRole("button", {
+    name: "Domicílio",
+  });
+
+  userEvent.click(residenceButton);
+
+  expect(history.location.pathname).toEqual("/agendamento/domicilio");
 });
