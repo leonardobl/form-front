@@ -281,3 +281,16 @@ export interface IAtendimentoConcessionariaProps
   extends IAtendimentoConcessionariaForm {
   uuid: string;
 }
+
+export interface IReembolsoForm {
+  agencia?: string;
+  codigoDoBanco?: string;
+  chavepix?: string;
+  conta?: string;
+  operacao?: string;
+  titular?: string;
+}
+
+export interface IReembolsoProps extends IReembolsoForm {
+  uuid: string;
+}

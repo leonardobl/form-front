@@ -15,6 +15,7 @@ import {
   IPageAgendamentoDTO,
   IPutAgendamentoProps,
   IReagendamentoProps,
+  IReembolsoProps,
 } from "../../types/agendamento";
 
 import objectToParams from "../../utils/objectToParams";
@@ -142,12 +143,12 @@ export class Agendamento {
     return ApiBrave.put(`${basePath}/${uuid}/definir-horario`, rest);
   }
 
-  static async cancelar({
-    uuid,
-  }: {
-    uuid: string;
-  }): Promise<AxiosResponse<IAgendamentoDTO>> {
-    return ApiBrave.put(`${basePath}/${uuid}/cancelar`);
+  static async cancelar(
+    props: IReembolsoProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuid, ...rest } = props;
+
+    return ApiBrave.put(`${basePath}/${uuid}/cancelar`, rest);
   }
 
   static async confirmarPagamento({
@@ -160,7 +161,7 @@ export class Agendamento {
 
   static async retornarStatusIniciado({
     uuid,
-  }:{
+  }: {
     uuid: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuid}/retornar-status-iniciado`);

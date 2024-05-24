@@ -18,6 +18,7 @@ export const MyModal = ({ children, ...rest }: IMyModalProps) => {
           bottom: 0,
           zIndex: 9999,
           backgroundColor: "rgba(0, 0, 0, 0.5)",
+          // backgroundColor: "#fff",
         },
         content: {
           // border: "1px solid #ccc",

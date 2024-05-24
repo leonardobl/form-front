@@ -9,6 +9,8 @@ import { RolesEnum } from "../../../enums/roles";
 import { useNavigate } from "react-router-dom";
 import { MyModal } from "../MyModal";
 import { IAgendamentoDTO } from "../../../types/agendamento";
+import { Text } from "../Text";
+import { useButtonOptions } from "./useButtonOptions";
 
 interface IButtonOptions extends ComponentProps<"details"> {
   disabled?: boolean;
@@ -29,19 +31,16 @@ export const ButtonOptions = ({
   handleTicket,
   agendamento,
 }: IButtonOptions) => {
-  const { setIsLoad } = useContextSite();
-  const [isOpen, setISOpen] = useState(false);
-  const [sessionAgendamento, setSessionagendamento] =
-    useSessionStorage("agendamentoSession");
-  const navigate = useNavigate();
-
-  const isIntern = sessionAgendamento?.roles?.some(
-    (regra) =>
-      regra === RolesEnum.ROLE_ADMIN ||
-      regra === RolesEnum.ROLE_GERENTE ||
-      regra === RolesEnum.ROLE_COLABORADOR ||
-      regra === RolesEnum.ROLE_SUPORTE
-  );
+  const {
+    isIntern,
+    isOpen,
+    navigate,
+    setISOpen,
+    setIsLoad,
+    sessionAgendamento,
+    setSessionagendamento,
+    handleCancel,
+  } = useButtonOptions();
 
   function onRescheduling() {
     setIsLoad(true);
@@ -182,27 +181,37 @@ export const ButtonOptions = ({
 
       <MyModal isOpen={isOpen} onRequestClose={() => setISOpen(false)}>
         <S.ModalContent>
-          <p>Tem certeza que deseja cancelar sua vistoria?</p>
+          <S.HeaderModal>
+            <S.WrapperButtonClose>
+              <button onClick={() => setISOpen(false)}>X</button>
+            </S.WrapperButtonClose>
 
-          <div className="wrapperButtons">
-            <Button
-              data-variant-danger
-              onClick={() => {
-                setISOpen(false);
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button
-              data-variant-dark
-              onClick={() => {
-                setISOpen(false);
-                onCancel();
-              }}
-            >
-              Confirmar
-            </Button>
-          </div>
+            <Text>
+              Tem certeza que deseja{" "}
+              <span className="textStrong">cancelar</span> sua vistoria?
+            </Text>
+          </S.HeaderModal>
+          <S.WrapperText>
+            <h4>Reembolso via PIX</h4>
+            <p>
+              Agendamentos pagos via <span>PIX</span> o reembolso acontecerá em{" "}
+              <span>até 72h</span>.
+            </p>
+
+            <h4>Reembolso via Boleto</h4>
+            <p>
+              Agendamentos pagos via <span>Boleto</span> terão reembolso em{" "}
+              <span>até 72h após compensação</span> com solicitação via
+              preenchimento de formulário.
+            </p>
+
+            <S.WrapperButtonsModal>
+              <button onClick={() => setISOpen(false)}>Cancelar</button>
+              <Button onClick={() => handleCancel(agendamento)}>
+                Confirmar
+              </Button>
+            </S.WrapperButtonsModal>
+          </S.WrapperText>
         </S.ModalContent>
       </MyModal>
     </S.Container>
