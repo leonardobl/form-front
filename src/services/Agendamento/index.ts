@@ -172,7 +172,7 @@ export class Agendamento {
     uuidCliente,
   }: {
     uuidAgendamento: string;
-    uuidCliente: string;
+    uuidCliente?: string;
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuidAgendamento}/vincular-cliente`, {
       uuid: uuidCliente,

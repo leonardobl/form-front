@@ -10,7 +10,7 @@ export const ProtectedClientRoute = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [agendamentoSession] = useSessionStorage("agendamentoSession");
+  const [agendamentoSession] = useSessionStorage("cliente");
 
   const [token] = useSessionStorage("@token");
 

@@ -63,7 +63,9 @@ export const ButtonOptions = ({
       isIntern
         ? navigate(`/novo-agendamento?id=${agendamento?.uuid}`)
         : navigate(
-            `/agendamento/${agendamento.tipoAtendimento?.toLowerCase()}`
+            `/agendamento/${
+              agendamento.uuid
+            }/${agendamento.tipoAtendimento?.toLowerCase()}?reagendamento=true`
           );
 
       setIsLoad(false);
