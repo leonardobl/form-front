@@ -62,9 +62,9 @@ describe("<FormStoreRescheduling />", () => {
 
     fireEvent.focus(screen.getByRole("textbox", { name: "Data *" }));
 
-    const date = await screen.findAllByText(new Date().getDate());
-
-    userEvent.click(date[0]);
+    userEvent.click(
+      await screen.findByText(new RegExp(`\\b${new Date().getDate()}\\b`))
+    );
 
     userEvent.click(
       await screen.findByRole("combobox", {

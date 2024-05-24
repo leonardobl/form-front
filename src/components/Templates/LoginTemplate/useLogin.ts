@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
-import { maskCnpj, maskCpf, removeDigitos } from "../../../utils/masks";
+import { removeDigitos } from "../../../utils/masks";
 import { IAutenticacaoForm, IDecodedToken } from "../../../types/autenticacao";
 import { RolesEnum } from "../../../enums/roles";
 import { Cliente } from "../../../services/Cliente";
@@ -12,43 +12,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Agendamento } from "../../../services/Agendamento";
 
 export const useLogin = () => {
-  const [form, setForm] = useState<IAutenticacaoForm>({} as IAutenticacaoForm);
-  const { isLoad, setIsLoad, setTokenContext } = useContextSite();
-  const [isDisable, setIsDisable] = useState(false);
+  const { setIsLoad } = useContextSite();
   const [token, setToken] = useSessionStorage("@token");
   const params = useParams();
+  const navigate = useNavigate();
   const [agendamentoSession, setAgendamentoSession] =
     useSessionStorage("cliente");
 
-  const navigate = useNavigate();
-
-  function handleCpf(e: string) {
-    let newValue = "";
-
-    if (e.length > 14) {
-      newValue = maskCnpj(e) as string;
-      setForm((prev) => ({ ...prev, cpfCNPJ: newValue }));
-
-      return;
-    }
-    newValue = maskCpf(e) as string;
-    setForm((prev) => ({ ...prev, cpfCNPJ: newValue }));
-  }
-
-  async function handleSubmit(e: React.SyntheticEvent) {
-    e.preventDefault();
+  async function onSubmitForm(data: IAutenticacaoForm) {
     setIsLoad(true);
-    setIsDisable(true);
 
     const PAYLOAD: IAutenticacaoForm = {
-      cpfCNPJ: removeDigitos(form.cpfCNPJ),
-      senha: form.senha,
+      cpfCNPJ: removeDigitos(data.cpfCNPJ),
+      senha: data.senha,
     };
 
     await Autenticacao.post(PAYLOAD)
       .then(({ data }) => {
         setToken(data.token);
-        setTokenContext(data.token);
         return data.token;
       })
       .then((token) => {
@@ -88,8 +69,6 @@ export const useLogin = () => {
               toast.success("Login efetuado com sucesso");
 
               setTimeout(() => {
-                setIsDisable(false);
-
                 if (params?.uuidAgendamento) {
                   Agendamento.vincularAgendamentoAoCliente({
                     uuidAgendamento: params?.uuidAgendamento,
@@ -138,17 +117,10 @@ export const useLogin = () => {
       )
       .finally(() => {
         setIsLoad(false);
-        setIsDisable(false);
       });
   }
 
   return {
-    form,
-    setForm,
-    handleCpf,
-    isDisable,
-    isLoad,
-    navigate,
-    handleSubmit,
+    onSubmitForm,
   };
 };
