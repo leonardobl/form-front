@@ -7,7 +7,6 @@ import { Home } from "./components/Pages/home";
 import { Theme } from "./Global/Theme";
 import { GlobalStyles } from "./Global/GlobalStyles";
 import { Store } from "./components/Pages/Store";
-import { Residence } from "./components/Pages/Residence";
 import "react-toastify/dist/ReactToastify.css";
 import { LoginRegister } from "./components/Pages/LoginRegister";
 import { Login } from "./components/Pages/Login";
@@ -38,6 +37,10 @@ import { PixConfirmation } from "./components/Pages/PixConfirmation";
 import { ScheduleConfirmation } from "./components/Pages/ScheduleConfirmation";
 import { ConfirmAppointment } from "./components/Pages/ConfirmAppointment";
 import { DocDownloads } from "./components/Atoms/DocDownload";
+import { Delivery } from "./components/Pages/Delivery";
+import { AddressServiceRegistration } from "./components/Pages/AddressServiceRegistration";
+import { Settings } from "./components/Pages/Settings";
+import { Concessionaire } from "./components/Pages/Concessionaire";
 
 export const App = () => {
   return (
@@ -48,6 +51,13 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route index element={<Navigate to={"/agendamento"} />} />
+            <Route path="configuracoes" element={<LayoutTemplate />}>
+              <Route index element={<Settings />} />
+              <Route
+                path="cadastro-concessionaria"
+                element={<Concessionaire />}
+              />
+            </Route>
             <Route
               path="/download-comprovante/:id"
               element={<DocDownloads />}
@@ -76,6 +86,7 @@ export const App = () => {
 
             <Route path="/agendamento" element={<LayoutTemplate />}>
               <Route index element={<Home />} />
+
               <Route
                 path="loja"
                 element={
@@ -88,7 +99,7 @@ export const App = () => {
                 path="domicilio"
                 element={
                   <ProtectedClientRoute>
-                    <Residence />
+                    <Delivery />
                   </ProtectedClientRoute>
                 }
               />
@@ -119,6 +130,11 @@ export const App = () => {
                 <Route
                   path="cadastro-endereco"
                   element={<AddressRegistration />}
+                />
+
+                <Route
+                  path="cadastro-endereco-servico"
+                  element={<AddressServiceRegistration />}
                 />
                 <Route path="emplacamento" element={<License />} />
                 <Route path="vistoria" element={<Survey />} />

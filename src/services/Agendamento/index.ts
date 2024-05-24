@@ -7,6 +7,7 @@ import {
   IAgendamentoCadastroForm,
   IAgendamentoDTO,
   IAgendamentosDoDiaDTO,
+  IAtendimentoConcessionariaProps,
   IAtendimentoDomiciliarForm,
   IConfirmacaoHorarioProps,
   IGetAgendamentosProps,
@@ -79,6 +80,17 @@ export class Agendamento {
     const { uuid, ...rest } = props;
     return ApiBrave.put(
       `${basePath}/${uuid}/atualizar-endereco-atendimento`,
+      rest
+    );
+  }
+
+  static async AtualizarConcessionariaAtedimento(
+    props: IAtendimentoConcessionariaProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuid, ...rest } = props;
+
+    return ApiBrave.put(
+      `${basePath}/${uuid}/atualizar-concessionaria-atendimento`,
       rest
     );
   }

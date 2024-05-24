@@ -81,6 +81,7 @@ export const useLogin = () => {
                 uuidUsuario: decoded.uuid,
                 uuidCliente: data.uuid,
                 roles: decoded.perfis,
+                tipo: data.tipo,
               });
 
               toast.success("Login efetuado com sucesso");

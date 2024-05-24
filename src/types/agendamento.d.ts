@@ -1,8 +1,8 @@
 import { StatusAgendamentoEnum } from "../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
-import { TipoClienteEnum } from "../enums/tipoCliente";
 import { TipoServicoEnum } from "../enums/tipoServico";
 import { tipoVeiculoEnum } from "../enums/tipoVeiculo";
+import { IClienteDTO } from "./cliente";
 import { IPageableObject, ISortObject } from "./delivery";
 import { IFaturaDTO } from "./pagamento";
 import { IPageRequest } from "./page";
@@ -12,15 +12,15 @@ export interface IAgendamentoDTO {
   atendimentoDomiciliar: IAtendimentoDomiciliarDTO;
   cliente: IClienteDTO;
   codigoPagamento: string;
+  concessionaria: boolean;
   dataPagamento: string;
   dataRealizacao: string;
   delivery: IDeliveryDTO;
   diaAgendado: string;
   emEspera: boolean;
   fatura: IFaturaDTO;
-  horaAgendada: string;
-  loja: IDeliveryDTO;
-  uuidVistoriador: string;
+  horaAgendada: HoraAgendada;
+  loja: ILojaDTO;
   primeiroAgendamento: string;
   revistoria: boolean;
   servico: IServicoDTO;
@@ -28,6 +28,7 @@ export interface IAgendamentoDTO {
   tipoAtendimento: TipoAtendimentoEnum;
   uuid: string;
   veiculo: IVeiculoDTO;
+  vistoriador: IColaboradorDTO;
 }
 
 export interface IDeliveryDTO {
@@ -58,28 +59,14 @@ export interface IVeiculoDTO {
   tipo: tipoVeiculoEnum;
 }
 
-export interface IClienteDTO {
-  cpfCnpj: string;
-  email: string;
-  endereco: IEnderecoDTO;
+export interface IColaboradorDTO {
+  cpf: string;
+  dataNascimento: string;
   nome: string;
-  telefone: string;
-  tipo: TipoClienteEnum;
+  sexo: string;
+  tipo: string;
   uuid: string;
-}
-
-export interface IPageClienteDTO {
-  content: IClienteDTO[];
-  empty: boolean;
-  first: boolean;
-  last: boolean;
-  number: number;
-  numberOfElements: number;
-  pageable: IPageableObject;
-  size: number;
-  sort: ISortObject;
-  totalElements: number;
-  totalPages: number;
+  uuidUsuario: string;
 }
 
 export interface IEnderecoDTO {
@@ -270,8 +257,9 @@ export type DownloadProps = {
 };
 
 export interface IAgendamentoCadastroForm {
-  uuidDelivery: string;
-  uuidLoja: string;
+  uuidDelivery?: string;
+  uuidLoja?: string;
+  concessionaria?: boolean;
 }
 
 export interface IAgendamentoHorarioForm {
@@ -280,5 +268,16 @@ export interface IAgendamentoHorarioForm {
 }
 
 export interface IConfirmacaoHorarioProps extends IAgendamentoHorarioForm {
+  uuid: string;
+}
+
+export interface IAtendimentoConcessionariaForm {
+  nome: string;
+  telefone: string;
+  uuidConcessionaria: string;
+}
+
+export interface IAtendimentoConcessionariaProps
+  extends IAtendimentoConcessionariaForm {
   uuid: string;
 }

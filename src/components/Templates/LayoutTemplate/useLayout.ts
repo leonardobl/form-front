@@ -23,6 +23,7 @@ export const useLayout = () => {
   const { setTokenContext, tokenContext } = useContextSite();
 
   const isCliente = agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE);
+  const isAdmin = agendamentoSession?.roles?.includes(RolesEnum.ROLE_ADMIN);
 
   function logout() {
     setIsLoad(true);
@@ -50,5 +51,6 @@ export const useLayout = () => {
     setModalIsOpen,
     isCliente,
     LINKS,
+    isAdmin,
   };
 };

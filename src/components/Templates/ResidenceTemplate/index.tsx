@@ -123,3 +123,4 @@ export const ResidenceTemplate = () => {
     </S.Container>
   );
 };
+
