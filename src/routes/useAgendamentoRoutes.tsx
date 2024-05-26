@@ -5,6 +5,8 @@ import { Home } from "../components/Pages/home";
 import { ProtectedClientRoute } from "../components/Atoms/ProtectedClientRoute";
 import { Store } from "../components/Pages/Store";
 import { Delivery } from "../components/Pages/Delivery";
+import { PixCancellation } from "../components/Pages/PixCancellation";
+import { TicketCancellation } from "../components/Pages/TicketCancellation";
 
 export const useAgendamentoRoutes = () => {
   return (
@@ -26,6 +28,8 @@ export const useAgendamentoRoutes = () => {
           </ProtectedClientRoute>
         }
       />
+      <Route path="pagamento/cancelamento-pix" index element={<PixCancellation />}/>
+      <Route path="pagamento/cancelamento-boleto" index element={<TicketCancellation />}/>
     </Route>
   );
 };
