@@ -251,48 +251,56 @@ export const StoresTemplate = () => {
         onRequestClose={() => setModalStart({ open: false })}
       >
         <S.formModal onSubmit={iniciarVistoria}>
-          <div>
-            <SimpleSelect
-              options={baitasOptions}
-              label="Baia de Atendimento"
-              value={baitasOptions?.find(
-                (item) => item?.value === modalStart?.uuidBaia
-              )}
-              onChange={(e: ISelectOptions) =>
-                setModalStart((prev) => ({ ...prev, uuidBaia: e?.value }))
-              }
-              required
-            />
-          </div>
-          <div>
-            <SimpleSelect
-              options={vistoriadoresOptions}
-              required
-              label="Vistoriador"
-              value={vistoriadoresOptions?.find(
-                (item) => item?.value === modalStart?.uuidVistoriador
-              )}
-              onChange={(e: ISelectOptions) =>
-                setModalStart((prev) => ({
-                  ...prev,
-                  uuidVistoriador: e?.value,
-                }))
-              }
-            />
-          </div>
-          <S.WrapperButtons>
-            <Button
-              data-variant-danger
-              type="button"
-              onClick={() => {
-                const reset = resetValues(modalStart);
-                setModalStart({ ...reset, open: false });
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button>Salvar</Button>
-          </S.WrapperButtons>
+          <S.HeaderModal>
+            <S.WrapperButtonClose>
+              <button onClick={() => setModalStart({ open: false })}>X</button>
+            </S.WrapperButtonClose>
+          </S.HeaderModal>
+          <S.WrapperText>
+            <p>{`Escolha `}<b>{`a baia de atendimento e o vistoriador `}</b>{`a qual será atribuída a vistoria.`}</p>
+            <div>
+              <SimpleSelect
+                options={baitasOptions}
+                label="Baia de Atendimento"
+                value={baitasOptions?.find(
+                  (item) => item?.value === modalStart?.uuidBaia
+                )}
+                onChange={(e: ISelectOptions) =>
+                  setModalStart((prev) => ({ ...prev, uuidBaia: e?.value }))
+                }
+                required
+              />
+            </div>
+            <div>
+              <SimpleSelect
+                options={vistoriadoresOptions}
+                required
+                label="Vistoriador"
+                value={vistoriadoresOptions?.find(
+                  (item) => item?.value === modalStart?.uuidVistoriador
+                )}
+                onChange={(e: ISelectOptions) =>
+                  setModalStart((prev) => ({
+                    ...prev,
+                    uuidVistoriador: e?.value,
+                  }))
+                }
+              />
+            </div>
+            <S.WrapperButtonsModal>
+              <Button
+                data-variant-danger
+                type="button"
+                onClick={() => {
+                  const reset = resetValues(modalStart);
+                  setModalStart({ ...reset, open: false });
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button>Salvar</Button>
+            </S.WrapperButtonsModal>
+          </S.WrapperText>
         </S.formModal>
       </CustomConfirmModal>
     </S.Container>

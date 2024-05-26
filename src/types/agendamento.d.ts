@@ -1,3 +1,4 @@
+import { LocalAtendimentoEnum } from "../enums/localAtendimento";
 import { StatusAgendamentoEnum } from "../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../enums/tipoAtendimento";
 import { TipoServicoEnum } from "../enums/tipoServico";
@@ -164,6 +165,7 @@ export interface IReagendamentoForm {
   uf?: string;
   uuidDelivery?: string;
   uuidLoja?: string;
+  localAtendimento?: string;
 }
 
 export interface IAgendamentoIniciarForm {

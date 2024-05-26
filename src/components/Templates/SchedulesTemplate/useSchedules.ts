@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { IPagination } from "../../../types/pagination";
@@ -7,6 +7,7 @@ import { useContextSite } from "../../../context/Context";
 import {
   IAgendamentoDTO,
   IGetAgendamentosProps,
+  IIniciarAgendamentoProps,
 } from "../../../types/agendamento";
 import { toast } from "react-toastify";
 import { RolesEnum } from "../../../enums/roles";
@@ -16,6 +17,14 @@ import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { Municipio } from "../../../services/Municipio";
 import { ISelectOptions } from "../../../types/inputs";
 import { maskCnpj, maskCpf } from "../../../utils/masks";
+import { IColaboradorCompletoDTO } from "../../../types/colaborador";
+import { Colaborador } from "../../../services/Colaborador";
+import { TipoColaboradorEnum } from "../../../enums/tipoColaborador";
+import { Loja } from "../../../services/Lojas";
+
+interface IModalStartProps extends IIniciarAgendamentoProps {
+  open: boolean;
+}
 
 export const useSchedules = () => {
   const isMobile = useMediaQuery({ maxWidth: "500px" });
@@ -23,8 +32,8 @@ export const useSchedules = () => {
     {} as IGetAgendamentosProps
   );
   const size = 5;
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
+  const [usuario, setUsuario] =
+    useSessionStorage("cliente");
   const [dateInitial, setDateInitial] = useState<Date>();
   const [dateFinal, setDateFinal] = useState<Date>();
   const { setIsLoad } = useContextSite();
@@ -40,27 +49,47 @@ export const useSchedules = () => {
   }));
 
   const [agendamentos, setAgendamentos] = useState<IAgendamentoDTO[]>([]);
-  const isCliente = agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE);
+  const isCliente = usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE);
   const [cidadeOptions, setCidadeoptions] = useState<ISelectOptions[]>([]);
   const [menuOpen, setMenuOpen] = useState(isMobile ? false : true);
+  const [modalStart, setModalStart] = useState<IModalStartProps>({
+    open: false,
+  });
+  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
+    {} as IColaboradorCompletoDTO
+  );
+  const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
+    ISelectOptions[]
+  >([]);
+  const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
 
-  function iniciarVistoria(uuidAgendamento: string) {
-    Agendamento.iniciar({ uuid: uuidAgendamento })
+  function iniciarVistoria(e: React.SyntheticEvent) {
+    e.preventDefault();
+
+    const PAYLOAD: IIniciarAgendamentoProps = {
+      uuid: modalStart?.uuid,
+      uuidBaia: modalStart?.uuidBaia,
+      uuidVistoriador: modalStart?.uuidVistoriador,
+    };
+
+    setIsLoad(true);
+    Agendamento.iniciar(PAYLOAD)
       .then(({ data }) => {
-        // setDetalheAgendamento(data.uuid);
-
-        window.open(
-          `/meus-agendamentos/agendamento?id=${uuidAgendamento}`,
-          "_self"
-        );
+        toast.success("Agendamento iniciado");
       })
       .catch(
         ({
           response: {
             data: { mensagem },
           },
-        }) => toast.error(mensagem)
-      );
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+        setModalStart({ open: false });
+      });
   }
 
   function handleCpf(e: string) {
@@ -122,7 +151,7 @@ export const useSchedules = () => {
   function getAgendamentos(filters: IGetAgendamentosProps) {
     const filtered = removeEmpty(filters);
 
-    const idCliente = isCliente ? agendamentoSession?.uuidCliente : null;
+    const idCliente = isCliente ? usuario?.uuidCliente : null;
 
     Agendamento.get({ ...filtered, idCliente })
       .then(({ data }) => {
@@ -172,6 +201,45 @@ export const useSchedules = () => {
     getAgendamentos({ size, page: 0 });
   }
 
+  const getColaborador = useCallback(async () => {
+    return Colaborador.atual().then(({ data }) => data);
+  }, []);
+
+  useEffect(() => {
+    getColaborador().then((data) => setColaborador(data));
+  }, [getColaborador]);
+
+  useEffect(() => {
+    if (modalStart?.open) {
+      let agendamento = agendamentos.find((agendamento) => agendamento.uuid === modalStart?.uuid);
+      Colaborador.listarPorLoja({
+        tipo: TipoColaboradorEnum.VISTORIADOR,
+        disponivel: true,
+        uuidLoja: colaborador?.loja?.uuid,
+      }).then(({ data }) => {
+        const options = data.map((item) => ({
+          value: item.uuid,
+          label: item.nome,
+          element: item,
+        }));
+
+        setVistoriadoresOptions(options);
+      });
+      if (agendamento.tipoAtendimento === TipoAtendimentoEnum.LOJA) 
+        Loja.getBaiasLivres({ uuid: colaborador?.loja?.uuid }).then(
+          ({ data }) => {
+            const options = data.map((item) => ({
+              value: item.uuid,
+              label: item.nome,
+            }));
+            setBaiaOptions(options);
+          }
+        );
+
+      return;
+    }
+  }, [modalStart?.open]);
+
   return {
     handleClear,
     pagination,
@@ -194,5 +262,9 @@ export const useSchedules = () => {
     iniciarVistoria,
     menuOpen,
     setMenuOpen,
+    modalStart,
+    setModalStart,
+    vistoriadoresOptions,
+    baitasOptions,
   };
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./styles";
 import { Title } from "../../Atoms/Title";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
@@ -16,6 +16,10 @@ import { ISelectOptions } from "../../../types/inputs";
 import { Status } from "../../Atoms/Status";
 import { IconEye } from "../../Atoms/IconEye";
 import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
+import { CustomConfirmModal } from "../../Atoms/CustomConfirmModal";
+import { resetValues } from "../../../utils/resetObject";
+import { IAgendamentoDTO } from "../../../types/agendamento";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 
 export const SchedulesTemplate = () => {
   const {
@@ -39,7 +43,13 @@ export const SchedulesTemplate = () => {
     menuOpen,
     setMenuOpen,
     handleCpf,
+    modalStart,
+    setModalStart,
+    vistoriadoresOptions,
+    baitasOptions,
   } = useSchedules();
+
+  const [agendamento, setAgendamento] = useState<IAgendamentoDTO>();
 
   return (
     <S.Container>
@@ -240,8 +250,12 @@ export const SchedulesTemplate = () => {
 
                 <OptionsSchedules
                   status={item?.status}
-                  handleStart={() => iniciarVistoria(item.uuid)}
-                  // handleAttribute={() => ""}
+                  handleStart={() =>
+                    setModalStart({
+                      open: true,
+                      uuid: item?.uuid,
+                    })
+                  }
                 />
               </div>
             </S.ListItemMobile>
@@ -279,9 +293,6 @@ export const SchedulesTemplate = () => {
               </p>
               <Status
                 status={item?.status}
-                onClick={() => {
-                  iniciarVistoria(item.uuid);
-                }}
               />
 
               <S.WrapperActions>
@@ -304,14 +315,79 @@ export const SchedulesTemplate = () => {
 
                 <OptionsSchedules
                   status={item?.status}
-                  handleStart={() => iniciarVistoria(item.uuid)}
-                  // handleAttribute={() => ""}
+                  handleStart={() => {
+                      setModalStart({
+                        open: true,
+                        uuid: item?.uuid,
+                      });
+                      setAgendamento(item);
+                    }
+                  }
                 />
               </S.WrapperActions>
             </S.ListItem>
           ))}
         </S.List>
       )}
+      <CustomConfirmModal
+        isOpen={modalStart?.open}
+        onRequestClose={() => setModalStart({ open: false })}
+      >
+        <S.formModal onSubmit={iniciarVistoria}>
+          <S.HeaderModal>
+            <S.WrapperButtonClose>
+              <button onClick={() => setModalStart({ open: false })}>X</button>
+            </S.WrapperButtonClose>
+          </S.HeaderModal>
+          <S.WrapperText>
+            <p>{`Escolha `}<b>{agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA &&`a baia de atendimento e `}</b><b>{`o vistoriador `}</b>{`a qual será atribuída a vistoria.`}</p>
+            {agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA && (
+            <div>
+              <SimpleSelect
+                options={baitasOptions}
+                label="Baia de Atendimento"
+                value={baitasOptions?.find(
+                  (item) => item?.value === modalStart?.uuidBaia
+                )}
+                onChange={(e: ISelectOptions) =>
+                  setModalStart((prev) => ({ ...prev, uuidBaia: e?.value }))
+                }
+                required
+              />
+            </div>
+            )}
+            <div>
+              <SimpleSelect
+                options={vistoriadoresOptions}
+                required
+                label="Vistoriador"
+                value={vistoriadoresOptions?.find(
+                  (item) => item?.value === modalStart?.uuidVistoriador
+                )}
+                onChange={(e: ISelectOptions) =>
+                  setModalStart((prev) => ({
+                    ...prev,
+                    uuidVistoriador: e?.value,
+                  }))
+                }
+              />
+            </div>
+            <S.WrapperButtonsModal>
+              <Button
+                data-variant-danger
+                type="button"
+                onClick={() => {
+                  const reset = resetValues(modalStart);
+                  setModalStart({ ...reset, open: false });
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button>Salvar</Button>
+            </S.WrapperButtonsModal>
+          </S.WrapperText>
+        </S.formModal>
+      </CustomConfirmModal>
       <Pagination
         maxPageNumbersDisplayed={isMobile ? 3 : 10}
         key={`${Math.random()} - ${pagination}`}

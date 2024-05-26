@@ -12,8 +12,6 @@ export const usePix = () => {
   const { setIsLoad } = useContextSite();
   const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
   const params = useParams();
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
   const navigate = useNavigate();
 
   // function acessarFatura() {

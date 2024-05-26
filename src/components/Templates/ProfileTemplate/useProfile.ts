@@ -26,17 +26,17 @@ export const useProfile = () => {
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const { setIsLoad } = useContextSite();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
+  const [usuario, setUsuario] =
+    useSessionStorage("cliente");
   const [token] = useSessionStorage("@token");
 
-  const isAdmGerente = agendamentoSession?.roles?.some(
+  const isAdmGerente = usuario?.roles?.some(
     (regra) =>
       regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE
   );
 
   const isCliente = !!(
-    agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE) && token
+    usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE) && token
   );
   const [formCliente, setFormCliente] = useState<IClienteForm>(
     {} as IClienteForm
@@ -61,7 +61,7 @@ export const useProfile = () => {
     setIsLoad(true);
     if (isCliente) {
       Cliente.getByUsuario({
-        uuidUsuario: agendamentoSession?.uuidUsuario,
+        uuidUsuario: usuario?.uuidUsuario,
       })
         .then(({ data }) => {
           const values: IClienteDTO = {
@@ -88,7 +88,7 @@ export const useProfile = () => {
     }
 
     Usuario.getByCpfCnpjCompleto({
-      cpfCnpj: agendamentoSession?.usuarioCpfCnpj,
+      cpfCnpj: usuario?.usuarioCpfCnpj,
     })
       .then(({ data }) => {
         const values: IUsuarioCompletoDTO = {

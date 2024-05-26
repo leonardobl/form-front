@@ -1,6 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { FormResidenceRescheduling } from ".";
-import { MockLojas } from "../../../mocks/mock.lojas";
 import { MockHorarios } from "../../../Mocks/MockHorarios";
 import userEvent from "@testing-library/user-event";
 import {
@@ -8,6 +7,7 @@ import {
   reverseToIsoDate,
 } from "../../../utils/dateTransform";
 import { renderComponente } from "../../../utils/renderComponente";
+import { MockLojas } from "../../../Mocks/mock.lojas";
 
 jest.mock("./useFormResidenceRescheduling", () => {
   const hook = jest.requireActual("./useFormResidenceRescheduling");

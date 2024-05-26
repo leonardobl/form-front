@@ -9,9 +9,9 @@ export const ProtectedAdminRoute = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [agendamentoSession] = useSessionStorage("agendamentoSession");
+  const [usuario] = useSessionStorage("cliente");
 
-  return !agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE) ? (
+  return !usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE) ? (
     children
   ) : (
     <Navigate to={"/agendamento"} />

@@ -10,7 +10,7 @@ export const ProtectedClientRoute = ({
 }: {
   children: JSX.Element;
 }) => {
-  const [agendamentoSession] = useSessionStorage("cliente");
+  const [usuario] = useSessionStorage("cliente");
 
   const [token] = useSessionStorage("@token");
 
@@ -22,14 +22,14 @@ export const ProtectedClientRoute = ({
   }
 
   useEffect(() => {
-    if (!agendamentoSession?.roles) return;
-    !agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE) &&
+    if (!usuario?.roles) return;
+    !usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE) &&
       handleRedirect();
-  }, [agendamentoSession?.uuidCliente]);
+  }, [usuario?.uuidCliente]);
 
   return !token ? (
     children
-  ) : agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE) ? (
+  ) : usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE) ? (
     children
   ) : (
     <Navigate to={"/"} />

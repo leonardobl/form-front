@@ -5,18 +5,11 @@ import { ContextProvider } from "./context/Context";
 import { BrowserRouter, Routes } from "react-router-dom";
 import { Theme } from "./Global/Theme";
 import { GlobalStyles } from "./Global/GlobalStyles";
-import { Store } from "./components/Pages/Store";
 import "react-toastify/dist/ReactToastify.css";
 import { useAgendamentoRoutes } from "./routes/useAgendamentoRoutes";
 import { useAgendamentoByIdRoutes } from "./routes/useAgendamentoByIdRoutes";
 import { useMainRoutes } from "./routes/useMainRoutes";
 import { useNovoAgendamentoRoutes } from "./routes/useNovoAgendamentoRoutes";
-import { Delivery } from "./components/Pages/Delivery";
-import { AddressServiceRegistration } from "./components/Pages/AddressServiceRegistration";
-import { Settings } from "./components/Pages/Settings";
-import { Concessionaire } from "./components/Pages/Concessionaire";
-import { PixCancellation } from "./components/Pages/PixCancellation";
-import { TicketCancellation } from "./components/Pages/TicketCancellation";
 
 export const App = () => {
   const AgendamentoRoutes = useAgendamentoRoutes();

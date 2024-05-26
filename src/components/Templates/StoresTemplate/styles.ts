@@ -194,14 +194,10 @@ export const TextNotFound = styled.p`
 `;
 
 export const formModal = styled.form`
-  border: 0.5px solid #000;
-  background: #fff;
-  width: 40.5rem;
-  height: 32.375rem;
-  padding: 7rem;
-  display: flex;
-  flex-direction: column;
-  gap: 3.5rem 0;
+width: 506px;
+height: fit-content;
+background: #e8e8e8;
+box-shadow: 4px 4px 16.3px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const WrapperButtons = styled.div`
@@ -235,5 +231,76 @@ export const WrapperInfo = styled.div`
     p:nth-child(2) {
       margin-top: 10px;
     }
+  }
+`;
+
+export const HeaderModal = styled.div`
+  padding: 5px 24px;
+
+  > p {
+    text-align: start;
+  }
+`;
+
+export const WrapperButtonClose = styled.div`
+  display: flex;
+  justify-content: end;
+
+  button {
+    color: #2d2d2d;
+    font-family: Mulish;
+    background-color: transparent;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 166.667% */
+  }
+`;
+
+export const WrapperText = styled.div`
+  padding: 24px;
+
+  > h4 {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+    margin-bottom: 10px;
+  }
+
+  > p {
+    color: #7c848b;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    margin-bottom: 24px;
+
+    span {
+      font-weight: 700;
+    }
+  }
+
+  p:nth-child(4) {
+    margin-bottom: 48px;
+  }
+`;
+
+export const WrapperButtonsModal = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 0 16px;
+
+  > :nth-child(1) {
+    background-color: transparent;
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
   }
 `;

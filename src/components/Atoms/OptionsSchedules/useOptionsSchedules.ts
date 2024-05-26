@@ -5,9 +5,9 @@ import { RolesEnum } from "../../../enums/roles";
 const RESOLCES = ["ATRIBUIR_VISTORIA", "ADMIN"];
 
 export const useOptionsSchedules = () => {
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
-  const isCliente = !!agendamentoSession?.roles?.includes(
+  const [usuario, setUsuario] =
+    useSessionStorage("cliente");
+  const isCliente = !!usuario?.roles?.includes(
     RolesEnum.ROLE_CLIENTE
   );
   const isAdmin = RESOLCES.some(

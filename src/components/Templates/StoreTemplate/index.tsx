@@ -6,6 +6,7 @@ import { FormStoreScheduling } from "../../Molecules/FormStoreScheduling";
 import { FormStoreRescheduling } from "../../Molecules/FormStoreRescheduling";
 import { MyModal } from "../../Atoms/MyModal";
 import { Button } from "../../Atoms/Button";
+import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const StoreTemplate = () => {
   const {
@@ -36,6 +37,27 @@ export const StoreTemplate = () => {
           <Button onClick={handleReagendamento}>Confirmar</Button>
         </S.ModalContent>
       </MyModal>
+      <MyModal
+          isOpen={modal.isOpen}
+          onRequestClose={() => setModal({ isOpen: false })}
+        >
+          <S.ModalContent>
+            <S.HeaderModal>
+              <S.WrapperButtonClose>
+                <button onClick={() => setModal({ isOpen: false })}>X</button>
+              </S.WrapperButtonClose>
+            </S.HeaderModal>
+            <S.WrapperText>
+              <p>{`Confirma sua vistoria para o dia `}<b>{`${reverseToBrDate(modal?.reagendamento?.diaAgendado)} às ${modal?.reagendamento?.horaAgendada}?`}</b></p>
+              <S.WrapperButtonsModal>
+                <button onClick={() => setModal({ isOpen: false })}>Cancelar</button>
+                <Button onClick={handleReagendamento}>
+                  Confirmar
+                </Button>
+              </S.WrapperButtonsModal>
+            </S.WrapperText>
+          </S.ModalContent>
+        </MyModal>
     </S.Container>
   );
 };

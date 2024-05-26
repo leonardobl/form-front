@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import user from "@testing-library/user-event";
 import { Home } from "../../Pages/home";
 import { renderComponente } from "../../../utils/renderComponente";
 

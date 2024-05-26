@@ -4,7 +4,7 @@ import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
 import { Home } from "../components/Pages/home";
 import { ProtectedClientRoute } from "../components/Atoms/ProtectedClientRoute";
 import { Store } from "../components/Pages/Store";
-import { Residence } from "../components/Pages/Residence";
+import { Delivery } from "../components/Pages/Delivery";
 
 export const useAgendamentoRoutes = () => {
   return (
@@ -22,7 +22,7 @@ export const useAgendamentoRoutes = () => {
         path="domicilio"
         element={
           <ProtectedClientRoute>
-            <Residence />
+            <Delivery />
           </ProtectedClientRoute>
         }
       />

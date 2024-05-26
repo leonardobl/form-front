@@ -5,10 +5,10 @@ import { RolesEnum } from "../../../enums/roles";
 
 export const usePixCancellation = () => {
   const navigate = useNavigate();
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
+  const [usuario, setUsuario] =
+    useSessionStorage("cliente");
   const params = useParams();
-  const isAdmGerente = agendamentoSession?.roles?.some(
+  const isAdmGerente = usuario?.roles?.some(
     (regra) =>
       regra === RolesEnum.ROLE_ADMIN || regra === RolesEnum.ROLE_GERENTE
   );

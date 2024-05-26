@@ -16,7 +16,7 @@ export const useLogin = () => {
   const [token, setToken] = useSessionStorage("@token");
   const params = useParams();
   const navigate = useNavigate();
-  const [agendamentoSession, setAgendamentoSession] =
+  const [usuario, setUsuario] =
     useSessionStorage("cliente");
 
   async function onSubmitForm(data: IAutenticacaoForm) {
@@ -45,7 +45,7 @@ export const useLogin = () => {
 
         if (is_high_level) {
           toast.success("Login efetuado com sucesso");
-          setAgendamentoSession({
+          setUsuario({
             uuidUsuario: decoded.uuid,
             usuarioCpfCnpj: decoded.sub,
             roles: decoded.perfis,
@@ -59,7 +59,7 @@ export const useLogin = () => {
         decoded?.uuid &&
           Cliente.getByUsuario({ uuidUsuario: decoded.uuid })
             .then(({ data }) => {
-              setAgendamentoSession({
+              setUsuario({
                 uuidUsuario: decoded.uuid,
                 uuidCliente: data.uuid,
                 roles: decoded.perfis,
@@ -102,7 +102,6 @@ export const useLogin = () => {
               }) => {
                 toast.error(mensagem);
                 localStorage.removeItem("@token");
-                setTokenContext("");
               }
             );
       })

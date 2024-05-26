@@ -21,7 +21,7 @@ export const useStore = () => {
   const [token] = useSessionStorage("@token");
   const { setIsLoad } = useContextSite();
   const navigate = useNavigate();
-  const [clienteSession] = useSessionStorage("cliente");
+  const [usuario] = useSessionStorage("cliente");
   const params = useParams();
   const [modal, setModal] = useState<ModalProps>({ isOpen: false });
 
@@ -65,7 +65,7 @@ export const useStore = () => {
         if (token) {
           Agendamento.vincularAgendamentoAoCliente({
             uuidAgendamento: data.uuid,
-            uuidCliente: clienteSession?.uuidCliente,
+            uuidCliente: usuario?.uuidCliente,
           }).then(() => {
             navigate(`/agendamento/${data.uuid}/servicos`);
             return;

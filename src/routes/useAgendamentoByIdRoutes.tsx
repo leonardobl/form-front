@@ -17,6 +17,8 @@ import { ScheduleConfirmation } from "../components/Pages/ScheduleConfirmation";
 import { Login } from "../components/Pages/Login";
 import { ForgotPassword } from "../components/Pages/ForgotPassword";
 import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
+import { Delivery } from "../components/Pages/Delivery";
+import { Store } from "../components/Pages/Store";
 
 export const useAgendamentoByIdRoutes = () => {
   return (
@@ -29,6 +31,8 @@ export const useAgendamentoByIdRoutes = () => {
       <Route path="confirmar-agendamento" element={<ConfirmAppointment />} />
       <Route path="login-cadastro" element={<LoginRegister />} />
       <Route path="cadastro-usuario" element={<UserRegistration />} />
+      <Route path="domicilio" element={<Delivery />}/>
+      <Route path="loja" element={<Store />}/>
 
       <Route path="servicos">
         <Route index element={<Services />} />

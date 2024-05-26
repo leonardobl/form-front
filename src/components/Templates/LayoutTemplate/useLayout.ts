@@ -15,15 +15,15 @@ const LINKS = {
 export const useLayout = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const [agendamentoSession] = useSessionStorage("agendamentoSession");
+  const [usuario] = useSessionStorage("cliente");
   const [token] = useSessionStorage("@token");
   const { pathname } = useLocation();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { setIsLoad } = useContextSite();
   const { setTokenContext, tokenContext } = useContextSite();
 
-  const isCliente = agendamentoSession?.roles?.includes(RolesEnum.ROLE_CLIENTE);
-  const isAdmin = agendamentoSession?.roles?.includes(RolesEnum.ROLE_ADMIN);
+  const isCliente = usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE);
+  const isAdmin = usuario?.roles?.includes(RolesEnum.ROLE_ADMIN);
 
   function logout() {
     setIsLoad(true);

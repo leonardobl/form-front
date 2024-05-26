@@ -20,7 +20,7 @@ export const useResidence = () => {
   const { setIsLoad } = useContextSite();
   const [modal, setModal] = useState<IModalProps>({ isOpen: false });
   const navigate = useNavigate();
-  const [cliente] = useSessionStorage("cliente");
+  const [usuario] = useSessionStorage("cliente");
   const { uuidAgendamento } = useParams();
   const [searchParams] = useSearchParams();
   const reagendamento = !!(searchParams.get("reagendamento") === "true");
@@ -67,7 +67,7 @@ export const useResidence = () => {
         if (token) {
           Agendamento.vincularAgendamentoAoCliente({
             uuidAgendamento: data.uuid,
-            uuidCliente: cliente.uuidCliente,
+            uuidCliente: usuario.uuidCliente,
           }).then(() => {
             navigate(`/agendamento/${data.uuid}/servicos`);
             return;

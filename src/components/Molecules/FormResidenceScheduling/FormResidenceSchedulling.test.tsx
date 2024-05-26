@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { FormResidenceScheduling } from ".";
 import userEvent from "@testing-library/user-event";
-import { MockLojas } from "../../../mocks/mock.lojas";
+import { MockLojas } from "../../../Mocks/mock.lojas";
 
 const MockSubmit = jest.fn();
 

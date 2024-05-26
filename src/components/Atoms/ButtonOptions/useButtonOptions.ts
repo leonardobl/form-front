@@ -10,11 +10,11 @@ import { toast } from "react-toastify";
 export const useButtonOptions = () => {
   const { setIsLoad } = useContextSite();
   const [isOpen, setISOpen] = useState(false);
-  const [sessionAgendamento, setSessionagendamento] =
-    useSessionStorage("agendamentoSession");
+  const [usuario, setUsuario] =
+    useSessionStorage("cliente");
   const navigate = useNavigate();
 
-  const isIntern = sessionAgendamento?.roles?.some(
+  const isIntern = usuario?.roles?.some(
     (regra) =>
       regra === RolesEnum.ROLE_ADMIN ||
       regra === RolesEnum.ROLE_GERENTE ||
@@ -54,8 +54,8 @@ export const useButtonOptions = () => {
     isOpen,
     setISOpen,
     setIsLoad,
-    sessionAgendamento,
-    setSessionagendamento,
+    sessionAgendamento: usuario,
+    setSessionagendamento: setUsuario,
     handleCancel,
   };
 };
