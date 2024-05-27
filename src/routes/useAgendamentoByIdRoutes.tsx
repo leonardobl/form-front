@@ -19,6 +19,8 @@ import { ForgotPassword } from "../components/Pages/ForgotPassword";
 import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
 import { Delivery } from "../components/Pages/Delivery";
 import { Store } from "../components/Pages/Store";
+import { PixCancellation } from "../components/Pages/PixCancellation";
+import { TicketCancellation } from "../components/Pages/TicketCancellation";
 
 export const useAgendamentoByIdRoutes = () => {
   return (
@@ -57,6 +59,8 @@ export const useAgendamentoByIdRoutes = () => {
           <Route path="confirmacao-pagamento" element={<PixConfirmation />} />
         </Route>
         <Route path="boleto" element={<Ticket />} />
+        <Route path="cancelamento-pix" index element={<PixCancellation />}/>
+        <Route path="cancelamento-boleto" index element={<TicketCancellation />}/>
       </Route>
     </Route>
   );

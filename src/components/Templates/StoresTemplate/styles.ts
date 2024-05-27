@@ -287,6 +287,10 @@ export const WrapperText = styled.div`
   p:nth-child(4) {
     margin-bottom: 48px;
   }
+
+  > div {
+    margin-top: 1rem;
+  }
 `;
 
 export const WrapperButtonsModal = styled.div`
