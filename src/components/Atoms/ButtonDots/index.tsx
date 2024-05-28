@@ -51,16 +51,22 @@ export const ButtonDots = ({
 
       <CustomConfirmModal isOpen={modal} onRequestClose={() => setModal(false)}>
         <S.ContentModalStay>
-          <Text>
-            Deseja realmente colocar o <span>agendamento em espera?</span>
-          </Text>
+          <p id="close" onClick={() => setModal(false)}>
+            X
+          </p>
 
-          <S.WrapperButtonsModal>
-            <Button data-variant-danger onClick={() => setModal(false)}>
-              Cancelar
-            </Button>
-            <Button onClick={handleWait}>Salvar</Button>
-          </S.WrapperButtonsModal>
+          <S.WrapperContentModal>
+            <p>
+              Deseja realmente colocar o <span>agendamento em espera?</span>
+            </p>
+
+            <S.WrapperButtonsModal>
+              <Button data-variant-danger onClick={() => setModal(false)}>
+                Cancelar
+              </Button>
+              <Button onClick={handleWait}>Confirmar</Button>
+            </S.WrapperButtonsModal>
+          </S.WrapperContentModal>
         </S.ContentModalStay>
       </CustomConfirmModal>
     </S.MyMenu>

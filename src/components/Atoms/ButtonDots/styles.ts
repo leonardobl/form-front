@@ -51,23 +51,55 @@ export const WrapperButtons = styled.div`
 `;
 
 export const ContentModalStay = styled.div`
-  width: 648px;
-  height: 518px;
-  border: 0.5px solid #000;
-  background: #fff;
+  background: #e8e8e8;
+  padding: 16px;
+  width: 580px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 48px;
+  p#close {
+    color: var(--PADO-1, #2d2d2d);
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 66.667% */
+    text-align: end;
+    cursor: pointer;
+    margin-bottom: 60px;
+  }
+`;
 
-  > p {
-    max-width: 466px;
+export const WrapperContentModal = styled.div`
+  padding: 12px 32px 32px;
+
+  p {
+    margin-bottom: 48px;
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 133.333% */
+
+    span {
+      font-weight: 700;
+      display: inline;
+    }
   }
 `;
 
 export const WrapperButtonsModal = styled.div`
   display: flex;
-  gap: 0 48px;
+  gap: 0 16px;
+  justify-content: end;
+
+  > :nth-child(1) {
+    color: var(--PADO-1, #2d2d2d);
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    background-color: transparent;
+    box-shadow: none;
+  }
 `;
