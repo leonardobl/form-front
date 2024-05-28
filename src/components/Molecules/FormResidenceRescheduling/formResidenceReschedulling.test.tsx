@@ -7,7 +7,7 @@ import {
   reverseToIsoDate,
 } from "../../../utils/dateTransform";
 import { renderComponente } from "../../../utils/renderComponente";
-import { MockLojas } from "../../../Mocks/mock.lojas";
+import { MockLojas } from "../../../Mocks/MockLojas";
 
 jest.mock("./useFormResidenceRescheduling", () => {
   const hook = jest.requireActual("./useFormResidenceRescheduling");

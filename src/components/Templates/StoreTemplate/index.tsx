@@ -38,26 +38,32 @@ export const StoreTemplate = () => {
         </S.ModalContent>
       </MyModal>
       <MyModal
-          isOpen={modal.isOpen}
-          onRequestClose={() => setModal({ isOpen: false })}
-        >
-          <S.ModalContent>
-            <S.HeaderModal>
-              <S.WrapperButtonClose>
-                <button onClick={() => setModal({ isOpen: false })}>X</button>
-              </S.WrapperButtonClose>
-            </S.HeaderModal>
-            <S.WrapperText>
-              <p>{`Confirma sua vistoria para o dia `}<b>{`${reverseToBrDate(modal?.reagendamento?.diaAgendado)} às ${modal?.reagendamento?.horaAgendada}?`}</b></p>
-              <S.WrapperButtonsModal>
-                <button onClick={() => setModal({ isOpen: false })}>Cancelar</button>
-                <Button onClick={handleReagendamento}>
-                  Confirmar
-                </Button>
-              </S.WrapperButtonsModal>
-            </S.WrapperText>
-          </S.ModalContent>
-        </MyModal>
+        isOpen={modal.isOpen}
+        onRequestClose={() => setModal({ isOpen: false })}
+      >
+        <S.ModalContent>
+          <S.HeaderModal>
+            <S.WrapperButtonClose>
+              <button onClick={() => setModal({ isOpen: false })}>X</button>
+            </S.WrapperButtonClose>
+          </S.HeaderModal>
+          <S.WrapperText>
+            <p>
+              <span>{`Confirma`}</span> sua vistoria para o{" "}
+              <span>
+                dia {reverseToBrDate(modal?.reagendamento?.diaAgendado)} às{" "}
+                {modal?.reagendamento?.horaAgendada}?
+              </span>
+            </p>
+            <S.WrapperButtonsModal>
+              <button onClick={() => setModal({ isOpen: false })}>
+                Cancelar
+              </button>
+              <Button onClick={handleReagendamento}>Confirmar</Button>
+            </S.WrapperButtonsModal>
+          </S.WrapperText>
+        </S.ModalContent>
+      </MyModal>
     </S.Container>
   );
 };
