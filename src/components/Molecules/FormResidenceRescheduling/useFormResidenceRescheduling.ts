@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import { IReagendamentoForm } from "../../../types/agendamento";
 import { z } from "zod";
+import { useParams } from "react-router-dom";
+import { Agendamento } from "../../../services/Agendamento";
 
 const schema = z.object({
   diaAgendado: z.string().min(1, "Você precisa selecionar um dia"),
@@ -21,6 +23,7 @@ export const useFormResidenceRescheduling = () => {
   const [date, setDate] = useState<Date | null>(null);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
+  const { uuidAgendamento } = useParams();
 
   const {
     watch,
@@ -37,6 +40,30 @@ export const useFormResidenceRescheduling = () => {
     mode: "onChange",
     resolver: zodResolver(schema),
   });
+
+  // useEffect(() => {
+  //   console.log(uuidAgendamento);
+
+  //   if (uuidAgendamento) {
+  //     setIsLoading(true);
+  //     Agendamento.getById({ uuid: uuidAgendamento })
+  //       .then(({ data }) => {
+  //         console.log(data);
+
+  //         setValue("uuidDelivery", data?.delivery?.cidade);
+  //       })
+  //       .catch(
+  //         ({
+  //           response: {
+  //             data: { mensagem },
+  //           },
+  //         }) => toast.error(mensagem)
+  //       )
+  //       .finally(() => {
+  //         setIsLoading(false);
+  //       });
+  //   }
+  // }, []);
 
   useEffect(() => {
     setDate(null);
@@ -72,6 +99,7 @@ export const useFormResidenceRescheduling = () => {
         }));
 
         setCidadesOptions(options);
+        return data;
       })
       .catch(
         ({

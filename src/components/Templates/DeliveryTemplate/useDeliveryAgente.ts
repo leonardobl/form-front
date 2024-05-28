@@ -4,7 +4,11 @@ import { Delivery } from "../../../services/Delivery";
 import { LocalAtendimentoEnum } from "../../../enums/localAtendimento";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
-import { IAgendamentoCadastroForm, IAgendamentoDTO, IReagendamentoProps } from "../../../types/agendamento";
+import {
+  IAgendamentoCadastroForm,
+  IAgendamentoDTO,
+  IReagendamentoProps,
+} from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
@@ -26,7 +30,7 @@ export const useDelivery = () => {
   const [token] = useSessionStorage("@token");
   const { uuidAgendamento } = useParams<RouteParams>();
   const [searchParams, setSearchParams] = useSearchParams();
-  const reagendamento = searchParams.get("reagendamento") === 'true';
+  const reagendamento = searchParams.get("reagendamento") === "true";
   const [usuario] = useSessionStorage("cliente");
   const [cliente, setCliente] = useState<IClienteDTO>();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>(
@@ -43,8 +47,8 @@ export const useDelivery = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [reagendamentoForm, setReagendamentoForm] = useState<IReagendamentoProps>({} as IReagendamentoProps);
-
+  const [reagendamentoForm, setReagendamentoForm] =
+    useState<IReagendamentoProps>({} as IReagendamentoProps);
 
   function handleReagendamento() {
     setIsLoad(true);
@@ -62,9 +66,7 @@ export const useDelivery = () => {
       .then(() => {
         toast.success("Reagendamento efetuado com sucesso!");
         setTimeout(() => {
-          navigate(
-            `/meus-agendamentos/agendamento?id=${uuidAgendamento}`
-          );
+          navigate(`/meus-agendamentos/agendamento?id=${uuidAgendamento}`);
         }, 2000);
       })
       .catch(
@@ -93,24 +95,26 @@ export const useDelivery = () => {
     getCidades();
     if (reagendamento) {
       setIsLoad(true);
-      Agendamento.getById({uuid: uuidAgendamento})
-      .then(({data}) => {
-        setReagendamentoForm({
-          ...reagendamentoForm,
-          uuidDelivery: data?.delivery?.uuid,
-          localAtendimento: data?.concessionaria ? "CONCESSIONARIA" : "DOMICILIO",
-          diaAgendado: data?.diaAgendado,
-          horaAgendada: data?.horaAgendada
-        });
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
-      .finally(() => setIsLoad(false));
+      Agendamento.getById({ uuid: uuidAgendamento })
+        .then(({ data }) => {
+          setReagendamentoForm({
+            ...reagendamentoForm,
+            uuidDelivery: data?.delivery?.uuid,
+            localAtendimento: data?.concessionaria
+              ? "CONCESSIONARIA"
+              : "DOMICILIO",
+            diaAgendado: data?.diaAgendado,
+            horaAgendada: data?.horaAgendada,
+          });
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => setIsLoad(false));
     }
   }, []);
 
@@ -130,16 +134,16 @@ export const useDelivery = () => {
     };
 
     Cliente.getByUsuario(usuario?.uuid)
-    .then(({data}) => {
-      setCliente(data);
-    })
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    );
+      .then(({ data }) => {
+        setCliente(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      );
 
     Agendamento.postV2(PAYLOAD)
       .then(({ data }) => {
@@ -170,7 +174,9 @@ export const useDelivery = () => {
 
     if (reagendamentoForm?.uuidDelivery) {
       setIsLoading(true);
-      Delivery.getDiasIndisponiveis({ uuidDelivery: reagendamentoForm.uuidDelivery })
+      Delivery.getDiasIndisponiveis({
+        uuidDelivery: reagendamentoForm.uuidDelivery,
+      })
         .then(({ data }) => {
           const options = data.map((item) => addDays(new Date(item), 1));
           setDiasIndisponiveis(options);
@@ -208,21 +214,22 @@ export const useDelivery = () => {
     }
   }, [date]);
 
-  return { cidadesOptions, 
-    localOptions, 
-    form, 
-    setForm, 
-    reagendamentoForm, 
-    setReagendamentoForm, 
-    handleSubmit, 
-    isLoading, 
+  return {
+    cidadesOptions,
+    localOptions,
+    form,
+    setForm,
+    reagendamentoForm,
+    setReagendamentoForm,
+    handleSubmit,
+    isLoading,
     modalIsOpen,
-    setModalIsOpen, 
+    setModalIsOpen,
     diasIndisponiveis,
     horariosOptions,
-    handleReagendamento, 
+    handleReagendamento,
     date,
-    setDate, 
+    setDate,
     reagendamento,
   };
 };

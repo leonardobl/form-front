@@ -135,13 +135,13 @@ export const WrapperText = styled.div`
   }
 
   > p {
-    color: #7c848b;
+    color: #2d2d2d;
     font-family: Mulish;
-    font-size: 16px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px; /* 150% */
-    margin-bottom: 24px;
+    line-height: 40px;
+    margin-bottom: 40px;
 
     span {
       font-weight: 700;
