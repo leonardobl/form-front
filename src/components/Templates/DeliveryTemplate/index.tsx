@@ -140,7 +140,10 @@ export const DeliveryTemplate = () => {
               <Button>Avançar</Button>
             </div>
           </S.RescheduleForm>
-          <MyModal isOpen={true} onRequestClose={() => setModalIsOpen(false)}>
+          <MyModal
+            isOpen={modalIsOpen}
+            onRequestClose={() => setModalIsOpen(false)}
+          >
             <S.ModalContent>
               <S.HeaderModal>
                 <S.WrapperButtonClose>
@@ -149,10 +152,6 @@ export const DeliveryTemplate = () => {
               </S.HeaderModal>
               <S.WrapperText>
                 <p>
-                  {/* {`Confirma sua vistoria para o dia `}
-                  <b>{`${reverseToBrDate(date?.toLocaleDateString())} às ${
-                    reagendamentoForm.horaAgendada
-                  }?`}</b> */}
                   <span>Confirma</span> sua vistoria para o{" "}
                   <span>
                     dia {reverseToBrDate(date?.toLocaleDateString())} às{" "}
