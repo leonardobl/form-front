@@ -21,6 +21,7 @@ import { IColaboradorCompletoDTO } from "../../../types/colaborador";
 import { Colaborador } from "../../../services/Colaborador";
 import { TipoColaboradorEnum } from "../../../enums/tipoColaborador";
 import { Loja } from "../../../services/Lojas";
+import { set } from "react-hook-form";
 
 interface IModalStartProps extends IIniciarAgendamentoProps {
   open: boolean;
@@ -206,7 +207,7 @@ export const useSchedules = () => {
   }, []);
 
   useEffect(() => {
-    getColaborador().then((data) => setColaborador(data));
+    getColaborador().then((data) => setColaborador(data)).catch(() => setColaborador(null));
   }, [getColaborador]);
 
   useEffect(() => {

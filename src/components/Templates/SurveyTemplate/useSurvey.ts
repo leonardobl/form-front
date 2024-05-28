@@ -9,16 +9,16 @@ import { useContextSite } from "../../../context/Context";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
+interface RouteParams extends Record<string, string> {
+  uuidAgendamento: string;
+}
+
 export const useSurvey = () => {
   const { setIsLoad } = useContextSite();
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
-  const params = useParams();
-
-  const [form, setForm] = useState<IConsultaUnionProps>(
-    {} as IConsultaUnionProps
-  );
+  const [form, setForm] = useState<IConsultaUnionProps>({} as IConsultaUnionProps);
   const navigate = useNavigate();
+  const { uuidAgendamento } = useParams<RouteParams>();
+  const [agendamentoSession, setAgendamentoSession] = useSessionStorage("agendamentoSession");
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -30,16 +30,17 @@ export const useSurvey = () => {
       CnpjECV: null,
       IdCidadeDetran: null,
       Renavam: form.Renavam,
-      uuidAgendamento: agendamentoSession?.uuidAgendamento,
+      uuidAgendamento: uuidAgendamento,
     };
 
     Veiculo.postByPlaca(PAYLOAD)
       .then(({ data }) => {
         setAgendamentoSession({
           ...agendamentoSession,
-          uuidVeiculo: data.uuid,
+          uuidVeiculo: data.uuid
         });
-        navigate(`/agendamento/${params.uuidAgendamento}/servicos/veiculo`);
+
+        navigate(`/agendamento/${uuidAgendamento}/servicos/veiculo`);
       })
       .catch(
         ({

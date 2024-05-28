@@ -5,115 +5,113 @@ import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
-import { IPutAgendamentoProps, IVeiculoDTO } from "../../../types/agendamento";
+import { IAgendamentoDTO, IPutAgendamentoProps, IVeiculoDTO } from "../../../types/agendamento";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+
+interface RouteParams extends Record<string, string> {
+  uuidAgendamento: string;
+}
 
 export const useVehicle = () => {
   const { isLoad, setIsLoad } = useContextSite();
   const [form, setForm] = useState<IVeiculoDTO>({} as IVeiculoDTO);
   const navigate = useNavigate();
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
-  const params = useParams();
+  const [agendamento, setAgendamento] = useState<IAgendamentoDTO>();
+  const { uuidAgendamento } = useParams<RouteParams>();
+  const [agendamentoSession, setAgendamentoSession] = useSessionStorage("agendamentoSession");
+
+  useEffect(() => {
+    setIsLoad(true);
+
+    Agendamento.getById({uuid : uuidAgendamento})
+    .then(({ data }) => {
+      setAgendamento(data);
+    })
+    .catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => {
+        toast.error(mensagem);
+      }
+    )
+    .finally(() => setIsLoad(false));
+  },[]);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     setIsLoad(true);
 
-    Agendamento.getById({ uuid: params?.uuidAgendamento })
-      .then(({ data }) => {
-        const PAYLOAD: IPutAgendamentoProps = {
-          uuid: params?.uuidAgendamento,
-          diaAgendado: data.diaAgendado,
-          horaAgendada: data.horaAgendada,
-          tipoAtendimento: TipoAtendimentoEnum[data.tipoAtendimento],
-          codigoPagamento: data.codigoPagamento,
-          dataPagamento: data.dataPagamento,
-          dataRealizacao: data.dataRealizacao,
-          primeiroAgendamento: data.primeiroAgendamento,
-          revistoria: data.revistoria,
-          status: StatusAgendamentoEnum[data.status],
-          uuidCliente: agendamentoSession?.uuidCliente,
-          uuidDelivery: data?.delivery?.uuid,
-          uuidLoja: data?.loja?.uuid,
-          uuidServico: data?.servico?.uuid,
-        };
+    const PAYLOAD: IPutAgendamentoProps = {
+      uuid: agendamento?.uuid,
+      diaAgendado: agendamento?.diaAgendado,
+      horaAgendada: agendamento?.horaAgendada,
+      tipoAtendimento: TipoAtendimentoEnum[agendamento?.tipoAtendimento],
+      codigoPagamento: agendamento?.codigoPagamento,
+      dataPagamento: agendamento?.dataPagamento,
+      dataRealizacao: agendamento?.dataRealizacao,
+      primeiroAgendamento: agendamento?.primeiroAgendamento,
+      revistoria: agendamento?.revistoria,
+      status: StatusAgendamentoEnum[agendamento?.status],
+      uuidCliente: agendamento?.cliente?.uuid,
+      uuidDelivery: agendamento?.delivery?.uuid,
+      uuidLoja: agendamento?.loja?.uuid,
+      uuidServico: agendamento?.servico?.uuid,
+    };
 
-        Agendamento.put(PAYLOAD)
-          .then(() => {
-            Agendamento.vincularAgendamentoAoVeiculo({
-              uuidAgendamento: PAYLOAD.uuid,
-              uuidVeiculo: agendamentoSession?.uuidVeiculo,
-            })
-              .then(({ data }) => {
-                if (PAYLOAD.revistoria) {
-                  setAgendamentoSession({
-                    ...agendamentoSession,
-                    revistoria: true,
-                    uuidAgendamento: PAYLOAD.uuid,
-                  });
-                }
-
-                if (
-                  agendamentoSession?.tipoAtendimento ===
-                  TipoAtendimentoEnum.LOJA
-                ) {
-                  if (PAYLOAD.revistoria) {
-                    navigate(
-                      `/meus-agendamentos/agendamento?id=${PAYLOAD.uuid}`
-                    );
-                    return;
-                  }
-
-                  navigate(`/agendamento/${params.uuidAgendamento}/pagamento`);
-                  return;
-                }
-
-                if (data?.delivery?.uuid) {
-                  navigate(
-                    `/agendamento/${params.uuidAgendamento}/servicos/cadastro-endereco-servico`
-                  );
-
-                  return;
-                }
-
-                navigate(
-                  `/agendamento/${params.uuidAgendamento}/servicos/cadastro-endereco`
-                );
-              })
-              .catch(
-                ({
-                  response: {
-                    data: { mensagem },
-                  },
-                }) => {
-                  toast.error(mensagem);
-                }
-              );
-          })
-          .catch(
-            ({
-              response: {
-                data: { mensagem },
-              },
-            }) => {
-              toast.error(mensagem);
-            }
-          );
+    Agendamento.put(PAYLOAD)
+    .then(() => {
+      Agendamento.vincularAgendamentoAoVeiculo({
+        uuidAgendamento: PAYLOAD.uuid,
+        uuidVeiculo: agendamentoSession?.uuidVeiculo,
       })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-        }
-      )
-      .finally(() => {
-        setIsLoad(false);
-      });
+        .then(({ data }) => {
+          if (agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA) {
+            if (PAYLOAD.revistoria) {
+              navigate(
+                `/meus-agendamentos/agendamento?id=${PAYLOAD.uuid}`
+              );
+              return;
+            }
+
+            navigate(`/agendamento/${uuidAgendamento}/pagamento`);
+            return;
+          }
+
+          if (data?.delivery?.uuid) {
+            navigate(
+              `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco-servico`
+            );
+
+            return;
+          }
+
+          navigate(
+            `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco`
+          );
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => {
+            toast.error(mensagem);
+          }
+        );
+    })
+    .catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => {
+        toast.error(mensagem);
+      }
+    )
+    .finally(() => setIsLoad(false));
   }
 
   useEffect(() => {
