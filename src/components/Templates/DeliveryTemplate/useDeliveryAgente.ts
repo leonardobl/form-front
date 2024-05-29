@@ -28,7 +28,6 @@ export const useDelivery = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const reagendamento = searchParams.get("reagendamento") === 'true';
   const [usuario] = useSessionStorage("cliente");
-  const [cliente, setCliente] = useState<IClienteDTO>();
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
   );
@@ -114,7 +113,7 @@ export const useDelivery = () => {
     }
   }, []);
 
-  function handleSubmit(e: React.SyntheticEvent) {
+  async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
     if (reagendamento) {
@@ -129,40 +128,26 @@ export const useDelivery = () => {
       uuidDelivery: form.uuidDelivery,
     };
 
-    Cliente.getByUsuario(usuario?.uuid)
-    .then(({data}) => {
-      setCliente(data);
-    })
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    );
+    const cliente: IClienteDTO = await Cliente.getByUsuario({ uuidUsuario: usuario?.uuidUsuario }).then(({ data }) => data);
 
-    Agendamento.postV2(PAYLOAD)
-      .then(({ data }) => {
-        if (token && cliente) {
-          Agendamento.vincularAgendamentoAoCliente({
-            uuidAgendamento: data.uuid,
-            uuidCliente: cliente?.uuid,
-          }).then(() => {
-            navigate(`/agendamento/${data.uuid}/servicos`);
-            return;
-          });
-        }
+    const agendamentoData: IAgendamentoDTO = await Agendamento.postV2(PAYLOAD).then(({data}) => data);
 
-        navigate(`/agendamento/${data.uuid}/login-cadastro`);
+    if (token && cliente) {
+      Agendamento.vincularAgendamentoAoCliente({
+        uuidAgendamento: agendamentoData?.uuid,
+        uuidCliente: cliente?.uuid,
       })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
+      .then(() => {
+        navigate(`/agendamento/${agendamentoData?.uuid}/servicos`);
+        return;
+      })
+      .catch((error) => toast.error(error.message))
       .finally(() => setIsLoad(false));
+    } else {
+      navigate(`/agendamento/${agendamentoData?.uuid}/login-cadastro`);
+    }
+
+    setIsLoad(false);
   }
 
   useEffect(() => {
