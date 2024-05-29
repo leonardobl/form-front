@@ -53,10 +53,6 @@ export const useSchedules = () => {
   const [cidadeOptions, setCidadeoptions] = useState<ISelectOptions[]>([]);
   const [menuOpen, setMenuOpen] = useState(isMobile ? false : true);
 
-  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
-    {} as IColaboradorCompletoDTO
-  );
-
   function handleCpf(e: string) {
     let newvalue = "";
 
@@ -165,18 +161,6 @@ export const useSchedules = () => {
 
     getAgendamentos({ size, page: 0 });
   }
-
-  const getColaborador = useCallback(async () => {
-    return Colaborador.atual().then(({ data }) => data);
-  }, []);
-
-  useEffect(() => {
-    getColaborador()
-      .then((data) => {
-        setColaborador(data);
-      })
-      .catch(() => setColaborador(null));
-  }, [getColaborador]);
 
   return {
     handleClear,

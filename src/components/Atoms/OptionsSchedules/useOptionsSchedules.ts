@@ -3,7 +3,7 @@ import {
   IAgendamentoIniciarForm,
   IIniciarAgendamentoProps,
 } from "./../../../types/agendamento.d";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { RolesEnum } from "../../../enums/roles";
 import { ISelectOptions } from "../../../types/inputs";
@@ -14,6 +14,7 @@ import { Loja } from "../../../services/Lojas";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
+import { IColaboradorCompletoDTO } from "../../../types/colaborador";
 
 const RESOLCES = ["ATRIBUIR_VISTORIA", "ADMIN"];
 
@@ -46,11 +47,31 @@ export const useOptionsSchedules = () => {
     open: false,
   });
 
+  const [colaboradorAtual, setColaboradorAtual] =
+    useState<IColaboradorCompletoDTO>({} as IColaboradorCompletoDTO);
+
+  const getColaboradorAtual = useCallback(() => {
+    Colaborador.atual()
+      .then(({ data }) => {
+        setColaboradorAtual(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      );
+  }, []);
+
   useEffect(() => {
-    if (
-      modalAtribuir?.agendamento?.tipoAtendimento ===
-      TipoAtendimentoEnum.DOMICILIO
-    ) {
+    getColaboradorAtual();
+  }, [getColaboradorAtual]);
+
+  useEffect(() => {
+    if (modalAtribuir?.open) {
       Colaborador.listarPorDelivery({
         tipo: TipoColaboradorEnum.VISTORIADOR,
         uuidDelivery: modalAtribuir?.agendamento?.delivery?.uuid,
@@ -63,34 +84,11 @@ export const useOptionsSchedules = () => {
 
         setVistoriadoresOptions(options);
       });
-
-      return;
     }
-
-    if (
-      modalAtribuir?.agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA
-    )
-      Colaborador.listarPorLoja({
-        tipo: TipoColaboradorEnum.VISTORIADOR,
-        disponivel: true,
-        uuidLoja: modalAtribuir?.agendamento?.loja?.uuid,
-      }).then(({ data }) => {
-        const options = data.map((item) => ({
-          value: item.uuid,
-          label: item.nome,
-          element: item,
-        }));
-
-        setVistoriadoresOptions(options);
-      });
   }, [modalAtribuir?.open]);
 
   useEffect(() => {
     if (modalStart?.open) {
-      // let agendamento = agendamentos.find(
-      //   (agendamento) => agendamento.uuid === modalStart?.uuid
-      // );
-
       if (
         modalStart?.agendamento?.tipoAtendimento ===
         TipoAtendimentoEnum.DOMICILIO
@@ -145,6 +143,7 @@ export const useOptionsSchedules = () => {
       uuid: modalStart?.agendamento?.uuid,
       uuidBaia: modalStart?.formStar?.uuidBaia,
       uuidVistoriador: modalStart?.formStar?.uuidVistoriador,
+      uuidAtendente: colaboradorAtual?.uuid,
     };
 
     setIsLoad(true);
@@ -167,6 +166,33 @@ export const useOptionsSchedules = () => {
       });
   }
 
+  function atribuirAgendamento() {
+    const PAYLOAD: IIniciarAgendamentoProps = {
+      uuid: modalAtribuir?.agendamento?.uuid,
+      uuidVistoriador: modalAtribuir?.formStar?.uuidVistoriador,
+      uuidAtendente: colaboradorAtual?.uuid,
+    };
+
+    setIsLoad(true);
+
+    Agendamento.atribuir(PAYLOAD)
+      .then(() => {
+        toast.success("Agendamento atribuido com sucesso!");
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
+  }
+
   return {
     isCliente,
     isOpen,
@@ -180,5 +206,6 @@ export const useOptionsSchedules = () => {
     modalStart,
     setModalStart,
     iniciarVistoria,
+    atribuirAgendamento,
   };
 };

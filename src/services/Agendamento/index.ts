@@ -201,4 +201,11 @@ export class Agendamento {
       true
     );
   }
+
+  static async atribuir(
+    props: IIniciarAgendamentoProps
+  ): Promise<AxiosResponse<IAgendamentoDTO>> {
+    const { uuid, ...rest } = props;
+    return ApiBrave.put(`${basePath}/${uuid}/atribuir`, rest);
+  }
 }

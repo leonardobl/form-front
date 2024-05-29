@@ -30,6 +30,7 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
     modalStart,
     setModalStart,
     iniciarVistoria,
+    atribuirAgendamento,
   } = useOptionsSchedules();
 
   return (
@@ -52,17 +53,19 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
             </button>
           </div>
         )}
-        {agendamento.status === "AGENDADO" && isAdmin && (
-          <div>
-            <button
-              onClick={() => {
-                setModalAtribuir({ open: true, agendamento });
-              }}
-            >
-              Atribuir
-            </button>
-          </div>
-        )}
+        {agendamento.status === "AGENDADO" &&
+          isAdmin &&
+          agendamento?.tipoAtendimento === TipoAtendimentoEnum.DOMICILIO && (
+            <div>
+              <button
+                onClick={() => {
+                  setModalAtribuir({ open: true, agendamento });
+                }}
+              >
+                Atribuir
+              </button>
+            </div>
+          )}
       </S.Menu>
 
       <CustomConfirmModal
@@ -137,32 +140,52 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
         </S.formModal>
       </CustomConfirmModal>
 
-      <Modal
-        open={modalAtribuir?.open}
-        onClose={() => setModalAtribuir({ open: false })}
+      <CustomConfirmModal
+        isOpen={modalAtribuir?.open}
+        onRequestClose={() => setModalAtribuir({ open: false })}
       >
         <S.ContentModal>
-          <Text>
+          <S.WrapperButtonX>
+            <p onClick={() => setModalAtribuir({ open: false })}>X</p>
+          </S.WrapperButtonX>
+
+          <p>
             Escolha o <span className="textStrong">vistoriador</span> a qual
             será atribuída a vistoria móvel.
-          </Text>
-          <SimpleSelect
-            options={vistoriadoresOptions}
-            required
-            label="Vistoriador"
-            value={vistoriadoresOptions?.find(
-              (item) => item?.value === modalAtribuir?.formStar?.uuidVistoriador
-            )}
-            onChange={(e: ISelectOptions) =>
-              setModalAtribuir((prev) => ({
-                ...prev,
-                formStar: { ...prev, uuidVistoriador: e?.value },
-              }))
-            }
-          />
-          <Button>Confirmar</Button>
+          </p>
+
+          <S.FormAtribuir onSubmit={atribuirAgendamento}>
+            <div>
+              <SimpleSelect
+                options={vistoriadoresOptions}
+                required
+                label="Vistoriador"
+                value={vistoriadoresOptions?.find(
+                  (item) =>
+                    item?.value === modalAtribuir?.formStar?.uuidVistoriador
+                )}
+                onChange={(e: ISelectOptions) =>
+                  setModalAtribuir((prev) => ({
+                    ...prev,
+                    agendamento,
+                    formStar: { ...prev, uuidVistoriador: e?.value },
+                  }))
+                }
+              />
+            </div>
+
+            <S.ButtonsForm>
+              <button
+                onClick={() => setModalAtribuir({ open: false })}
+                id="cancel"
+              >
+                Cancelar
+              </button>
+              <Button>Confirmar</Button>
+            </S.ButtonsForm>
+          </S.FormAtribuir>
         </S.ContentModal>
-      </Modal>
+      </CustomConfirmModal>
     </S.Container>
   );
 };
