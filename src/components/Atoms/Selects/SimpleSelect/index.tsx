@@ -43,7 +43,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
       control: (base: any, state: { isFocused: any }) => ({
         ...base,
         // background: myVariant === "modal" ? "#E1F2EE" : "#fff",
-        background: "#fff",
+        background: props.bgColor ? props.bgColor : "#fff",
 
         // match with the menu
         borderRadius: 10,
@@ -127,6 +127,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         {props.label && (
           <S.Label
             data-variant-modal={myVariant === "modal"}
+            data-variant-modal2={myVariant === "modal2"}
             htmlFor={props.inputId}
           >
             {props.label}{" "}
@@ -138,7 +139,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
           name={props.name}
           ref={ref}
           components={{ DropdownIndicator, ClearIndicator }}
-          theme={(theme) => ({ ...theme, borderRadius: 10 })}
+          // theme={(theme) => ({ ...theme, borderRadius: 10 })}
           styles={customStyles}
         />
       </S.Container>

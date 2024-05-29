@@ -32,9 +32,16 @@ export const ResidenceTemplate = () => {
             onRequestClose={() => setModal({ isOpen: false })}
           >
             <S.ModalContent>
-              <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
+              {/* <p>{`Confirma sua vistoria para o dia ${reverseToBrDate(
                 modal?.dataForm?.diaAgendado
-              )} às ${modal?.dataForm?.horaAgendada}? `}</p>
+              )} às ${modal?.dataForm?.horaAgendada}? `}</p> */}
+              <p>
+                <span>{`Confirma`}</span> sua vistoria para o{" "}
+                <span>
+                  dia {reverseToBrDate(modal?.dataForm?.diaAgendado)} às{" "}
+                  {modal?.dataForm?.horaAgendada}?
+                </span>
+              </p>
               <Button onClick={handleReagendamento}>Confirmar</Button>
             </S.ModalContent>
           </MyModal>
@@ -43,4 +50,3 @@ export const ResidenceTemplate = () => {
     </S.Container>
   );
 };
-

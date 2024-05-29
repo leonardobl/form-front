@@ -70,6 +70,10 @@ export const Label = styled.label`
   &[data-variant-modal="true"] {
     background: #e1f2ee;
   }
+
+  &[data-variant-modal2="true"] {
+    background: #e8e8e8;
+  }
 `;
 
 export const Required = styled.span<{ $isRequired: boolean }>`
