@@ -33,8 +33,7 @@ export const useSchedules = () => {
     {} as IGetAgendamentosProps
   );
   const size = 5;
-  const [usuario, setUsuario] =
-    useSessionStorage("cliente");
+  const [usuario, setUsuario] = useSessionStorage("cliente");
   const [dateInitial, setDateInitial] = useState<Date>();
   const [dateFinal, setDateFinal] = useState<Date>();
   const { setIsLoad } = useContextSite();
@@ -53,45 +52,10 @@ export const useSchedules = () => {
   const isCliente = usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE);
   const [cidadeOptions, setCidadeoptions] = useState<ISelectOptions[]>([]);
   const [menuOpen, setMenuOpen] = useState(isMobile ? false : true);
-  const [modalStart, setModalStart] = useState<IModalStartProps>({
-    open: false,
-  });
+
   const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
     {} as IColaboradorCompletoDTO
   );
-  const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
-    ISelectOptions[]
-  >([]);
-  const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
-
-  function iniciarVistoria(e: React.SyntheticEvent) {
-    e.preventDefault();
-
-    const PAYLOAD: IIniciarAgendamentoProps = {
-      uuid: modalStart?.uuid,
-      uuidBaia: modalStart?.uuidBaia,
-      uuidVistoriador: modalStart?.uuidVistoriador,
-    };
-
-    setIsLoad(true);
-    Agendamento.iniciar(PAYLOAD)
-      .then(({ data }) => {
-        toast.success("Agendamento iniciado");
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-        }
-      )
-      .finally(() => {
-        setIsLoad(false);
-        setModalStart({ open: false });
-      });
-  }
 
   function handleCpf(e: string) {
     let newvalue = "";
@@ -207,39 +171,12 @@ export const useSchedules = () => {
   }, []);
 
   useEffect(() => {
-    getColaborador().then((data) => setColaborador(data)).catch(() => setColaborador(null));
+    getColaborador()
+      .then((data) => {
+        setColaborador(data);
+      })
+      .catch(() => setColaborador(null));
   }, [getColaborador]);
-
-  useEffect(() => {
-    if (modalStart?.open) {
-      let agendamento = agendamentos.find((agendamento) => agendamento.uuid === modalStart?.uuid);
-      Colaborador.listarPorLoja({
-        tipo: TipoColaboradorEnum.VISTORIADOR,
-        disponivel: true,
-        uuidLoja: colaborador?.loja?.uuid,
-      }).then(({ data }) => {
-        const options = data.map((item) => ({
-          value: item.uuid,
-          label: item.nome,
-          element: item,
-        }));
-
-        setVistoriadoresOptions(options);
-      });
-      if (agendamento.tipoAtendimento === TipoAtendimentoEnum.LOJA) 
-        Loja.getBaiasLivres({ uuid: colaborador?.loja?.uuid }).then(
-          ({ data }) => {
-            const options = data.map((item) => ({
-              value: item.uuid,
-              label: item.nome,
-            }));
-            setBaiaOptions(options);
-          }
-        );
-
-      return;
-    }
-  }, [modalStart?.open]);
 
   return {
     handleClear,
@@ -260,12 +197,7 @@ export const useSchedules = () => {
     handleCpf,
     cidadeOptions,
     isCliente,
-    iniciarVistoria,
     menuOpen,
     setMenuOpen,
-    modalStart,
-    setModalStart,
-    vistoriadoresOptions,
-    baitasOptions,
   };
 };
