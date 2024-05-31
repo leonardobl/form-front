@@ -9,6 +9,8 @@ import { ISelectOptions } from "../../../types/inputs";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
+import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
+
 export const DeliverysTemplates = () => {
   const {
     date,
@@ -134,6 +136,7 @@ export const DeliverysTemplates = () => {
                   <p>{agendamento?.veiculo?.chassi || "---"}</p>
                   <p>{agendamento?.delivery?.cidade || "---"}</p>
                   <p>{agendamento?.horaAgendada || "---"}</p>
+                  <OptionsSchedules agendamento={agendamento} />
                 </S.ListItem>
               ))
             )}

@@ -107,7 +107,7 @@ export const List = styled.div`
 
 export const ListHeader = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1.4fr 1fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1fr 1.4fr 1fr 1fr 0.1fr;
   padding: 1rem 2rem;
 
   > button {
@@ -145,7 +145,7 @@ export const ListBody = styled.div`
 
 export const ListItem = styled.div`
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1fr 1.4fr 1fr 1fr;
+  grid-template-columns: 2fr 1.5fr 1fr 1.4fr 1fr 1fr 0.1fr;
   padding: 1rem 2rem;
   border-radius: 0.625rem;
 
