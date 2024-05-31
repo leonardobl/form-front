@@ -159,6 +159,9 @@ export const WrapperButtonClose = styled.div`
 
 export const WrapperText = styled.div`
   padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px 0;
 
   > h4 {
     color: #2d2d2d;
@@ -171,25 +174,16 @@ export const WrapperText = styled.div`
   }
 
   > p {
-    color: #7c848b;
+    color: #2d2d2d;
     font-family: Mulish;
-    font-size: 16px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px; /* 150% */
-    margin-bottom: 24px;
+    line-height: 32px;
 
     span {
       font-weight: 700;
     }
-  }
-
-  p:nth-child(4) {
-    margin-bottom: 48px;
-  }
-
-  > div {
-    margin-top: 1rem;
   }
 `;
 
@@ -197,6 +191,7 @@ export const WrapperButtonsModal = styled.div`
   display: flex;
   justify-content: end;
   gap: 0 16px;
+  margin-bottom: 16px;
 
   > :nth-child(1) {
     background-color: transparent;

@@ -125,7 +125,7 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
             </div>
             <S.WrapperButtonsModal>
               <Button
-                data-variant-danger
+                data-variant-text
                 type="button"
                 onClick={() => {
                   const reset = resetValues(modalStart);
