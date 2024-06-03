@@ -15,6 +15,7 @@ import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
 import { IColaboradorCompletoDTO } from "../../../types/colaborador";
+import { useNavigate } from "react-router-dom";
 
 const RESOLCES = ["ATRIBUIR_VISTORIA", "ADMIN"];
 
@@ -32,6 +33,7 @@ export const useOptionsSchedules = () => {
     ISelectOptions[]
   >([]);
   const { setIsLoad } = useContextSite();
+  const navigate = useNavigate();
 
   const isAdmin = RESOLCES.some(
     (item) => item === "ATRIBUIR_VISTORIA" || item === "ADMIN"
@@ -192,6 +194,7 @@ export const useOptionsSchedules = () => {
       )
       .finally(() => {
         setIsLoad(false);
+        setModalAtribuir({ open: false });
       });
   }
 
