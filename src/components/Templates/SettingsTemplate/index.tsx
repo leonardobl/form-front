@@ -172,7 +172,7 @@ export const SettingsTemplate = () => {
                   data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
                   onClick={() =>
                     navigate(
-                      `/configuracoes/cadastro-concessionaria?id=${item.uuid}`
+                      `/configuracoes/concessionarias/detalhe?id=${item.uuid}`
                     )
                   }
                 />

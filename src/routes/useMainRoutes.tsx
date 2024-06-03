@@ -9,6 +9,8 @@ import { ResetPassword } from "../components/Pages/ResetPassword";
 import { DocDownloads } from "../components/Atoms/DocDownload";
 import { NotFound } from "../components/Atoms/NotFound";
 import { SettingsTemplate } from "../components/Templates/SettingsTemplate";
+import { ConcessionaireDetail } from "../components/Pages/ConcessionaireDetail";
+import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
 
 export const useMainRoutes = () => {
   return (
@@ -36,16 +38,28 @@ export const useMainRoutes = () => {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/configuracoes"
-        element={
-          <ProtectedRoute>
-            <ProtectedAdminRoute>
-              <SettingsTemplate />
-            </ProtectedAdminRoute>
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/configuracoes/concessionarias" element={<LayoutTemplate />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <ProtectedAdminRoute>
+                <SettingsTemplate />
+              </ProtectedAdminRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="detalhe"
+          element={
+            <ProtectedRoute>
+              <ProtectedAdminRoute>
+                <ConcessionaireDetail />
+              </ProtectedAdminRoute>
+            </ProtectedRoute>
+          }
+        />
+      </Route>
     </>
   );
 };
