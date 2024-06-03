@@ -116,11 +116,14 @@ export const DeliverysTemplates = () => {
             {agendamentos?.map((agendaemntosPorHorario) =>
               agendaemntosPorHorario?.agendamentos?.map((agendamento) => (
                 <S.ListItemMobile key={agendamento?.uuid}>
-                  <p>
-                    {agendamento?.veiculo?.modelo || "---"}{" "}
-                    <span>{agendamento?.horaAgendada || "---"}</span>
-                  </p>
-                  <p>{agendamento?.cliente?.nome || "---"}</p>
+                  <div>
+                    <p>
+                      {agendamento?.veiculo?.modelo || "---"}{" "}
+                      <span>{agendamento?.horaAgendada || "---"}</span>
+                    </p>
+                    <p>{agendamento?.cliente?.nome || "---"}</p>
+                  </div>
+                  <OptionsSchedules agendamento={agendamento} />
                 </S.ListItemMobile>
               ))
             )}
