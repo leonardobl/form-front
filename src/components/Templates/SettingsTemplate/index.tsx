@@ -36,7 +36,7 @@ export const SettingsTemplate = () => {
           </S.ButtonFilter>
 
           <S.ButtonRegister
-            onClick={() => navigate("/configuracoes/cadastro-concessionaria")}
+            onClick={() => navigate("/configuracoes/concessionarias/cadastro")}
           >
             Cadastrar{" "}
             <S.Icon
@@ -113,7 +113,7 @@ export const SettingsTemplate = () => {
           <h2>CNPJ</h2>
           <h2>Cidade</h2>
           <S.ButtonRegister
-            onClick={() => navigate("/configuracoes/cadastro-concessionaria")}
+            onClick={() => navigate("/configuracoes/concessionarias/cadastro")}
           >
             Cadastrar{" "}
             <S.Icon

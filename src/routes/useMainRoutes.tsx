@@ -9,8 +9,8 @@ import { ResetPassword } from "../components/Pages/ResetPassword";
 import { DocDownloads } from "../components/Atoms/DocDownload";
 import { NotFound } from "../components/Atoms/NotFound";
 import { SettingsTemplate } from "../components/Templates/SettingsTemplate";
-import { ConcessionaireDetail } from "../components/Pages/ConcessionaireDetail";
 import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
+import { ConcessionaireTemplate } from "../components/Templates/ConcessionaireTemplate";
 
 export const useMainRoutes = () => {
   return (
@@ -54,7 +54,18 @@ export const useMainRoutes = () => {
           element={
             <ProtectedRoute>
               <ProtectedAdminRoute>
-                <ConcessionaireDetail />
+                <ConcessionaireTemplate />
+              </ProtectedAdminRoute>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="cadastro"
+          element={
+            <ProtectedRoute>
+              <ProtectedAdminRoute>
+                <ConcessionaireTemplate />
               </ProtectedAdminRoute>
             </ProtectedRoute>
           }

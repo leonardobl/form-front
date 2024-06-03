@@ -7,6 +7,7 @@ import { Button } from "../../Atoms/Button";
 import { useConcessionaire } from "./useConcessionaire";
 import { maskPhone } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
+import { Text } from "../../Atoms/Text";
 
 export const ConcessionaireTemplate = () => {
   const {
@@ -23,7 +24,16 @@ export const ConcessionaireTemplate = () => {
 
   return (
     <S.Container>
-      <Title>Cadastro Concessionária</Title>
+      <S.WrapperText>
+        {isReadOnly ? (
+          <Text style={{ textAlign: "start" }}>
+            Esses são os <span className="textStrong">dados</span> da{" "}
+            <span className="textStrong">concessiorária</span>.
+          </Text>
+        ) : (
+          <Title>Cadastro Concessionária</Title>
+        )}
+      </S.WrapperText>
 
       <S.Form onSubmit={handleSubmit}>
         <div>
@@ -41,13 +51,13 @@ export const ConcessionaireTemplate = () => {
         <div>
           <Input
             label="CNPJ"
-            value={form.cpfCnpj}
+            value={maskCnpj(form.cpfCnpj)}
             maxLength={18}
             readOnly={isReadOnly}
             onChange={(e) =>
               setForm((prev) => ({
                 ...prev,
-                cpfCnpj: maskCnpj(e.target.value),
+                cpfCnpj: e.target.value,
               }))
             }
             required={isReadOnly ? false : true}
@@ -59,7 +69,7 @@ export const ConcessionaireTemplate = () => {
             label="E-mail"
             required={isReadOnly ? false : true}
             readOnly={isReadOnly}
-            type="emails"
+            type="email"
             value={form?.email}
             onChange={(e) =>
               setForm((prev) => ({ ...prev, email: e.target.value }))
@@ -74,11 +84,11 @@ export const ConcessionaireTemplate = () => {
             readOnly={isReadOnly}
             type="tel"
             maxLength={15}
-            value={form?.telefone}
+            value={maskPhone(form?.telefone)}
             onChange={(e) =>
               setForm((prev) => ({
                 ...prev,
-                telefone: maskPhone(e.target.value),
+                telefone: e.target.value,
               }))
             }
           />
@@ -86,16 +96,16 @@ export const ConcessionaireTemplate = () => {
 
         <div>
           <Input
-            onBlur={handleCep}
+            onBlur={isReadOnly ? null : handleCep}
             label="CEP"
             required={isReadOnly ? false : true}
             readOnly={isReadOnly}
             maxLength={9}
-            value={form?.endereco?.cep}
+            value={maskCep(form?.endereco?.cep)}
             onChange={(e) =>
               setForm((prev) => ({
                 ...prev,
-                endereco: { ...prev.endereco, cep: maskCep(e.target.value) },
+                endereco: { ...prev.endereco, cep: e.target.value },
               }))
             }
           />
