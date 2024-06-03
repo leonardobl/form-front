@@ -50,7 +50,7 @@ export const useMainRoutes = () => {
           }
         />
         <Route
-          path="detalhe"
+          path="concessionaria"
           element={
             <ProtectedRoute>
               <ProtectedAdminRoute>
