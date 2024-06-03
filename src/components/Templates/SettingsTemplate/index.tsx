@@ -28,7 +28,7 @@ export const SettingsTemplate = () => {
     <S.Container>
       <Title>Concessionárias Cadastradas</Title>
 
-      {!isOpen && (
+      {!isOpen && isMobile && (
         <S.MenuMobile>
           <S.ButtonFilter onClick={() => setIsOpen(true)}>
             <img alt="imagem icone filtro" src="/assets/svgs/filter-dark.svg" />{" "}

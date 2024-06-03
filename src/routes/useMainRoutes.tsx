@@ -8,6 +8,7 @@ import { Offline } from "../components/Pages/Offline";
 import { ResetPassword } from "../components/Pages/ResetPassword";
 import { DocDownloads } from "../components/Atoms/DocDownload";
 import { NotFound } from "../components/Atoms/NotFound";
+import { SettingsTemplate } from "../components/Templates/SettingsTemplate";
 
 export const useMainRoutes = () => {
   return (
@@ -31,6 +32,16 @@ export const useMainRoutes = () => {
           <ProtectedRoute>
             <ProtectedAdminRoute>
               <NewScheduling />
+            </ProtectedAdminRoute>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/configuracoes"
+        element={
+          <ProtectedRoute>
+            <ProtectedAdminRoute>
+              <SettingsTemplate />
             </ProtectedAdminRoute>
           </ProtectedRoute>
         }

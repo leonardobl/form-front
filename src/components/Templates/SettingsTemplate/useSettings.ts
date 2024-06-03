@@ -60,7 +60,7 @@ export const useSettings = () => {
   function handleClean() {
     const reset = resetValues(form);
     setForm(reset);
-    setIsOpen(false);
+    isMobile && setIsOpen(false);
     getConcessionarias();
   }
 
