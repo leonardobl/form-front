@@ -166,7 +166,9 @@ export const useOptionsSchedules = () => {
       });
   }
 
-  function atribuirAgendamento() {
+  function atribuirAgendamento(e: React.SyntheticEvent) {
+    e.preventDefault();
+
     const PAYLOAD: IIniciarAgendamentoProps = {
       uuid: modalAtribuir?.agendamento?.uuid,
       uuidVistoriador: modalAtribuir?.formStar?.uuidVistoriador,
