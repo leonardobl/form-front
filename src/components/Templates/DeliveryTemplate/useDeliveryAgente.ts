@@ -200,8 +200,6 @@ export const useDelivery = () => {
               uuidConcessionaria: form?.uuidConcessionaria,
             };
 
-            console.log(PAYLOAD_CONCESSIONARIA);
-
             Agendamento.AtualizarConcessionariaAtedimento({
               ...PAYLOAD_CONCESSIONARIA,
               uuid: data.uuid,
