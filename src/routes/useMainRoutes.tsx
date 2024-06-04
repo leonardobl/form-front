@@ -8,6 +8,9 @@ import { Offline } from "../components/Pages/Offline";
 import { ResetPassword } from "../components/Pages/ResetPassword";
 import { DocDownloads } from "../components/Atoms/DocDownload";
 import { NotFound } from "../components/Atoms/NotFound";
+import { SettingsTemplate } from "../components/Templates/SettingsTemplate";
+import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
+import { ConcessionaireTemplate } from "../components/Templates/ConcessionaireTemplate";
 
 export const useMainRoutes = () => {
   return (
@@ -35,6 +38,39 @@ export const useMainRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/configuracoes/concessionarias" element={<LayoutTemplate />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <ProtectedAdminRoute>
+                <SettingsTemplate />
+              </ProtectedAdminRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="concessionaria"
+          element={
+            <ProtectedRoute>
+              <ProtectedAdminRoute>
+                <ConcessionaireTemplate />
+              </ProtectedAdminRoute>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="cadastro"
+          element={
+            <ProtectedRoute>
+              <ProtectedAdminRoute>
+                <ConcessionaireTemplate />
+              </ProtectedAdminRoute>
+            </ProtectedRoute>
+          }
+        />
+      </Route>
     </>
   );
 };

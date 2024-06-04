@@ -4,12 +4,22 @@ import styled from "styled-components";
 export const Container = styled.div`
   padding: ${(props) => props.theme.padding.primary} 20px;
 
-  > h1 {
-    text-align: center;
-  }
-
   @media (max-width: 500px) {
     padding: ${(props) => props.theme.padding.mobile} 0;
+  }
+`;
+
+export const WrapperText = styled.div`
+  margin: 0 auto;
+  max-width: 820px;
+  width: 100%;
+
+  > p {
+    margin-bottom: 56px;
+  }
+
+  > h1 {
+    text-align: center;
   }
 `;
 

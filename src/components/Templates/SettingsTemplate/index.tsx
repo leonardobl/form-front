@@ -28,7 +28,7 @@ export const SettingsTemplate = () => {
     <S.Container>
       <Title>Concessionárias Cadastradas</Title>
 
-      {!isOpen && (
+      {!isOpen && isMobile && (
         <S.MenuMobile>
           <S.ButtonFilter onClick={() => setIsOpen(true)}>
             <img alt="imagem icone filtro" src="/assets/svgs/filter-dark.svg" />{" "}
@@ -36,7 +36,7 @@ export const SettingsTemplate = () => {
           </S.ButtonFilter>
 
           <S.ButtonRegister
-            onClick={() => navigate("/configuracoes/cadastro-concessionaria")}
+            onClick={() => navigate("/configuracoes/concessionarias/cadastro")}
           >
             Cadastrar{" "}
             <S.Icon
@@ -113,7 +113,7 @@ export const SettingsTemplate = () => {
           <h2>CNPJ</h2>
           <h2>Cidade</h2>
           <S.ButtonRegister
-            onClick={() => navigate("/configuracoes/cadastro-concessionaria")}
+            onClick={() => navigate("/configuracoes/concessionarias/cadastro")}
           >
             Cadastrar{" "}
             <S.Icon
@@ -151,7 +151,7 @@ export const SettingsTemplate = () => {
                   data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
                   onClick={() =>
                     navigate(
-                      `/configuracoes/cadastro-concessionaria?id=${item.uuid}`
+                      `/configuracoes/concessionarias/concessionaria?id=${item.uuid}`
                     )
                   }
                 />
@@ -172,7 +172,7 @@ export const SettingsTemplate = () => {
                   data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
                   onClick={() =>
                     navigate(
-                      `/configuracoes/cadastro-concessionaria?id=${item.uuid}`
+                      `/configuracoes/concessionarias/concessionaria?id=${item.uuid}`
                     )
                   }
                 />
