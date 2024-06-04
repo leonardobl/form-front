@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import {
   IAgendamentoCadastroForm,
   IAgendamentoDTO,
+  IAtendimentoConcessionariaForm,
   IReagendamentoProps,
 } from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
@@ -16,10 +17,10 @@ import { addDays } from "date-fns";
 import { Cliente } from "../../../services/Cliente";
 import { IClienteDTO } from "../../../types/cliente";
 
-type FormDeliveryProps = {
+interface FormDeliveryProps extends IAtendimentoConcessionariaForm {
   uuidDelivery: string;
   local: string;
-};
+}
 
 interface RouteParams extends Record<string, string> {
   uuidAgendamento: string;
@@ -147,13 +148,21 @@ export const useDelivery = () => {
       .finally(() => {
         setIsLoad(false);
       });
-  }, []);
+  }, [form?.uuidDelivery]);
 
   useEffect(() => {
     if (form?.local === "CONCESSIONARIA" && form?.uuidDelivery) {
       getConcessionarias();
+
+      return;
     }
-  }, [form?.local, form.uuidDelivery]);
+    setForm((prev) => ({
+      ...prev,
+      nome: "",
+      telefone: "",
+      uuidConcessionaria: "",
+    }));
+  }, [form?.local, form?.uuidDelivery]);
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -183,6 +192,28 @@ export const useDelivery = () => {
         uuidAgendamento: agendamentoData?.uuid,
         uuidCliente: cliente?.uuid,
       })
+        .then(({ data }) => {
+          if (form?.uuidConcessionaria) {
+            const PAYLOAD_CONCESSIONARIA: IAtendimentoConcessionariaForm = {
+              nome: form?.nome,
+              telefone: form?.telefone,
+              uuidConcessionaria: form?.uuidConcessionaria,
+            };
+
+            console.log(PAYLOAD_CONCESSIONARIA);
+
+            Agendamento.AtualizarConcessionariaAtedimento({
+              ...PAYLOAD_CONCESSIONARIA,
+              uuid: data.uuid,
+            }).catch(
+              ({
+                response: {
+                  data: { mensagem },
+                },
+              }) => toast.error(mensagem)
+            );
+          }
+        })
         .then(() => {
           navigate(`/agendamento/${agendamentoData?.uuid}/servicos`);
           return;
