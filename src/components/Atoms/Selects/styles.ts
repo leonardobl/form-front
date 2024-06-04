@@ -3,8 +3,9 @@ import styled, { css } from "styled-components";
 export const Container = styled.div<{
   $isLabel: boolean;
   $variantSearch?: boolean;
+  $bgcolor?: string;
 }>`
-  ${({ $isLabel, $variantSearch }) => css`
+  ${({ $isLabel, $variantSearch, $bgcolor }) => css`
     font-family: "Mulish";
 
     position: relative;
@@ -48,6 +49,13 @@ export const Container = styled.div<{
     svg path {
       fill: #111;
     }
+
+    ${$bgcolor &&
+    css`
+      label {
+        background: linear-gradient(to top, ${$bgcolor} 50%, transparent 50%);
+      }
+    `}
   `}
 `;
 

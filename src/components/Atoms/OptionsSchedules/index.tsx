@@ -94,6 +94,7 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
               <div>
                 <SimpleSelect
                   options={baitasOptions}
+                  bgColor="#e8e8e8"
                   label="Baia de Atendimento"
                   value={baitasOptions?.find(
                     (item) => item?.value === modalStart?.formStar?.uuidBaia
@@ -112,6 +113,7 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
               <SimpleSelect
                 options={vistoriadoresOptions}
                 required
+                bgColor="#e8e8e8"
                 label="Vistoriador"
                 value={vistoriadoresOptions?.find(
                   (item) =>
@@ -161,6 +163,7 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
               <SimpleSelect
                 options={vistoriadoresOptions}
                 required
+                bgColor="#e8e8e8"
                 label="Vistoriador"
                 value={vistoriadoresOptions?.find(
                   (item) =>

@@ -123,7 +123,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     };
 
     return (
-      <S.Container $isLabel={!!props.label}>
+      <S.Container $isLabel={!!props.label} $bgcolor={props?.bgColor}>
         {props.label && (
           <S.Label
             data-variant-modal={myVariant === "modal"}
