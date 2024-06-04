@@ -53,20 +53,177 @@ export const Menu = styled.nav`
 `;
 
 export const ContentModal = styled.div`
-  border: 1px solid #adb7b5;
-  background: #fff;
-  width: 799px;
-  height: 562px;
-  margin: 40px auto 0;
-  padding: 70px;
+  max-width: 522px;
+  width: 100%;
+  height: fit-content;
+  padding: 16px;
+  background: #e8e8e8;
 
+  > p {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px; /* 133.333% */
+    margin-bottom: 32px;
+
+    span {
+      font-weight: 700;
+    }
+  }
+
+  div#wrapperSelectVistoriador {
+    margin-bottom: 32px;
+  }
+`;
+
+export const WrapperButtonX = styled.div`
+  margin-bottom: 16px;
+
+  > p {
+    color: var(--PADO-1, #2d2d2d);
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 66.667% */
+    cursor: pointer;
+    text-align: end;
+  }
+`;
+
+export const formModal = styled.form`
+  width: 506px;
+  height: fit-content;
+  background: #e8e8e8;
+  box-shadow: 4px 4px 16.3px 0px rgba(0, 0, 0, 0.25);
+`;
+
+export const WrapperButtons = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
   justify-content: center;
-  gap: 48px 0;
+  gap: 36px 48px;
+`;
+
+export const WrapperInfo = styled.div`
+  display: flex;
+  justify-content: end;
+  margin: 0 auto 32px;
+  max-width: 1200px;
+  width: 100%;
+
+  gap: 32px;
+
+  p {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.48px;
+  }
+
+  @media (max-width: 500px) {
+    display: block;
+
+    p:nth-child(2) {
+      margin-top: 10px;
+    }
+  }
+`;
+
+export const HeaderModal = styled.div`
+  padding: 5px 24px;
+
+  > p {
+    text-align: start;
+  }
+`;
+
+export const WrapperButtonClose = styled.div`
+  display: flex;
+  justify-content: end;
 
   button {
-    margin: 0 auto;
+    color: #2d2d2d;
+    font-family: Mulish;
+    background-color: transparent;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px; /* 166.667% */
+  }
+`;
+
+export const WrapperText = styled.div`
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px 0;
+
+  > h4 {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 150% */
+    margin-bottom: 10px;
+  }
+
+  > p {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 32px;
+
+    span {
+      font-weight: 700;
+    }
+  }
+`;
+
+export const WrapperButtonsModal = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 0 16px;
+  margin-bottom: 16px;
+
+  > :nth-child(1) {
+    background-color: transparent;
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+  }
+`;
+
+export const FormAtribuir = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 32px 0;
+`;
+
+export const ButtonsForm = styled.div`
+  display: flex;
+  justify-content: end;
+  gap: 0 16px;
+  margin-bottom: 16px;
+
+  > button#cancel {
+    color: var(--PADO-1, #2d2d2d);
+    font-family: Mulish;
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
   }
 `;

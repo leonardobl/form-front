@@ -16,8 +16,7 @@ export const useLogin = () => {
   const [token, setToken] = useSessionStorage("@token");
   const params = useParams();
   const navigate = useNavigate();
-  const [usuario, setUsuario] =
-    useSessionStorage("cliente");
+  const [usuario, setUsuario] = useSessionStorage("cliente");
 
   async function onSubmitForm(data: IAutenticacaoForm) {
     setIsLoad(true);

@@ -9,6 +9,8 @@ import { ISelectOptions } from "../../../types/inputs";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
+import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
+
 export const DeliverysTemplates = () => {
   const {
     date,
@@ -114,11 +116,14 @@ export const DeliverysTemplates = () => {
             {agendamentos?.map((agendaemntosPorHorario) =>
               agendaemntosPorHorario?.agendamentos?.map((agendamento) => (
                 <S.ListItemMobile key={agendamento?.uuid}>
-                  <p>
-                    {agendamento?.veiculo?.modelo || "---"}{" "}
-                    <span>{agendamento?.horaAgendada || "---"}</span>
-                  </p>
-                  <p>{agendamento?.cliente?.nome || "---"}</p>
+                  <div>
+                    <p>
+                      {agendamento?.veiculo?.modelo || "---"}{" "}
+                      <span>{agendamento?.horaAgendada || "---"}</span>
+                    </p>
+                    <p>{agendamento?.cliente?.nome || "---"}</p>
+                  </div>
+                  <OptionsSchedules agendamento={agendamento} />
                 </S.ListItemMobile>
               ))
             )}
@@ -134,6 +139,7 @@ export const DeliverysTemplates = () => {
                   <p>{agendamento?.veiculo?.chassi || "---"}</p>
                   <p>{agendamento?.delivery?.cidade || "---"}</p>
                   <p>{agendamento?.horaAgendada || "---"}</p>
+                  <OptionsSchedules agendamento={agendamento} />
                 </S.ListItem>
               ))
             )}

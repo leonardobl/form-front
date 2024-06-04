@@ -33,6 +33,14 @@ export const Button = styled.button`
       box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
     }
 
+    &[data-variant-text="true"] {
+      width: fit-content;
+      outline: none;
+      background: transparent;
+      box-shadow: none;
+      color: #2d2d2d;
+    }
+
     box-shadow: 0px 4px 4px 0px #00000033;
 
     font-family: Mulish;
