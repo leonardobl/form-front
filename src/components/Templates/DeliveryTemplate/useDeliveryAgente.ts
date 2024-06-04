@@ -42,6 +42,7 @@ export const useDelivery = () => {
   const [form, setForm] = useState<FormDeliveryProps>({} as FormDeliveryProps);
   const { setIsLoad } = useContextSite();
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
+  const [concessionarias, setConcessionarias] = useState<ISelectOptions[]>([]);
   const [date, setDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
@@ -117,6 +118,43 @@ export const useDelivery = () => {
     }
   }, []);
 
+  const getConcessionarias = useCallback(() => {
+    setIsLoad(true);
+
+    const cidade = cidadesOptions.find(
+      (i) => i.value === form?.uuidDelivery
+    )?.label;
+
+    Cliente.getConcessionarias({
+      cidade,
+    })
+      .then(({ data }) => {
+        const options = data.content.map((item) => ({
+          value: item.uuid,
+          label: item.nome,
+          element: item,
+        }));
+
+        setConcessionarias(options);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (form?.local === "CONCESSIONARIA" && form?.uuidDelivery) {
+      getConcessionarias();
+    }
+  }, [form?.local, form.uuidDelivery]);
+
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
 
@@ -132,21 +170,25 @@ export const useDelivery = () => {
       uuidDelivery: form.uuidDelivery,
     };
 
-    const cliente: IClienteDTO = await Cliente.getByUsuario({ uuidUsuario: usuario?.uuidUsuario }).then(({ data }) => data);
+    const cliente: IClienteDTO = await Cliente.getByUsuario({
+      uuidUsuario: usuario?.uuidUsuario,
+    }).then(({ data }) => data);
 
-    const agendamentoData: IAgendamentoDTO = await Agendamento.postV2(PAYLOAD).then(({data}) => data);
+    const agendamentoData: IAgendamentoDTO = await Agendamento.postV2(
+      PAYLOAD
+    ).then(({ data }) => data);
 
     if (token && cliente) {
       Agendamento.vincularAgendamentoAoCliente({
         uuidAgendamento: agendamentoData?.uuid,
         uuidCliente: cliente?.uuid,
       })
-      .then(() => {
-        navigate(`/agendamento/${agendamentoData?.uuid}/servicos`);
-        return;
-      })
-      .catch((error) => toast.error(error.message))
-      .finally(() => setIsLoad(false));
+        .then(() => {
+          navigate(`/agendamento/${agendamentoData?.uuid}/servicos`);
+          return;
+        })
+        .catch((error) => toast.error(error.message))
+        .finally(() => setIsLoad(false));
     } else {
       navigate(`/agendamento/${agendamentoData?.uuid}/login-cadastro`);
     }
@@ -216,5 +258,6 @@ export const useDelivery = () => {
     date,
     setDate,
     reagendamento,
+    concessionarias,
   };
 };

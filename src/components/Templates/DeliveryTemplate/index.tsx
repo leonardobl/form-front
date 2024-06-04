@@ -10,6 +10,7 @@ import { ISelectOptions } from "../../../types/inputs";
 import { MyModal } from "../../Atoms/MyModal";
 import { reverseToBrDate } from "../../../utils/dateTransform";
 import { Input } from "../../Atoms/Inputs/Input";
+import { LocalAtendimentoEnum } from "../../../enums/localAtendimento";
 
 export const DeliveryTemplate = () => {
   const {
@@ -28,6 +29,7 @@ export const DeliveryTemplate = () => {
     handleReagendamento,
     date,
     setDate,
+    concessionarias,
     reagendamento,
   } = useDelivery();
 
@@ -52,6 +54,7 @@ export const DeliveryTemplate = () => {
             </div>
             <div>
               <SimpleSelect
+                isDisabled={!form?.uuidDelivery}
                 options={localOptions}
                 value={localOptions.find((item) => item.value === form?.local)}
                 onChange={(e: ISelectOptions) =>
@@ -63,27 +66,33 @@ export const DeliveryTemplate = () => {
             </div>
           </S.GridBaseForm>
 
-          <S.GridConcessionarieForm>
-            <div>
-              <Text>
-                Preencha o formulário com o
-                <span className="textStrong">
-                  endereço de realização do atendimento
-                </span>
-                .
-              </Text>
-            </div>
-            <div>
-              <Input label="Nome" required />
-            </div>
+          {form?.local === "CONCESSIONARIA" && (
+            <S.GridConcessionarieForm>
+              <div>
+                <Text>
+                  Preencha o formulário com o
+                  <span className="textStrong">
+                    endereço de realização do atendimento
+                  </span>
+                  .
+                </Text>
+              </div>
+              <div>
+                <Input label="Nome" required />
+              </div>
 
-            <div>
-              <Input label="Telefone" required />
-            </div>
-            <div>
-              <SimpleSelect label="Concessionária" required />
-            </div>
-          </S.GridConcessionarieForm>
+              <div>
+                <Input label="Telefone" required />
+              </div>
+              <div>
+                <SimpleSelect
+                  label="Concessionária"
+                  options={concessionarias}
+                  required
+                />
+              </div>
+            </S.GridConcessionarieForm>
+          )}
 
           <div id="buttonAdvanced">
             <Button>Avançar</Button>
