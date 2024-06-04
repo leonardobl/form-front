@@ -18,6 +18,15 @@ export const Form = styled.form`
   margin: 0 auto;
   width: 100%;
   max-width: 820px;
+
+  div#buttonAdvanced {
+    button {
+      margin: 0 auto;
+    }
+  }
+`;
+
+export const GridBaseForm = styled.div`
   gap: 54px 16px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -43,6 +52,36 @@ export const Form = styled.form`
     grid-template-columns: 1fr;
     gap: 48px 0;
     grid-template-areas: "cidade" "local" "button";
+  }
+`;
+
+export const GridConcessionarieForm = styled.div`
+  display: grid;
+  gap: 48px 16px;
+  margin-bottom: 48px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "text text" "nome nome" "telefone concessionaria";
+
+  > :nth-child(1) {
+    grid-area: text;
+  }
+
+  > :nth-child(2) {
+    grid-area: nome;
+  }
+
+  > :nth-child(3) {
+    grid-area: telefone;
+  }
+
+  > :nth-child(4) {
+    grid-area: concessionaria;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    gap: 48px 0;
+    grid-template-areas: "text" "nome" "telefone" "concessionaria";
   }
 `;
 

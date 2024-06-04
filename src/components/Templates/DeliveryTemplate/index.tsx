@@ -7,9 +7,9 @@ import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { Button } from "../../Atoms/Button";
 import { useDelivery } from "./useDeliveryAgente";
 import { ISelectOptions } from "../../../types/inputs";
-import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { MyModal } from "../../Atoms/MyModal";
 import { reverseToBrDate } from "../../../utils/dateTransform";
+import { Input } from "../../Atoms/Inputs/Input";
 
 export const DeliveryTemplate = () => {
   const {
@@ -36,31 +36,56 @@ export const DeliveryTemplate = () => {
       <Title>Delivery</Title>
       {!reagendamento ? (
         <S.Form onSubmit={handleSubmit}>
-          <div>
-            <SimpleSelect
-              options={cidadesOptions}
-              label="Cidade"
-              required
-              onChange={(e: ISelectOptions) =>
-                setForm((prev) => ({ ...prev, uuidDelivery: e?.value }))
-              }
-              value={cidadesOptions.find(
-                (item) => item.value === form?.uuidDelivery
-              )}
-            />
-          </div>
-          <div>
-            <SimpleSelect
-              options={localOptions}
-              value={localOptions.find((item) => item.value === form?.local)}
-              onChange={(e: ISelectOptions) =>
-                setForm((prev) => ({ ...prev, local: e?.value }))
-              }
-              label="Local de Atendimento"
-              required
-            />
-          </div>
-          <div>
+          <S.GridBaseForm>
+            <div>
+              <SimpleSelect
+                options={cidadesOptions}
+                label="Cidade"
+                required
+                onChange={(e: ISelectOptions) =>
+                  setForm((prev) => ({ ...prev, uuidDelivery: e?.value }))
+                }
+                value={cidadesOptions.find(
+                  (item) => item.value === form?.uuidDelivery
+                )}
+              />
+            </div>
+            <div>
+              <SimpleSelect
+                options={localOptions}
+                value={localOptions.find((item) => item.value === form?.local)}
+                onChange={(e: ISelectOptions) =>
+                  setForm((prev) => ({ ...prev, local: e?.value }))
+                }
+                label="Local de Atendimento"
+                required
+              />
+            </div>
+          </S.GridBaseForm>
+
+          <S.GridConcessionarieForm>
+            <div>
+              <Text>
+                Preencha o formulário com o
+                <span className="textStrong">
+                  endereço de realização do atendimento
+                </span>
+                .
+              </Text>
+            </div>
+            <div>
+              <Input label="Nome" required />
+            </div>
+
+            <div>
+              <Input label="Telefone" required />
+            </div>
+            <div>
+              <SimpleSelect label="Concessionária" required />
+            </div>
+          </S.GridConcessionarieForm>
+
+          <div id="buttonAdvanced">
             <Button>Avançar</Button>
           </div>
         </S.Form>
