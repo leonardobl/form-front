@@ -39,6 +39,7 @@ export const useLayout = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setMenuOpen(false);
   }, [pathname]);
 
   return {
