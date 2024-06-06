@@ -54,6 +54,29 @@ export const useSchedules = () => {
   const [cidadeOptions, setCidadeoptions] = useState<ISelectOptions[]>([]);
   const [menuOpen, setMenuOpen] = useState(isMobile ? false : true);
 
+  const [colaboradorAtual, setColaboradorAtual] =
+    useState<IColaboradorCompletoDTO>({} as IColaboradorCompletoDTO);
+
+  const getColaboradorAtual = useCallback(() => {
+    Colaborador.atual()
+      .then(({ data }) => {
+        setColaboradorAtual(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      );
+  }, []);
+
+  useEffect(() => {
+    getColaboradorAtual();
+  }, [getColaboradorAtual]);
+
   function handleCpf(e: string) {
     let newvalue = "";
 
@@ -162,71 +185,58 @@ export const useSchedules = () => {
 
     getAgendamentos({ size, page: 0 });
   }
+  function atribuirAgendamento(data: IIniciarAgendamentoProps) {
+    const PAYLOAD: IIniciarAgendamentoProps = {
+      uuid: data.uuid,
+      uuidVistoriador: data.uuidVistoriador,
+      uuidAtendente: colaboradorAtual?.uuid,
+    };
 
-  function atribuirAgendamento(data: IAgendamentoIniciarForm) {
-    // e.preventDefault();
+    setIsLoad(true);
 
-    console.log(data);
-
-    // const PAYLOAD: IIniciarAgendamentoProps = {
-    //   uuid: modalAtribuir?.agendamento?.uuid,
-    //   uuidVistoriador: modalAtribuir?.formStar?.uuidVistoriador,
-    //   uuidAtendente: colaboradorAtual?.uuid,
-    // };
-
-    // setIsLoad(true);
-
-    // Agendamento.atribuir(PAYLOAD)
-    //   .then(() => {
-    //     toast.success("Agendamento atribuido com sucesso!");
-    //   })
-    //   .catch(
-    //     ({
-    //       response: {
-    //         data: { mensagem },
-    //       },
-    //     }) => {
-    //       toast.error(mensagem);
-    //     }
-    //   )
-    //   .finally(() => {
-    //     setIsLoad(false);
-    //     setModalAtribuir({ open: false });
-    //   });
+    Agendamento.atribuir(PAYLOAD)
+      .then(() => {
+        toast.success("Agendamento atribuido com sucesso!");
+        getAgendamentos({ ...formFilter, size, page: numberPage });
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
   }
 
-  function iniciarVistoria(data: IAgendamentoIniciarForm) {
-    //  e.preventDefault();
+  function iniciarVistoria(data: IIniciarAgendamentoProps) {
+    const PAYLOAD: IIniciarAgendamentoProps = {
+      ...data,
+      uuidAtendente: colaboradorAtual?.uuid,
+    };
 
-    //  const PAYLOAD: IIniciarAgendamentoProps = {
-    //    uuid: modalStart?.agendamento?.uuid,
-    //    uuidBaia: modalStart?.formStar?.uuidBaia,
-    //    uuidVistoriador: modalStart?.formStar?.uuidVistoriador,
-    //    uuidAtendente: colaboradorAtual?.uuid,
-    //  };
-
-    console.log(data);
-
-    return;
-
-    // setIsLoad(true);
-    // Agendamento.iniciar(PAYLOAD)
-    //   .then(({ data }) => {
-    //     toast.success("Agendamento iniciado");
-    //   })
-    //   .catch(
-    //     ({
-    //       response: {
-    //         data: { mensagem },
-    //       },
-    //     }) => {
-    //       toast.error(mensagem);
-    //     }
-    //   )
-    //   .finally(() => {
-    //     setIsLoad(false);
-    //     setModalStart({ open: false });
-    //   });
+    setIsLoad(true);
+    Agendamento.iniciar(PAYLOAD)
+      .then(({ data }) => {
+        toast.success("Agendamento iniciado");
+        getAgendamentos({ ...formFilter, size, page: numberPage });
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
   }
 
   return {
