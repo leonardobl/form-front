@@ -39,96 +39,181 @@ export const InspectionsTemplate = () => {
         </S.FormFilter>
       )}
 
-      <S.Table>
-        <S.TableHeader>
-          <h2>Cliente</h2>
-          <h2>Veículo</h2>
-          <h2>Placa</h2>
-          <h2>Chassi</h2>
-          <h2>Cidade</h2>
-          <h2>Horário</h2>
-          <span></span>
-        </S.TableHeader>
+      {isMobile ? (
+        <S.TableMobile>
+          <S.TableMobileItem>
+            <div>
+              <p>
+                Modelo do veículo
+                <span>8:00</span>
+              </p>
+              <span>Nome do cliente</span>
+            </div>
+            <IconEye
+              src="/assets/svgs/eye.svg"
+              alt="icone visualizacao"
+              data-color-starcheck={
+                process.env.REACT_APP_PROJECT === "starcheck"
+              }
+              data-color-log={process.env.REACT_APP_PROJECT === "log"}
+              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+              onClick={() => ""}
+            />
+          </S.TableMobileItem>
+          <S.TableMobileItem>
+            <div>
+              <p>
+                Modelo do veículo
+                <span>8:00</span>
+              </p>
+              <span>Nome do cliente</span>
+            </div>
+            <IconEye
+              src="/assets/svgs/eye.svg"
+              alt="icone visualizacao"
+              data-color-starcheck={
+                process.env.REACT_APP_PROJECT === "starcheck"
+              }
+              data-color-log={process.env.REACT_APP_PROJECT === "log"}
+              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+              onClick={() => ""}
+            />
+          </S.TableMobileItem>
+          <S.TableMobileItem>
+            <div>
+              <p>
+                Modelo do veículo
+                <span>8:00</span>
+              </p>
+              <span>Nome do cliente</span>
+            </div>
+            <IconEye
+              src="/assets/svgs/eye.svg"
+              alt="icone visualizacao"
+              data-color-starcheck={
+                process.env.REACT_APP_PROJECT === "starcheck"
+              }
+              data-color-log={process.env.REACT_APP_PROJECT === "log"}
+              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+              onClick={() => ""}
+            />
+          </S.TableMobileItem>
+          <S.TableMobileItem>
+            <div>
+              <p>
+                Modelo do veículo
+                <span>8:00</span>
+              </p>
+              <span>Nome do cliente</span>
+            </div>
+            <IconEye
+              src="/assets/svgs/eye.svg"
+              alt="icone visualizacao"
+              data-color-starcheck={
+                process.env.REACT_APP_PROJECT === "starcheck"
+              }
+              data-color-log={process.env.REACT_APP_PROJECT === "log"}
+              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+              onClick={() => ""}
+            />
+          </S.TableMobileItem>
+        </S.TableMobile>
+      ) : (
+        <S.Table>
+          <S.TableHeader>
+            <h2>Cliente</h2>
+            <h2>Veículo</h2>
+            <h2>Placa</h2>
+            <h2>Chassi</h2>
+            <h2>Cidade</h2>
+            <h2>Horário</h2>
+            <span></span>
+          </S.TableHeader>
 
-        <S.TableItens>
-          <S.TableItem>
-            <p>NOME DO CLIENTE</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade do atendimento</p>
-            <p>8:00</p>
-            <IconEye
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() => ""}
-            />
-          </S.TableItem>
-          <S.TableItem>
-            <p>NOME DO CLIENTE</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade do atendimento</p>
-            <p>8:00</p>
-            <IconEye
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() => ""}
-            />
-          </S.TableItem>
-          <S.TableItem>
-            <p>NOME DO CLIENTE</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade do atendimento</p>
-            <p>8:00</p>
-            <IconEye
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() => ""}
-            />
-          </S.TableItem>
-          <S.TableItem>
-            <p>NOME DO CLIENTE</p>
-            <p>Modelo do veículo</p>
-            <p>xxxxxxxx</p>
-            <p>xxxxxxxx</p>
-            <p>Cidade do atendimento</p>
-            <p>8:00</p>
-            <IconEye
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() => ""}
-            />
-          </S.TableItem>
-        </S.TableItens>
-      </S.Table>
+          <S.TableItens>
+            <S.TableItem>
+              <p>NOME DO CLIENTE</p>
+              <p>Modelo do veículo</p>
+              <p>xxxxxxxx</p>
+              <p>xxxxxxxx</p>
+              <p>Cidade do atendimento</p>
+              <p>8:00</p>
+              <IconEye
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </S.TableItem>
+            <S.TableItem>
+              <p>NOME DO CLIENTE</p>
+              <p>Modelo do veículo</p>
+              <p>xxxxxxxx</p>
+              <p>xxxxxxxx</p>
+              <p>Cidade do atendimento</p>
+              <p>8:00</p>
+              <IconEye
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </S.TableItem>
+            <S.TableItem>
+              <p>NOME DO CLIENTE</p>
+              <p>Modelo do veículo</p>
+              <p>xxxxxxxx</p>
+              <p>xxxxxxxx</p>
+              <p>Cidade do atendimento</p>
+              <p>8:00</p>
+              <IconEye
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </S.TableItem>
+            <S.TableItem>
+              <p>NOME DO CLIENTE</p>
+              <p>Modelo do veículo</p>
+              <p>xxxxxxxx</p>
+              <p>xxxxxxxx</p>
+              <p>Cidade do atendimento</p>
+              <p>8:00</p>
+              <IconEye
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() => ""}
+              />
+            </S.TableItem>
+          </S.TableItens>
+        </S.Table>
+      )}
     </S.Container>
   );
 };

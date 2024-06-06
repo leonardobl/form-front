@@ -108,6 +108,57 @@ export const FormFilterHeader = styled.div`
   }
 `;
 
+export const TableMobile = styled.div`
+  > :nth-child(odd) {
+    background-color: #e8e8e8;
+  }
+
+  > :nth-child(even) {
+    background-color: #f7f7f7;
+  }
+`;
+
+export const TableMobileItem = styled.div`
+  border-radius: 5px;
+  padding: 16px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 16px 0;
+
+    > p {
+      color: var(--PADO-1, #2d2d2d);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px; /* 200% */
+      letter-spacing: 0.36px;
+      text-transform: uppercase;
+      display: flex;
+      gap: 0 16px;
+    }
+
+    > span {
+      color: var(--PADO-1, #2d2d2d);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 24px; /* 200% */
+      letter-spacing: 0.36px;
+      text-transform: uppercase;
+    }
+  }
+
+  & + div {
+    margin-top: 32px;
+  }
+`;
+
 export const Table = styled.div`
   width: 100%;
   max-width: 1200px;
