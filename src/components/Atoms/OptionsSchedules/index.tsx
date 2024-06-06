@@ -1,22 +1,27 @@
 import React from "react";
 import * as S from "./styles";
 import { useOptionsSchedules } from "./useOptionsSchedules";
-import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
-import { Modal } from "@mui/material";
-import { Text } from "../Text";
 import { SimpleSelect } from "../Selects/SimpleSelect";
 import { Button } from "../Button";
-import { IAgendamentoDTO } from "../../../types/agendamento";
+import {
+  IAgendamentoDTO,
+  IIniciarAgendamentoProps,
+} from "../../../types/agendamento";
 import { CustomConfirmModal } from "../CustomConfirmModal";
-import { resetValues } from "../../../utils/resetObject";
 import { ISelectOptions } from "../../../types/inputs";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 
 type OptionsSchedulesProps = {
   agendamento: IAgendamentoDTO;
+  onStartSchedule: (data: IIniciarAgendamentoProps) => void;
+  onAssignSchedule: (data: IIniciarAgendamentoProps) => void;
 };
 
-export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
+export const OptionsSchedules = ({
+  agendamento,
+  onAssignSchedule,
+  onStartSchedule,
+}: OptionsSchedulesProps) => {
   const {
     isCliente,
     isOpen,
@@ -29,8 +34,9 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
     vistoriadoresOptions,
     modalStart,
     setModalStart,
-    iniciarVistoria,
-    atribuirAgendamento,
+    Controller,
+    control,
+    handleSubmit,
   } = useOptionsSchedules();
 
   return (
@@ -74,7 +80,12 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
         isOpen={modalStart?.open}
         onRequestClose={() => setModalStart({ open: false })}
       >
-        <S.formModal onSubmit={iniciarVistoria}>
+        <S.formModal
+          onSubmit={handleSubmit((data) => {
+            onStartSchedule(data);
+            setModalStart({ open: false });
+          })}
+        >
           <S.HeaderModal>
             <S.WrapperButtonClose>
               <button onClick={() => setModalStart({ open: false })}>X</button>
@@ -92,46 +103,46 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
             </p>
             {agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA && (
               <div>
-                <SimpleSelect
-                  options={baitasOptions}
-                  label="Baia de Atendimento"
-                  value={baitasOptions?.find(
-                    (item) => item?.value === modalStart?.formStar?.uuidBaia
+                <Controller
+                  control={control}
+                  name="uuidBaia"
+                  render={({ field: { value, onChange } }) => (
+                    <SimpleSelect
+                      options={baitasOptions}
+                      label="Baia de Atendimento"
+                      value={baitasOptions?.find(
+                        (item) => item?.value === value
+                      )}
+                      onChange={(e: ISelectOptions) => onChange(e.value)}
+                      required
+                    />
                   )}
-                  onChange={(e: ISelectOptions) =>
-                    setModalStart((prev) => ({
-                      ...prev,
-                      formStar: { ...prev.formStar, uuidBaia: e?.value },
-                    }))
-                  }
-                  required
                 />
               </div>
             )}
             <div>
-              <SimpleSelect
-                options={vistoriadoresOptions}
-                required
-                label="Vistoriador"
-                value={vistoriadoresOptions?.find(
-                  (item) =>
-                    item?.value === modalStart?.formStar?.uuidVistoriador
+              <Controller
+                control={control}
+                name="uuidVistoriador"
+                render={({ field: { onChange, value } }) => (
+                  <SimpleSelect
+                    options={vistoriadoresOptions}
+                    required
+                    label="Vistoriador"
+                    value={vistoriadoresOptions?.find(
+                      (item) => item?.value === value
+                    )}
+                    onChange={(e: ISelectOptions) => onChange(e.value)}
+                  />
                 )}
-                onChange={(e: ISelectOptions) =>
-                  setModalStart((prev) => ({
-                    ...prev,
-                    formStar: { ...prev, uuidVistoriador: e?.value },
-                  }))
-                }
               />
             </div>
             <S.WrapperButtonsModal>
               <Button
                 data-variant-text
-                type="button"
+                type="reset"
                 onClick={() => {
-                  const reset = resetValues(modalStart);
-                  setModalStart({ ...reset, open: false });
+                  setModalStart({ open: false });
                 }}
               >
                 Cancelar
@@ -156,29 +167,36 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
             será atribuída a vistoria móvel.
           </p>
 
-          <S.FormAtribuir onSubmit={atribuirAgendamento}>
+          <S.FormAtribuir
+            onSubmit={handleSubmit((data) => {
+              onAssignSchedule(data);
+              setModalAtribuir({ open: false });
+            })}
+          >
             <div>
-              <SimpleSelect
-                options={vistoriadoresOptions}
-                required
-                label="Vistoriador"
-                value={vistoriadoresOptions?.find(
-                  (item) =>
-                    item?.value === modalAtribuir?.formStar?.uuidVistoriador
+              <Controller
+                control={control}
+                name="uuidVistoriador"
+                render={({ field: { onChange, value } }) => (
+                  <SimpleSelect
+                    options={vistoriadoresOptions}
+                    required
+                    label="Vistoriador"
+                    value={vistoriadoresOptions?.find(
+                      (item) => item?.value === value
+                    )}
+                    onChange={(e: ISelectOptions) => onChange(e.value)}
+                  />
                 )}
-                onChange={(e: ISelectOptions) =>
-                  setModalAtribuir((prev) => ({
-                    ...prev,
-                    agendamento,
-                    formStar: { ...prev, uuidVistoriador: e?.value },
-                  }))
-                }
               />
             </div>
 
             <S.ButtonsForm>
               <button
-                onClick={() => setModalAtribuir({ open: false })}
+                type="reset"
+                onClick={() => {
+                  setModalAtribuir({ open: false });
+                }}
                 id="cancel"
               >
                 Cancelar

@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ISelectOptions } from "../../../types/inputs";
 import { Delivery } from "../../../services/Delivery";
 import { toast } from "react-toastify";
 import { Agendamento } from "../../../services/Agendamento";
-import { IAgendamentoDaHoraDTO } from "../../../types/agendamento";
+import {
+  IAgendamentoDaHoraDTO,
+  IAgendamentoIniciarForm,
+  IIniciarAgendamentoProps,
+} from "../../../types/agendamento";
 import { useContextSite } from "../../../context/Context";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useMediaQuery } from "react-responsive";
+import { IColaboradorCompletoDTO } from "../../../types/colaborador";
+import { Colaborador } from "../../../services/Colaborador";
 
 type FormFilterProps = {
   data?: string;
@@ -24,6 +30,29 @@ export const useDeliverys = () => {
   const [token] = useSessionStorage("@token");
   const isMobile = useMediaQuery({ maxWidth: "500px" });
   const [filterOpen, setFilterOpen] = useState(isMobile ? false : true);
+
+  const [colaboradorAtual, setColaboradorAtual] =
+    useState<IColaboradorCompletoDTO>({} as IColaboradorCompletoDTO);
+
+  const getColaboradorAtual = useCallback(() => {
+    Colaborador.atual()
+      .then(({ data }) => {
+        setColaboradorAtual(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      );
+  }, []);
+
+  useEffect(() => {
+    getColaboradorAtual();
+  }, [getColaboradorAtual]);
 
   async function handleDownload({
     cidade,
@@ -119,6 +148,62 @@ export const useDeliverys = () => {
       );
   }, []);
 
+  function atribuirAgendamento(data: IIniciarAgendamentoProps) {
+    console.log(data);
+
+    // const PAYLOAD: IIniciarAgendamentoProps = {
+    //   uuid: modalAtribuir?.agendamento?.uuid,
+    //   uuidVistoriador: modalAtribuir?.formStar?.uuidVistoriador,
+    //   uuidAtendente: colaboradorAtual?.uuid,
+    // };
+
+    // setIsLoad(true);
+
+    // Agendamento.atribuir(PAYLOAD)
+    //   .then(() => {
+    //     toast.success("Agendamento atribuido com sucesso!");
+    //   })
+    //   .catch(
+    //     ({
+    //       response: {
+    //         data: { mensagem },
+    //       },
+    //     }) => {
+    //       toast.error(mensagem);
+    //     }
+    //   )
+    //   .finally(() => {
+    //     setIsLoad(false);
+    //     setModalAtribuir({ open: false });
+    //   });
+  }
+
+  function iniciarVistoria(data: IIniciarAgendamentoProps) {
+    const PAYLOAD: IIniciarAgendamentoProps = {
+      ...data,
+      uuidAtendente: colaboradorAtual?.uuid,
+    };
+
+    setIsLoad(true);
+    Agendamento.iniciar(PAYLOAD)
+      .then(({ data }) => {
+        toast.success("Agendamento iniciado");
+        getAgendamentos();
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
+  }
+
   return {
     formFilter,
     setFormFilter,
@@ -132,5 +217,7 @@ export const useDeliverys = () => {
     isMobile,
     filterOpen,
     setFilterOpen,
+    iniciarVistoria,
+    atribuirAgendamento,
   };
 };

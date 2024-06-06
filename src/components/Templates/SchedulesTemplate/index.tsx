@@ -38,6 +38,8 @@ export const SchedulesTemplate = () => {
     menuOpen,
     setMenuOpen,
     handleCpf,
+    atribuirAgendamento,
+    iniciarVistoria,
   } = useSchedules();
 
   return (
@@ -237,7 +239,11 @@ export const SchedulesTemplate = () => {
                   }
                 />
 
-                <OptionsSchedules agendamento={item} />
+                <OptionsSchedules
+                  agendamento={item}
+                  onAssignSchedule={atribuirAgendamento}
+                  onStartSchedule={iniciarVistoria}
+                />
               </div>
             </S.ListItemMobile>
           ))}
@@ -292,7 +298,11 @@ export const SchedulesTemplate = () => {
                   }
                 />
 
-                <OptionsSchedules agendamento={item} />
+                <OptionsSchedules
+                  agendamento={item}
+                  onAssignSchedule={atribuirAgendamento}
+                  onStartSchedule={iniciarVistoria}
+                />
               </S.WrapperActions>
             </S.ListItem>
           ))}

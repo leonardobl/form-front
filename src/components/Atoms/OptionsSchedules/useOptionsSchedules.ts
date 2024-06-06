@@ -11,11 +11,10 @@ import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { Colaborador } from "../../../services/Colaborador";
 import { TipoColaboradorEnum } from "../../../enums/tipoColaborador";
 import { Loja } from "../../../services/Lojas";
-import { Agendamento } from "../../../services/Agendamento";
-import { toast } from "react-toastify";
-import { useContextSite } from "../../../context/Context";
-import { IColaboradorCompletoDTO } from "../../../types/colaborador";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller } from "react-hook-form";
 
 const RESOLCES = ["ATRIBUIR_VISTORIA", "ADMIN"];
 
@@ -25,15 +24,31 @@ interface IModalProps {
   formStar?: IAgendamentoIniciarForm;
 }
 
+const schema = z.object({
+  uuidAtendente: z.string().min(1).or(z.literal("")),
+  uuidBaia: z.string().min(1).or(z.literal("")),
+  uuidVistoriador: z.string().min(1).or(z.literal("")),
+  uuid: z.string().min(1).or(z.literal("")),
+});
+
 export const useOptionsSchedules = () => {
+  const { control, handleSubmit, reset, setValue } =
+    useForm<IIniciarAgendamentoProps>({
+      defaultValues: {
+        uuidAtendente: "",
+        uuidBaia: "",
+        uuidVistoriador: "",
+        uuid: "",
+      },
+      resolver: zodResolver(schema),
+    });
+
   const [usuario, setUsuario] = useSessionStorage("cliente");
   const isCliente = !!usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE);
   const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
   const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
     ISelectOptions[]
   >([]);
-  const { setIsLoad } = useContextSite();
-  const navigate = useNavigate();
 
   const isAdmin = RESOLCES.some(
     (item) => item === "ATRIBUIR_VISTORIA" || item === "ADMIN"
@@ -49,31 +64,10 @@ export const useOptionsSchedules = () => {
     open: false,
   });
 
-  const [colaboradorAtual, setColaboradorAtual] =
-    useState<IColaboradorCompletoDTO>({} as IColaboradorCompletoDTO);
-
-  const getColaboradorAtual = useCallback(() => {
-    Colaborador.atual()
-      .then(({ data }) => {
-        setColaboradorAtual(data);
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-        }
-      );
-  }, []);
-
   useEffect(() => {
-    getColaboradorAtual();
-  }, [getColaboradorAtual]);
-
-  useEffect(() => {
+    reset();
     if (modalAtribuir?.open) {
+      setValue("uuid", modalAtribuir?.agendamento?.uuid);
       Colaborador.listarPorDelivery({
         tipo: TipoColaboradorEnum.VISTORIADOR,
         uuidDelivery: modalAtribuir?.agendamento?.delivery?.uuid,
@@ -90,7 +84,9 @@ export const useOptionsSchedules = () => {
   }, [modalAtribuir?.open]);
 
   useEffect(() => {
+    reset();
     if (modalStart?.open) {
+      setValue("uuid", modalStart?.agendamento?.uuid);
       if (
         modalStart?.agendamento?.tipoAtendimento ===
         TipoAtendimentoEnum.DOMICILIO
@@ -138,66 +134,6 @@ export const useOptionsSchedules = () => {
     }
   }, [modalStart?.open]);
 
-  function iniciarVistoria(e: React.SyntheticEvent) {
-    e.preventDefault();
-
-    const PAYLOAD: IIniciarAgendamentoProps = {
-      uuid: modalStart?.agendamento?.uuid,
-      uuidBaia: modalStart?.formStar?.uuidBaia,
-      uuidVistoriador: modalStart?.formStar?.uuidVistoriador,
-      uuidAtendente: colaboradorAtual?.uuid,
-    };
-
-    setIsLoad(true);
-    Agendamento.iniciar(PAYLOAD)
-      .then(({ data }) => {
-        toast.success("Agendamento iniciado");
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-        }
-      )
-      .finally(() => {
-        setIsLoad(false);
-        setModalStart({ open: false });
-      });
-  }
-
-  function atribuirAgendamento(e: React.SyntheticEvent) {
-    e.preventDefault();
-
-    const PAYLOAD: IIniciarAgendamentoProps = {
-      uuid: modalAtribuir?.agendamento?.uuid,
-      uuidVistoriador: modalAtribuir?.formStar?.uuidVistoriador,
-      uuidAtendente: colaboradorAtual?.uuid,
-    };
-
-    setIsLoad(true);
-
-    Agendamento.atribuir(PAYLOAD)
-      .then(() => {
-        toast.success("Agendamento atribuido com sucesso!");
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-        }
-      )
-      .finally(() => {
-        setIsLoad(false);
-        setModalAtribuir({ open: false });
-      });
-  }
-
   return {
     isCliente,
     isOpen,
@@ -210,7 +146,10 @@ export const useOptionsSchedules = () => {
     vistoriadoresOptions,
     modalStart,
     setModalStart,
-    iniciarVistoria,
-    atribuirAgendamento,
+    Controller,
+    control,
+    handleSubmit,
+    reset,
+    setValue,
   };
 };

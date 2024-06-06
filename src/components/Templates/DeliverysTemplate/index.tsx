@@ -25,6 +25,8 @@ export const DeliverysTemplates = () => {
     isMobile,
     filterOpen,
     setFilterOpen,
+    atribuirAgendamento,
+    iniciarVistoria,
   } = useDeliverys();
 
   return (
@@ -123,7 +125,11 @@ export const DeliverysTemplates = () => {
                     </p>
                     <p>{agendamento?.cliente?.nome || "---"}</p>
                   </div>
-                  <OptionsSchedules agendamento={agendamento} />
+                  <OptionsSchedules
+                    agendamento={agendamento}
+                    onStartSchedule={iniciarVistoria}
+                    onAssignSchedule={atribuirAgendamento}
+                  />
                 </S.ListItemMobile>
               ))
             )}
@@ -139,7 +145,11 @@ export const DeliverysTemplates = () => {
                   <p>{agendamento?.veiculo?.chassi || "---"}</p>
                   <p>{agendamento?.delivery?.cidade || "---"}</p>
                   <p>{agendamento?.horaAgendada || "---"}</p>
-                  <OptionsSchedules agendamento={agendamento} />
+                  <OptionsSchedules
+                    agendamento={agendamento}
+                    onStartSchedule={iniciarVistoria}
+                    onAssignSchedule={atribuirAgendamento}
+                  />
                 </S.ListItem>
               ))
             )}

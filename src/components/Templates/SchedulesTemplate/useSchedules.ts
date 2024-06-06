@@ -6,6 +6,7 @@ import { Agendamento } from "../../../services/Agendamento";
 import { useContextSite } from "../../../context/Context";
 import {
   IAgendamentoDTO,
+  IAgendamentoIniciarForm,
   IGetAgendamentosProps,
   IIniciarAgendamentoProps,
 } from "../../../types/agendamento";
@@ -162,6 +163,72 @@ export const useSchedules = () => {
     getAgendamentos({ size, page: 0 });
   }
 
+  function atribuirAgendamento(data: IAgendamentoIniciarForm) {
+    // e.preventDefault();
+
+    console.log(data);
+
+    // const PAYLOAD: IIniciarAgendamentoProps = {
+    //   uuid: modalAtribuir?.agendamento?.uuid,
+    //   uuidVistoriador: modalAtribuir?.formStar?.uuidVistoriador,
+    //   uuidAtendente: colaboradorAtual?.uuid,
+    // };
+
+    // setIsLoad(true);
+
+    // Agendamento.atribuir(PAYLOAD)
+    //   .then(() => {
+    //     toast.success("Agendamento atribuido com sucesso!");
+    //   })
+    //   .catch(
+    //     ({
+    //       response: {
+    //         data: { mensagem },
+    //       },
+    //     }) => {
+    //       toast.error(mensagem);
+    //     }
+    //   )
+    //   .finally(() => {
+    //     setIsLoad(false);
+    //     setModalAtribuir({ open: false });
+    //   });
+  }
+
+  function iniciarVistoria(data: IAgendamentoIniciarForm) {
+    //  e.preventDefault();
+
+    //  const PAYLOAD: IIniciarAgendamentoProps = {
+    //    uuid: modalStart?.agendamento?.uuid,
+    //    uuidBaia: modalStart?.formStar?.uuidBaia,
+    //    uuidVistoriador: modalStart?.formStar?.uuidVistoriador,
+    //    uuidAtendente: colaboradorAtual?.uuid,
+    //  };
+
+    console.log(data);
+
+    return;
+
+    // setIsLoad(true);
+    // Agendamento.iniciar(PAYLOAD)
+    //   .then(({ data }) => {
+    //     toast.success("Agendamento iniciado");
+    //   })
+    //   .catch(
+    //     ({
+    //       response: {
+    //         data: { mensagem },
+    //       },
+    //     }) => {
+    //       toast.error(mensagem);
+    //     }
+    //   )
+    //   .finally(() => {
+    //     setIsLoad(false);
+    //     setModalStart({ open: false });
+    //   });
+  }
+
   return {
     handleClear,
     pagination,
@@ -183,5 +250,7 @@ export const useSchedules = () => {
     isCliente,
     menuOpen,
     setMenuOpen,
+    iniciarVistoria,
+    atribuirAgendamento,
   };
 };
