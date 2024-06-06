@@ -29,26 +29,13 @@ type dataAgendamentoProps = {
 
 export const useStores = () => {
   const { setIsLoad } = useContextSite();
-  const [agendamentosEmEspera, setAgendamentosEmEspera] = useState<
-    IAgendamentoDTO[]
-  >([] as IAgendamentoDTO[]);
-  const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>(
-    [] as IAgendamentoDaHoraDTO[]
-  );
-  const [dataAgendamento, setDataAgendamento] = useState<dataAgendamentoProps>(
-    {} as dataAgendamentoProps
-  );
-  const [modalStart, setModalStart] = useState<IModalStartProps>({
-    open: false,
-  });
+  const [agendamentosEmEspera, setAgendamentosEmEspera] = useState<IAgendamentoDTO[]>([] as IAgendamentoDTO[]);
+  const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>([] as IAgendamentoDaHoraDTO[]);
+  const [dataAgendamento, setDataAgendamento] = useState<dataAgendamentoProps>({} as dataAgendamentoProps);
+  const [modalStart, setModalStart] = useState<IModalStartProps>({open: false,});
   const isMobile = useMediaQuery({ maxWidth: "500px" });
-
-  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
-    {} as IColaboradorCompletoDTO
-  );
-  const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
-    ISelectOptions[]
-  >([]);
+  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>({} as IColaboradorCompletoDTO);
+  const [vistoriadoresOptions, setVistoriadoresOptions] = useState<ISelectOptions[]>([]);
   const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
 
   function transformData(data: IAgendamentoDaHoraDTO[]) {
@@ -110,12 +97,6 @@ export const useStores = () => {
   const getData = () => {
     setIsLoad(true);
     const hoje = reverseToIsoDate(new Date().toLocaleDateString());
-    const uuids = {
-      uuidDelivery: colaborador?.delivery?.uuid,
-      uuidLoja: colaborador?.loja?.uuid,
-    };
-
-    const filterEmpty = removeEmpty(uuids);
 
     Agendamento.getByHour({
       data: hoje,
@@ -124,7 +105,7 @@ export const useStores = () => {
         StatusAgendamentoEnum.INICIADO,
         StatusAgendamentoEnum.FINALIZADO,
       ],
-      ...uuids,
+      uuidLoja: colaborador?.loja?.uuid,
     })
       .then(({ data }) => {
         const emEspera = transformData(data.agendamentos);

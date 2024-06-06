@@ -160,7 +160,13 @@ export const useDeliverys = () => {
     Agendamento.atribuir(PAYLOAD)
       .then(() => {
         toast.success("Agendamento atribuido com sucesso!");
-        getAgendamentos();
+
+        const filterAgendamento: FormFilterProps = {
+          ...formFilter,
+          data: reverseToIsoDate(date?.toLocaleDateString()),
+        };
+
+        getAgendamentos(filterAgendamento);
       })
       .catch(
         ({
@@ -186,7 +192,13 @@ export const useDeliverys = () => {
     Agendamento.iniciar(PAYLOAD)
       .then(({ data }) => {
         toast.success("Agendamento iniciado");
-        getAgendamentos();
+
+        const filterAgendamento: FormFilterProps = {
+          ...formFilter,
+          data: reverseToIsoDate(date?.toLocaleDateString()),
+        };
+
+        getAgendamentos(filterAgendamento);
       })
       .catch(
         ({
