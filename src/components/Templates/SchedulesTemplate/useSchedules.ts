@@ -58,7 +58,7 @@ export const useSchedules = () => {
     useState<IColaboradorCompletoDTO>({} as IColaboradorCompletoDTO);
 
   const getColaboradorAtual = useCallback(() => {
-    Colaborador.atual()
+    !isCliente && Colaborador.atual()
       .then(({ data }) => {
         setColaboradorAtual(data);
       })
