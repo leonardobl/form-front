@@ -11,6 +11,7 @@ import { NotFound } from "../components/Atoms/NotFound";
 import { SettingsTemplate } from "../components/Templates/SettingsTemplate";
 import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
 import { ConcessionaireTemplate } from "../components/Templates/ConcessionaireTemplate";
+import { Inspections } from "../components/Pages/Inspections";
 
 export const useMainRoutes = () => {
   return (
@@ -20,6 +21,18 @@ export const useMainRoutes = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/alterar-senha" element={<ResetPassword />} />
       <Route path="/offline" element={<Offline />} />
+
+      <Route
+        path="/minhas-vistorias"
+        element={
+          <ProtectedRoute>
+            <LayoutTemplate />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Inspections />} />
+      </Route>
+
       <Route
         path="/perfil"
         element={

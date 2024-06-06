@@ -90,11 +90,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
 
                 {isVistoriador && (
                   <div>
-                    <NavLink
-                      className={"navLink"}
-                      end
-                      to={"/meus-agendamentos/minhas-vistorias"}
-                    >
+                    <NavLink className={"navLink"} end to={"/minhas-vistorias"}>
                       Minhas Vistorias
                     </NavLink>
                   </div>
