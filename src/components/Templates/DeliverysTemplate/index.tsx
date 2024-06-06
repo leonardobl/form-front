@@ -139,6 +139,14 @@ export const DeliverysTemplates = () => {
             {agendamentos?.map((agendaemntosPorHorario) =>
               agendaemntosPorHorario?.agendamentos?.map((agendamento) => (
                 <S.ListItem key={agendamento?.uuid}>
+                  {agendamento?.vistoriador ? (
+                    <img
+                      src="/assets/svgs/icon-atribuido.svg"
+                      alt="icone de atribuir"
+                    />
+                  ) : (
+                    <span></span>
+                  )}
                   <p>{agendamento?.cliente?.nome || "---"}</p>
                   <p>{agendamento?.veiculo?.modelo || "---"}</p>
                   <p>{agendamento?.veiculo?.placa || "---"}</p>

@@ -76,6 +76,15 @@ export const ContentModal = styled.div`
   div#wrapperSelectVistoriador {
     margin-bottom: 32px;
   }
+
+  @media (max-width: 500px) {
+    min-width: 80vw;
+    > p {
+      font-size: 16px;
+
+      line-height: 24px;
+    }
+  }
 `;
 
 export const WrapperButtonX = styled.div`
@@ -94,10 +103,15 @@ export const WrapperButtonX = styled.div`
 `;
 
 export const formModal = styled.form`
-  width: 506px;
+  max-width: 506px;
+  width: 100%;
   height: fit-content;
   background: #e8e8e8;
   box-shadow: 4px 4px 16.3px 0px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 500px) {
+    min-width: 80vw;
+  }
 `;
 
 export const WrapperButtons = styled.div`
@@ -183,6 +197,16 @@ export const WrapperText = styled.div`
 
     span {
       font-weight: 700;
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding: 16px;
+    gap: 16px 0;
+
+    > p {
+      font-size: 16px;
+      line-height: 24px;
     }
   }
 `;

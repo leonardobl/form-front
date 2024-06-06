@@ -221,13 +221,22 @@ export const SchedulesTemplate = () => {
         <S.ListMobile>
           {agendamentos?.map((item) => (
             <S.ListItemMobile key={`${Math.random()}`}>
+              {item?.vistoriador ? (
+                <img
+                  src="/assets/svgs/icon-atribuido.svg"
+                  alt="icone vistoriador atribuido"
+                />
+              ) : (
+                <span></span>
+              )}
+
               <S.ListItemMobileContent>
                 <p>{`${item?.veiculo?.modelo} ${item.horaAgendada}`}</p>
 
                 <Status status={item?.status} />
               </S.ListItemMobileContent>
 
-              <div>
+              <div id="wrapper-actions">
                 <img
                   src="/assets/svgs/eye.svg"
                   alt="icone visualizacao"
@@ -251,6 +260,7 @@ export const SchedulesTemplate = () => {
       ) : (
         <S.List>
           <S.ListTitles>
+            <span></span>
             <h3>Tipo</h3>
             <h3>Veículo</h3>
             <h3>Placa</h3>
@@ -262,6 +272,14 @@ export const SchedulesTemplate = () => {
           </S.ListTitles>
           {agendamentos?.map((item) => (
             <S.ListItem key={`${Math.random()}`}>
+              {item?.vistoriador ? (
+                <img
+                  src="/assets/svgs/icon-atribuido.svg"
+                  alt="icone vistoriador atribuido"
+                />
+              ) : (
+                <span></span>
+              )}
               <p>{item?.tipoAtendimento}</p>
               <p>{item?.veiculo?.modelo}</p>
               <p>{item?.veiculo?.placa}</p>

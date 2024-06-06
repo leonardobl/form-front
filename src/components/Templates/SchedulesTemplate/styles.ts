@@ -175,7 +175,7 @@ export const List = styled.div`
 
 export const ListTitles = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.3fr;
+  grid-template-columns: 0.2fr 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.3fr;
   width: 100%;
   padding: 18px 16px;
 
@@ -193,7 +193,7 @@ export const ListTitles = styled.div`
 
 export const ListItem = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.3fr;
+  grid-template-columns: 0.2fr 0.6fr 1.2fr 0.8fr 1.5fr 1fr 1.2fr 1.4fr 0.3fr;
   width: 100%;
   padding: 18px 16px;
   border-radius: 10px;
@@ -259,10 +259,16 @@ export const ListItemMobile = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  > img {
+  > img,
+  span {
     width: 0.8125rem;
     height: 0.625rem;
-    margin-right: 1.2rem;
+    margin-right: 2rem;
+  }
+
+  div#wrapper-actions {
+    display: flex;
+    gap: 0 16px;
   }
 
   & + div {
