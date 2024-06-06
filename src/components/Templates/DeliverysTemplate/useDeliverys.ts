@@ -149,33 +149,31 @@ export const useDeliverys = () => {
   }, []);
 
   function atribuirAgendamento(data: IIniciarAgendamentoProps) {
-    console.log(data);
+    const PAYLOAD: IIniciarAgendamentoProps = {
+      uuid: data.uuid,
+      uuidVistoriador: data.uuidVistoriador,
+      uuidAtendente: colaboradorAtual?.uuid,
+    };
 
-    // const PAYLOAD: IIniciarAgendamentoProps = {
-    //   uuid: modalAtribuir?.agendamento?.uuid,
-    //   uuidVistoriador: modalAtribuir?.formStar?.uuidVistoriador,
-    //   uuidAtendente: colaboradorAtual?.uuid,
-    // };
+    setIsLoad(true);
 
-    // setIsLoad(true);
-
-    // Agendamento.atribuir(PAYLOAD)
-    //   .then(() => {
-    //     toast.success("Agendamento atribuido com sucesso!");
-    //   })
-    //   .catch(
-    //     ({
-    //       response: {
-    //         data: { mensagem },
-    //       },
-    //     }) => {
-    //       toast.error(mensagem);
-    //     }
-    //   )
-    //   .finally(() => {
-    //     setIsLoad(false);
-    //     setModalAtribuir({ open: false });
-    //   });
+    Agendamento.atribuir(PAYLOAD)
+      .then(() => {
+        toast.success("Agendamento atribuido com sucesso!");
+        getAgendamentos();
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
   }
 
   function iniciarVistoria(data: IIniciarAgendamentoProps) {
