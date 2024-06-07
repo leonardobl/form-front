@@ -7,7 +7,18 @@ import { useInspections } from "./useInspections";
 import { IconEye } from "../../Atoms/IconEye";
 
 export const InspectionsTemplate = () => {
-  const { isMobile, filterOpen, setFilterOpen, navigate } = useInspections();
+  const {
+    isMobile,
+    filterOpen,
+    setFilterOpen,
+    navigate,
+    date,
+    setDate,
+    vistorias,
+    cleanData,
+    setFormFilter,
+    handleSubmit,
+  } = useInspections();
 
   return (
     <S.Container>
@@ -21,16 +32,28 @@ export const InspectionsTemplate = () => {
       )}
 
       {filterOpen && (
-        <S.FormFilter>
+        <S.FormFilter onSubmit={handleSubmit}>
           <S.FormFilterHeader>
             <h2>Filtro</h2>
           </S.FormFilterHeader>
           <S.FormFilterGrid>
             <div id="wrapperDate">
-              <InputDate placeholderText="___/___/___" onChange={() => ""} />
+              <InputDate
+                selected={date}
+                placeholderText="___/___/___"
+                onChange={(e) => {
+                  setDate(e);
+                  setFormFilter((prev) => ({
+                    ...prev,
+                    data: e?.toLocaleDateString(),
+                  }));
+                }}
+              />
             </div>
             <div>
-              <button id="btntext">Limpar tudo</button>
+              <button id="btntext" type="reset" onClick={cleanData}>
+                Limpar tudo
+              </button>
             </div>
             <div>
               <Button>BUSCAR</Button>
@@ -41,102 +64,30 @@ export const InspectionsTemplate = () => {
 
       {isMobile ? (
         <S.TableMobile>
-          <S.TableMobileItem>
-            <div>
-              <p>
-                Modelo do veículo
-                <span>8:00</span>
-              </p>
-              <span>Nome do cliente</span>
-            </div>
-            <IconEye
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() =>
-                navigate(
-                  `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
-                )
-              }
-            />
-          </S.TableMobileItem>
-          <S.TableMobileItem>
-            <div>
-              <p>
-                Modelo do veículo
-                <span>8:00</span>
-              </p>
-              <span>Nome do cliente</span>
-            </div>
-            <IconEye
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() =>
-                navigate(
-                  `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
-                )
-              }
-            />
-          </S.TableMobileItem>
-          <S.TableMobileItem>
-            <div>
-              <p>
-                Modelo do veículo
-                <span>8:00</span>
-              </p>
-              <span>Nome do cliente</span>
-            </div>
-            <IconEye
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() =>
-                navigate(
-                  `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
-                )
-              }
-            />
-          </S.TableMobileItem>
-          <S.TableMobileItem>
-            <div>
-              <p>
-                Modelo do veículo
-                <span>8:00</span>
-              </p>
-              <span>Nome do cliente</span>
-            </div>
-            <IconEye
-              src="/assets/svgs/eye.svg"
-              alt="icone visualizacao"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() =>
-                navigate(
-                  `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
-                )
-              }
-            />
-          </S.TableMobileItem>
+          {vistorias?.map((i) => (
+            <S.TableMobileItem key={Math.random()}>
+              <div>
+                <p>
+                  {i?.veiculo?.modelo || "---"}
+                  <span>{i?.horaAgendada || "---"}</span>
+                </p>
+                <span>{i?.cliente?.nome || "---"}</span>
+              </div>
+              <IconEye
+                src="/assets/svgs/eye.svg"
+                alt="icone visualizacao"
+                data-color-starcheck={
+                  process.env.REACT_APP_PROJECT === "starcheck"
+                }
+                data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                onClick={() =>
+                  navigate(`/minhas-vistorias/vistoria?id=${i?.uuid}`)
+                }
+              />
+            </S.TableMobileItem>
+          ))}
         </S.TableMobile>
       ) : (
         <S.Table>
@@ -151,98 +102,29 @@ export const InspectionsTemplate = () => {
           </S.TableHeader>
 
           <S.TableItens>
-            <S.TableItem>
-              <p>NOME DO CLIENTE</p>
-              <p>Modelo do veículo</p>
-              <p>xxxxxxxx</p>
-              <p>xxxxxxxx</p>
-              <p>Cidade do atendimento</p>
-              <p>8:00</p>
-              <IconEye
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                data-color-starcheck={
-                  process.env.REACT_APP_PROJECT === "starcheck"
-                }
-                data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() =>
-                  navigate(
-                    `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
-                  )
-                }
-              />
-            </S.TableItem>
-            <S.TableItem>
-              <p>NOME DO CLIENTE</p>
-              <p>Modelo do veículo</p>
-              <p>xxxxxxxx</p>
-              <p>xxxxxxxx</p>
-              <p>Cidade do atendimento</p>
-              <p>8:00</p>
-              <IconEye
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                data-color-starcheck={
-                  process.env.REACT_APP_PROJECT === "starcheck"
-                }
-                data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() =>
-                  navigate(
-                    `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
-                  )
-                }
-              />
-            </S.TableItem>
-            <S.TableItem>
-              <p>NOME DO CLIENTE</p>
-              <p>Modelo do veículo</p>
-              <p>xxxxxxxx</p>
-              <p>xxxxxxxx</p>
-              <p>Cidade do atendimento</p>
-              <p>8:00</p>
-              <IconEye
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                data-color-starcheck={
-                  process.env.REACT_APP_PROJECT === "starcheck"
-                }
-                data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() =>
-                  navigate(
-                    `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
-                  )
-                }
-              />
-            </S.TableItem>
-            <S.TableItem>
-              <p>NOME DO CLIENTE</p>
-              <p>Modelo do veículo</p>
-              <p>xxxxxxxx</p>
-              <p>xxxxxxxx</p>
-              <p>Cidade do atendimento</p>
-              <p>8:00</p>
-              <IconEye
-                src="/assets/svgs/eye.svg"
-                alt="icone visualizacao"
-                data-color-starcheck={
-                  process.env.REACT_APP_PROJECT === "starcheck"
-                }
-                data-color-log={process.env.REACT_APP_PROJECT === "log"}
-                data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-                data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() =>
-                  navigate(
-                    `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
-                  )
-                }
-              />
-            </S.TableItem>
+            {vistorias?.map((i) => (
+              <S.TableItem key={Math.random()}>
+                <p>{i?.cliente?.nome || "---"}</p>
+                <p>{i?.veiculo?.modelo || "---"}</p>
+                <p>{i?.veiculo?.placa || "---"}</p>
+                <p>{i?.veiculo?.chassi || "---"}</p>
+                <p>{i?.cliente.endereco.cidade || "---"}</p>
+                <p>{i?.horaAgendada || "---"}</p>
+                <IconEye
+                  src="/assets/svgs/eye.svg"
+                  alt="icone visualizacao"
+                  data-color-starcheck={
+                    process.env.REACT_APP_PROJECT === "starcheck"
+                  }
+                  data-color-log={process.env.REACT_APP_PROJECT === "log"}
+                  data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
+                  data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
+                  onClick={() =>
+                    navigate(`/minhas-vistorias/vistoria?id=${i?.uuid}`)
+                  }
+                />
+              </S.TableItem>
+            ))}
           </S.TableItens>
         </S.Table>
       )}

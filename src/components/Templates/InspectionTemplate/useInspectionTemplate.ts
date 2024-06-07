@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
+import { Pagamento } from "../../../services/Pagamento";
 
 export const useInspectionTemplate = () => {
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
@@ -35,5 +36,22 @@ export const useInspectionTemplate = () => {
     }
   }, [id]);
 
-  return { agendamento };
+  function handleDownload() {
+    setIsLoad(true);
+    Pagamento.downloadFatura({ uuidAgendamento: id })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
+  }
+
+  return { agendamento, handleDownload };
 };

@@ -2,8 +2,11 @@ import React from "react";
 import * as S from "./styles";
 import { Input } from "../../Atoms/Inputs/Input";
 import { Button } from "../../Atoms/Button";
+import { useAcceptInspection } from "./useAcceptInspection";
 
 export const AcceptInspectionTemplate = () => {
+  const {} = useAcceptInspection();
+
   return (
     <S.Container>
       <S.Form>

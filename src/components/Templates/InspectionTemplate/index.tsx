@@ -8,14 +8,18 @@ import { maskCnpj, maskCpf, maskMoney, maskPhone } from "../../../utils/masks";
 import { TipoPagamento } from "../../../enums/tipoPagamento";
 
 export const InspectionTemplate = () => {
-  const { agendamento } = useInspectionTemplate();
+  const { agendamento, handleDownload } = useInspectionTemplate();
 
   return (
     <S.Container>
       <S.Form>
         <S.FormHeader>
           <Text>Dados do agendamento.</Text>
-          <img src="/assets/svgs/down-doc.svg" alt="icone download" />
+          <img
+            src="/assets/svgs/down-doc.svg"
+            alt="icone download"
+            onClick={handleDownload}
+          />
         </S.FormHeader>
 
         <div>
