@@ -13,6 +13,7 @@ import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
 import { ConcessionaireTemplate } from "../components/Templates/ConcessionaireTemplate";
 import { Inspections } from "../components/Pages/Inspections";
 import { Inspection } from "../components/Pages/Inspection";
+import { AcceptInspection } from "../components/Pages/AcceptInspection";
 
 export const useMainRoutes = () => {
   return (
@@ -33,6 +34,7 @@ export const useMainRoutes = () => {
       >
         <Route index element={<Inspections />} />
         <Route path="vistoria" element={<Inspection />} />
+        <Route path="aceite-vistoria" element={<AcceptInspection />} />
       </Route>
 
       <Route

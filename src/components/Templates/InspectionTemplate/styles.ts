@@ -19,7 +19,7 @@ export const Form = styled.form`
   display: grid;
   grid-template-columns: repeat(5, minmax(160px, 1fr));
   grid-template-areas: "title title title title title" "tipo tipo tipo data hora" "cliente cliente cliente cpf cpf" "telefone telefone email email email" "modelo modelo modelo placa renavam" "chassi chassi chassi chassi chassi" "valor valor pagamento pagamento pagamento";
-  gap: 56px 16px;
+  gap: 48px 16px;
 
   > :nth-child(1) {
     grid-area: title;
