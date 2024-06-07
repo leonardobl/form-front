@@ -7,7 +7,7 @@ import { useInspections } from "./useInspections";
 import { IconEye } from "../../Atoms/IconEye";
 
 export const InspectionsTemplate = () => {
-  const { isMobile, filterOpen, setFilterOpen } = useInspections();
+  const { isMobile, filterOpen, setFilterOpen, navigate } = useInspections();
 
   return (
     <S.Container>
@@ -58,7 +58,11 @@ export const InspectionsTemplate = () => {
               data-color-log={process.env.REACT_APP_PROJECT === "log"}
               data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
               data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() => ""}
+              onClick={() =>
+                navigate(
+                  `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
+                )
+              }
             />
           </S.TableMobileItem>
           <S.TableMobileItem>
@@ -78,7 +82,11 @@ export const InspectionsTemplate = () => {
               data-color-log={process.env.REACT_APP_PROJECT === "log"}
               data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
               data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() => ""}
+              onClick={() =>
+                navigate(
+                  `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
+                )
+              }
             />
           </S.TableMobileItem>
           <S.TableMobileItem>
@@ -98,7 +106,11 @@ export const InspectionsTemplate = () => {
               data-color-log={process.env.REACT_APP_PROJECT === "log"}
               data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
               data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() => ""}
+              onClick={() =>
+                navigate(
+                  `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
+                )
+              }
             />
           </S.TableMobileItem>
           <S.TableMobileItem>
@@ -118,7 +130,11 @@ export const InspectionsTemplate = () => {
               data-color-log={process.env.REACT_APP_PROJECT === "log"}
               data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
               data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-              onClick={() => ""}
+              onClick={() =>
+                navigate(
+                  `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
+                )
+              }
             />
           </S.TableMobileItem>
         </S.TableMobile>
@@ -151,7 +167,11 @@ export const InspectionsTemplate = () => {
                 data-color-log={process.env.REACT_APP_PROJECT === "log"}
                 data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
                 data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() => ""}
+                onClick={() =>
+                  navigate(
+                    `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
+                  )
+                }
               />
             </S.TableItem>
             <S.TableItem>
@@ -170,7 +190,11 @@ export const InspectionsTemplate = () => {
                 data-color-log={process.env.REACT_APP_PROJECT === "log"}
                 data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
                 data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() => ""}
+                onClick={() =>
+                  navigate(
+                    `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
+                  )
+                }
               />
             </S.TableItem>
             <S.TableItem>
@@ -189,7 +213,11 @@ export const InspectionsTemplate = () => {
                 data-color-log={process.env.REACT_APP_PROJECT === "log"}
                 data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
                 data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() => ""}
+                onClick={() =>
+                  navigate(
+                    `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
+                  )
+                }
               />
             </S.TableItem>
             <S.TableItem>
@@ -208,7 +236,11 @@ export const InspectionsTemplate = () => {
                 data-color-log={process.env.REACT_APP_PROJECT === "log"}
                 data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
                 data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-                onClick={() => ""}
+                onClick={() =>
+                  navigate(
+                    `/minhas-vistorias/vistoria?id=4b79a03d-42a9-4263-9354-5964239453b8`
+                  )
+                }
               />
             </S.TableItem>
           </S.TableItens>

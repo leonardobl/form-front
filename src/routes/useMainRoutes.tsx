@@ -12,6 +12,7 @@ import { SettingsTemplate } from "../components/Templates/SettingsTemplate";
 import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
 import { ConcessionaireTemplate } from "../components/Templates/ConcessionaireTemplate";
 import { Inspections } from "../components/Pages/Inspections";
+import { Inspection } from "../components/Pages/Inspection";
 
 export const useMainRoutes = () => {
   return (
@@ -31,6 +32,7 @@ export const useMainRoutes = () => {
         }
       >
         <Route index element={<Inspections />} />
+        <Route path="vistoria" element={<Inspection />} />
       </Route>
 
       <Route
