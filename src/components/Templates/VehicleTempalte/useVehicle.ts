@@ -5,7 +5,11 @@ import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { useContextSite } from "../../../context/Context";
 import { Veiculo } from "../../../services/Veiculo";
-import { IAgendamentoDTO, IPutAgendamentoProps, IVeiculoDTO } from "../../../types/agendamento";
+import {
+  IAgendamentoDTO,
+  IPutAgendamentoProps,
+  IVeiculoDTO,
+} from "../../../types/agendamento";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
@@ -19,26 +23,27 @@ export const useVehicle = () => {
   const navigate = useNavigate();
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>();
   const { uuidAgendamento } = useParams<RouteParams>();
-  const [agendamentoSession, setAgendamentoSession] = useSessionStorage("agendamentoSession");
+  const [agendamentoSession, setAgendamentoSession] =
+    useSessionStorage("agendamentoSession");
 
   useEffect(() => {
     setIsLoad(true);
 
-    Agendamento.getById({uuid : uuidAgendamento})
-    .then(({ data }) => {
-      setAgendamento(data);
-    })
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => {
-        toast.error(mensagem);
-      }
-    )
-    .finally(() => setIsLoad(false));
-  },[]);
+    Agendamento.getById({ uuid: uuidAgendamento })
+      .then(({ data }) => {
+        setAgendamento(data);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => setIsLoad(false));
+  }, []);
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -62,56 +67,62 @@ export const useVehicle = () => {
     };
 
     Agendamento.put(PAYLOAD)
-    .then(() => {
-      Agendamento.vincularAgendamentoAoVeiculo({
-        uuidAgendamento: PAYLOAD.uuid,
-        uuidVeiculo: agendamentoSession?.uuidVeiculo,
-      })
-        .then(({ data }) => {
-          if (agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA) {
-            if (PAYLOAD.revistoria) {
-              navigate(
-                `/meus-agendamentos/agendamento?id=${PAYLOAD.uuid}`
-              );
+      .then(() => {
+        Agendamento.vincularAgendamentoAoVeiculo({
+          uuidAgendamento: PAYLOAD.uuid,
+          uuidVeiculo: agendamentoSession?.uuidVeiculo,
+        })
+          .then(({ data }) => {
+            if (agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA) {
+              if (PAYLOAD.revistoria) {
+                navigate(`/meus-agendamentos/agendamento?id=${PAYLOAD.uuid}`);
+                return;
+              }
+
+              navigate(`/agendamento/${uuidAgendamento}/pagamento`);
               return;
             }
 
-            navigate(`/agendamento/${uuidAgendamento}/pagamento`);
-            return;
-          }
+            if (data?.concessionaria) {
+              navigate(
+                `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco-concessionaria`
+              );
 
-          if (data?.delivery?.uuid) {
+              return;
+            }
+
+            if (data?.delivery?.uuid) {
+              navigate(
+                `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco`
+              );
+
+              return;
+            }
+
             navigate(
               `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco`
             );
-
-            return;
-          }
-
-          navigate(
-            `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco`
+          })
+          .catch(
+            ({
+              response: {
+                data: { mensagem },
+              },
+            }) => {
+              toast.error(mensagem);
+            }
           );
-        })
-        .catch(
-          ({
-            response: {
-              data: { mensagem },
-            },
-          }) => {
-            toast.error(mensagem);
-          }
-        );
-    })
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => {
-        toast.error(mensagem);
-      }
-    )
-    .finally(() => setIsLoad(false));
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => setIsLoad(false));
   }
 
   useEffect(() => {

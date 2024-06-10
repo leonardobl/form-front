@@ -10,8 +10,6 @@ import { reverseToIsoDate } from "../../../utils/dateTransform";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
 
-import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
-
 export const DeliverysTemplates = () => {
   const {
     date,
