@@ -22,6 +22,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
     isAdmin,
     setModalIsOpen,
     isCliente,
+    isVistoriador,
     LINKS,
   } = useLayout();
 
@@ -87,6 +88,14 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                   </div>
                 )}
 
+                {isVistoriador && (
+                  <div>
+                    <NavLink className={"navLink"} end to={"/minhas-vistorias"}>
+                      Minhas Vistorias
+                    </NavLink>
+                  </div>
+                )}
+
                 {!isCliente && (
                   <div>
                     <NavLink
@@ -100,7 +109,11 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                 )}
                 {isAdmin && (
                   <div>
-                    <NavLink className={"navLink"} end to={"/configuracoes"}>
+                    <NavLink
+                      className={"navLink"}
+                      end
+                      to={"/configuracoes/concessionarias"}
+                    >
                       Configurações
                     </NavLink>
                   </div>

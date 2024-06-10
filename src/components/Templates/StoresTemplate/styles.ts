@@ -194,10 +194,11 @@ export const TextNotFound = styled.p`
 `;
 
 export const formModal = styled.form`
-width: 506px;
-height: fit-content;
-background: #e8e8e8;
-box-shadow: 4px 4px 16.3px 0px rgba(0, 0, 0, 0.25);
+  width: 570px;
+  height: fit-content;
+  background: #e8e8e8;
+  padding: 16px;
+  box-shadow: 4px 4px 16.3px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const WrapperButtons = styled.div`
@@ -234,14 +235,6 @@ export const WrapperInfo = styled.div`
   }
 `;
 
-export const HeaderModal = styled.div`
-  padding: 5px 24px;
-
-  > p {
-    text-align: start;
-  }
-`;
-
 export const WrapperButtonClose = styled.div`
   display: flex;
   justify-content: end;
@@ -249,58 +242,50 @@ export const WrapperButtonClose = styled.div`
   button {
     color: #2d2d2d;
     font-family: Mulish;
-    background-color: transparent;
-    font-size: 16px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 40px; /* 166.667% */
+    line-height: 16px; /* 66.667% */
   }
 `;
 
 export const WrapperText = styled.div`
-  padding: 24px;
-
-  > h4 {
-    color: #2d2d2d;
-    font-family: Mulish;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px; /* 150% */
-    margin-bottom: 10px;
-  }
+  padding: 16px 28px;
 
   > p {
-    color: #7c848b;
+    color: #2d2d2d;
     font-family: Mulish;
-    font-size: 16px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px; /* 150% */
+    line-height: 32px;
     margin-bottom: 24px;
 
     span {
       font-weight: 700;
     }
   }
+`;
 
-  p:nth-child(4) {
-    margin-bottom: 48px;
-  }
-
-  > div {
-    margin-top: 1rem;
-  }
+export const WrapperSelects = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 48px 0;
+  margin-bottom: 38px;
 `;
 
 export const WrapperButtonsModal = styled.div`
   display: flex;
   justify-content: end;
   gap: 0 16px;
+  margin-bottom: 16px;
 
   > :nth-child(1) {
     background-color: transparent;
-    color: #2d2d2d;
+    border: none;
+    box-shadow: none;
+
+    color: var(--PADO-1, #2d2d2d);
     font-family: Mulish;
     font-size: 16px;
     font-style: normal;

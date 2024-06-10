@@ -61,6 +61,16 @@ export const useAddressRegistration = () => {
     setForm((prev) => ({ ...prev, telefone: newPhoneValue }));
   }
 
+  function compararPorSigla(a: { value: string; label: string; element: any }, b: { value: string; label: string; element: any }): number {
+    if (a.value < b.value) {
+        return -1;
+    } else if (a.value > b.value) {
+        return 1;
+    } else {
+        return 0;
+    }
+  }
+
   useEffect(() => {
     Ibge.UFs()
       .then(({ data }) => {
@@ -68,7 +78,7 @@ export const useAddressRegistration = () => {
           value: item.sigla,
           label: item.sigla,
           element: item,
-        }));
+        })).sort(compararPorSigla);
 
         setUfOptions(options);
       })

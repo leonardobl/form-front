@@ -30,7 +30,6 @@ ApiBrave.interceptors.response.use(
   (error) => {
     if (error.response.status === 403) {
       toast.error("Token expirado");
-
       setTimeout(() => {
         localStorage.clear();
         window.location.href = "/agendamento/login";

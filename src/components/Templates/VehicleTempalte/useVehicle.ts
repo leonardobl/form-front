@@ -82,7 +82,7 @@ export const useVehicle = () => {
 
           if (data?.delivery?.uuid) {
             navigate(
-              `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco-servico`
+              `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco`
             );
 
             return;

@@ -8,7 +8,7 @@ export const Container = styled.div`
   }
 
   @media (max-width: 500px) {
-    padding: ${(props) => props.theme.padding.mobile} 0;
+    padding: ${(props) => props.theme.padding.mobile} 20px;
   }
 `;
 

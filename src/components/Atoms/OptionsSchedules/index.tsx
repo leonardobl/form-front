@@ -47,6 +47,7 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
             <button
               onClick={() => {
                 setModalStart({ open: true, agendamento });
+                setIsOpen(false);
               }}
             >
               Iniciar
@@ -60,6 +61,7 @@ export const OptionsSchedules = ({ agendamento }: OptionsSchedulesProps) => {
               <button
                 onClick={() => {
                   setModalAtribuir({ open: true, agendamento });
+                  setIsOpen(false);
                 }}
               >
                 Atribuir

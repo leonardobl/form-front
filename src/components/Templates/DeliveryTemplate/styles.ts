@@ -18,6 +18,15 @@ export const Form = styled.form`
   margin: 0 auto;
   width: 100%;
   max-width: 820px;
+
+  div#buttonAdvanced {
+    button {
+      margin: 0 auto;
+    }
+  }
+`;
+
+export const GridBaseForm = styled.div`
   gap: 54px 16px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -43,6 +52,36 @@ export const Form = styled.form`
     grid-template-columns: 1fr;
     gap: 48px 0;
     grid-template-areas: "cidade" "local" "button";
+  }
+`;
+
+export const GridConcessionarieForm = styled.div`
+  display: grid;
+  gap: 48px 16px;
+  margin-bottom: 48px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "text text" "nome nome" "telefone concessionaria";
+
+  > :nth-child(1) {
+    grid-area: text;
+  }
+
+  > :nth-child(2) {
+    grid-area: nome;
+  }
+
+  > :nth-child(3) {
+    grid-area: telefone;
+  }
+
+  > :nth-child(4) {
+    grid-area: concessionaria;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    gap: 48px 0;
+    grid-template-areas: "text" "nome" "telefone" "concessionaria";
   }
 `;
 
@@ -135,13 +174,13 @@ export const WrapperText = styled.div`
   }
 
   > p {
-    color: #7c848b;
+    color: #2d2d2d;
     font-family: Mulish;
-    font-size: 16px;
+    font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 24px; /* 150% */
-    margin-bottom: 24px;
+    line-height: 40px;
+    margin-bottom: 40px;
 
     span {
       font-weight: 700;
