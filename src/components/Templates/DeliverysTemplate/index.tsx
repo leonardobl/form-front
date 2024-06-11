@@ -8,7 +8,6 @@ import { useDeliverys } from "./useDeliverys";
 import { ISelectOptions } from "../../../types/inputs";
 import { reverseToIsoDate } from "../../../utils/dateTransform";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-
 import { OptionsSchedules } from "../../Atoms/OptionsSchedules";
 
 export const DeliverysTemplates = () => {

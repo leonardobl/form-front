@@ -24,6 +24,7 @@ export const useLayout = () => {
 
   const isCliente = usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE);
   const isAdmin = usuario?.roles?.includes(RolesEnum.ROLE_ADMIN);
+  const isVistoriador = usuario?.roles?.includes(RolesEnum.ROLE_VISTORIADOR);
 
   function logout() {
     setIsLoad(true);
@@ -53,5 +54,6 @@ export const useLayout = () => {
     isCliente,
     LINKS,
     isAdmin,
+    isVistoriador,
   };
 };

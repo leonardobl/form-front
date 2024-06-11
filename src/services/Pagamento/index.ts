@@ -60,7 +60,7 @@ export class Pagamento {
   }: {
     uuidAgendamento: string;
   }) {
-    const token = sessionStorage.getItem("@token");
+    const token = localStorage.getItem("@token");
     let path = `${process.env.REACT_APP_BRAVE_API_URL}/pagamento/agendamento/${uuidAgendamento}/download-fatura`;
 
     const response = await fetch(path, {

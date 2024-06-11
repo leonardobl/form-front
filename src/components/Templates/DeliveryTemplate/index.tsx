@@ -9,9 +9,6 @@ import { useDelivery } from "./useDeliveryAgente";
 import { ISelectOptions } from "../../../types/inputs";
 import { MyModal } from "../../Atoms/MyModal";
 import { reverseToBrDate } from "../../../utils/dateTransform";
-import { Input } from "../../Atoms/Inputs/Input";
-import { LocalAtendimentoEnum } from "../../../enums/localAtendimento";
-import { maskPhone } from "../../../utils/masks";
 
 export const DeliveryTemplate = () => {
   const {
@@ -30,7 +27,6 @@ export const DeliveryTemplate = () => {
     handleReagendamento,
     date,
     setDate,
-    concessionarias,
     reagendamento,
   } = useDelivery();
 
@@ -66,60 +62,6 @@ export const DeliveryTemplate = () => {
               />
             </div>
           </S.GridBaseForm>
-
-          {form?.local === "CONCESSIONARIA" && (
-            <S.GridConcessionarieForm>
-              <div>
-                <Text>
-                  Preencha o formulário com o
-                  <span className="textStrong">
-                    endereço de realização do atendimento
-                  </span>
-                  .
-                </Text>
-              </div>
-              <div>
-                <Input
-                  label="Nome"
-                  required
-                  value={form?.nome}
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, nome: e.target.value }))
-                  }
-                />
-              </div>
-
-              <div>
-                <Input
-                  label="Telefone"
-                  required
-                  maxLength={15}
-                  value={maskPhone(form?.telefone)}
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, telefone: e.target.value }))
-                  }
-                />
-              </div>
-              <div>
-                <SimpleSelect
-                  label="Concessionária"
-                  options={concessionarias}
-                  required
-                  value={
-                    concessionarias.find(
-                      (i) => i.value === form?.uuidConcessionaria
-                    ) || null
-                  }
-                  onChange={(e: ISelectOptions) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      uuidConcessionaria: e.value,
-                    }))
-                  }
-                />
-              </div>
-            </S.GridConcessionarieForm>
-          )}
 
           <div id="buttonAdvanced">
             <Button>Avançar</Button>

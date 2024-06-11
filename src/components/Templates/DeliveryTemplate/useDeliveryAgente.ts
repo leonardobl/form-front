@@ -33,6 +33,7 @@ export const useDelivery = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const reagendamento = searchParams.get("reagendamento") === "true";
   const [usuario] = useSessionStorage("cliente");
+  const [cliente, setCliente] = useState<IClienteDTO>({} as IClienteDTO);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
   );
@@ -43,7 +44,7 @@ export const useDelivery = () => {
   const [form, setForm] = useState<FormDeliveryProps>({} as FormDeliveryProps);
   const { setIsLoad } = useContextSite();
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
-  const [concessionarias, setConcessionarias] = useState<ISelectOptions[]>([]);
+
   const [date, setDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [diasIndisponiveis, setDiasIndisponiveis] = useState<Date[]>([]);
@@ -119,50 +120,28 @@ export const useDelivery = () => {
     }
   }, []);
 
-  const getConcessionarias = useCallback(() => {
-    setIsLoad(true);
-
-    const cidade = cidadesOptions.find(
-      (i) => i.value === form?.uuidDelivery
-    )?.label;
-
-    Cliente.getConcessionarias({
-      cidade,
+  useEffect(() => {
+    Cliente.getByUsuario({
+      uuidUsuario: usuario?.uuidUsuario,
     })
-      .then(({ data }) => {
-        const options = data.content.map((item) => ({
-          value: item.uuid,
-          label: item.nome,
-          element: item,
-        }));
-
-        setConcessionarias(options);
-      })
+      .then(({ data }) => setCliente(data))
       .catch(
         ({
           response: {
             data: { mensagem },
           },
         }) => toast.error(mensagem)
-      )
-      .finally(() => {
-        setIsLoad(false);
-      });
-  }, [form?.uuidDelivery]);
+      );
+  }, [usuario]);
 
   useEffect(() => {
-    if (form?.local === "CONCESSIONARIA" && form?.uuidDelivery) {
-      getConcessionarias();
-
-      return;
-    }
     setForm((prev) => ({
       ...prev,
       nome: "",
       telefone: "",
       uuidConcessionaria: "",
     }));
-  }, [form?.local, form?.uuidDelivery]);
+  }, [form?.local]);
 
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -179,10 +158,6 @@ export const useDelivery = () => {
       uuidDelivery: form.uuidDelivery,
     };
 
-    const cliente: IClienteDTO = await Cliente.getByUsuario({
-      uuidUsuario: usuario?.uuidUsuario,
-    }).then(({ data }) => data);
-
     const agendamentoData: IAgendamentoDTO = await Agendamento.postV2(
       PAYLOAD
     ).then(({ data }) => data);
@@ -192,26 +167,6 @@ export const useDelivery = () => {
         uuidAgendamento: agendamentoData?.uuid,
         uuidCliente: cliente?.uuid,
       })
-        .then(({ data }) => {
-          if (form?.uuidConcessionaria) {
-            const PAYLOAD_CONCESSIONARIA: IAtendimentoConcessionariaForm = {
-              nome: form?.nome,
-              telefone: form?.telefone,
-              uuidConcessionaria: form?.uuidConcessionaria,
-            };
-
-            Agendamento.AtualizarConcessionariaAtedimento({
-              ...PAYLOAD_CONCESSIONARIA,
-              uuid: data.uuid,
-            }).catch(
-              ({
-                response: {
-                  data: { mensagem },
-                },
-              }) => toast.error(mensagem)
-            );
-          }
-        })
         .then(() => {
           navigate(`/agendamento/${agendamentoData?.uuid}/servicos`);
           return;
@@ -287,6 +242,5 @@ export const useDelivery = () => {
     date,
     setDate,
     reagendamento,
-    concessionarias,
   };
 };

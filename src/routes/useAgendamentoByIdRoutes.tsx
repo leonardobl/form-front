@@ -21,6 +21,7 @@ import { Delivery } from "../components/Pages/Delivery";
 import { Store } from "../components/Pages/Store";
 import { PixCancellation } from "../components/Pages/PixCancellation";
 import { TicketCancellation } from "../components/Pages/TicketCancellation";
+import { ConcessionaireAddressRegister } from "../components/Pages/ConcessionaireAdressRegister";
 
 export const useAgendamentoByIdRoutes = () => {
   return (
@@ -33,12 +34,15 @@ export const useAgendamentoByIdRoutes = () => {
       <Route path="confirmar-agendamento" element={<ConfirmAppointment />} />
       <Route path="login-cadastro" element={<LoginRegister />} />
       <Route path="cadastro-usuario" element={<UserRegistration />} />
-      <Route path="domicilio" element={<Delivery />}/>
-      <Route path="loja" element={<Store />}/>
+      <Route path="domicilio" element={<Delivery />} />
+      <Route path="loja" element={<Store />} />
 
       <Route path="servicos">
         <Route index element={<Services />} />
-
+        <Route
+          path="cadastro-endereco-concessionaria"
+          element={<ConcessionaireAddressRegister />}
+        />
         <Route path="cadastro-endereco" element={<AddressRegistration />} />
         <Route path="emplacamento" element={<License />} />
         <Route path="vistoria" element={<Survey />} />
@@ -59,8 +63,12 @@ export const useAgendamentoByIdRoutes = () => {
           <Route path="confirmacao-pagamento" element={<PixConfirmation />} />
         </Route>
         <Route path="boleto" element={<Ticket />} />
-        <Route path="cancelamento-pix" index element={<PixCancellation />}/>
-        <Route path="cancelamento-boleto" index element={<TicketCancellation />}/>
+        <Route path="cancelamento-pix" index element={<PixCancellation />} />
+        <Route
+          path="cancelamento-boleto"
+          index
+          element={<TicketCancellation />}
+        />
       </Route>
     </Route>
   );
