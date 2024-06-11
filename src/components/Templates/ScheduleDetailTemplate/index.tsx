@@ -39,7 +39,7 @@ export const ScheduleDetailTemplate = () => {
   }, [agendamento]);
 
   function verLaudo() {
-    window.open(`${urlLaudo}`, "_blank")
+    window.open(`${urlLaudo}`, "_blank");
   }
 
   return (
@@ -186,15 +186,13 @@ export const ScheduleDetailTemplate = () => {
               }
             />
             {[StatusAgendamentoEnum.FINALIZADO].includes(
-                agendamento?.status
-              ) && (
+              agendamento?.status
+            ) && (
               <div>
                 <Input
                   label="URL Laudo"
                   readOnly
-                  value={
-                    urlLaudo || "---"
-                  }
+                  value={urlLaudo || "---"}
                   onClick={verLaudo}
                 />
               </div>

@@ -513,7 +513,7 @@ export const useNewScheduling = () => {
   }, [tipoAtendimento]);
 
   useEffect(() => {
-    if (agendamentoSession?.reagendamento && uuidAgendamento) {
+    if (uuidAgendamento) {
       setIsLoad(true);
       Agendamento.getById({ uuid: uuidAgendamento })
         .then(({ data }) => {
@@ -534,7 +534,7 @@ export const useNewScheduling = () => {
       return;
     }
 
-    setAgendamentoSession({ ...agendamentoSession, reagendamento: false });
+    // setAgendamentoSession({ ...agendamentoSession, reagendamento: false });
   }, []);
 
   function handleClient(e: React.SyntheticEvent) {
