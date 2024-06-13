@@ -29,49 +29,57 @@ export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 48px 16px;
-  grid-template-areas: "tipo tipo tipo tipo" "cliente cliente cliente cpf" "telefone email email email" "modelo modelo placa renavam" "chassi chassi chassi chassi" "valor valor forma forma";
+  grid-template-areas: "tipo tipo dia horario" "cliente cliente cliente cpf" "telefone email email email" "modelo modelo placa renavam" "chassi chassi chassi chassi" "valor valor forma forma";
 
   > :nth-child(1) {
     grid-area: tipo;
   }
-
+  
   > :nth-child(2) {
-    grid-area: cliente;
+    grid-area: dia;
   }
-
+  
   > :nth-child(3) {
-    grid-area: cpf;
+    grid-area: horario;
   }
 
   > :nth-child(4) {
-    grid-area: telefone;
+    grid-area: cliente;
   }
 
   > :nth-child(5) {
-    grid-area: email;
+    grid-area: cpf;
   }
 
   > :nth-child(6) {
-    grid-area: modelo;
+    grid-area: telefone;
   }
 
   > :nth-child(7) {
-    grid-area: placa;
+    grid-area: email;
   }
 
   > :nth-child(8) {
-    grid-area: renavam;
+    grid-area: modelo;
   }
 
   > :nth-child(9) {
-    grid-area: chassi;
+    grid-area: placa;
   }
 
   > :nth-child(10) {
-    grid-area: valor;
+    grid-area: renavam;
   }
 
   > :nth-child(11) {
+    grid-area: chassi;
+  }
+
+  > :nth-child(12) {
+    grid-area: valor;
+  }
+
+  > :nth-child(13) {
     grid-area: forma;
   }
 `;

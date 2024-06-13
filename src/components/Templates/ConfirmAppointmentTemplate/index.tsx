@@ -6,6 +6,7 @@ import { useConfirmAppointment } from "./useConfirmAppointment";
 import { maskCnpj, maskCpf, maskMoney, maskPhone } from "../../../utils/masks";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { TipoPagamento } from "../../../enums/tipoPagamento";
+import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const ConfirmAppointmentTemplate = () => {
   const { agendamento, handleDownload } = useConfirmAppointment();
@@ -29,6 +30,22 @@ export const ConfirmAppointmentTemplate = () => {
             value={agendamento?.tipoAtendimento || " --- "}
             readOnly
             label="Tipo de Agendamento"
+          />
+        </div>
+
+        <div>
+          <Input
+            value={ agendamento?.diaAgendado ? reverseToBrDate(agendamento?.diaAgendado) : " --- "}
+            readOnly
+            label="Dia Agendado"
+          />
+        </div>
+
+        <div>
+          <Input
+            value={agendamento?.horaAgendada || " --- "}
+            readOnly
+            label="Horário Agendado"
           />
         </div>
 
