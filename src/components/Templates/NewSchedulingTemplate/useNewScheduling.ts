@@ -70,8 +70,8 @@ export const useNewScheduling = () => {
   const [formAddress, setFormAddress] = useState<IAtendimentoDomiciliarForm>(
     {} as IAtendimentoDomiciliarForm
   );
-  const [agendamentoSession, setAgendamentoSession] =
-    useSessionStorage("agendamentoSession");
+  // const [agendamentoSession, setAgendamentoSession] =
+  //   useSessionStorage("agendamentoSession");
   const [isLoading, setIsLoading] = useState(false);
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>([]);
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
@@ -231,10 +231,8 @@ export const useNewScheduling = () => {
 
     setIsLoad(true);
 
-    if (agendamentoSession?.reagendamento) {
-      navigate(
-        `/agendamento/${agendamentoSession?.uuidAgendamento}/confirmar-horario`
-      );
+    if (uuidAgendamento) {
+      navigate(`/agendamento/${uuidAgendamento}/confirmar-horario`);
       return;
     }
 
@@ -273,11 +271,6 @@ export const useNewScheduling = () => {
           formaPagamento: tipoPagamento,
         })
           .then(() => {
-            setAgendamentoSession({
-              ...agendamentoSession,
-              reagendamento: false,
-            });
-
             navigate(
               `/agendamento/${
                 agendamento?.uuid
@@ -467,7 +460,7 @@ export const useNewScheduling = () => {
     resetAtendimento();
     resetServicos();
 
-    if (!agendamentoSession?.reagendamento) {
+    if (uuidAgendamento) {
       resetVihacle();
     }
 
@@ -583,6 +576,6 @@ export const useNewScheduling = () => {
     resetCliente,
     formAddress,
     setFormAddress,
-    agendamentoSession,
+    uuidAgendamento,
   };
 };

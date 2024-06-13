@@ -10,13 +10,11 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { SwitchOptions } from "../../Atoms/SwitchOptions";
 import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 import { Text } from "../../Atoms/Text";
-import { InputDate } from "../../Atoms/Inputs/InputDate";
 import { OpcoesServicosEnum } from "../../../enums/opcoesServicos";
 import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { useNewScheduling } from "./useNewScheduling";
 import { maskCep, removerCaracteresEspeciais } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
-import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const NewSchedulingTemplate = () => {
   const {
@@ -53,7 +51,7 @@ export const NewSchedulingTemplate = () => {
     formAddress,
     saveAgendamento,
     setFormAddress,
-    agendamentoSession,
+    uuidAgendamento,
   } = useNewScheduling();
 
   // const { Option } = components;
@@ -266,7 +264,7 @@ export const NewSchedulingTemplate = () => {
             <AsyncSimpleSelect
               variant="search"
               placeholder=""
-              isDisabled={agendamentoSession.reagendamento}
+              isDisabled={!!uuidAgendamento}
               isClearable
               required
               noOptionsMessage={() => (
@@ -296,9 +294,7 @@ export const NewSchedulingTemplate = () => {
             />
           </div>
           <div>
-            <Button disabled={agendamentoSession.reagendamento}>
-              Selecionar
-            </Button>
+            <Button disabled={!!uuidAgendamento}>Selecionar</Button>
           </div>
         </S.FormSearch>
 
@@ -329,7 +325,7 @@ export const NewSchedulingTemplate = () => {
             </S.FormUser>
             <SwitchOptions
               value={tipoAtendimento}
-              disabled={agendamentoSession.reagendamento}
+              disabled={!!uuidAgendamento}
               optionA={{
                 label: "Loja Física",
                 value: TipoAtendimentoEnum.LOJA,
@@ -536,7 +532,7 @@ export const NewSchedulingTemplate = () => {
                 </S.WrapperAddress>
               )}
 
-              {!agendamentoSession?.reagendamento && (
+              {!uuidAgendamento && (
                 <>
                   <Text className="textService">
                     Escolha qual <span className="textStrong">serviço</span>{" "}
@@ -665,7 +661,7 @@ export const NewSchedulingTemplate = () => {
               </S.GridVeihecle>
             </S.FormVeihecle>
 
-            {!agendamentoSession.reagendamento && (
+            {!uuidAgendamento && (
               <SwitchOptions
                 value={tipoPagamento}
                 IconA="/assets/svgs/pix1.svg"
