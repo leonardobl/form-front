@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { IAtendimentoDomiciliarForm } from "../../../types/agendamento";
+import {
+  IAgendamentoDTO,
+  IAtendimentoDomiciliarForm,
+} from "../../../types/agendamento";
 import { Ibge } from "../../../services/Ibge";
 import { ISelectOptions } from "../../../types/inputs";
 import { useContextSite } from "../../../context/Context";
@@ -22,6 +25,9 @@ export const useAddressRegistration = () => {
   const navigate = useNavigate();
   const [ufOptions, setUfOptions] = useState<ISelectOptions[]>([]);
   const params = useParams();
+  const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
+    {} as IAgendamentoDTO
+  );
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -61,29 +67,50 @@ export const useAddressRegistration = () => {
     setForm((prev) => ({ ...prev, telefone: newPhoneValue }));
   }
 
-  function compararPorSigla(a: { value: string; label: string; element: any }, b: { value: string; label: string; element: any }): number {
+  function compararPorSigla(
+    a: { value: string; label: string; element: any },
+    b: { value: string; label: string; element: any }
+  ): number {
     if (a.value < b.value) {
-        return -1;
+      return -1;
     } else if (a.value > b.value) {
-        return 1;
+      return 1;
     } else {
-        return 0;
+      return 0;
     }
   }
 
   useEffect(() => {
     Ibge.UFs()
       .then(({ data }) => {
-        const options = data.map((item) => ({
-          value: item.sigla,
-          label: item.sigla,
-          element: item,
-        })).sort(compararPorSigla);
+        const options = data
+          .map((item) => ({
+            value: item.sigla,
+            label: item.sigla,
+            element: item,
+          }))
+          .sort(compararPorSigla);
 
         setUfOptions(options);
       })
       .catch((erro) => toast.error("Erro ao requisitar as UFs"));
   }, []);
+
+  useEffect(() => {
+    if (params?.uuidAgendamento) {
+      Agendamento.getById({ uuid: params?.uuidAgendamento })
+        .then(({ data }) => {
+          setAgendamento(data);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+    }
+  }, [params?.uuidAgendamento]);
 
   function handleCep() {
     if (form?.endereco?.cep?.length === 9) {
@@ -102,7 +129,7 @@ export const useAddressRegistration = () => {
               },
             }));
 
-            if (data.localidade !== agendamentoSession?.cidade) {
+            if (data.localidade !== agendamento.delivery?.cidade) {
               toast.error("Endereço fora da cidade escolhida para atendimento");
               setIsDisabled(true);
 
