@@ -109,11 +109,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                 )}
                 {isAdmin && (
                   <div>
-                    <NavLink
-                      className={"navLink"}
-                      end
-                      to={"/configuracoes/concessionarias"}
-                    >
+                    <NavLink className={"navLink"} end to={"/configuracoes"}>
                       Configurações
                     </NavLink>
                   </div>

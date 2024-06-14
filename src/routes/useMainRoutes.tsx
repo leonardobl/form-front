@@ -14,6 +14,9 @@ import { ConcessionaireTemplate } from "../components/Templates/ConcessionaireTe
 import { Inspections } from "../components/Pages/Inspections";
 import { Inspection } from "../components/Pages/Inspection";
 import { AcceptInspection } from "../components/Pages/AcceptInspection";
+import { Concessionaires } from "../components/Pages/Concessionaires";
+import { Concessionaire } from "../components/Pages/Concessionaire";
+import { Settings } from "../components/Pages/Settings";
 
 export const useMainRoutes = () => {
   return (
@@ -55,13 +58,14 @@ export const useMainRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/configuracoes" element={<Settings />} />
       <Route path="/configuracoes/concessionarias" element={<LayoutTemplate />}>
         <Route
           index
           element={
             <ProtectedRoute>
               <ProtectedAdminRoute>
-                <SettingsTemplate />
+                <Concessionaires />
               </ProtectedAdminRoute>
             </ProtectedRoute>
           }
@@ -71,7 +75,7 @@ export const useMainRoutes = () => {
           element={
             <ProtectedRoute>
               <ProtectedAdminRoute>
-                <ConcessionaireTemplate />
+                <Concessionaire />
               </ProtectedAdminRoute>
             </ProtectedRoute>
           }
@@ -82,7 +86,7 @@ export const useMainRoutes = () => {
           element={
             <ProtectedRoute>
               <ProtectedAdminRoute>
-                <ConcessionaireTemplate />
+                <Concessionaire />
               </ProtectedAdminRoute>
             </ProtectedRoute>
           }
