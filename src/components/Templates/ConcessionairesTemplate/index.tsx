@@ -8,6 +8,7 @@ import { useSettings } from "./useSettings";
 import { maskCnpj } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
 import { Pagination } from "../../Atoms/Pagination";
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 
 export const ConcessionairesTemplate = () => {
   const {
@@ -107,26 +108,21 @@ export const ConcessionairesTemplate = () => {
         </S.Filter>
       )}
 
+      <S.ButtonRegister>
+        <Button
+            onClick={() => navigate("/configuracoes/concessionarias/cadastro")}
+          >
+            <AddBusinessIcon sx={{ margin: "0 0.5rem 0 0" }} />
+            Cadastrar
+        </Button>
+      </S.ButtonRegister>
+
       <S.List>
         <S.ListTitles>
           <h2>Nome</h2>
           <h2>CNPJ</h2>
           <h2>Cidade</h2>
-          <S.ButtonRegister
-            onClick={() => navigate("/configuracoes/concessionarias/cadastro")}
-          >
-            Cadastrar{" "}
-            <S.Icon
-              src="/assets/svgs/plus-round.svg"
-              alt="icone +"
-              data-color-starcheck={
-                process.env.REACT_APP_PROJECT === "starcheck"
-              }
-              data-color-log={process.env.REACT_APP_PROJECT === "log"}
-              data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
-              data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
-            />
-          </S.ButtonRegister>
+          <h2></h2>
         </S.ListTitles>
         <S.WrapperListItens>
           {data?.map((item) =>

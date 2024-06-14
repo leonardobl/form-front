@@ -15,7 +15,7 @@ export const Container = styled.div`
 export const Filter = styled.form`
   width: 100%;
   max-width: 974px;
-  margin: 0 auto 120px;
+  margin: 0 auto 64px;
   border-radius: 10px 10px 0px 0px;
   border: 1px solid ${(props) => props.theme.colors.main};
 
@@ -120,18 +120,14 @@ export const ListTitles = styled.div`
   }
 `;
 
-export const ButtonRegister = styled.button`
-  color: #2d2d2d;
-  font-family: Mulish;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 24px;
-  letter-spacing: 0.48px;
-  background-color: transparent;
+export const AddBusinessIcon = `
+  margin-right: 1rem;
+`;
+
+export const ButtonRegister = styled.div`
   display: flex;
-  align-items: center;
-  gap: 0 6px;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
 `;
 
 export const ButtonFilter = styled.button`
