@@ -146,7 +146,18 @@ export const useStores = () => {
   }, []);
 
   useEffect(() => {
-    getColaborador().then((data) => setColaborador(data));
+    getColaborador()
+      .then((data) => setColaborador(data))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          console.log(mensagem);
+          // toast.error(mensagem);
+        }
+      );
   }, [getColaborador]);
 
   useEffect(() => {
