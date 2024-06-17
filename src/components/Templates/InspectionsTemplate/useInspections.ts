@@ -37,7 +37,8 @@ export const useInspections = () => {
             data: { mensagem },
           },
         }) => {
-          toast.error(mensagem);
+          // toast.error(mensagem);
+          console.log("error-message", mensagem);
         }
       );
   }, []);

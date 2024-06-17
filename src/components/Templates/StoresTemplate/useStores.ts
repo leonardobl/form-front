@@ -29,13 +29,25 @@ type dataAgendamentoProps = {
 
 export const useStores = () => {
   const { setIsLoad } = useContextSite();
-  const [agendamentosEmEspera, setAgendamentosEmEspera] = useState<IAgendamentoDTO[]>([] as IAgendamentoDTO[]);
-  const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>([] as IAgendamentoDaHoraDTO[]);
-  const [dataAgendamento, setDataAgendamento] = useState<dataAgendamentoProps>({} as dataAgendamentoProps);
-  const [modalStart, setModalStart] = useState<IModalStartProps>({open: false,});
+  const [agendamentosEmEspera, setAgendamentosEmEspera] = useState<
+    IAgendamentoDTO[]
+  >([] as IAgendamentoDTO[]);
+  const [agendamentos, setAgendamentos] = useState<IAgendamentoDaHoraDTO[]>(
+    [] as IAgendamentoDaHoraDTO[]
+  );
+  const [dataAgendamento, setDataAgendamento] = useState<dataAgendamentoProps>(
+    {} as dataAgendamentoProps
+  );
+  const [modalStart, setModalStart] = useState<IModalStartProps>({
+    open: false,
+  });
   const isMobile = useMediaQuery({ maxWidth: "500px" });
-  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>({} as IColaboradorCompletoDTO);
-  const [vistoriadoresOptions, setVistoriadoresOptions] = useState<ISelectOptions[]>([]);
+  const [colaborador, setColaborador] = useState<IColaboradorCompletoDTO>(
+    {} as IColaboradorCompletoDTO
+  );
+  const [vistoriadoresOptions, setVistoriadoresOptions] = useState<
+    ISelectOptions[]
+  >([]);
   const [baitasOptions, setBaiaOptions] = useState<ISelectOptions[]>([]);
 
   function transformData(data: IAgendamentoDaHoraDTO[]) {

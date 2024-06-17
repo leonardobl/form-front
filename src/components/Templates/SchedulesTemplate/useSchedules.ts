@@ -58,19 +58,21 @@ export const useSchedules = () => {
     useState<IColaboradorCompletoDTO>({} as IColaboradorCompletoDTO);
 
   const getColaboradorAtual = useCallback(() => {
-    !isCliente && Colaborador.atual()
-      .then(({ data }) => {
-        setColaboradorAtual(data);
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-        }
-      );
+    !isCliente &&
+      Colaborador.atual()
+        .then(({ data }) => {
+          setColaboradorAtual(data);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => {
+            // toast.error(mensagem);
+            console.log("error-message", mensagem);
+          }
+        );
   }, []);
 
   useEffect(() => {
