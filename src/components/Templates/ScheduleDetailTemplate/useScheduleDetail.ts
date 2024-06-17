@@ -28,6 +28,20 @@ export const useScheduleDetail = () => {
       .finally(() => setIsLoad(false));
   }
 
+  function confirmarReembolso() {
+    setIsLoad(true);
+    Agendamento.confirmarReembolso({ uuid: uuidAgendamento })
+    .then(({ data }) => setAgendamento(data))
+    .catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => toast.error(mensagem)
+    )
+    .finally(() => setIsLoad(false));
+  }
+
   useEffect(() => {
     if (uuidAgendamento) {
       setIsLoad(true);
@@ -90,5 +104,6 @@ export const useScheduleDetail = () => {
     setAgendamento,
     menuDisabled,
     cancelarAgendamento,
+    confirmarReembolso,
   };
 };

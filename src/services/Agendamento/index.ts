@@ -208,4 +208,12 @@ export class Agendamento {
     const { uuid, ...rest } = props;
     return ApiBrave.put(`${basePath}/${uuid}/atribuir`, rest);
   }
+
+  static async confirmarReembolso({
+    uuid,
+  }: {
+    uuid: string;
+  }): Promise<AxiosResponse<IAgendamentoDTO>> {
+    return ApiBrave.put(`${basePath}/${uuid}/confirmar-reembolso`);
+  }
 }

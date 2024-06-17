@@ -20,6 +20,7 @@ interface IButtonOptions extends ComponentProps<"details"> {
   handleConfirmPayment: () => void;
   handleReturnStatus: () => void;
   agendamento: IAgendamentoDTO;
+  handleConfirmRefund: () => void;
 }
 
 export const ButtonOptions = ({
@@ -30,6 +31,7 @@ export const ButtonOptions = ({
   handleReturnStatus,
   handleTicket,
   agendamento,
+  handleConfirmRefund,
 }: IButtonOptions) => {
   const {
     isIntern,
@@ -166,6 +168,16 @@ export const ButtonOptions = ({
           </>
         )}
 
+        {(sessionAgendamento?.roles?.includes(RolesEnum.ROLE_ADMIN)
+        || sessionAgendamento?.resource?.includes('CONFIMAR_REEMBOLSO')) 
+        && (
+          <div>
+            <div>
+              <button onClick={handleConfirmRefund}>Confirmar Reembolso</button>
+            </div>
+          </div>
+        )}
+
         <div>
           <div>
             <a
@@ -180,6 +192,7 @@ export const ButtonOptions = ({
       <div className="summary-chevron-down">
         <S.ArrowDown src="/assets/svgs/arrow-right.svg" alt="seta direita" />
       </div>
+      
 
       <MyModal isOpen={isOpen} onRequestClose={() => setISOpen(false)}>
         <S.ModalContent>

@@ -20,6 +20,7 @@ export const ScheduleDetailTemplate = () => {
     agendamento,
     menuDisabled,
     cancelarAgendamento,
+    confirmarReembolso,
   } = useScheduleDetail();
 
   const [urlLaudo, setUrlLaudo] = useState<string>("");
@@ -61,6 +62,7 @@ export const ScheduleDetailTemplate = () => {
             disabled={menuDisabled}
             onCancel={cancelarAgendamento}
             agendamento={agendamento}
+            handleConfirmRefund={confirmarReembolso}
           />
         </S.WrapperText>
 
