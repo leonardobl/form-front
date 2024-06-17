@@ -9,6 +9,7 @@ import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
 import { IColaboradorCompletoDTO } from "../../../types/colaborador";
 import { Colaborador } from "../../../services/Colaborador";
+import { Console } from "console";
 
 export const useAcceptInspection = () => {
   const [searchParams] = useSearchParams();
@@ -32,7 +33,8 @@ export const useAcceptInspection = () => {
             data: { mensagem },
           },
         }) => {
-          toast.error(mensagem);
+          // toast.error(mensagem);
+          console.log("error-message", mensagem);
         }
       );
   }, []);
