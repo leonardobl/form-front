@@ -51,7 +51,7 @@ export const useScheduleDetail = () => {
   ].includes(agendamento?.status);
 
   function acessarFatura() {
-    window.open(`${agendamento?.fatura?.url}`, "_blank");
+    window.open(`${agendamento?.fatura?.url}.pdf`, "_blank");
   }
 
   function confirmarPagamento() {
