@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./styles";
 import { useOptionsSchedules } from "./useOptionsSchedules";
 import { SimpleSelect } from "../Selects/SimpleSelect";
@@ -52,8 +52,15 @@ export const OptionsSchedules = ({
           <div>
             <button
               onClick={() => {
-                setModalStart({ open: true, agendamento });
-                setIsOpen(false);
+                if(agendamento?.vistoriador === null) { 
+                  setModalStart({ open: true, agendamento });
+                  setIsOpen(false);
+                } else {
+                  let agendamentoIniciado: IIniciarAgendamentoProps = {};
+                  agendamentoIniciado.uuid = agendamento?.uuid;
+                  agendamentoIniciado.uuidVistoriador = agendamento?.vistoriador?.uuid;
+                  onStartSchedule(agendamentoIniciado);
+                }
               }}
             >
               Iniciar
