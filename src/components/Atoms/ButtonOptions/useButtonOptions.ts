@@ -6,12 +6,12 @@ import { RolesEnum } from "../../../enums/roles";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
+import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
 export const useButtonOptions = () => {
   const { setIsLoad } = useContextSite();
   const [isOpen, setISOpen] = useState(false);
-  const [usuario, setUsuario] =
-    useSessionStorage("cliente");
+  const [usuario, setUsuario] = useSessionStorage("cliente");
   const navigate = useNavigate();
 
   const isIntern = usuario?.roles?.some(
@@ -45,7 +45,29 @@ export const useButtonOptions = () => {
       return;
     }
 
-    navigate(`/agendamento/${agendamento.uuid}/pagamento/cancelamento-boleto`);
+    if (agendamento.status === StatusAgendamentoEnum.PAGO) {
+      navigate(
+        `/agendamento/${agendamento.uuid}/pagamento/cancelamento-boleto`
+      );
+      return;
+    }
+
+    Agendamento.cancelar({ uuid: agendamento.uuid })
+      .then(() => {
+        toast.success("Agendamento cancelado com sucesso");
+        navigate(`/meus-agendamentos`);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => {
+        setIsLoad(false);
+        setISOpen(false);
+      });
   }
 
   return {
