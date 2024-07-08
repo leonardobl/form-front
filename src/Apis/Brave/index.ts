@@ -33,7 +33,7 @@ ApiBrave.interceptors.response.use(
       setTimeout(() => {
         localStorage.clear();
         window.location.href = "/agendamento/login";
-      }, 3000);
+      }, 1500);
     }
 
     return Promise.reject(error);

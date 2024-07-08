@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 import { removeDigitos } from "../../../utils/masks";
@@ -117,6 +117,12 @@ export const useLogin = () => {
         setIsLoad(false);
       });
   }
+
+  useEffect(() => {
+    if (token) {
+      localStorage.clear();
+    }
+  }, []);
 
   return {
     onSubmitForm,
