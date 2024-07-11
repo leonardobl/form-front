@@ -60,4 +60,8 @@ export class Usuario {
   }): Promise<AxiosResponse<IUsuarioCompletoDTO>> {
     return ApiUsuarios.get(`${basePath}/cpfCnpj/completo?cpfCnpj=${cpfCnpj}`);
   }
+
+  static async getRecursosByUuid({uuid}:{uuid: string;}): Promise<AxiosResponse<string[]>> {
+    return ApiUsuarios.get(`${basePath}/recursos?uuid=${uuid}`);
+  }
 }

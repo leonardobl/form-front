@@ -42,6 +42,7 @@ export const ButtonOptions = ({
     sessionAgendamento,
     setSessionagendamento,
     handleCancel,
+    recursos,
   } = useButtonOptions();
 
   function onRescheduling() {
@@ -169,7 +170,7 @@ export const ButtonOptions = ({
         )}
 
         {(sessionAgendamento?.roles?.includes(RolesEnum.ROLE_ADMIN)
-        || sessionAgendamento?.resource?.includes('CONFIMAR_REEMBOLSO')) 
+        || recursos?.includes('CONFIMAR_REEMBOLSO')) 
         && (
           <div>
             <div>

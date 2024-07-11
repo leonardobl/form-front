@@ -84,7 +84,6 @@ export const useDeliverys = () => {
       status: [
         StatusAgendamentoEnum.AGENDADO,
         StatusAgendamentoEnum.INICIADO,
-        StatusAgendamentoEnum.FINALIZADO,
       ],
     })
       .then(({ data }) => {

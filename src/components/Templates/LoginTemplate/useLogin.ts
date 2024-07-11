@@ -34,15 +34,12 @@ export const useLogin = () => {
       .then((token) => {
         const decoded = jwtDecode<IDecodedToken>(token);
 
-        const is_high_level = decoded?.perfis?.some(
+        const is_cliente = decoded?.perfis?.some(
           (perfil) =>
-            perfil === RolesEnum.ROLE_ADMIN ||
-            perfil === RolesEnum.ROLE_GERENTE ||
-            perfil === RolesEnum.ROLE_COLABORADOR ||
-            perfil === RolesEnum.ROLE_SUPORTE
+            perfil === RolesEnum.ROLE_CLIENTE
         );
 
-        if (is_high_level) {
+        if (!is_cliente) {
           toast.success("Login efetuado com sucesso");
           setUsuario({
             uuidUsuario: decoded.uuid,
