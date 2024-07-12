@@ -20,6 +20,7 @@ export const useButtonOptions = () => {
     (regra) =>
       regra === RolesEnum.ROLE_CLIENTE
   );
+
   useEffect(() => {
     Usuario.getRecursosByUuid({uuid: usuario?.uuidUsuario})
     .then(({data}) => {setRecursos(data)})
@@ -52,31 +53,31 @@ export const useButtonOptions = () => {
           setISOpen(false);
         });
       return;
+    } else {
+      if ([StatusAgendamentoEnum.PAGO, StatusAgendamentoEnum.AGENDADO].includes(agendamento?.status)) {
+        navigate(
+          `/agendamento/${agendamento.uuid}/pagamento/cancelamento-boleto`
+        );
+        return;
+      } else if (agendamento?.status === StatusAgendamentoEnum.AGUARDANDO_PAGAMENTO) {
+        Agendamento.cancelar({ uuid: agendamento.uuid })
+        .then(() => {
+          toast.success("Agendamento cancelado com sucesso");
+          navigate(`/meus-agendamentos`);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => {
+          setIsLoad(false);
+          setISOpen(false);
+        });
+        }
     }
-
-    if (agendamento.status === StatusAgendamentoEnum.PAGO) {
-      navigate(
-        `/agendamento/${agendamento.uuid}/pagamento/cancelamento-boleto`
-      );
-      return;
-    }
-
-    Agendamento.cancelar({ uuid: agendamento.uuid })
-      .then(() => {
-        toast.success("Agendamento cancelado com sucesso");
-        navigate(`/meus-agendamentos`);
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      )
-      .finally(() => {
-        setIsLoad(false);
-        setISOpen(false);
-      });
   }
 
   return {
