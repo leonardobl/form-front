@@ -20,9 +20,12 @@ import { Ibge } from "../../../services/Ibge";
 import { resetValues } from "../../../utils/resetObject";
 import {
   IAgendamentoCadastroForm,
+  IAgendamentoCadastroFormFull,
   IAgendamentoDTO,
   IAtendimentoDomiciliarForm,
   IPutAgendamentoProps,
+  IReagendamentoForm,
+  IReagendamentoProps,
   IVeiculoDTO,
 } from "../../../types/agendamento";
 import { Loja } from "../../../services/Lojas";
@@ -84,9 +87,14 @@ export const useNewScheduling = () => {
   const [selectOptions, setSelectOptions] = useState<ISelectOptions[]>([]);
   const [horariosOptions, setHorariosOptions] = useState<ISelectOptions[]>([]);
   const [formAgendamento, setFormAgendamento] =
-    useState<IAgendamentoCadastroForm>({} as IAgendamentoCadastroForm);
-  const [dateAgendamento, setDateAgendamento] = useState<Date>(null);
+    useState<IAgendamentoCadastroFormFull>({} as IAgendamentoCadastroFormFull);
+
   const [disabled, setDisabled] = useState(false);
+
+  const [date, setDate] = useState<Date>(null);
+  const [horarios, setHorarios] = useState<ISelectOptions[]>(
+    [] as ISelectOptions[]
+  );
 
   const [formVihacle, setFormVihacle] = useState<IVeiculoDTO>(
     {} as IVeiculoDTO
@@ -127,9 +135,27 @@ export const useNewScheduling = () => {
   }
 
   useEffect(() => {
-    setDateAgendamento(null);
+    setFormAgendamento((prev) => ({
+      ...prev,
+      diaAgendado: "",
+      horaAgendada: "",
+    }));
+    setDate(null);
     if (formAgendamento?.uuidLoja) {
       setIsLoading(true);
+      Loja.getDiasIndisponiveis({ uuidLoja: formAgendamento?.uuidLoja })
+        .then(({ data }) => {
+          const options = data.map((item) => addDays(new Date(item), 1));
+          setDiasIndisponiveis(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+
       Loja.getDiasIndisponiveis({ uuidLoja: formAgendamento.uuidLoja })
         .then(({ data }) => {
           const options = data.map((item) => addDays(new Date(item), 1));
@@ -144,10 +170,24 @@ export const useNewScheduling = () => {
           }) => toast.error(mensagem)
         )
         .finally(() => setIsLoading(false));
-      return;
     }
 
     if (formAgendamento?.uuidDelivery) {
+      Delivery.getDiasIndisponiveis({
+        uuidDelivery: formAgendamento?.uuidDelivery,
+      })
+        .then(({ data }) => {
+          const options = data.map((item) => addDays(new Date(item), 1));
+          setDiasIndisponiveis(options);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        );
+
       Delivery.getDiasIndisponiveis({
         uuidDelivery: formAgendamento.uuidDelivery,
       })
@@ -167,47 +207,6 @@ export const useNewScheduling = () => {
     }
   }, [formAgendamento?.uuidLoja, formAgendamento?.uuidDelivery]);
 
-  useEffect(() => {
-    setFormAgendamento((prev) => ({ ...prev, horaAgendada: null }));
-    if (dateAgendamento) {
-      const newDate = dateAgendamento
-        .toLocaleDateString()
-        .split("/")
-        .reverse()
-        .join("-");
-
-      if (formAgendamento?.uuidLoja) {
-        Loja.getHorariosDisponiveis({
-          uuidLoja: formAgendamento?.uuidLoja,
-          dataAgendamento: newDate,
-        }).then(({ data }) => {
-          const options = data.map((item) => ({
-            value: item,
-            label: item,
-            element: item,
-          }));
-
-          setHorariosOptions(options);
-        });
-      }
-
-      if (formAgendamento?.uuidDelivery) {
-        Delivery.getHorariosDisponiveis({
-          uuidDelivery: formAgendamento?.uuidDelivery,
-          dataAgendamento: newDate,
-        }).then(({ data }) => {
-          const options = data.map((item) => ({
-            value: item,
-            label: item,
-            element: item,
-          }));
-
-          setHorariosOptions(options);
-        });
-      }
-    }
-  }, [dateAgendamento]);
-
   function handlePhone({ e, setForms }: { e: string; setForms: any }) {
     const newPhoneValue = maskPhone(e);
     setForms((prev) => ({ ...prev, telefone: newPhoneValue }));
@@ -226,30 +225,92 @@ export const useNewScheduling = () => {
     setFormNewClient((prev) => ({ ...prev, cpfCnpj: newvalue }));
   }
 
+  useEffect(() => {
+    if (date) {
+      const newDate = date.toLocaleDateString().split("/").reverse().join("-");
+
+      if (agendamento?.loja?.uuid) {
+        Loja.getHorariosDisponiveis({
+          uuidLoja: formAgendamento.uuidLoja,
+          dataAgendamento: newDate,
+        }).then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item,
+            label: item,
+            element: item,
+          }));
+
+          setHorarios(options);
+        });
+
+        return;
+      }
+
+      if (agendamento?.delivery?.uuid) {
+        Delivery.getHorariosDisponiveis({
+          uuidDelivery: formAgendamento.uuidDelivery,
+          dataAgendamento: newDate,
+        }).then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item,
+            label: item,
+            element: item,
+          }));
+
+          setHorarios(options);
+        });
+      }
+    }
+  }, [date]);
+
   async function saveAgendamento(e: React.SyntheticEvent) {
     e.preventDefault();
 
     setIsLoad(true);
 
     if (uuidAgendamento) {
-      navigate(`/agendamento/${uuidAgendamento}/confirmar-horario`);
+      const PAYLOAD_REAGENDAMENTO: IReagendamentoProps = {
+        uuidAgendamento,
+        ...formAgendamento,
+      };
+
+      await Agendamento.reagendar(PAYLOAD_REAGENDAMENTO)
+        .then(async ({ data }) => {
+          data.tipoAtendimento === TipoAtendimentoEnum.DOMICILIO &&
+            (await Agendamento.putAddress({
+              ...formAddress,
+              uuid: uuidAgendamento,
+            }).catch(
+              ({
+                response: {
+                  data: { mensagem },
+                },
+              }) => toast.error(mensagem)
+            ));
+        })
+        .then(() => {
+          navigate(`/agendamento/${uuidAgendamento}/confirmar-agendamento`);
+        })
+        .catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem)
+        )
+        .finally(() => {
+          setIsLoad(false);
+        });
+
       return;
     }
 
     const PAYLOAD: IPutAgendamentoProps = {
-      uuid: agendamento?.uuid,
-      codigoPagamento: agendamento?.codigoPagamento,
-      dataPagamento: agendamento?.dataPagamento,
-      dataRealizacao: agendamento?.dataRealizacao,
-      diaAgendado: agendamento?.diaAgendado,
-      horaAgendada: agendamento?.horaAgendada,
-      primeiroAgendamento: agendamento?.primeiroAgendamento,
-      revistoria: agendamento?.revistoria,
-      status: agendamento?.status,
-      tipoAtendimento: agendamento?.tipoAtendimento,
-      uuidDelivery: agendamento?.delivery?.uuid,
-      uuidLoja: agendamento?.loja?.uuid,
-      uuidServico: agendamento?.servico?.uuid,
+      ...agendamento,
+      diaAgendado: formAgendamento?.diaAgendado,
+      horaAgendada: formAgendamento?.horaAgendada,
+      uuidDelivery: formAgendamento?.uuidDelivery,
+      uuidLoja: formAgendamento?.uuidDelivery,
       uuidVeiculo: formVihacle?.uuid,
       uuidCliente: cliente?.uuid,
     };
@@ -398,7 +459,6 @@ export const useNewScheduling = () => {
   function resetAtendimento() {
     const reset = resetValues(formAgendamento);
     setFormAgendamento(reset);
-    setDateAgendamento(null);
 
     if (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO) {
       const reset = resetValues(formAddress);
@@ -412,7 +472,11 @@ export const useNewScheduling = () => {
     setIsLoad(true);
 
     try {
-      const dataAgendamento = await Agendamento.postV2(formAgendamento);
+      const dataAgendamento = await Agendamento.postV2({
+        concessionaria: formAgendamento.concessionaria,
+        uuidDelivery: formAgendamento.uuidDelivery,
+        uuidLoja: formAgendamento.uuidLoja,
+      });
 
       setAgendamento(dataAgendamento.data);
 
@@ -513,6 +577,7 @@ export const useNewScheduling = () => {
           setCliente(data?.cliente);
           setTipoAtendimento(TipoAtendimentoEnum[data.tipoAtendimento]);
           setFormVihacle(data.veiculo);
+          setAgendamento(data);
         })
         .catch(
           ({
@@ -569,13 +634,14 @@ export const useNewScheduling = () => {
     disabled,
     setSwapClient,
     diasIndisponiveis,
-    dateAgendamento,
-    setDateAgendamento,
     isLoading,
     selectOptions,
     resetCliente,
     formAddress,
     setFormAddress,
     uuidAgendamento,
+    date,
+    setDate,
+    horarios,
   };
 };

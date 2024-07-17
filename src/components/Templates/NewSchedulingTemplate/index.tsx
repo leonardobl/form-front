@@ -15,6 +15,8 @@ import { FormaPagamentoEnum } from "../../../enums/formaPagamento";
 import { useNewScheduling } from "./useNewScheduling";
 import { maskCep, removerCaracteresEspeciais } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
+import { InputDate } from "../../Atoms/Inputs/InputDate";
+import { reverseToIsoDate } from "../../../utils/dateTransform";
 
 export const NewSchedulingTemplate = () => {
   const {
@@ -52,17 +54,11 @@ export const NewSchedulingTemplate = () => {
     saveAgendamento,
     setFormAddress,
     uuidAgendamento,
+    date,
+    setDate,
+    horarios,
+    diasIndisponiveis,
   } = useNewScheduling();
-
-  // const { Option } = components;
-  // const IconOption = (props) => (
-  //   <Option {...props}>
-  //     <S.WrapperValue>
-  //       {props.data.label}
-  //       <img src={"/assets/svgs/plus-round.svg"} alt={"icone adicionar"} />
-  //     </S.WrapperValue>
-  //   </Option>
-  // );
 
   return (
     <LayoutTemplate>
@@ -374,6 +370,50 @@ export const NewSchedulingTemplate = () => {
                       tipoAtendimento === TipoAtendimentoEnum.LOJA
                         ? "Loja"
                         : "Cidade"
+                    }
+                  />
+                </div>
+
+                <div>
+                  <InputDate
+                    placeholderText="___/___/___"
+                    showIcon
+                    label="Data"
+                    minDate={new Date()}
+                    required
+                    disabled={
+                      (tipoAtendimento === TipoAtendimentoEnum.LOJA &&
+                        !formAgendamento.uuidLoja) ||
+                      (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO &&
+                        !formAgendamento.uuidDelivery)
+                    }
+                    selected={date}
+                    excludeDates={diasIndisponiveis}
+                    onChange={(e) => {
+                      setDate(e);
+                      setFormAgendamento((prev) => ({
+                        ...prev,
+                        diaAgendado: reverseToIsoDate(e?.toLocaleDateString()),
+                      }));
+                    }}
+                  />
+                </div>
+                <div>
+                  <SimpleSelect
+                    isDisabled={!date}
+                    label="Horário"
+                    required
+                    options={horarios}
+                    onChange={(e: ISelectOptions) =>
+                      setFormAgendamento((prev) => ({
+                        ...prev,
+                        horaAgendada: e?.value,
+                      }))
+                    }
+                    value={
+                      horarios.find(
+                        (item) => item?.value === formAgendamento?.horaAgendada
+                      ) || null
                     }
                   />
                 </div>

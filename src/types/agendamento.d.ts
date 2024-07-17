@@ -107,23 +107,6 @@ export interface IAgendamentoBasicoForm {
   uuidLoja?: string;
 }
 
-export interface IAgendamentoForm {
-  codigoPagamento?: string;
-  dataPagamento?: string;
-  dataRealizacao?: string;
-  diaAgendado: string;
-  horaAgendada: string;
-  primeiroAgendamento?: string;
-  revistoria?: boolean;
-  status?: StatusAgendamentoEnum;
-  tipoAtendimento: TipoAtendimentoEnum;
-  uuidCliente?: string;
-  uuidDelivery?: string;
-  uuidLoja?: string;
-  uuidServico?: string;
-  uuidVeiculo?: string;
-}
-
 export interface IAtendimentoDomiciliarForm {
   endereco: IEnderecoDTO;
   nome: string;
@@ -149,6 +132,23 @@ export interface IPageAgendamentoDTO {
   sort: ISortObject;
   totalElements: number;
   totalPages: number;
+}
+
+export interface IAgendamentoForm {
+  codigoPagamento?: string;
+  dataPagamento?: string;
+  dataRealizacao?: string;
+  diaAgendado: string;
+  horaAgendada: string;
+  primeiroAgendamento?: string;
+  revistoria?: boolean;
+  status?: StatusAgendamentoEnum;
+  tipoAtendimento: TipoAtendimentoEnum;
+  uuidCliente?: string;
+  uuidDelivery?: string;
+  uuidLoja?: string;
+  uuidServico?: string;
+  uuidVeiculo?: string;
 }
 
 export interface IReagendamentoForm {
@@ -262,6 +262,11 @@ export interface IAgendamentoCadastroForm {
   uuidDelivery?: string;
   uuidLoja?: string;
   concessionaria?: boolean;
+}
+
+export interface IAgendamentoCadastroFormFull extends IAgendamentoCadastroForm {
+  diaAgendado: string;
+  horaAgendada: string;
 }
 
 export interface IAgendamentoHorarioForm {

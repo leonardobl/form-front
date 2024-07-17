@@ -223,34 +223,27 @@ export const FormAtendence = styled.div`
 
 export const GridAtendece = styled.div`
   display: grid;
+
+  gap: 48px 16px;
   grid-template-columns: repeat(4, 1fr);
 
-  grid-template-areas: ". loja loja ." ". texto texto ." "data data horario horario";
+  grid-template-areas: ". loja loja ." "data data horario horario";
 
   > :nth-child(1) {
     grid-area: loja;
   }
 
   > :nth-child(2) {
-    grid-area: texto;
-  }
-
-  > :nth-child(3) {
     grid-area: data;
   }
 
-  > :nth-child(4) {
-    grid-area: horario;
-  }
-
-  > :nth-child(5) {
+  > :nth-child(3) {
     grid-area: horario;
   }
 
   @media (max-width: 500px) {
     display: flex;
     flex-direction: column;
-    gap: 32px 16px;
   }
 `;
 
