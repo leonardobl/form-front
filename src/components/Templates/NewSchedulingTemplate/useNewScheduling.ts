@@ -310,7 +310,7 @@ export const useNewScheduling = () => {
       diaAgendado: formAgendamento?.diaAgendado,
       horaAgendada: formAgendamento?.horaAgendada,
       uuidDelivery: formAgendamento?.uuidDelivery,
-      uuidLoja: formAgendamento?.uuidDelivery,
+      uuidLoja: formAgendamento?.uuidLoja,
       uuidVeiculo: formVihacle?.uuid,
       uuidCliente: cliente?.uuid,
     };

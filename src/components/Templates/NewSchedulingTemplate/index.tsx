@@ -374,49 +374,42 @@ export const NewSchedulingTemplate = () => {
                   />
                 </div>
 
-                <div>
-                  <InputDate
-                    placeholderText="___/___/___"
-                    showIcon
-                    label="Data"
-                    minDate={new Date()}
-                    required
-                    disabled={
-                      (tipoAtendimento === TipoAtendimentoEnum.LOJA &&
+                {uuidAgendamento && (
+                  <><div>
+                    <InputDate
+                      placeholderText="___/___/___"
+                      showIcon
+                      label="Data"
+                      minDate={new Date()}
+                      required
+                      disabled={(tipoAtendimento === TipoAtendimentoEnum.LOJA &&
                         !formAgendamento.uuidLoja) ||
-                      (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO &&
-                        !formAgendamento.uuidDelivery)
-                    }
-                    selected={date}
-                    excludeDates={diasIndisponiveis}
-                    onChange={(e) => {
-                      setDate(e);
-                      setFormAgendamento((prev) => ({
-                        ...prev,
-                        diaAgendado: reverseToIsoDate(e?.toLocaleDateString()),
-                      }));
-                    }}
-                  />
-                </div>
-                <div>
-                  <SimpleSelect
-                    isDisabled={!date}
-                    label="Horário"
-                    required
-                    options={horarios}
-                    onChange={(e: ISelectOptions) =>
-                      setFormAgendamento((prev) => ({
-                        ...prev,
-                        horaAgendada: e?.value,
-                      }))
-                    }
-                    value={
-                      horarios.find(
-                        (item) => item?.value === formAgendamento?.horaAgendada
-                      ) || null
-                    }
-                  />
-                </div>
+                        (tipoAtendimento === TipoAtendimentoEnum.DOMICILIO &&
+                          !formAgendamento.uuidDelivery)}
+                      selected={date}
+                      excludeDates={diasIndisponiveis}
+                      onChange={(e) => {
+                        setDate(e);
+                        setFormAgendamento((prev) => ({
+                          ...prev,
+                          diaAgendado: reverseToIsoDate(e?.toLocaleDateString()),
+                        }));
+                      } } />
+                  </div><div>
+                      <SimpleSelect
+                        isDisabled={!date}
+                        label="Horário"
+                        required
+                        options={horarios}
+                        onChange={(e: ISelectOptions) => setFormAgendamento((prev) => ({
+                          ...prev,
+                          horaAgendada: e?.value,
+                        }))}
+                        value={horarios.find(
+                          (item) => item?.value === formAgendamento?.horaAgendada
+                        ) || null} />
+                    </div></>
+                )}
               </S.GridAtendece>
 
               {tipoAtendimento === TipoAtendimentoEnum.DOMICILIO && (
