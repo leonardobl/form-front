@@ -10,6 +10,9 @@ export const SettingsTemplate = () => {
       <S.Container>
         <S.WrapperCards>
           <S.Card onClick={() => navigate("/configuracoes/concessionarias")}>
+            <p>Cadastro de Lojas</p>
+          </S.Card>
+          <S.Card onClick={() => navigate("/configuracoes/concessionarias")}>
             <p>Cadastro de Concessionárias</p>
           </S.Card>
         </S.WrapperCards>

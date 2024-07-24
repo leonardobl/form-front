@@ -18,16 +18,20 @@ export const WrapperCards = styled.button`
 
 export const Card = styled.div`
   border-radius: 10px;
-  padding: 24px 40px;
   display: flex;
+
+  width: 100%;
+  max-width: 300px;
+  height: 70px;
+
   align-items: center;
-  width: fit-content;
   justify-content: center;
   background: ${(props) => props.theme.colors.main};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   p {
     color: #fff;
+    font-family: Mulish;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
