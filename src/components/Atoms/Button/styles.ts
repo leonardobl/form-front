@@ -1,4 +1,3 @@
-import { lighten } from "polished";
 import styled, { css } from "styled-components";
 
 export const Button = styled.button`
@@ -10,6 +9,7 @@ export const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 0 8px;
 
     &[data-color-starcheck="true"] {
       /* background: linear-gradient(180deg, #54acf2 0%, #266bf0 100%); */
@@ -40,6 +40,14 @@ export const Button = styled.button`
     &[data-variant-text="true"] {
       width: fit-content;
       outline: none;
+      background: transparent;
+      box-shadow: none;
+      color: #2d2d2d;
+    }
+
+    &[data-variant-outline="true"] {
+      border-radius: 10px;
+      border: 1px solid #2d2d2d;
       background: transparent;
       box-shadow: none;
       color: #2d2d2d;

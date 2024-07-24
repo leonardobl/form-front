@@ -49,7 +49,7 @@ export const Label = styled.label<{ $isRequired: boolean }>`
 export const Input = styled.input<{ $typeInput?: string }>`
   ${({ $typeInput }) => css`
     width: 100%;
-    height: 56px;
+    height: 46px;
     border-radius: 10px;
     border: 1px solid #9d9d9d;
     background-color: #fff;

@@ -11,7 +11,8 @@ export const Container = styled.div`
 export const WrapperCards = styled.button`
   display: flex;
   justify-content: center;
-  gap: 0 32px;
+  flex-wrap: wrap;
+  gap: 24px 32px;
   width: 100%;
   background-color: transparent;
 `;

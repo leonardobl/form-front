@@ -17,6 +17,9 @@ import { AcceptInspection } from "../components/Pages/AcceptInspection";
 import { Concessionaires } from "../components/Pages/Concessionaires";
 import { Concessionaire } from "../components/Pages/Concessionaire";
 import { Settings } from "../components/Pages/Settings";
+import { AdminStores } from "../components/Pages/AdminStores";
+import { AdminStoresRegister } from "../components/Pages/AdminStoresRegister";
+import { AdminStoreDetail } from "../components/Pages/AdminStoreDetail";
 
 export const useMainRoutes = () => {
   return (
@@ -58,39 +61,57 @@ export const useMainRoutes = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="/configuracoes" element={<Settings />} />
-      <Route path="/configuracoes/concessionarias" element={<LayoutTemplate />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute>
-              <ProtectedAdminRoute>
-                <Concessionaires />
-              </ProtectedAdminRoute>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="concessionaria"
-          element={
-            <ProtectedRoute>
-              <ProtectedAdminRoute>
-                <Concessionaire />
-              </ProtectedAdminRoute>
-            </ProtectedRoute>
-          }
-        />
+      <Route path="/configuracoes">
+        <Route index element={<Settings />} />
 
         <Route
-          path="cadastro"
-          element={
-            <ProtectedRoute>
-              <ProtectedAdminRoute>
-                <Concessionaire />
-              </ProtectedAdminRoute>
-            </ProtectedRoute>
-          }
-        />
+          path="/configuracoes/concessionarias"
+          element={<LayoutTemplate />}
+        >
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <ProtectedAdminRoute>
+                  <Concessionaires />
+                </ProtectedAdminRoute>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="concessionaria"
+            element={
+              <ProtectedRoute>
+                <ProtectedAdminRoute>
+                  <Concessionaire />
+                </ProtectedAdminRoute>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="cadastro"
+            element={
+              <ProtectedRoute>
+                <ProtectedAdminRoute>
+                  <Concessionaire />
+                </ProtectedAdminRoute>
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+
+        <Route path="/configuracoes/lojas" element={<LayoutTemplate />}>
+          <Route index element={<AdminStores />} />
+          <Route
+            path="/configuracoes/lojas/cadastro"
+            element={<AdminStoresRegister />}
+          />
+          <Route
+            path="/configuracoes/lojas/detalhe"
+            element={<AdminStoreDetail />}
+          />
+        </Route>
       </Route>
     </>
   );
