@@ -2,7 +2,10 @@ declare module "react-times" {
   import * as React from "react";
 
   export interface ITimePickerProps {
+    placeholder?: string;
     time?: string;
+    label?: string;
+    required?: boolean;
     timeFormat?: string;
     timeFormatter?: (params: {
       hour: string;

@@ -3,25 +3,30 @@ import "react-times/css/material/default.css";
 import "react-times/css/classic/default.css";
 import * as S from "./styles";
 
-export const InputTime = (props: ITimePickerProps) => {
+export const InputTime = ({ placeholder, ...rest }: ITimePickerProps) => {
   return (
-    <S.Container>
+    <S.Container {...rest}>
+      {rest.label && (
+        <p id="label">
+          {rest.label}
+          {rest.required && <span>*</span>}
+        </p>
+      )}
       <img src="/assets/svgs/icon-clock-gray.svg" alt="icone relogio" />
       <TimePicker
         showTimezone
         withoutIcon={true}
-        time="14:05"
         theme="classic"
         timeMode="24"
-        timezone="America/Fortaleza"
         timeConfig={{
           from: "08:00 PM",
           to: "08:00 AM",
           step: 0.25,
           unit: "hour",
         }}
-        {...props}
+        {...rest}
       />
+      {!rest.time && placeholder && <span id="placeholder">{placeholder}</span>}
     </S.Container>
   );
 };
