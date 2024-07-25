@@ -8,6 +8,7 @@ interface InputCustomProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   required?: boolean;
   variant?: VariantesTypes;
+  iconright?: string;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputCustomProps>(
@@ -56,6 +57,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputCustomProps>(
             // data-color-vlx={process.env.REACT_APP_PROJECT === "vlx"}
             // data-color-tokyo={process.env.REACT_APP_PROJECT === "tokyo"}
           />
+        )}
+
+        {props?.iconright && (
+          <S.IconEdit src={props.iconright} alt="icone de edite" />
         )}
       </S.Container>
     );

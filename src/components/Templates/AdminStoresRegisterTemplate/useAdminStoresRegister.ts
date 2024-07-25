@@ -8,7 +8,7 @@ import { ISelectOptions } from "../../../types/inputs";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
 import { ViaCep } from "../../../services/ViaCep";
-import { maskCep } from "../../../utils/masks";
+import { maskCep, maskTime } from "../../../utils/masks";
 import { useSearchParams } from "react-router-dom";
 import { Loja } from "../../../services/Lojas";
 
@@ -135,6 +135,42 @@ export const useAdminStoresRegister = () => {
         }
       );
   }, []);
+
+  useEffect(() => {
+    if (watch("horarioInicial")) {
+      setValue("horarioInicial", maskTime(watch("horarioInicial")));
+    }
+  }, [watch("horarioInicial")]);
+
+  useEffect(() => {
+    if (watch("horarioFinal")) {
+      setValue("horarioFinal", maskTime(watch("horarioFinal")));
+    }
+  }, [watch("horarioFinal")]);
+
+  useEffect(() => {
+    if (watch("horarioInicialAlmoco")) {
+      setValue("horarioInicialAlmoco", maskTime(watch("horarioInicialAlmoco")));
+    }
+  }, [watch("horarioInicialAlmoco")]);
+
+  useEffect(() => {
+    if (watch("horarioFinalAlmoco")) {
+      setValue("horarioFinalAlmoco", maskTime(watch("horarioFinalAlmoco")));
+    }
+  }, [watch("horarioFinalAlmoco")]);
+
+  useEffect(() => {
+    if (watch("horarioInicialFds")) {
+      setValue("horarioInicialFds", maskTime(watch("horarioInicialFds")));
+    }
+  }, [watch("horarioInicialFds")]);
+
+  useEffect(() => {
+    if (watch("horarioFinalFds")) {
+      setValue("horarioFinalFds", maskTime(watch("horarioFinalFds")));
+    }
+  }, [watch("horarioFinalFds")]);
 
   useEffect(() => {
     getUfs();

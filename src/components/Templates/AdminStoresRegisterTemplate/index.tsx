@@ -211,38 +211,20 @@ export const AdminStoresRegisterTemplate = () => {
         </div>
 
         <div>
-          <Controller
-            control={control}
-            name="horarioInicial"
-            render={({ field: { onChange, value } }) => (
-              <InputTime
-                required
-                label="Horário Inicial"
-                placeholder="hh:mm"
-                time={value}
-                onTimeChange={(time) => {
-                  onChange(`${time.hour}:${time.minute}}`);
-                }}
-              />
-            )}
+          <Input
+            {...register("horarioInicial")}
+            required
+            label="Horário Inicial"
+            placeholder="hh:mm"
           />
         </div>
 
         <div>
-          <Controller
-            control={control}
-            name="horarioFinal"
-            render={({ field: { onChange, value } }) => (
-              <InputTime
-                required
-                label="Horário Final"
-                placeholder="hh:mm"
-                time={value}
-                onTimeChange={(time) => {
-                  onChange(`${time.hour}:${time.minute}}`);
-                }}
-              />
-            )}
+          <Input
+            {...register("horarioFinal")}
+            required
+            label="Horário Final"
+            placeholder="hh:mm"
           />
         </div>
 
@@ -251,38 +233,18 @@ export const AdminStoresRegisterTemplate = () => {
         </div>
 
         <div>
-          <Controller
-            control={control}
-            name="horarioInicialAlmoco"
-            render={({ field: { onChange, value } }) => (
-              <InputTime
-                required
-                label="Horário Inicial"
-                placeholder="hh:mm"
-                time={value}
-                onTimeChange={(time) => {
-                  onChange(`${time.hour}:${time.minute}}`);
-                }}
-              />
-            )}
+          <Input
+            {...register("horarioInicialAlmoco")}
+            label="Horário Inicial"
+            placeholder="hh:mm"
           />
         </div>
 
         <div>
-          <Controller
-            control={control}
-            name="horarioFinalAlmoco"
-            render={({ field: { onChange, value } }) => (
-              <InputTime
-                required
-                label="Horário Final"
-                placeholder="hh:mm"
-                time={value}
-                onTimeChange={(time) => {
-                  onChange(`${time.hour}:${time.minute}}`);
-                }}
-              />
-            )}
+          <Input
+            {...register("horarioFinalAlmoco")}
+            label="Horário Final"
+            placeholder="hh:mm"
           />
         </div>
 
@@ -291,38 +253,18 @@ export const AdminStoresRegisterTemplate = () => {
         </div>
 
         <div>
-          <Controller
-            control={control}
-            name="horarioInicialFds"
-            render={({ field: { onChange, value } }) => (
-              <InputTime
-                required
-                label="Horário Inicial"
-                placeholder="hh:mm"
-                time={value}
-                onTimeChange={(time) => {
-                  onChange(`${time.hour}:${time.minute}}`);
-                }}
-              />
-            )}
+          <Input
+            {...register("horarioInicialFds")}
+            label="Horário Inicial"
+            placeholder="hh:mm"
           />
         </div>
 
         <div>
-          <Controller
-            control={control}
-            name="horarioFinalFds"
-            render={({ field: { onChange, value } }) => (
-              <InputTime
-                required
-                label="Horário Final"
-                placeholder="hh:mm"
-                time={value}
-                onTimeChange={(time) => {
-                  onChange(`${time.hour}:${time.minute}}`);
-                }}
-              />
-            )}
+          <Input
+            {...register("horarioFinalFds")}
+            label="Horário Final"
+            placeholder="hh:mm"
           />
         </div>
 

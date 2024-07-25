@@ -59,29 +59,19 @@ export function removerCaracteresEspeciais(s: string) {
   return s.replace(/[^a-zA-Z0-9]/g, "");
 }
 
-export function maskTime(input: string) {
-  // Converte o número para uma string e garante que tenha 4 dígitos com zeros à esquerda
-  const timeString = input.toString().padStart(4, "0");
-
-  // Extrai horas e minutos
-  const hours = timeString.slice(0, 2);
-  const minutes = timeString.slice(2, 4);
-
-  // Verifica se as horas e minutos são válidos
-  if (parseInt(hours) >= 24 || parseInt(minutes) >= 60) {
-    return "Inválido";
-  }
-
-  // Cria um objeto dayjs com as horas e minutos
-  const time = dayjs()
-    .hour(parseInt(hours))
-    .minute(parseInt(minutes))
-    .second(0);
-
-  // Formata para o formato desejado e garante que o retorno não ultrapasse 5 caracteres
-  const formattedTime = time.format("HH:mm");
-
-  return formattedTime.length <= 5 ? formattedTime : "Inválido";
+export function maskTime(time: string) {
+  if (!time) return "";
+  time = time.replace(/[^\dh:]/, "");
+  time = time.replace(/^[^0-2]/, "");
+  time = time.replace(/^([2-9])[4-9]/, "$1");
+  time = time.replace(/^\d[:h]/, "");
+  time = time.replace(/^([01][0-9])[^:h]/, "$1");
+  time = time.replace(/^(2[0-3])[^:h]/, "$1");
+  time = time.replace(/^(\d{2}[:h])[^0-5]/, "$1");
+  time = time.replace(/^(\d{2}h)./, "$1");
+  time = time.replace(/^(\d{2}:[0-5])[^0-9]/, "$1");
+  time = time.replace(/^(\d{2}:\d[0-9])./, "$1");
+  return time;
 }
 
 export function maskLimiteNumber(entrada: string, quantidade: number) {
