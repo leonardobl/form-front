@@ -5,7 +5,8 @@ import * as S from "./styles";
 import { useAdminStores } from "./useAdminStores";
 
 export const AdminStoresTemplate = () => {
-  const { isMobile, navigate } = useAdminStores();
+  const { isMobile, navigate, lojas, pagination, setNumberPage } =
+    useAdminStores();
   return (
     <S.Container>
       <h2>Lojas Cadastradas</h2>
@@ -24,98 +25,52 @@ export const AdminStoresTemplate = () => {
           </Button>
         </S.TableHeader>
 
-        <S.TableItems>
-          {isMobile ? (
-            <>
-              <S.TableItemMobile>
-                <div>
-                  <p>Nome</p>
-                  <span>ativo</span>
-                </div>
-                <div>
-                  <Eye />
-                </div>
-              </S.TableItemMobile>
-
-              <S.TableItemMobile>
-                <div>
-                  <p>Nome</p>
-                  <span>ativo</span>
-                </div>
-                <div>
-                  <Eye />
-                </div>
-              </S.TableItemMobile>
-
-              <S.TableItemMobile>
-                <div>
-                  <p>Nome</p>
-                  <span>ativo</span>
-                </div>
-                <div>
-                  <Eye />
-                </div>
-              </S.TableItemMobile>
-
-              <S.TableItemMobile>
-                <div>
-                  <p>Nome</p>
-                  <span>ativo</span>
-                </div>
-                <div>
-                  <Eye />
-                </div>
-              </S.TableItemMobile>
-            </>
-          ) : (
-            <>
-              <S.TableItem>
-                <p>Camilla santos de alcantara</p>
-                <p>SAÕ LUÍS</p>
-                <p>INATIVO</p>
-                <div>
-                  <Eye />
-                </div>
-              </S.TableItem>
-
-              <S.TableItem>
-                <p>Camilla santos de alcantara</p>
-                <p>SAÕ LUÍS</p>
-                <p>ATIVO</p>
-                <div>
-                  <Eye />
-                </div>
-              </S.TableItem>
-
-              <S.TableItem>
-                <p>Camilla santos de alcantara</p>
-                <p>SAÕ LUÍS</p>
-                <p>INATIVO</p>
-                <div>
-                  <Eye />
-                </div>
-              </S.TableItem>
-
-              <S.TableItem>
-                <p>Camilla santos de alcantara</p>
-                <p>SAÕ LUÍS</p>
-                <p>ATIVO</p>
-                <div>
-                  <Eye />
-                </div>
-              </S.TableItem>
-            </>
-          )}
-        </S.TableItems>
+        {lojas?.length > 0 && (
+          <S.TableItems>
+            {lojas.map((l) =>
+              isMobile ? (
+                <S.TableItemMobile>
+                  <div>
+                    <p>{l?.nome}</p>
+                    <span>ativo</span>
+                  </div>
+                  <div>
+                    <Eye
+                      onClick={() =>
+                        navigate(`/configuracoes/lojas/detalhe?id=${l.uuid}`)
+                      }
+                    />
+                  </div>
+                </S.TableItemMobile>
+              ) : (
+                <S.TableItem>
+                  <p>{l?.nome}</p>
+                  <p>{l?.endereco?.cidade}</p>
+                  <p>INATIVO</p>
+                  <div>
+                    <Eye
+                      onClick={() =>
+                        navigate(`/configuracoes/lojas/detalhe?id=${l.uuid}`)
+                      }
+                    />
+                  </div>
+                </S.TableItem>
+              )
+            )}
+          </S.TableItems>
+        )}
       </S.Table>
 
-      <Pagination
-        totalPage={10}
-        totalRegister={10}
-        actualPage={1}
-        maxPageNumbersDisplayed={isMobile ? 3 : 10}
-        setNumberPage={undefined}
-      />
+      {lojas.length > 0 && (
+        <Pagination
+          maxPageNumbersDisplayed={isMobile ? 3 : 10}
+          key={`${Math.random()} - ${pagination}`}
+          totalPage={pagination.totalPage}
+          totalRegister={pagination.totalPage}
+          actualPage={pagination.actualPage}
+          setNumberPage={setNumberPage}
+        />
+      )}
     </S.Container>
   );
 };

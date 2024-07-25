@@ -21,7 +21,11 @@ export interface IPageLojaDTO {
 export interface ILojaDTO {
   endereco: IEnderecoDTO;
   horarioFinal: string;
+  horarioFinalAlmoco: string;
+  horarioFinalFds: string;
   horarioInicial: string;
+  horarioInicialAlmoco: string;
+  horarioInicialFds: string;
   nome: string;
   quantidadeVagas: number;
   tempoMedio: string;
@@ -55,4 +59,35 @@ export interface IColaboradorForm {
 export interface IBaiaForm {
   nome: string;
   uuid?: string;
+}
+
+export interface ILojaForm {
+  contaIugu: IContaIuguForm;
+  endereco: IEnderecoLojaForm;
+  horarioFinal: string;
+  horarioFinalAlmoco?: string;
+  horarioFinalFds?: string;
+  horarioInicial: string;
+  horarioInicialAlmoco?: string;
+  horarioInicialFds?: string;
+  nome: string;
+  quantidadeVagas: number;
+  tempoMedio: string;
+}
+
+interface IEnderecoLojaForm {
+  bairro?: string;
+  cep?: string;
+  cidade: string;
+  complemento?: string;
+  logradouro?: string;
+  numero?: string;
+  uf: string;
+}
+
+export interface IContaIuguForm {
+  apiToken: string;
+  cnpj: string;
+  idConta: string;
+  nome: string;
 }

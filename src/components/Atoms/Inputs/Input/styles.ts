@@ -18,6 +18,16 @@ export const Container = styled.div`
     top: 19px;
     color: ${(props) => props.theme.colors.main};
   }
+
+  &[data-error="true"] {
+    input {
+      border: red;
+    }
+
+    label {
+      color: red;
+    }
+  }
 `;
 
 export const Label = styled.label<{ $isRequired: boolean }>`

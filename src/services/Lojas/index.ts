@@ -6,6 +6,7 @@ import {
   IBaiaForm,
   IColaboradorDTO,
   IColaboradorForm,
+  ILojaDTO,
   IPageLojaDTO,
 } from "../../types/loja";
 import { removeEmpty } from "../../utils/removeEmpty";
@@ -30,6 +31,14 @@ export class Loja {
     const params = objectToParams(props);
 
     return ApiBrave.get(params ? `${basePath}?${params}` : `${basePath}`);
+  }
+
+  static async getById({
+    uuidLoja,
+  }: {
+    uuidLoja: string;
+  }): Promise<AxiosResponse<ILojaDTO>> {
+    return ApiBrave.get(`${basePath}/${uuidLoja}`);
   }
 
   static async getDiasIndisponiveis({

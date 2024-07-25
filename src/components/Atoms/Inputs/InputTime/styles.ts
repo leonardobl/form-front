@@ -7,7 +7,7 @@ export const Container = styled.div<ITimePickerProps>`
 
   p#label {
     position: absolute;
-    left: 20px;
+    left: 22px;
     top: 0px;
     background: linear-gradient(to top, #fff 50%, transparent 50%);
     transform: translateY(-50%);
@@ -28,12 +28,12 @@ export const Container = styled.div<ITimePickerProps>`
   span#placeholder {
     color: #9d9d9d;
     font-family: Mulish;
-    font-size: 12px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 16px;
     position: absolute;
-    left: 16px;
+    left: 22px;
     top: 50%;
     transform: translateY(-50%);
   }
@@ -75,6 +75,7 @@ export const Container = styled.div<ITimePickerProps>`
     background: var(--W, #fff);
     box-shadow: none;
     padding: 0;
+    height: 46px;
   }
 
   .wrapper {

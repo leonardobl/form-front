@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export function maskCpf(v: string) {
   if (!v) return;
   v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
@@ -55,4 +57,37 @@ export function removeDigitos(s: string) {
 export function removerCaracteresEspeciais(s: string) {
   if (!s) return;
   return s.replace(/[^a-zA-Z0-9]/g, "");
+}
+
+export function maskTime(input: string) {
+  // Converte o número para uma string e garante que tenha 4 dígitos com zeros à esquerda
+  const timeString = input.toString().padStart(4, "0");
+
+  // Extrai horas e minutos
+  const hours = timeString.slice(0, 2);
+  const minutes = timeString.slice(2, 4);
+
+  // Verifica se as horas e minutos são válidos
+  if (parseInt(hours) >= 24 || parseInt(minutes) >= 60) {
+    return "Inválido";
+  }
+
+  // Cria um objeto dayjs com as horas e minutos
+  const time = dayjs()
+    .hour(parseInt(hours))
+    .minute(parseInt(minutes))
+    .second(0);
+
+  // Formata para o formato desejado e garante que o retorno não ultrapasse 5 caracteres
+  const formattedTime = time.format("HH:mm");
+
+  return formattedTime.length <= 5 ? formattedTime : "Inválido";
+}
+
+export function maskLimiteNumber(entrada: string, quantidade: number) {
+  // Remove tudo que não seja número
+  const apenasNumeros = entrada.replace(/\D/g, "");
+
+  // Retorna apenas a quantidade especificada de números
+  return apenasNumeros.substring(0, quantidade);
 }

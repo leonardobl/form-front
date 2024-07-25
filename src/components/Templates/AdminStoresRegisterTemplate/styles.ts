@@ -20,6 +20,28 @@ export const Container = styled.div`
   }
 `;
 
+export const WrapperDataIugu = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px 16px;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+
+    grid-template-areas: "nome nome" "cnpj conta";
+
+    > :nth-child(1) {
+      grid-area: nome;
+    }
+    > :nth-child(2) {
+      grid-area: cnpj;
+    }
+    > :nth-child(3) {
+      grid-area: conta;
+    }
+  }
+`;
+
 export const Form = styled.form`
   display: grid;
   gap: 32px 16px;
