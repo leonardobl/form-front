@@ -122,15 +122,15 @@ export interface ILojaCompletaDTO {
 
 export interface ILojaAtualizarForm {
   endereco: IEnderecoLojaForm;
-  horarioFinal: string;
-  horarioFinalAlmoco: string;
-  horarioFinalFds: string;
-  horarioInicial: string;
-  horarioInicialAlmoco: string;
-  horarioInicialFds: string;
-  nome: string;
-  quantidadeVagas: number;
-  tempoMedio: string;
+  horarioFinal?: string;
+  horarioFinalAlmoco?: string;
+  horarioFinalFds?: string;
+  horarioInicial?: string;
+  horarioInicialAlmoco?: string;
+  horarioInicialFds?: string;
+  nome?: string;
+  quantidadeVagas?: number;
+  tempoMedio?: string;
 }
 
 export interface ILojaAtualizarFormProps extends ILojaAtualizarForm {
