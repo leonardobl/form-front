@@ -131,6 +131,7 @@ export interface ILojaAtualizarForm {
   nome?: string;
   quantidadeVagas?: number;
   tempoMedio?: string;
+  uuidContaIugu: string;
 }
 
 export interface ILojaAtualizarFormProps extends ILojaAtualizarForm {

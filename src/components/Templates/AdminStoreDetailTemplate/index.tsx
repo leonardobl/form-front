@@ -23,10 +23,6 @@ export const AdminStoreDetailTemplate = () => {
     <S.Container>
       <h1>Dados da Loja</h1>
 
-      {errors?.horarioInicialAlmoco && (
-        <p>{errors?.horarioInicialAlmoco.message}</p>
-      )}
-
       <S.Form onSubmit={handleSubmit(submitForm)}>
         <div>
           <h3>Informações Básicas</h3>

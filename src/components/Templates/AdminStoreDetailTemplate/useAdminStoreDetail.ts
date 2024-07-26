@@ -84,6 +84,7 @@ export const useAdminStoreDetail = () => {
     const PAYLOAD: ILojaAtualizarFormProps = {
       ...data,
       uuidLoja: lojaId,
+      uuidContaIugu: contaIugu.uuid,
       quantidadeVagas: Number(data.quantidadeVagas),
     };
 
@@ -159,7 +160,7 @@ export const useAdminStoreDetail = () => {
           setContaIugu(data.contaIugu);
 
           Object.keys(data).forEach((key) => {
-            setValue(key as keyof ILojaAtualizarFormProps, data[key]);
+            setValue(key as keyof ILojaAtualizarFormProps, data[key] || "");
           });
         })
         .catch(
