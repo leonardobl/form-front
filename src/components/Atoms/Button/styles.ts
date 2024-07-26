@@ -45,6 +45,19 @@ export const Button = styled.button`
       color: #2d2d2d;
     }
 
+    &[data-variant-filter="true"] {
+      color: #9d9d9d;
+      font-family: Mulish;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 20px;
+      width: fit-content;
+      height: fit-content;
+      padding: 5px;
+      background-color: transparent;
+    }
+
     &[data-variant-outline="true"] {
       border-radius: 10px;
       border: 1px solid #2d2d2d;
