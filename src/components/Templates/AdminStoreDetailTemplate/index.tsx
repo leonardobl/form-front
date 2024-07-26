@@ -2,29 +2,30 @@ import { Button } from "../../Atoms/Button";
 import { Input } from "../../Atoms/Inputs/Input";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import * as S from "./styles";
-import { useAdminStoresRegister } from "./useAdminStoresRegister";
-import { maskCnpj, maskLimiteNumber } from "../../../utils/masks";
+import { useAdminStoreDetail } from "./useAdminStoreDetail";
+import { maskLimiteNumber } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
-import { IContaIuguForm } from "../../../types/loja";
 
-export const AdminStoresRegisterTemplate = () => {
+export const AdminStoreDetailTemplate = () => {
   const {
     Controller,
     control,
-    errors,
     handleSubmit,
     register,
     submitForm,
     ufs,
+    contaIugu,
     cidades,
-    handleCep,
-    contas,
-    watch,
-  } = useAdminStoresRegister();
+    errors,
+  } = useAdminStoreDetail();
 
   return (
     <S.Container>
-      <h1>Cadastro de Lojas</h1>
+      <h1>Dados da Loja</h1>
+
+      {errors?.horarioInicialAlmoco && (
+        <p>{errors?.horarioInicialAlmoco.message}</p>
+      )}
 
       <S.Form onSubmit={handleSubmit(submitForm)}>
         <div>
@@ -32,32 +33,40 @@ export const AdminStoresRegisterTemplate = () => {
         </div>
 
         <div>
-          <Input {...register("nome")} label="Nome" required />
+          <Input {...register("nome")} label="Nome" variant={"edit"} required />
         </div>
 
         <div>
           <Input
             {...register("endereco.cep")}
             label="CEP"
-            onBlur={handleCep}
             maxLength={9}
+            disabled
           />
         </div>
 
         <div>
-          <Input {...register("endereco.logradouro")} label="Endereço ( Rua)" />
+          <Input
+            {...register("endereco.logradouro")}
+            label="Endereço ( Rua)"
+            disabled
+          />
         </div>
 
         <div>
-          <Input {...register("endereco.numero")} label="Número" />
+          <Input {...register("endereco.numero")} label="Número" disabled />
         </div>
 
         <div>
-          <Input {...register("endereco.complemento")} label="Complemento" />
+          <Input
+            {...register("endereco.complemento")}
+            label="Complemento"
+            disabled
+          />
         </div>
 
         <div>
-          <Input label="Bairro" {...register("endereco.bairro")} />
+          <Input label="Bairro" {...register("endereco.bairro")} disabled />
         </div>
 
         <div>
@@ -70,6 +79,7 @@ export const AdminStoresRegisterTemplate = () => {
                 options={ufs}
                 label="UF"
                 required
+                isDisabled
                 onChange={(e: ISelectOptions) => onChange(e?.value)}
               />
             )}
@@ -87,6 +97,7 @@ export const AdminStoresRegisterTemplate = () => {
                 options={cidades}
                 label="Cidade"
                 required
+                isDisabled
               />
             )}
           />
@@ -96,23 +107,19 @@ export const AdminStoresRegisterTemplate = () => {
           <h3>Informações Financeiras</h3>
         </div>
 
-        <div>
-          <Controller
-            control={control}
-            name="uuidContaIugu"
-            render={({ field: { value, onChange } }) => (
-              <SimpleSelect
-                label="Conta Iugu"
-                required
-                options={contas}
-                value={contas.find((i) => i?.value === value) || null}
-                onChange={(e: ISelectOptions) => {
-                  onChange(e?.value);
-                }}
-              />
-            )}
-          />
-        </div>
+        <S.WrapperDataIugu>
+          <div>
+            <Input value={contaIugu?.nome} disabled label="Nome" />
+          </div>
+
+          <div>
+            <Input value={contaIugu?.cnpj} disabled label="CNPJ" />
+          </div>
+
+          <div>
+            <Input value={contaIugu?.idConta} disabled label="Conta Iugu" />
+          </div>
+        </S.WrapperDataIugu>
 
         <div>
           <h3>Informações de Atendimento</h3>
@@ -124,6 +131,7 @@ export const AdminStoresRegisterTemplate = () => {
             {...register("tempoMedio")}
             label="Tempo Médio"
             placeholder="hh:mm"
+            variant={"edit"}
           />
         </div>
 
@@ -135,10 +143,11 @@ export const AdminStoresRegisterTemplate = () => {
               <Input
                 type="number"
                 required
+                variant={"edit"}
                 value={value}
                 label="Quantidade de vagas por Horário"
                 placeholder="00"
-                onChange={(e) => onChange(maskLimiteNumber(e.target.value, 2))}
+                onChange={(e) => onChange(+maskLimiteNumber(e.target.value, 2))}
               />
             )}
           />
@@ -154,6 +163,7 @@ export const AdminStoresRegisterTemplate = () => {
             required
             label="Horário Inicial"
             placeholder="hh:mm"
+            variant={"edit"}
           />
         </div>
 
@@ -163,6 +173,7 @@ export const AdminStoresRegisterTemplate = () => {
             required
             label="Horário Final"
             placeholder="hh:mm"
+            variant={"edit"}
           />
         </div>
 
@@ -175,6 +186,7 @@ export const AdminStoresRegisterTemplate = () => {
             {...register("horarioInicialAlmoco")}
             label="Horário Inicial"
             placeholder="hh:mm"
+            variant={"edit"}
           />
         </div>
 
@@ -183,6 +195,7 @@ export const AdminStoresRegisterTemplate = () => {
             {...register("horarioFinalAlmoco")}
             label="Horário Final"
             placeholder="hh:mm"
+            variant={"edit"}
           />
         </div>
 
@@ -195,6 +208,7 @@ export const AdminStoresRegisterTemplate = () => {
             {...register("horarioInicialFds")}
             label="Horário Inicial"
             placeholder="hh:mm"
+            variant={"edit"}
           />
         </div>
 
@@ -203,6 +217,7 @@ export const AdminStoresRegisterTemplate = () => {
             {...register("horarioFinalFds")}
             label="Horário Final"
             placeholder="hh:mm"
+            variant={"edit"}
           />
         </div>
 

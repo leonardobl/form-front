@@ -19,6 +19,7 @@ import { Concessionaire } from "../components/Pages/Concessionaire";
 import { Settings } from "../components/Pages/Settings";
 import { AdminStores } from "../components/Pages/AdminStores";
 import { AdminStoresRegister } from "../components/Pages/AdminStoresRegister";
+import { AdminStoreDetail } from "../components/Pages/AdminStoreDetail";
 
 export const useMainRoutes = () => {
   return (
@@ -109,7 +110,7 @@ export const useMainRoutes = () => {
 
           <Route
             path="/configuracoes/lojas/detalhe"
-            element={<AdminStoresRegister />}
+            element={<AdminStoreDetail />}
           />
         </Route>
       </Route>

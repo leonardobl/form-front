@@ -34,7 +34,7 @@ export const Button = styled.button`
     &[data-variant-danger="true"] {
       border-radius: 10px;
       background: #ed0000;
-      box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+      /* box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2); */
     }
 
     &[data-variant-text="true"] {
@@ -53,7 +53,7 @@ export const Button = styled.button`
       color: #2d2d2d;
     }
 
-    box-shadow: 0px 4px 4px 0px #00000033;
+    /* box-shadow: 0px 4px 4px 0px #00000033; */
 
     font-family: Mulish;
     font-size: 16px;

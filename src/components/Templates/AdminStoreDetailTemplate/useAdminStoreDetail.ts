@@ -1,17 +1,14 @@
 import { useForm, Controller } from "react-hook-form";
-import { ILojaDTO, ILojaForm } from "../../../types/loja";
+import { IContaIuguDTO, ILojaAtualizarFormProps } from "../../../types/loja";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useCallback, useEffect, useState } from "react";
-import { Ibge } from "../../../services/Ibge";
+import { useEffect, useState } from "react";
 import { ISelectOptions } from "../../../types/inputs";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
-import { ViaCep } from "../../../services/ViaCep";
-import { maskCep, maskCnpj, maskTime } from "../../../utils/masks";
+import { maskCep, maskTime } from "../../../utils/masks";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Loja } from "../../../services/Lojas";
-import { Pagamento } from "../../../services/Pagamento";
 
 const schemaEndereco = z.object({
   bairro: z.string().optional(),
@@ -31,24 +28,22 @@ const schemaForm = z.object({
   horarioInicialAlmoco: z.string().optional(),
   horarioInicialFds: z.string().optional(),
   nome: z.string().min(1, "Campo obrigatorio"),
-  quantidadeVagas: z.string().min(1, "Campo obrigatorio"),
+  quantidadeVagas: z.number().min(1, "Campo obrigatorio"),
   tempoMedio: z.string().min(1, "Campo obrigatorio"),
-  uuidContaIugu: z.string().min(1, "Campo obrigatorio"),
   endereco: schemaEndereco,
 });
 
-export const useAdminStoresRegister = () => {
+export const useAdminStoreDetail = () => {
   const [ufs, setUfs] = useState<ISelectOptions[]>([] as ISelectOptions[]);
   const [cidades, setCidades] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
   );
-  const [searchParam] = useSearchParams();
-  const lojaId = searchParam.get("id");
-  const [cidadeTemp, setCidadeTemp] = useState("");
   const { setIsLoad } = useContextSite();
   const navigate = useNavigate();
-  const [contas, setContas] = useState<ISelectOptions[]>(
-    [] as ISelectOptions[]
+  const [searchParams] = useSearchParams();
+  const lojaId = searchParams.get("id");
+  const [contaIugu, setContaIugu] = useState<IContaIuguDTO>(
+    {} as IContaIuguDTO
   );
 
   const {
@@ -58,9 +53,8 @@ export const useAdminStoresRegister = () => {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<ILojaForm>({
+  } = useForm<ILojaAtualizarFormProps>({
     defaultValues: {
-      uuidContaIugu: "",
       endereco: {
         bairro: "",
         cep: "",
@@ -84,71 +78,30 @@ export const useAdminStoresRegister = () => {
     resolver: zodResolver(schemaForm),
   });
 
-  function submitForm(data: ILojaForm) {
+  function submitForm(data: ILojaAtualizarFormProps) {
     setIsLoad(true);
 
-    const PAYLOAD: ILojaForm = {
+    const PAYLOAD: ILojaAtualizarFormProps = {
       ...data,
+      uuidLoja: lojaId,
       quantidadeVagas: Number(data.quantidadeVagas),
     };
 
-    lojaId
-      ? console.log("atualizado")
-      : Loja.cadastro(PAYLOAD)
-          .then(() => navigate("/configuracoes/lojas"))
-          .catch(
-            ({
-              response: {
-                data: { mensagem },
-              },
-            }) => toast.error(mensagem)
-          )
-          .finally(() => setIsLoad(false));
-  }
-
-  function handleCep() {
-    if (watch("endereco.cep").length === 9) {
-      setIsLoad(true);
-      setTimeout(() => {
-        ViaCep.get(watch("endereco.cep"))
-          .then(({ data }) => {
-            setValue("endereco.logradouro", data.logradouro);
-            setValue("endereco.bairro", data.bairro);
-            // setValue("endereco.cidade", data.localidade);
-            setValue("endereco.uf", data.uf);
-            setCidadeTemp(data.localidade);
-          })
-          .catch((erro) => toast.error("Cep não encontrado"))
-          .finally(() => setIsLoad(false));
-      }, 1000);
-    }
-  }
-
-  useEffect(() => {
-    setValue("endereco.cep", maskCep(watch("endereco.cep")));
-  }, [watch("endereco.cep")]);
-
-  const getUfs = useCallback(() => {
-    Ibge.UFs()
-      .then(({ data }) => {
-        const options = data.map((i) => ({
-          value: i.sigla,
-          label: i.sigla,
-          element: i,
-        }));
-
-        setUfs(options);
-      })
+    Loja.atualizar(PAYLOAD)
+      .then(() => navigate("/configuracoes/lojas"))
       .catch(
         ({
           response: {
             data: { mensagem },
           },
-        }) => {
-          toast.error(mensagem);
-        }
-      );
-  }, []);
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
+  }
+
+  useEffect(() => {
+    setValue("endereco.cep", maskCep(watch("endereco.cep")));
+  }, [watch("endereco.cep")]);
 
   useEffect(() => {
     if (watch("horarioInicial")) {
@@ -192,31 +145,6 @@ export const useAdminStoresRegister = () => {
     }
   }, [watch("tempoMedio")]);
 
-  const getContas = useCallback(() => {
-    Pagamento.listarContas()
-      .then(({ data }) => {
-        const options = data.map((_) => ({
-          value: _.uuid,
-          label: _.nome,
-          element: _,
-        }));
-
-        setContas(options);
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem)
-      );
-  }, []);
-
-  useEffect(() => {
-    getUfs();
-    getContas();
-  }, []);
-
   useEffect(() => {
     if (lojaId) {
       setIsLoad(true);
@@ -226,10 +154,12 @@ export const useAdminStoresRegister = () => {
             { value: data.endereco.cidade, label: data.endereco.cidade },
           ]);
 
-          console.log(data);
+          setUfs([{ value: data.endereco.uf, label: data.endereco.uf }]);
+
+          setContaIugu(data.contaIugu);
 
           Object.keys(data).forEach((key) => {
-            setValue(key as keyof ILojaForm, data[key]);
+            setValue(key as keyof ILojaAtualizarFormProps, data[key]);
           });
         })
         .catch(
@@ -245,26 +175,6 @@ export const useAdminStoresRegister = () => {
     }
   }, [lojaId]);
 
-  useEffect(() => {
-    if (watch("endereco.uf")) {
-      setValue("endereco.cidade", "");
-      Ibge.CidadesPorEstado({ sigla: watch("endereco.uf") })
-        .then(({ data }) => {
-          const options = data.map((item) => ({
-            value: item.nome,
-            label: item.nome,
-            element: item,
-          }));
-          setCidades(options);
-          setValue("endereco.cidade", cidadeTemp);
-        })
-        .then(() => {
-          setCidadeTemp("");
-        })
-        .catch((erro) => toast.error("Erro ao requisitar a lista de cidades"));
-    }
-  }, [watch("endereco.uf")]);
-
   return {
     Controller,
     control,
@@ -274,9 +184,7 @@ export const useAdminStoresRegister = () => {
     submitForm,
     ufs,
     cidades,
-    handleCep,
-    lojaId,
-    contas,
     watch,
+    contaIugu,
   };
 };

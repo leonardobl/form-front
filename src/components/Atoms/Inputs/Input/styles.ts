@@ -19,9 +19,9 @@ export const Container = styled.div`
     color: ${(props) => props.theme.colors.main};
   }
 
-  &[data-error="true"] {
+  &:has(> input[data-error="true"]) {
     input {
-      border: red;
+      border: 1px solid red;
     }
 
     label {
@@ -34,7 +34,7 @@ export const Label = styled.label<{ $isRequired: boolean }>`
   position: absolute;
   z-index: 1;
   top: -11px;
-  left: 24px;
+  left: 16px;
   background: linear-gradient(to top, #fff 50%, transparent 50%);
   display: flex;
   padding: 2px 5px;
@@ -64,7 +64,7 @@ export const Input = styled.input<{ $typeInput?: string }>`
     border: 1px solid #9d9d9d;
     background-color: #fff;
     padding: ${$typeInput === "password" ? "0 40px 0 20px" : "0 20px"};
-    font-size: 18px;
+    font-size: 16px;
     font-family: "Mulish";
     font-weight: 400;
     color: #111;

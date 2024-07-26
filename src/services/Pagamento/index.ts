@@ -8,6 +8,7 @@ import {
 } from "../../types/pagamento";
 import { FormaPagamentoEnum } from "../../enums/formaPagamento";
 import { IReembolsoProps } from "../../types/agendamento";
+import { IContaIuguDTO, IContaIuguForm } from "../../types/loja";
 
 const basePath = "/pagamento";
 
@@ -20,6 +21,10 @@ export class Pagamento {
     return ApiBrave.get(
       `${basePath}/agendamento/${uuidAgendamento}/consultar-fatura`
     );
+  }
+
+  static async listarContas(): Promise<AxiosResponse<IContaIuguDTO[]>> {
+    return ApiBrave.get(`${basePath}/listar-contas`);
   }
 
   static async cancelarPagamento({

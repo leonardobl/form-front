@@ -48,7 +48,8 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         // match with the menu
         borderRadius: 10,
         // letterSpacing: 10,
-        padding: "0 20px",
+        fontSize: "16px",
+        padding: "0 10px",
         fontFamily: "Mulish",
         // color: state.isSelected ? "red" : "blue",
         // Overwrittes the different states of border
