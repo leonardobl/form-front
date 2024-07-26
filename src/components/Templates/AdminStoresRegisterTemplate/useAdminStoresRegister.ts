@@ -8,8 +8,8 @@ import { ISelectOptions } from "../../../types/inputs";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
 import { ViaCep } from "../../../services/ViaCep";
-import { maskCep, maskTime } from "../../../utils/masks";
-import { useSearchParams } from "react-router-dom";
+import { maskCep, maskCnpj, maskTime } from "../../../utils/masks";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Loja } from "../../../services/Lojas";
 
 const schemaIugo = z.object({
@@ -53,7 +53,7 @@ export const useAdminStoresRegister = () => {
   const lojaId = searchParam.get("id");
   const [cidadeTemp, setCidadeTemp] = useState("");
   const { setIsLoad } = useContextSite();
-  const [loja, setLoja] = useState<ILojaDTO>({} as ILojaDTO);
+  const navigate = useNavigate();
 
   const {
     control,
@@ -89,7 +89,20 @@ export const useAdminStoresRegister = () => {
   });
 
   function submitForm(data: ILojaForm) {
-    console.log(data);
+    setIsLoad(true);
+
+    lojaId
+      ? console.log("atualizado")
+      : Loja.cadastro(data)
+          .then(() => navigate("/configuracoes/lojas"))
+          .catch(
+            ({
+              response: {
+                data: { mensagem },
+              },
+            }) => toast.error(mensagem)
+          )
+          .finally(() => setIsLoad(false));
   }
 
   function handleCep() {
@@ -113,6 +126,10 @@ export const useAdminStoresRegister = () => {
   useEffect(() => {
     setValue("endereco.cep", maskCep(watch("endereco.cep")));
   }, [watch("endereco.cep")]);
+
+  useEffect(() => {
+    setValue("contaIugu.cnpj", maskCnpj(watch("contaIugu.cnpj")));
+  }, [watch("contaIugu.cnpj")]);
 
   const getUfs = useCallback(() => {
     Ibge.UFs()
@@ -181,6 +198,10 @@ export const useAdminStoresRegister = () => {
       setIsLoad(true);
       Loja.getById({ uuidLoja: lojaId })
         .then(({ data }) => {
+          setCidades([
+            { value: data.endereco.cidade, label: data.endereco.cidade },
+          ]);
+
           Object.keys(data).forEach((key) => {
             setValue(key as keyof ILojaForm, data[key]);
           });

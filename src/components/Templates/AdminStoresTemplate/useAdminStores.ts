@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Loja } from "../../../services/Lojas";
 import { toast } from "react-toastify";
 import { useContextSite } from "../../../context/Context";
-import { ILojaDTO } from "../../../types/agendamento";
 import { IPagination } from "../../../types/pagination";
+import { ILojaDTO } from "../../../types/loja";
 
 export const useAdminStores = () => {
   const navigate = useNavigate();

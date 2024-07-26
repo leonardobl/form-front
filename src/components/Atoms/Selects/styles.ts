@@ -6,6 +6,16 @@ export const Container = styled.div<{
   $bgcolor?: string;
 }>`
   ${({ $isLabel, $variantSearch, $bgcolor }) => css`
+    &[aria-disabled="true"] {
+      cursor: not-allowed;
+
+      .css-1h06qz8-control,
+      .css-13cymwt-control,
+      .css-1jqq78o-placeholder {
+        cursor: not-allowed;
+      }
+    }
+
     font-family: "Mulish";
 
     position: relative;

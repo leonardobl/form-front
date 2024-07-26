@@ -7,6 +7,7 @@ import {
   IColaboradorDTO,
   IColaboradorForm,
   ILojaDTO,
+  ILojaForm,
   IPageLojaDTO,
 } from "../../types/loja";
 import { removeEmpty } from "../../utils/removeEmpty";
@@ -39,6 +40,11 @@ export class Loja {
     uuidLoja: string;
   }): Promise<AxiosResponse<ILojaDTO>> {
     return ApiBrave.get(`${basePath}/${uuidLoja}`);
+  }
+
+  static async cadastro(data: ILojaForm): Promise<AxiosResponse<ILojaDTO>> {
+    const PAYLOAD = removeEmpty(data);
+    return ApiBrave.post(`${basePath}/cadastrar`, PAYLOAD);
   }
 
   static async getDiasIndisponiveis({

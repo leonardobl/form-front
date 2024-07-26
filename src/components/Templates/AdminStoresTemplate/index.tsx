@@ -32,7 +32,9 @@ export const AdminStoresTemplate = () => {
                 <S.TableItemMobile>
                   <div>
                     <p>{l?.nome}</p>
-                    <span>ativo</span>
+                    <S.Status data-ativo={l.ativo}>
+                      {l.ativo ? "ATIVO" : "INATIVO"}
+                    </S.Status>
                   </div>
                   <div>
                     <Eye
@@ -46,7 +48,9 @@ export const AdminStoresTemplate = () => {
                 <S.TableItem>
                   <p>{l?.nome}</p>
                   <p>{l?.endereco?.cidade}</p>
-                  <p>INATIVO</p>
+                  <S.Status data-ativo={l.ativo}>
+                    {l.ativo ? "ATIVO" : "INATIVO"}
+                  </S.Status>
                   <div>
                     <Eye
                       onClick={() =>

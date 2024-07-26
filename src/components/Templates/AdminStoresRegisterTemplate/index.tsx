@@ -1,6 +1,5 @@
 import { Button } from "../../Atoms/Button";
 import { Input } from "../../Atoms/Inputs/Input";
-import { InputTime } from "../../Atoms/Inputs/InputTime";
 import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import * as S from "./styles";
 import { useAdminStoresRegister } from "./useAdminStoresRegister";
@@ -38,7 +37,7 @@ export const AdminStoresRegisterTemplate = () => {
             {...register("nome")}
             label="Nome"
             required
-            variant="edit"
+            variant={!!lojaId ? "edit" : null}
           />
         </div>
 

@@ -127,3 +127,18 @@ export const TableItemMobile = styled.div`
   > div:last-child {
   }
 `;
+
+export const Status = styled.span`
+  font-family: Mulish;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 24px;
+  letter-spacing: 0.36px;
+  text-transform: uppercase;
+  color: #e42e30;
+
+  &[data-ativo="true"] {
+    color: #558fff;
+  }
+`;

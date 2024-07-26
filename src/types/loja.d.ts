@@ -19,6 +19,7 @@ export interface IPageLojaDTO {
 }
 
 export interface ILojaDTO {
+  ativo: true;
   endereco: IEnderecoDTO;
   horarioFinal: string;
   horarioFinalAlmoco: string;

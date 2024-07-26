@@ -76,6 +76,7 @@ export const Input = styled.input<{ $typeInput?: string }>`
 
     &:disabled {
       cursor: not-allowed;
+      color: #9d9d9d;
     }
 
     &[data-variant-edit="true"] {
