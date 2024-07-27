@@ -16,7 +16,7 @@ export const HolidaysTemplate = () => {
           Filtrar
         </Button>
 
-        {open && <FormFilterHolidays />}
+        {open && <FormFilterHolidays onSubmitForm={(e) => console.log(e)} />}
 
         <Button data-variant-outline id="registerMobile">
           <img src="/assets/svgs/icon-plus.svg" alt="icone filtro" />
