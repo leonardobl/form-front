@@ -37,7 +37,11 @@ export const HolidaysTemplate = () => {
           />
         )}
 
-        <Button data-variant-outline id="registerMobile">
+        <Button
+          data-variant-outline
+          id="registerMobile"
+          onClick={() => navigate("/configuracoes/feriados/cadastro")}
+        >
           <img src="/assets/svgs/icon-plus.svg" alt="icone filtro" />
           Cadastrar
         </Button>
