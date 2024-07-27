@@ -10,10 +10,12 @@ import { IFeriadoListProps } from "../../../types/feriado";
 
 interface IFormFilterHolidaysProps extends ComponentProps<"form"> {
   onSubmitForm: (data: IFeriadoListProps) => void;
+  onClean?: () => void;
 }
 
 export const FormFilterHolidays = ({
   onSubmitForm,
+  onClean,
   ...rest
 }: IFormFilterHolidaysProps) => {
   const {
@@ -109,6 +111,7 @@ export const FormFilterHolidays = ({
           onClick={() => {
             reset();
             setData(null);
+            onClean && onClean();
           }}
         >
           Limpar tudo

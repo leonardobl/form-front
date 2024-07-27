@@ -12,6 +12,8 @@ export class Feriado {
     const values = removeEmpty(props);
     const params = new URLSearchParams(values).toString();
 
-    return ApiBrave.get(params ? `${basePath}?${params}` : `${basePath}`);
+    return ApiBrave.get(
+      params ? `${basePath}/listar?${params}` : `${basePath}/listar`
+    );
   }
 }

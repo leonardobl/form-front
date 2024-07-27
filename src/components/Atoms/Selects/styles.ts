@@ -72,7 +72,7 @@ export const Container = styled.div<{
 export const Label = styled.label`
   position: absolute;
   z-index: 1;
-  top: -8px;
+  top: -9px;
   left: 16px;
   background: linear-gradient(to top, #fff 50%, transparent 50%);
 

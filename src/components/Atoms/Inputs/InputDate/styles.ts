@@ -24,7 +24,8 @@ export const Container = styled.div<{ $showIcon?: boolean }>`
 
       svg {
         right: 15px;
-        top: 5px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 24px;
       }
     }
@@ -90,7 +91,7 @@ export const Label = styled.label`
   position: absolute;
   z-index: 1;
   top: -10px;
-  left: 24px;
+  left: 16px;
   background: linear-gradient(to top, #fff 50%, transparent 50%);
   display: flex;
 

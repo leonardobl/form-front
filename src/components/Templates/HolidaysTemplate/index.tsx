@@ -1,10 +1,22 @@
 import { Button } from "../../Atoms/Button";
+import { Pagination } from "../../Atoms/Pagination";
+import { Table } from "../../Molecules/Table";
 import { FormFilterHolidays } from "../../Molecules/FormFilterHolidays";
 import * as S from "./styles";
 import { useHolidays } from "./useHolidays";
 
 export const HolidaysTemplate = () => {
-  const { open, setOpen } = useHolidays();
+  const {
+    open,
+    setOpen,
+    HEADERS,
+    isMobile,
+    pagination,
+    setNumberPage,
+    feriados,
+    handleClean,
+    handleFilter,
+  } = useHolidays();
 
   return (
     <S.Container>
@@ -16,13 +28,61 @@ export const HolidaysTemplate = () => {
           Filtrar
         </Button>
 
-        {open && <FormFilterHolidays onSubmitForm={(e) => console.log(e)} />}
+        {open && (
+          <FormFilterHolidays
+            onClean={handleClean}
+            onSubmitForm={handleFilter}
+          />
+        )}
 
         <Button data-variant-outline id="registerMobile">
           <img src="/assets/svgs/icon-plus.svg" alt="icone filtro" />
           Cadastrar
         </Button>
       </S.WrapperButtons>
+
+      <Table.Root>
+        <Table.Header
+          headers={HEADERS}
+          columns="1fr 1fr 1fr 1fr .5fr"
+          button={
+            <Button data-variant-outline>
+              <img src="/assets/svgs/icon-plus.svg" alt="icone adicionar" />
+              Cadastrar
+            </Button>
+          }
+        />
+        <Table.WrapperItems>
+          {feriados.map((i) =>
+            isMobile ? (
+              <S.ItemMobile key={`${Math.random()}`}>
+                <div>
+                  <p>{i?.cidade}</p>
+                  <p>{i?.dia}</p>
+                </div>
+                <span>{i?.tipo}</span>
+              </S.ItemMobile>
+            ) : (
+              <Table.Item
+                key={`${Math.random()}`}
+                columns="1fr 1fr 1fr 1fr .5fr"
+                values={[i?.dia, i?.tipo, i?.cidade, i?.uf]}
+              />
+            )
+          )}
+        </Table.WrapperItems>
+      </Table.Root>
+
+      {feriados?.length > 0 && (
+        <Pagination
+          maxPageNumbersDisplayed={isMobile ? 3 : 10}
+          key={`${Math.random()} - ${pagination}`}
+          totalPage={pagination.totalPage}
+          totalRegister={pagination.totalPage}
+          actualPage={pagination.actualPage}
+          setNumberPage={setNumberPage}
+        />
+      )}
     </S.Container>
   );
 };
