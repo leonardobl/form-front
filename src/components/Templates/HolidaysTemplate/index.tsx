@@ -4,6 +4,7 @@ import { Table } from "../../Molecules/Table";
 import { FormFilterHolidays } from "../../Molecules/FormFilterHolidays";
 import * as S from "./styles";
 import { useHolidays } from "./useHolidays";
+import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const HolidaysTemplate = () => {
   const {
@@ -15,6 +16,7 @@ export const HolidaysTemplate = () => {
     setNumberPage,
     feriados,
     handleClean,
+    navigate,
     handleFilter,
   } = useHolidays();
 
@@ -46,7 +48,10 @@ export const HolidaysTemplate = () => {
           headers={HEADERS}
           columns="1fr 1fr 1fr 1fr .5fr"
           button={
-            <Button data-variant-outline>
+            <Button
+              data-variant-outline
+              onClick={() => navigate("/configuracoes/feriados/cadastro")}
+            >
               <img src="/assets/svgs/icon-plus.svg" alt="icone adicionar" />
               Cadastrar
             </Button>
@@ -66,7 +71,7 @@ export const HolidaysTemplate = () => {
               <Table.Item
                 key={`${Math.random()}`}
                 columns="1fr 1fr 1fr 1fr .5fr"
-                values={[i?.dia, i?.tipo, i?.cidade, i?.uf]}
+                values={[reverseToBrDate(i?.dia), i?.tipo, i?.cidade, i?.uf]}
               />
             )
           )}

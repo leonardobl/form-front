@@ -30,3 +30,10 @@ export interface IFeriadoDTO {
   uf: string;
   uuid: string;
 }
+
+export interface IFeriadoForm {
+  cidade?: string;
+  dia: string;
+  tipo: TipoFeriadoEnum;
+  uf?: string;
+}

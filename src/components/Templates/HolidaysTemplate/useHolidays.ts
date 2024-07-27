@@ -5,6 +5,7 @@ import { Feriado } from "../../../services/Feriado";
 import { IPagination } from "../../../types/pagination";
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const HEADERS = ["Data", "Tipo", "Cidade", "UF"];
 
@@ -18,6 +19,7 @@ export const useHolidays = () => {
   const [filters, setFilters] = useState<IFeriadoListProps>(
     {} as IFeriadoListProps
   );
+  const navigate = useNavigate();
 
   function getFeriados(data?: IFeriadoListProps) {
     setIsLoad(true);
@@ -69,5 +71,6 @@ export const useHolidays = () => {
     setNumberPage,
     feriados,
     handleFilter,
+    navigate,
   };
 };

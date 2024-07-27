@@ -9,6 +9,7 @@ import { AdminStoresRegister } from "../components/Pages/AdminStoresRegister";
 import { AdminStoreDetail } from "../components/Pages/AdminStoreDetail";
 import { Settings } from "../components/Pages/Settings";
 import { Holidays } from "../components/Pages/Holidays";
+import { HolidaysRegister } from "../components/Pages/HolidaysRegister";
 
 export const useSettingsRoutes = () => {
   return (
@@ -66,7 +67,7 @@ export const useSettingsRoutes = () => {
         <Route index element={<Holidays />} />
         <Route
           path="/configuracoes/feriados/cadastro"
-          element={<AdminStoresRegister />}
+          element={<HolidaysRegister />}
         />
       </Route>
     </Route>
