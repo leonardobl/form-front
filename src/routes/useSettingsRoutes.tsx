@@ -10,6 +10,8 @@ import { AdminStoreDetail } from "../components/Pages/AdminStoreDetail";
 import { Settings } from "../components/Pages/Settings";
 import { Holidays } from "../components/Pages/Holidays";
 import { HolidaysRegister } from "../components/Pages/HolidaysRegister";
+import { Itinerant } from "../components/Pages/Itinerant";
+import { ItinerantRegister } from "../components/Pages/ItinerantRegister";
 
 export const useSettingsRoutes = () => {
   return (
@@ -68,6 +70,14 @@ export const useSettingsRoutes = () => {
         <Route
           path="/configuracoes/feriados/cadastro"
           element={<HolidaysRegister />}
+        />
+      </Route>
+
+      <Route path="/configuracoes/itinerantes" element={<LayoutTemplate />}>
+        <Route index element={<Itinerant />} />
+        <Route
+          path="/configuracoes/itinerantes/cadastro"
+          element={<ItinerantRegister />}
         />
       </Route>
     </Route>
