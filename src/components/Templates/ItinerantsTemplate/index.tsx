@@ -1,3 +1,4 @@
+import { v4 } from "uuid";
 import { Button } from "../../Atoms/Button";
 import { Container } from "../../Atoms/Container";
 import { Eye } from "../../Atoms/Eye";
@@ -7,7 +8,7 @@ import { Table } from "../../Molecules/Table";
 import * as S from "./styles";
 import { useItinerant } from "./useItinerant";
 
-export const ItinerantTemplate = () => {
+export const ItinerantsTemplate = () => {
   const {
     isMobile,
     isOpen,
@@ -17,13 +18,6 @@ export const ItinerantTemplate = () => {
     setNumberPage,
     navigate,
   } = useItinerant();
-
-  const buttons = (
-    <S.WrapperIcons>
-      <img src="/assets/svgs/icon-calendar-dark.svg" alt="icone calendario" />
-      <Eye />
-    </S.WrapperIcons>
-  );
 
   return (
     <Container>
@@ -83,14 +77,40 @@ export const ItinerantTemplate = () => {
                       </S.ItemMobileContentText>
                       <span>{i[3]}</span>
                     </S.ItemMobileContent>
-                    {buttons}
+                    <S.WrapperIcons>
+                      <img
+                        src="/assets/svgs/icon-calendar-dark.svg"
+                        alt="icone calendario"
+                      />
+                      <Eye
+                        onClick={() =>
+                          navigate(
+                            `/configuracoes/itinerantes/detalhe?id=${v4()}`
+                          )
+                        }
+                      />
+                    </S.WrapperIcons>
                   </S.ItemMobile>
                 ) : (
                   <Table.Item
                     key={`${Math.random()}`}
                     columns="1fr 1fr 1fr 1fr .5fr"
                     values={i}
-                    lastElement={buttons}
+                    lastElement={
+                      <S.WrapperIcons>
+                        <img
+                          src="/assets/svgs/icon-calendar-dark.svg"
+                          alt="icone calendario"
+                        />
+                        <Eye
+                          onClick={() =>
+                            navigate(
+                              `/configuracoes/itinerantes/detalhe?id=${v4()}`
+                            )
+                          }
+                        />
+                      </S.WrapperIcons>
+                    }
                   />
                 )
               )}
