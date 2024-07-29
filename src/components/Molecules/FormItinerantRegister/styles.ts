@@ -7,7 +7,7 @@ export const Form = styled.form`
   gap: 32px 16px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-areas: "title1 title1" "cep cep" "rua rua" "numero complemento" "bairro bairro" "uf cidade" "title2 title2" "unidade unidade" "title3 title3" "data data" "horaInicio horaFim" "check check" "horaInicioCheck horaFimCheck" "tempom tempom" "vagas vagas" "title4 title4" "vistoriador vistoriador" "container container" "button button";
+  grid-template-areas: "title1 title1" "cep cep" "rua rua" "numero complemento" "bairro bairro" "uf cidade" "title2 title2" "unidade unidade" "title3 title3" "data data" "horaInicio horaFim" "tempom tempom" "vagas vagas" "check check" "horaInicioCheck horaFimCheck" "title4 title4" "vistoriador vistoriador" "container container" "button button";
 
   > :nth-child(1) {
     grid-area: title1;
@@ -66,24 +66,24 @@ export const Form = styled.form`
   }
 
   > :nth-child(15) {
+    grid-area: tempom;
+  }
+
+  > :nth-child(16) {
+    grid-area: vagas;
+  }
+
+  > :nth-child(17) {
     grid-area: check;
     margin: 0 auto;
   }
 
-  > :nth-child(16) {
+  > :nth-child(18) {
     grid-area: horaInicioCheck;
   }
 
-  > :nth-child(17) {
-    grid-area: horaFimCheck;
-  }
-
-  > :nth-child(18) {
-    grid-area: tempom;
-  }
-
   > :nth-child(19) {
-    grid-area: vagas;
+    grid-area: horaFimCheck;
   }
 
   > :nth-child(20) {
@@ -123,9 +123,9 @@ export const Form = styled.form`
       ". unidade unidade unidade unidade ."
       ". . title3 title3 . ."
       "data data horaInicio horaInicio horaFim horaFim"
+      "tempom tempom tempom vagas vagas vagas"
       ". . check check . ."
       "horaInicioCheck horaInicioCheck horaInicioCheck horaFimCheck horaFimCheck horaFimCheck"
-      "tempom tempom tempom vagas vagas vagas"
       ". . title4 title4 . ."
       "vistoriador vistoriador vistoriador vistoriador vistoriador vistoriador"
       "container container container container container container"

@@ -75,6 +75,14 @@ export const FormItinerantRegister = () => {
       </div>
 
       <div>
+        <Input required label="Tempo Médio" />
+      </div>
+
+      <div>
+        <Input required label="Quantidade de Vagas por Horário" />
+      </div>
+
+      <div>
         <InputCheckSlide label="Horário de Almoço" />
       </div>
 
@@ -84,14 +92,6 @@ export const FormItinerantRegister = () => {
 
       <div>
         <Input label="Horário Final" />
-      </div>
-
-      <div>
-        <Input required label="Tempo Médio" />
-      </div>
-
-      <div>
-        <Input required label="Quantidade de Vagas por Horário" />
       </div>
 
       <div>
