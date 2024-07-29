@@ -1,10 +1,16 @@
 import { Container } from "../../Atoms/Container";
-import { InputCheckSlide } from "../../Atoms/Inputs/InputCheckSlide";
+
+import { FormItinerantRegister } from "../../Molecules/FormItinerantRegister";
+import * as S from "./styles";
 
 export const ItinerantRegisterTemplate = () => {
   return (
     <Container>
-      <InputCheckSlide label="Horário de Almoço" />
+      <S.Wrapper>
+        <h1>Cadastro de Itinerantes</h1>
+
+        <FormItinerantRegister />
+      </S.Wrapper>
     </Container>
   );
 };
