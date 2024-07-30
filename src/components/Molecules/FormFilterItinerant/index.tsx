@@ -8,12 +8,12 @@ import { useFormFilterItinerant } from "./useFormFilterItinerant";
 interface IFormFilterItinerantProps extends ComponentProps<"form"> {}
 
 export const FormFilterItinerant = (props: IFormFilterItinerantProps) => {
-  const {} = useFormFilterItinerant();
+  const { unidades } = useFormFilterItinerant();
 
   return (
     <S.Form {...props}>
       <div>
-        <SimpleSelect label="Unidade" />
+        <SimpleSelect options={unidades} label="Unidade" />
       </div>
       <div>
         <SimpleSelect label="Cidade" />

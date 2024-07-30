@@ -7,6 +7,7 @@ import { FormFilterItinerant } from "../../Molecules/FormFilterItinerant";
 import { Table } from "../../Molecules/Table";
 import * as S from "./styles";
 import { useItinerant } from "./useItinerant";
+import dayjs from "dayjs";
 
 export const ItinerantsTemplate = () => {
   const {
@@ -17,6 +18,7 @@ export const ItinerantsTemplate = () => {
     pagination,
     setNumberPage,
     navigate,
+    itinerantes,
   } = useItinerant();
 
   return (
@@ -66,8 +68,8 @@ export const ItinerantsTemplate = () => {
           />
 
           <Table.WrapperItems>
-            {VALUES.length > 0 &&
-              VALUES.map((i) =>
+            {itinerantes?.length > 0 &&
+              itinerantes?.map((i) =>
                 isMobile ? (
                   <S.ItemMobile key={`${Math.random()}`}>
                     <S.ItemMobileContent>
@@ -100,7 +102,12 @@ export const ItinerantsTemplate = () => {
                   <Table.Item
                     key={`${Math.random()}`}
                     columns="1fr 1fr 1fr 1fr .5fr"
-                    values={i}
+                    values={[
+                      i?.delivery?.cidade,
+                      i?.endereco?.cidade,
+                      dayjs(i?.dataRealizacao).format("DD/MM/YYYY"),
+                      `${i?.quantidadeVagas}`,
+                    ]}
                     lastElement={
                       <S.WrapperIcons>
                         <img
@@ -108,14 +115,14 @@ export const ItinerantsTemplate = () => {
                           alt="icone calendario"
                           onClick={() =>
                             navigate(
-                              `/configuracoes/itinerantes/reagendamento?id=${v4()}`
+                              `/configuracoes/itinerantes/reagendamento?id=${i?.uuid}`
                             )
                           }
                         />
                         <Eye
                           onClick={() =>
                             navigate(
-                              `/configuracoes/itinerantes/detalhe?id=${v4()}`
+                              `/configuracoes/itinerantes/detalhe?id=${i?.uuid}`
                             )
                           }
                         />
@@ -127,7 +134,7 @@ export const ItinerantsTemplate = () => {
           </Table.WrapperItems>
         </Table.Root>
 
-        {VALUES?.length > 0 && (
+        {itinerantes?.length > 0 && (
           <Pagination
             maxPageNumbersDisplayed={isMobile ? 3 : 10}
             key={`${Math.random()} - ${pagination}`}

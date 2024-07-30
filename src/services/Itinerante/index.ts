@@ -6,14 +6,18 @@ import {
   IItineranteListProps,
   IPageItineranteDTO,
 } from "../../types/itinerante";
+import { removeEmpty } from "../../utils/removeEmpty";
 
 const basePath = "/itinerante";
 
 export class Itinerante {
   static async list(
-    props: IItineranteListProps
+    props?: IItineranteListProps
   ): Promise<AxiosResponse<IPageItineranteDTO>> {
-    return ApiBrave.get(basePath);
+    const values = removeEmpty(props);
+
+    const params = new URLSearchParams(values)?.toString();
+    return ApiBrave.get(params ? `${basePath}?${params}` : basePath);
   }
 
   static async byId(

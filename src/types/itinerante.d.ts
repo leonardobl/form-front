@@ -24,6 +24,7 @@ export interface IPageItineranteDTO {
 }
 
 export interface IItineranteDTO {
+  uuid: string;
   colaboradores: IColaboradorDTO[];
   dataRealizacao: string;
   delivery: IDeliveryDTO;
@@ -47,5 +48,22 @@ export interface IItineranteForm {
   quantidadeVagas: number;
   tempoMedio: string;
   uuidColaboradores?: string[];
+  uuidDelivery: string;
+}
+
+export interface IItineranteFormRHF {
+  dataRealizacao: string;
+  endereco: IEnderecoDTO;
+  horarioFinal: string;
+  horarioFinalAlmoco?: string;
+  horarioInicial: string;
+  horarioInicialAlmoco?: string;
+  quantidadeVagas: number;
+  tempoMedio: string;
+  uuidColaboradores?: {
+    value: string;
+    label: string;
+    element?: IColaboradorDTO;
+  }[];
   uuidDelivery: string;
 }
