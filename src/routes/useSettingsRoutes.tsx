@@ -13,6 +13,7 @@ import { HolidaysRegister } from "../components/Pages/HolidaysRegister";
 import { Itinerants } from "../components/Pages/Itinerants";
 import { ItinerantRegister } from "../components/Pages/ItinerantRegister";
 import { ItinerantDetail } from "../components/Pages/ItinerantDetail";
+import { ItinerantReschedule } from "../components/Pages/ItinerantReschedule";
 
 export const useSettingsRoutes = () => {
   return (
@@ -83,6 +84,10 @@ export const useSettingsRoutes = () => {
         <Route
           path="/configuracoes/itinerantes/detalhe"
           element={<ItinerantDetail />}
+        />
+        <Route
+          path="/configuracoes/itinerantes/reagendamento"
+          element={<ItinerantReschedule />}
         />
       </Route>
     </Route>

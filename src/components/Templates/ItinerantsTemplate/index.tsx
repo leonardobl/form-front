@@ -81,6 +81,11 @@ export const ItinerantsTemplate = () => {
                       <img
                         src="/assets/svgs/icon-calendar-dark.svg"
                         alt="icone calendario"
+                        onClick={() =>
+                          navigate(
+                            `/configuracoes/itinerantes/reagendamento?id=${v4()}`
+                          )
+                        }
                       />
                       <Eye
                         onClick={() =>
@@ -101,6 +106,11 @@ export const ItinerantsTemplate = () => {
                         <img
                           src="/assets/svgs/icon-calendar-dark.svg"
                           alt="icone calendario"
+                          onClick={() =>
+                            navigate(
+                              `/configuracoes/itinerantes/reagendamento?id=${v4()}`
+                            )
+                          }
                         />
                         <Eye
                           onClick={() =>
