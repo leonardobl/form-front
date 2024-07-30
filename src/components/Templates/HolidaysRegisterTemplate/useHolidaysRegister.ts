@@ -107,6 +107,13 @@ export const useHolidaysRegister = () => {
           navigate("/configuracoes/feriados");
         }, 1500);
       })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
       .finally(() => {
         setIsLoad(false);
       });
