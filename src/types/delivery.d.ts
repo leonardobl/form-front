@@ -12,12 +12,27 @@ export interface IPageDeliveryDTO {
   totalPages: number;
 }
 
+// export interface IDeliveryDTO {
+//   cidade: string;
+//   horarioFinal: string;
+//   horarioInicial: string;
+//   quantidadeVagas: number;
+//   tempoMedio: string;
+//   uf: string;
+//   uuid: string;
+// }
+
 export interface IDeliveryDTO {
   cidade: string;
-  horarioFinal: string;
-  horarioInicial: string;
+  horarioFinal: HorarioFinal;
+  horarioFinalAlmoco: HorarioFinal;
+  horarioFinalFds: HorarioFinal;
+  horarioInicial: HorarioFinal;
+  horarioInicialAlmoco: HorarioFinal;
+  horarioInicialFds: HorarioFinal;
   quantidadeVagas: number;
-  tempoMedio: string;
+  quantidadeVagasConcessionaria: number;
+  tempoMedio: HorarioFinal;
   uf: string;
   uuid: string;
 }
