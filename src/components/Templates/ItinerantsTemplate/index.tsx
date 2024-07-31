@@ -14,11 +14,12 @@ export const ItinerantsTemplate = () => {
     isMobile,
     isOpen,
     setIsOpen,
-    VALUES,
     pagination,
     setNumberPage,
     navigate,
     itinerantes,
+    handleClean,
+    handleSubmit,
   } = useItinerant();
 
   return (
@@ -35,7 +36,12 @@ export const ItinerantsTemplate = () => {
             Filtrar
           </Button>
 
-          {isOpen && <FormFilterItinerant />}
+          {isOpen && (
+            <FormFilterItinerant
+              submitForm={handleSubmit}
+              onClean={handleClean}
+            />
+          )}
 
           <Button
             data-variant-outline
@@ -74,10 +80,10 @@ export const ItinerantsTemplate = () => {
                   <S.ItemMobile key={`${Math.random()}`}>
                     <S.ItemMobileContent>
                       <S.ItemMobileContentText>
-                        <p>{i[0]}</p>
-                        <p>{i[2]}</p>
+                        <p>{i?.endereco?.cidade}</p>
+                        <p>{i.dataRealizacao}</p>
                       </S.ItemMobileContentText>
-                      <span>{i[3]}</span>
+                      <span>{i?.delivery?.cidade}</span>
                     </S.ItemMobileContent>
                     <S.WrapperIcons>
                       <img

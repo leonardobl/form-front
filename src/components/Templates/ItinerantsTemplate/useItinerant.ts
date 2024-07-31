@@ -1,20 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useContextSite } from "../../../context/Context";
 import { IPagination } from "../../../types/pagination";
 import { useNavigate } from "react-router-dom";
-import { ISelectOptions } from "../../../types/inputs";
 import { Itinerante } from "../../../services/Itinerante";
-import { IItineranteDTO } from "../../../types/itinerante";
-
-const VALUES = [
-  ["SAÕ LUÍS", "XXXXXXXXXXXXXXXXX", "21/06/2024", "000"],
-  ["SAÕ LUÍS", "XXXXXXXXXXXXXXXXX", "21/06/2024", "000"],
-  ["SAÕ LUÍS", "XXXXXXXXXXXXXXXXX", "21/06/2024", "000"],
-  ["SAÕ LUÍS", "XXXXXXXXXXXXXXXXX", "21/06/2024", "000"],
-  ["SAÕ LUÍS", "XXXXXXXXXXXXXXXXX", "21/06/2024", "000"],
-  ["SAÕ LUÍS", "XXXXXXXXXXXXXXXXX", "21/06/2024", "000"],
-];
+import {
+  IItineranteDTO,
+  IItineranteListProps,
+} from "../../../types/itinerante";
+import { toast } from "react-toastify";
 
 export const useItinerant = () => {
   const isMobile = useMediaQuery({ maxWidth: "640px" });
@@ -27,24 +21,51 @@ export const useItinerant = () => {
     [] as IItineranteDTO[]
   );
 
-  const getItinerantes = useCallback(() => {
-    Itinerante.list().then(({ data }) => {
-      setItinerantes(data.content);
-    });
-  }, []);
+  function handleClean() {
+    getItinerantes({ page: 0 });
+    setNumberPage(0);
+  }
+
+  function getItinerantes(props?: IItineranteListProps) {
+    setIsLoad(true);
+    Itinerante.list({ ...props, size: 5 })
+      .then(({ data }) => {
+        setItinerantes(data.content);
+        setPagination({
+          actualPage: data.number,
+          totalPage: data.totalPages,
+          totalRegister: data.totalElements,
+        });
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
+  }
 
   useEffect(() => {
-    getItinerantes();
-  }, []);
+    getItinerantes({ page: numberPage });
+  }, [numberPage]);
+
+  function handleSubmit(data: IItineranteListProps) {
+    getItinerantes({ ...data, page: numberPage });
+  }
 
   return {
     isMobile,
     isOpen,
     setIsOpen,
-    VALUES,
     pagination,
     setNumberPage,
     navigate,
     itinerantes,
+    handleClean,
+    handleSubmit,
   };
 };
