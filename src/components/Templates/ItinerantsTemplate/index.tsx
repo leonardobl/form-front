@@ -79,11 +79,15 @@ export const ItinerantsTemplate = () => {
                 isMobile ? (
                   <S.ItemMobile key={`${Math.random()}`}>
                     <S.ItemMobileContent>
-                      <S.ItemMobileContentText>
-                        <p>{i?.endereco?.cidade}</p>
-                        <p>{i.dataRealizacao}</p>
-                      </S.ItemMobileContentText>
-                      <span>{i?.delivery?.cidade}</span>
+                      <span>
+                        {dayjs(i?.dataRealizacao).format("DD/MM/YYYY")}
+                      </span>
+                      <p>
+                        Unidade: <span>{i?.endereco?.cidade}</span>
+                      </p>
+                      <p>
+                        Cidade: <span>{i?.delivery?.cidade}</span>
+                      </p>
                     </S.ItemMobileContent>
                     <S.WrapperIcons>
                       <img

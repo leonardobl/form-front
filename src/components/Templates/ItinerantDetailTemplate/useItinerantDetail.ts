@@ -35,12 +35,15 @@ export const useItinerantDetail = () => {
           response: {
             data: { mensagem },
           },
-        }) => toast.error(mensagem)
+        }) => {
+          toast.error(mensagem);
+          navigate(-1);
+        }
       )
       .finally(() => {
         setIsLoad(false);
       });
   }
 
-  return { itinerante };
+  return { itinerante, navigate };
 };

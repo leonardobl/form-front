@@ -3,36 +3,43 @@ import { SimpleSelect } from "../../Atoms/Selects/SimpleSelect";
 import { InputCheckSlide } from "../../Atoms/Inputs/InputCheckSlide";
 import * as S from "./styles";
 import { InputDate } from "../../Atoms/Inputs/InputDate";
-import { AsyncSimpleSelect } from "../../Atoms/Selects/AsyncSelect";
 import { Button } from "../../Atoms/Button";
 import { Table } from "../Table";
 import { useFormItinerantRegister } from "./useFormItinerantRegister";
 import { ISelectOptions } from "../../../types/inputs";
 import dayjs from "dayjs";
+import { ComponentProps } from "react";
+import { IItineranteFormRHF } from "../../../types/itinerante";
 
-const VALUES = [
-  ["ESTÁCIO NETO"],
-  ["KLEBER ALMENDRA"],
-  ["JUNIOR OLIVEIRA MOURA"],
-];
+interface IFormItinerantRegister extends ComponentProps<"form"> {
+  onSubmitForm: (data: IItineranteFormRHF) => void;
+}
 
-export const FormItinerantRegister = () => {
+export const FormItinerantRegister = ({
+  onSubmitForm,
+  ...rest
+}: IFormItinerantRegister) => {
   const {
     Controller,
     control,
     handleSubmit,
+    vistoriadores,
     register,
-    data,
-    setData,
+    unidades,
     cidadesOptions,
     handleCep,
     ufOptions,
     active,
     setActive,
+    append,
+    fields,
+    remove,
+    watch,
+    errors,
   } = useFormItinerantRegister();
 
   return (
-    <S.Form>
+    <S.Form {...rest} onSubmit={handleSubmit(onSubmitForm)}>
       <div>
         <h2>Endereço de Realização</h2>
       </div>
@@ -50,11 +57,16 @@ export const FormItinerantRegister = () => {
         <Input
           {...register("endereco.logradouro")}
           required
-          label="Endereço ( Rua)"
+          label="Endereço (Rua)"
         />
       </div>
       <div>
-        <Input {...register("endereco.numero")} required label="Número" />
+        <Input
+          {...register("endereco.numero")}
+          required
+          label="Número"
+          type="number"
+        />
       </div>
       <div>
         <Input {...register("endereco.complemento")} label="Complemento" />
@@ -69,7 +81,7 @@ export const FormItinerantRegister = () => {
           name="endereco.uf"
           render={({ field: { onChange, value } }) => (
             <SimpleSelect
-              option={ufOptions}
+              options={ufOptions}
               value={ufOptions.find((i) => i.value === value) || null}
               required
               onChange={(e: ISelectOptions) => {
@@ -87,7 +99,7 @@ export const FormItinerantRegister = () => {
           name="endereco.cidade"
           render={({ field: { onChange, value } }) => (
             <SimpleSelect
-              option={cidadesOptions}
+              options={cidadesOptions}
               value={cidadesOptions.find((i) => i.value === value) || null}
               required
               onChange={(e: ISelectOptions) => {
@@ -109,8 +121,8 @@ export const FormItinerantRegister = () => {
           name="uuidDelivery"
           render={({ field: { onChange, value } }) => (
             <SimpleSelect
-              option={cidadesOptions}
-              value={cidadesOptions.find((i) => i.value === value) || null}
+              options={unidades}
+              value={unidades.find((i) => i.value === value) || null}
               required
               onChange={(e: ISelectOptions) => {
                 onChange(e?.value);
@@ -133,12 +145,11 @@ export const FormItinerantRegister = () => {
             <InputDate
               required
               showIcon
-              selected={data}
+              selected={value ? dayjs(value).toDate() : null}
               placeholderText="___/___/___"
               label="Data de Realização"
               minDate={new Date()}
               onChange={(e) => {
-                setData(e);
                 e ? onChange(dayjs(e)?.format("YYYY-MM-DD")) : onChange("");
               }}
             />
@@ -153,6 +164,10 @@ export const FormItinerantRegister = () => {
           label="Horário Inicial"
           placeholder="HH:MM"
         />
+
+        {errors?.horarioInicial && (
+          <S.Erro>{errors?.horarioInicial?.message}</S.Erro>
+        )}
       </div>
 
       <div>
@@ -162,6 +177,10 @@ export const FormItinerantRegister = () => {
           label="Horário Final"
           placeholder="HH:MM"
         />
+
+        {errors?.horarioFinal && (
+          <S.Erro>{errors?.horarioFinal?.message}</S.Erro>
+        )}
       </div>
 
       <div>
@@ -171,6 +190,8 @@ export const FormItinerantRegister = () => {
           label="Tempo Médio"
           placeholder="HH:MM"
         />
+
+        {errors?.tempoMedio && <S.Erro>{errors?.tempoMedio?.message}</S.Erro>}
       </div>
 
       <div>
@@ -195,11 +216,29 @@ export const FormItinerantRegister = () => {
       </div>
 
       <div>
-        <Input disabled={!active} label="Horário Inicial" placeholder="HH:MM" />
+        <Input
+          {...register("horarioInicialAlmoco")}
+          disabled={!active}
+          label="Horário Inicial"
+          placeholder="HH:MM"
+        />
+
+        {errors?.horarioInicialAlmoco && (
+          <S.Erro>{errors?.horarioInicialAlmoco?.message}</S.Erro>
+        )}
       </div>
 
       <div>
-        <Input disabled={!active} label="Horário Final" placeholder="HH:MM" />
+        <Input
+          {...register("horarioFinalAlmoco")}
+          disabled={!active}
+          label="Horário Final"
+          placeholder="HH:MM"
+        />
+
+        {errors?.horarioFinalAlmoco && (
+          <S.Erro>{errors?.horarioFinalAlmoco?.message}</S.Erro>
+        )}
       </div>
 
       <div>
@@ -207,33 +246,41 @@ export const FormItinerantRegister = () => {
       </div>
 
       <div>
-        <Controller
-          control={control}
-          name="uuidColaboradores"
-          render={({ field: { onChange, value } }) => (
-            <AsyncSimpleSelect
-              variant="search"
-              label="Vistoriador"
-              onChange={(e) => {}}
-            />
-          )}
+        <SimpleSelect
+          options={vistoriadores}
+          variant="search"
+          value={null}
+          key={watch("uuidDelivery")}
+          label="Vistoriador"
+          onChange={(e: ISelectOptions) => {
+            const hasItem = fields?.some((i) => i?.value === e?.value);
+            !hasItem && append(e);
+          }}
         />
+
+        {errors?.uuidColaboradores && (
+          <S.Erro>{errors.uuidColaboradores.message}</S.Erro>
+        )}
       </div>
 
       <div>
         <Table.WrapperItems>
-          {VALUES?.map((i) => (
-            <Table.Item
-              columns="1fr .2FR"
-              values={i}
-              lastElement={
-                <img
-                  src="/assets/svgs/icon-trash-red.svg"
-                  alt="icone lixeira"
-                />
-              }
-            />
-          ))}
+          {fields.length > 0 &&
+            fields?.map((i, idx) => (
+              <Table.Item
+                columns="1fr .2fr"
+                values={[i?.label]}
+                lastElement={
+                  <img
+                    src="/assets/svgs/icon-trash-red.svg"
+                    alt="icone lixeira"
+                    onClick={() => {
+                      remove(idx);
+                    }}
+                  />
+                }
+              />
+            ))}
         </Table.WrapperItems>
       </div>
 

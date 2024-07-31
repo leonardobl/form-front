@@ -1,14 +1,17 @@
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { IItineranteForm, IItineranteFormRHF } from "../../../types/itinerante";
+import { IItineranteFormRHF } from "../../../types/itinerante";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Ibge } from "../../../services/Ibge";
-import { useEffect, useState } from "react";
-import { maskCep, maskLimiteNumber, maskTime } from "../../../utils/masks";
+import { useCallback, useEffect, useState } from "react";
+import { maskCep, maskTime } from "../../../utils/masks";
 import { toast } from "react-toastify";
 import { ViaCep } from "../../../services/ViaCep";
 import { useContextSite } from "../../../context/Context";
 import { ISelectOptions } from "../../../types/inputs";
+import { Itinerante } from "../../../services/Itinerante";
+import { Colaborador } from "../../../services/Colaborador";
+import { TipoColaboradorEnum } from "../../../enums/tipoColaborador";
 
 const enderecoSchema = z.object({
   bairro: z.string().min(1, "Campo obrigatorio"),
@@ -20,15 +23,28 @@ const enderecoSchema = z.object({
   uf: z.string().min(1, "Campo obrigatorio"),
 });
 
+const colaboradoresSchema = z.object({
+  value: z.string().min(1, "Campo obrigatorio"),
+  label: z.string().min(1, "Campo obrigatorio"),
+});
+
 const schema = z.object({
   dataRealizacao: z.string().min(1, "Campo obrigatorio"),
-  horarioFinal: z.string().min(1, "Campo obrigatorio"),
-  horarioFinalAlmoco: z.string().optional(),
-  horarioInicial: z.string().min(1, "Campo obrigatorio"),
-  horarioInicialAlmoco: z.string().optional(),
+  horarioFinal: z.string().min(5, "O formato do horario deve ser HH:MM"),
+  horarioFinalAlmoco: z
+    .string()
+    .min(5, "O formato do horario deve ser HH:MM")
+    .or(z.literal("")),
+  horarioInicial: z.string().min(5, "O formato do horario deve ser HH:MM"),
+  horarioInicialAlmoco: z
+    .string()
+    .min(5, "O formato do horario deve ser HH:MM")
+    .or(z.literal("")),
   quantidadeVagas: z.string().min(1, "Campo obrigatorio"),
-  uuidColaboradores: z.array(z.string()).optional(),
-  tempoMedio: z.string().min(1, "Campo obrigatorio"),
+  uuidColaboradores: z
+    .array(colaboradoresSchema)
+    .nonempty("Deve conter pelo menos um colaborador"),
+  tempoMedio: z.string().min(5, "O formato do horario deve ser HH:MM"),
   uuidDelivery: z.string().min(1, "Campo obrigatorio"),
   endereco: enderecoSchema,
 });
@@ -42,41 +58,53 @@ export const useFormItinerantRegister = () => {
   const [cidadesOptions, setCidadesOptions] = useState<ISelectOptions[]>(
     [] as ISelectOptions[]
   );
-  const [data, setData] = useState<Date | null>(null);
+  const [unidades, setUnidades] = useState<ISelectOptions[]>(
+    [] as ISelectOptions[]
+  );
+
+  const [vistoriadores, setVistoriadores] = useState<ISelectOptions[]>(
+    [] as ISelectOptions[]
+  );
   const [active, setActive] = useState(false);
 
-  const { register, watch, control, handleSubmit, setValue } =
-    useForm<IItineranteFormRHF>({
-      defaultValues: {
-        dataRealizacao: "",
-        horarioFinal: "",
-        horarioFinalAlmoco: "",
-        horarioInicial: "",
-        horarioInicialAlmoco: "",
-        quantidadeVagas: 0 || null,
-        uuidColaboradores: [],
-        tempoMedio: "",
-        uuidDelivery: "",
-        endereco: {
-          bairro: "",
-          cep: "",
-          cidade: "",
-          complemento: "",
-          logradouro: "",
-          numero: "",
-          uf: "",
-        },
+  const {
+    register,
+    watch,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IItineranteFormRHF>({
+    defaultValues: {
+      dataRealizacao: "",
+      horarioFinal: "",
+      horarioFinalAlmoco: "",
+      horarioInicial: "",
+      horarioInicialAlmoco: "",
+      quantidadeVagas: 0 || null,
+      uuidColaboradores: [],
+      tempoMedio: "",
+      uuidDelivery: "",
+      endereco: {
+        bairro: "",
+        cep: "",
+        cidade: "",
+        complemento: "",
+        logradouro: "",
+        numero: "",
+        uf: "",
       },
-      resolver: zodResolver(schema),
-      mode: "all",
-    });
+    },
+    resolver: zodResolver(schema),
+    mode: "all",
+  });
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "uuidColaboradores",
   });
 
-  useEffect(() => {
+  const getUfs = useCallback(() => {
     Ibge.UFs()
       .then(({ data }) => {
         const options = data.map((item) => ({
@@ -89,6 +117,51 @@ export const useFormItinerantRegister = () => {
       })
       .catch((erro) => toast.error("Erro ao requisitar as UFs"));
   }, []);
+
+  const getUnidades = useCallback(() => {
+    Itinerante.list()
+      .then(({ data }) => {
+        const unidadesUnicas = data.content.map((i) =>
+          JSON.stringify({
+            label: i?.delivery?.cidade,
+            value: i?.delivery?.uuid,
+          })
+        );
+
+        const unidadesOptions = unidadesUnicas.map((i) => JSON.parse(i));
+
+        setUnidades(unidadesOptions);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      );
+  }, []);
+
+  useEffect(() => {
+    getUfs();
+    getUnidades();
+  }, []);
+
+  function getVistoriadores() {
+    Colaborador.listarPorDelivery({
+      uuidDelivery: watch("uuidDelivery"),
+      tipo: TipoColaboradorEnum.VISTORIADOR,
+    }).then(({ data }) => {
+      const options = data.map((i) => ({
+        value: i.uuid,
+        label: i.nome,
+        element: i,
+      }));
+
+      setVistoriadores(options);
+    });
+  }
 
   function handleCep() {
     if (watch("endereco.cep").length === 9) {
@@ -150,6 +223,31 @@ export const useFormItinerantRegister = () => {
     }
   }, [watch("tempoMedio")]);
 
+  useEffect(() => {
+    if (!active) {
+      setValue("horarioInicialAlmoco", "");
+      setValue("horarioFinalAlmoco", "");
+    }
+  }, [active]);
+
+  useEffect(() => {
+    if (watch("horarioFinalAlmoco")) {
+      setValue("horarioFinalAlmoco", maskTime(watch("horarioFinalAlmoco")));
+    }
+  }, [watch("horarioFinalAlmoco")]);
+
+  useEffect(() => {
+    if (watch("horarioInicialAlmoco")) {
+      setValue("horarioInicialAlmoco", maskTime(watch("horarioInicialAlmoco")));
+    }
+  }, [watch("horarioInicialAlmoco")]);
+
+  useEffect(() => {
+    if (watch("uuidDelivery")) {
+      getVistoriadores();
+    }
+  }, [watch("uuidDelivery")]);
+
   return {
     Controller,
     register,
@@ -158,12 +256,14 @@ export const useFormItinerantRegister = () => {
     ufOptions,
     handleCep,
     cidadesOptions,
-    data,
-    setData,
     active,
     setActive,
     fields,
     append,
     remove,
+    unidades,
+    vistoriadores,
+    watch,
+    errors,
   };
 };

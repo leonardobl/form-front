@@ -132,3 +132,8 @@ export const Form = styled.form`
       ". . button button . .";
   }
 `;
+
+export const Erro = styled.p`
+  color: red;
+  margin-top: 10px;
+`;

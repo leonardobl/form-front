@@ -8,7 +8,7 @@ import { maskCep } from "../../../utils/masks";
 import dayjs from "dayjs";
 
 export const ItinerantDetailTemplate = () => {
-  const { itinerante } = useItinerantDetail();
+  const { itinerante, navigate } = useItinerantDetail();
 
   return (
     <Container>
@@ -162,7 +162,9 @@ export const ItinerantDetailTemplate = () => {
           </div>
 
           <div>
-            <Button>Voltar</Button>
+            <Button type="button" onClick={() => navigate(-1)}>
+              Voltar
+            </Button>
           </div>
         </S.Form>
       </S.Wrapper>

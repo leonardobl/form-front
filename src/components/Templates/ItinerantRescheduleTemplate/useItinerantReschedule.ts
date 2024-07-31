@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { SyntheticEvent, useState } from "react";
+import { Itinerante } from "../../../services/Itinerante";
 
 export const useItinerantReschedule = () => {
   const [isOpen, setIsOpen] = useState(false);
