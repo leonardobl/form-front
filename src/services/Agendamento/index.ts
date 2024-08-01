@@ -216,4 +216,29 @@ export class Agendamento {
   }): Promise<AxiosResponse<IAgendamentoDTO>> {
     return ApiBrave.put(`${basePath}/${uuid}/confirmar-reembolso`);
   }
+
+  static async downloadRecibo({
+    uuidAgendamento,
+  }: {
+    uuidAgendamento: string;
+  }) {
+    const token = localStorage.getItem("@token");
+    let path = `${process.env.REACT_APP_BRAVE_API_URL}/agendamento/${uuidAgendamento}/download-recibo`;
+
+    const response = await fetch(path, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token.replaceAll('"', ""),
+      },
+    });
+    const blob = await response.blob();
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "fatura.pdf";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
 }

@@ -38,7 +38,7 @@ export const useInspectionTemplate = () => {
 
   function handleDownload() {
     setIsLoad(true);
-    Pagamento.downloadFatura({ uuidAgendamento: id })
+    Pagamento.downloadRecibo({ uuidAgendamento: id })
       .catch(
         ({
           response: {
