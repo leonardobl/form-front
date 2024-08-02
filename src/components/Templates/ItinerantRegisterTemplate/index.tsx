@@ -1,5 +1,4 @@
 import { Container } from "../../Atoms/Container";
-
 import { FormItinerantRegister } from "../../Molecules/FormItinerantRegister";
 import * as S from "./styles";
 import { useItinerantRegister } from "./useItinerantRegister";
