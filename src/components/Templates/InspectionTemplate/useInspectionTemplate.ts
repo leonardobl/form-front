@@ -4,7 +4,6 @@ import { useSearchParams } from "react-router-dom";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
-import { Pagamento } from "../../../services/Pagamento";
 
 export const useInspectionTemplate = () => {
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
@@ -38,7 +37,7 @@ export const useInspectionTemplate = () => {
 
   function handleDownload() {
     setIsLoad(true);
-    Pagamento.downloadRecibo({ uuidAgendamento: id })
+    Agendamento.downloadRecibo({ uuidAgendamento: id })
       .catch(
         ({
           response: {
