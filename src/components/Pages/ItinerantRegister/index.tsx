@@ -1,3 +1,5 @@
+import { ItinerantRegisterTemplate } from "../../Templates/ItinerantRegisterTemplate";
+
 export const ItinerantRegister = () => {
-  return <div>ItinerantRegister</div>;
+  return <ItinerantRegisterTemplate />;
 };

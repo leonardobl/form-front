@@ -71,10 +71,10 @@ export const ItemMobile = styled.div`
 export const ItemMobileContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px 0;
+  gap: 4px 0;
   flex: 1;
 
-  > span {
+  > p {
     color: #2d2d2d;
     font-family: Mulish;
     font-size: 12px;
@@ -82,22 +82,25 @@ export const ItemMobileContent = styled.div`
     font-weight: 800;
     line-height: 24px;
     letter-spacing: 0.36px;
-    text-transform: uppercase;
+
+    > span {
+      color: #2d2d2d;
+      font-family: Mulish;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0.36px;
+    }
   }
-`;
 
-export const ItemMobileContentText = styled.div`
-  display: flex;
-  justify-content: space-between;
-
-  p {
-    color: #595959;
+  > span {
+    color: #2d2d2d;
     font-family: Mulish;
     font-size: 12px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 24px;
     letter-spacing: 0.36px;
-    text-transform: uppercase;
   }
 `;

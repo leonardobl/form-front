@@ -1,3 +1,4 @@
+import { v4 } from "uuid";
 import { Button } from "../../Atoms/Button";
 import { Container } from "../../Atoms/Container";
 import { Eye } from "../../Atoms/Eye";
@@ -6,24 +7,20 @@ import { FormFilterItinerant } from "../../Molecules/FormFilterItinerant";
 import { Table } from "../../Molecules/Table";
 import * as S from "./styles";
 import { useItinerant } from "./useItinerant";
+import dayjs from "dayjs";
 
-export const ItinerantTemplate = () => {
+export const ItinerantsTemplate = () => {
   const {
     isMobile,
     isOpen,
     setIsOpen,
-    VALUES,
     pagination,
     setNumberPage,
     navigate,
+    itinerantes,
+    handleClean,
+    handleSubmit,
   } = useItinerant();
-
-  const buttons = (
-    <S.WrapperIcons>
-      <img src="/assets/svgs/icon-calendar-dark.svg" alt="icone calendario" />
-      <Eye />
-    </S.WrapperIcons>
-  );
 
   return (
     <Container>
@@ -39,7 +36,12 @@ export const ItinerantTemplate = () => {
             Filtrar
           </Button>
 
-          {isOpen && <FormFilterItinerant />}
+          {isOpen && (
+            <FormFilterItinerant
+              submitForm={handleSubmit}
+              onClean={handleClean}
+            />
+          )}
 
           <Button
             data-variant-outline
@@ -72,32 +74,77 @@ export const ItinerantTemplate = () => {
           />
 
           <Table.WrapperItems>
-            {VALUES.length > 0 &&
-              VALUES.map((i) =>
+            {itinerantes?.length > 0 &&
+              itinerantes?.map((i) =>
                 isMobile ? (
                   <S.ItemMobile key={`${Math.random()}`}>
                     <S.ItemMobileContent>
-                      <S.ItemMobileContentText>
-                        <p>{i[0]}</p>
-                        <p>{i[2]}</p>
-                      </S.ItemMobileContentText>
-                      <span>{i[3]}</span>
+                      <span>
+                        {dayjs(i?.dataRealizacao).format("DD/MM/YYYY")}
+                      </span>
+                      <p>
+                        Unidade: <span>{i?.endereco?.cidade}</span>
+                      </p>
+                      <p>
+                        Cidade: <span>{i?.delivery?.cidade}</span>
+                      </p>
                     </S.ItemMobileContent>
-                    {buttons}
+                    <S.WrapperIcons>
+                      <img
+                        src="/assets/svgs/icon-calendar-dark.svg"
+                        alt="icone calendario"
+                        onClick={() =>
+                          navigate(
+                            `/configuracoes/itinerantes/reagendamento?id=${v4()}`
+                          )
+                        }
+                      />
+                      <Eye
+                        onClick={() =>
+                          navigate(
+                            `/configuracoes/itinerantes/detalhe?id=${v4()}`
+                          )
+                        }
+                      />
+                    </S.WrapperIcons>
                   </S.ItemMobile>
                 ) : (
                   <Table.Item
                     key={`${Math.random()}`}
                     columns="1fr 1fr 1fr 1fr .5fr"
-                    values={i}
-                    lastElement={buttons}
+                    values={[
+                      i?.delivery?.cidade,
+                      i?.endereco?.cidade,
+                      dayjs(i?.dataRealizacao).format("DD/MM/YYYY"),
+                      `${i?.quantidadeVagas}`,
+                    ]}
+                    lastElement={
+                      <S.WrapperIcons>
+                        <img
+                          src="/assets/svgs/icon-calendar-dark.svg"
+                          alt="icone calendario"
+                          onClick={() =>
+                            navigate(
+                              `/configuracoes/itinerantes/reagendamento?id=${i?.uuid}`
+                            )
+                          }
+                        />
+                        <Eye
+                          onClick={() =>
+                            navigate(
+                              `/configuracoes/itinerantes/detalhe?id=${i?.uuid}`
+                            )
+                          }
+                        />
+                      </S.WrapperIcons>
+                    }
                   />
                 )
               )}
           </Table.WrapperItems>
         </Table.Root>
 
-        {VALUES?.length > 0 && (
+        {itinerantes?.length > 0 && (
           <Pagination
             maxPageNumbersDisplayed={isMobile ? 3 : 10}
             key={`${Math.random()} - ${pagination}`}
