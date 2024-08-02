@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { ISelectOptions } from "../../../types/inputs";
-import { Loja } from "../../../services/Lojas";
-import { Itinerante } from "../../../services/Itinerante";
 import { useForm, Controller } from "react-hook-form";
 import { IItineranteListProps } from "../../../types/itinerante";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Delivery } from "../../../services/Delivery";
+import { Municipio } from "../../../services/Municipio";
 
 const schema = z.object({
   cidade: z.string().optional(),
@@ -34,33 +34,32 @@ export const useFormFilterItinerant = () => {
   });
 
   const getDeliverys = useCallback(() => {
-    Itinerante.list().then(({ data }) => {
-      const unidadesUnicas = [
-        ...new Set(
-          data.content.map((i) =>
-            JSON.stringify({
-              unidade: i.delivery.cidade,
-              uuid: i.delivery.uuid,
-            })
-          )
-        ),
-      ];
+    Delivery.get().then(({ data }) => {
+      const options = data.content.map((i) => ({
+        label: i.cidade,
+        value: i.uuid,
+        element: i,
+      }));
 
-      const unidadesOptions = unidadesUnicas
-        .map((i) => JSON.parse(i))
-        .map((e) => ({ value: e.uuid, label: e.unidade }));
+      setUnidades(options);
+    });
+  }, []);
 
-      const cidadesOptionsUnicas = [
-        ...new Set(data.content.map((i) => i.endereco.cidade)),
-      ].map((_) => ({ value: _, label: _ }));
+  const getCidades = useCallback(() => {
+    Municipio.get().then(({ data }) => {
+      const options = data.content.map((i) => ({
+        label: i.nome,
+        value: i.nome,
+        element: i,
+      }));
 
-      setCidades(cidadesOptionsUnicas);
-      setUnidades(unidadesOptions);
+      setCidades(options);
     });
   }, []);
 
   useEffect(() => {
     getDeliverys();
+    getCidades();
   }, []);
 
   return {
