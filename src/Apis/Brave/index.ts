@@ -28,13 +28,13 @@ ApiBrave.interceptors.request.use((config) => {
 ApiBrave.interceptors.response.use(
   (response) => response,
   (error) => {
-    // if (error.response.status === 403) {
-    //   toast.error("Token expirado");
-    //   setTimeout(() => {
-    //     localStorage.clear();
-    //     window.location.href = "/agendamento/login";
-    //   }, 1500);
-    // }
+    if (error.response.status === 401) {
+      toast.error("Token expirado");
+      setTimeout(() => {
+        localStorage.clear();
+        window.location.href = "/agendamento/login";
+      }, 1500);
+    }
 
     return Promise.reject(error);
   }

@@ -42,7 +42,8 @@ export const Button = styled.button`
       outline: none;
       background: transparent;
       box-shadow: none;
-      color: #2d2d2d;
+      color: rgba(32, 51, 47, 0.56);
+      font-weight: 400;
     }
 
     &[data-variant-filter="true"] {

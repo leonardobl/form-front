@@ -12,12 +12,17 @@ export const SettingsTemplate = () => {
           <S.Card onClick={() => navigate("/configuracoes/lojas")}>
             <p>Lojas</p>
           </S.Card>
+
           <S.Card onClick={() => navigate("/configuracoes/concessionarias")}>
             <p>Concessionárias</p>
           </S.Card>
 
           <S.Card onClick={() => navigate("/configuracoes/feriados")}>
             <p>Feriados</p>
+          </S.Card>
+
+          <S.Card onClick={() => navigate("/configuracoes/itinerantes")}>
+            <p>Itinerantes</p>
           </S.Card>
         </S.WrapperCards>
       </S.Container>
