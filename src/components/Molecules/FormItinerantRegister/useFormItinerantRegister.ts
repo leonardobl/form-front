@@ -12,6 +12,7 @@ import { ISelectOptions } from "../../../types/inputs";
 import { Itinerante } from "../../../services/Itinerante";
 import { Colaborador } from "../../../services/Colaborador";
 import { TipoColaboradorEnum } from "../../../enums/tipoColaborador";
+import { Delivery } from "../../../services/Delivery";
 
 const enderecoSchema = z.object({
   bairro: z.string().min(1, "Campo obrigatorio"),
@@ -119,12 +120,12 @@ export const useFormItinerantRegister = () => {
   }, []);
 
   const getUnidades = useCallback(() => {
-    Itinerante.list()
+    Delivery.get()
       .then(({ data }) => {
         const unidadesUnicas = data.content.map((i) =>
           JSON.stringify({
-            label: i?.delivery?.cidade,
-            value: i?.delivery?.uuid,
+            label: i?.cidade,
+            value: i?.uuid,
           })
         );
 
