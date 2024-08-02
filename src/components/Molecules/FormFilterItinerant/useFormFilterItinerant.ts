@@ -46,7 +46,7 @@ export const useFormFilterItinerant = () => {
   }, []);
 
   const getCidades = useCallback(() => {
-    Municipio.get().then(({ data }) => {
+    Municipio.get({ size: 200 }).then(({ data }) => {
       const options = data.content.map((i) => ({
         label: i.nome,
         value: i.nome,
