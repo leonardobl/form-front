@@ -13,6 +13,8 @@ export const WrapperCards = styled.button`
   justify-content: center;
   flex-wrap: wrap;
   gap: 24px 32px;
+  max-width: 1000px;
+  margin: 0 auto;
   width: 100%;
   background-color: transparent;
 `;
@@ -22,7 +24,7 @@ export const Card = styled.div`
   display: flex;
 
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
   height: 70px;
 
   align-items: center;
