@@ -19,9 +19,14 @@ export interface IPageLojaDTO {
 }
 
 export interface ILojaDTO {
+  ativo: true;
   endereco: IEnderecoDTO;
   horarioFinal: string;
+  horarioFinalAlmoco: string;
+  horarioFinalFds: string;
   horarioInicial: string;
+  horarioInicialAlmoco: string;
+  horarioInicialFds: string;
   nome: string;
   quantidadeVagas: number;
   tempoMedio: string;
@@ -55,4 +60,80 @@ export interface IColaboradorForm {
 export interface IBaiaForm {
   nome: string;
   uuid?: string;
+}
+
+export interface ILojaForm {
+  endereco: IEnderecoLojaForm;
+  horarioFinal: string;
+  horarioFinalAlmoco: string;
+  horarioFinalFds: string;
+  horarioInicial: string;
+  horarioInicialAlmoco: string;
+  horarioInicialFds: string;
+  nome: string;
+  quantidadeVagas: number;
+  tempoMedio: string;
+  uuidContaIugu: string;
+}
+
+interface IEnderecoLojaForm {
+  bairro?: string;
+  cep?: string;
+  cidade: string;
+  complemento?: string;
+  logradouro?: string;
+  numero?: string;
+  uf: string;
+}
+
+export interface IContaIuguForm {
+  apiToken: string;
+  cnpj: string;
+  idConta: string;
+  nome: string;
+}
+export interface IContaIuguDTO {
+  apiToken: string;
+  cnpj: string;
+  idConta: string;
+  nome: string;
+  uuid: string;
+}
+
+//
+
+export interface ILojaCompletaDTO {
+  ativo: boolean;
+  contaIugu: IContaIuguDTO;
+  endereco: IEnderecoDTO;
+  horarioFinal: string;
+  horarioFinalAlmoco: string;
+  horarioFinalFds: string;
+  horarioInicial: string;
+  horarioInicialAlmoco: string;
+  horarioInicialFds: string;
+  nome: string;
+  quantidadeVagas: number;
+  tempoMedio: string;
+  uuid: string;
+}
+
+//
+
+export interface ILojaAtualizarForm {
+  endereco: IEnderecoLojaForm;
+  horarioFinal?: string;
+  horarioFinalAlmoco?: string;
+  horarioFinalFds?: string;
+  horarioInicial?: string;
+  horarioInicialAlmoco?: string;
+  horarioInicialFds?: string;
+  nome?: string;
+  quantidadeVagas?: number;
+  tempoMedio?: string;
+  uuidContaIugu: string;
+}
+
+export interface ILojaAtualizarFormProps extends ILojaAtualizarForm {
+  uuidLoja: string;
 }

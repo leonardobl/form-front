@@ -6,6 +6,11 @@ import {
   IBaiaForm,
   IColaboradorDTO,
   IColaboradorForm,
+  ILojaAtualizarForm,
+  ILojaAtualizarFormProps,
+  ILojaCompletaDTO,
+  ILojaDTO,
+  ILojaForm,
   IPageLojaDTO,
 } from "../../types/loja";
 import { removeEmpty } from "../../utils/removeEmpty";
@@ -30,6 +35,26 @@ export class Loja {
     const params = objectToParams(props);
 
     return ApiBrave.get(params ? `${basePath}?${params}` : `${basePath}`);
+  }
+
+  static async getById({
+    uuidLoja,
+  }: {
+    uuidLoja: string;
+  }): Promise<AxiosResponse<ILojaCompletaDTO>> {
+    return ApiBrave.get(`${basePath}/${uuidLoja}`);
+  }
+
+  static async cadastro(data: ILojaForm): Promise<AxiosResponse<ILojaDTO>> {
+    const PAYLOAD = removeEmpty(data);
+    return ApiBrave.post(`${basePath}/cadastrar`, PAYLOAD);
+  }
+
+  static async atualizar(
+    data: ILojaAtualizarFormProps
+  ): Promise<AxiosResponse<ILojaDTO>> {
+    const { uuidLoja, ...rest } = data;
+    return ApiBrave.post(`${basePath}/${uuidLoja}/atualizar`, rest);
   }
 
   static async getDiasIndisponiveis({

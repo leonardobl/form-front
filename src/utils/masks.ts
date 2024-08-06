@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export function maskCpf(v: string) {
   if (!v) return;
   v = v.replace(/\D/g, ""); //Remove tudo o que não é dígito
@@ -55,4 +57,27 @@ export function removeDigitos(s: string) {
 export function removerCaracteresEspeciais(s: string) {
   if (!s) return;
   return s.replace(/[^a-zA-Z0-9]/g, "");
+}
+
+export function maskTime(time: string) {
+  if (!time) return "";
+  time = time.replace(/[^\dh:]/, "");
+  time = time.replace(/^[^0-2]/, "");
+  time = time.replace(/^([2-9])[4-9]/, "$1");
+  time = time.replace(/^\d[:h]/, "");
+  time = time.replace(/^([01][0-9])[^:h]/, "$1");
+  time = time.replace(/^(2[0-3])[^:h]/, "$1");
+  time = time.replace(/^(\d{2}[:h])[^0-5]/, "$1");
+  time = time.replace(/^(\d{2}h)./, "$1");
+  time = time.replace(/^(\d{2}:[0-5])[^0-9]/, "$1");
+  time = time.replace(/^(\d{2}:\d[0-9])./, "$1");
+  return time;
+}
+
+export function maskLimiteNumber(entrada: string, quantidade: number) {
+  // Remove tudo que não seja número
+  const apenasNumeros = entrada.replace(/\D/g, "");
+
+  // Retorna apenas a quantidade especificada de números
+  return apenasNumeros.substring(0, quantidade);
 }

@@ -5,6 +5,7 @@ import { TipoServicoEnum } from "../enums/tipoServico";
 import { tipoVeiculoEnum } from "../enums/tipoVeiculo";
 import { IClienteDTO } from "./cliente";
 import { IPageableObject, ISortObject } from "./delivery";
+import { ILojaDTO } from "./loja";
 import { IFaturaDTO } from "./pagamento";
 import { IPageRequest } from "./page";
 
@@ -79,16 +80,6 @@ export interface IEnderecoDTO {
   numero?: string;
   uf: string;
   uuid?: string;
-}
-
-export interface ILojaDTO {
-  endereco: IEnderecoDTO;
-  horarioFinal: string;
-  horarioInicial: string;
-  nome: string;
-  quantidadeVagas: number;
-  tempoMedio: string;
-  uuid: string;
 }
 
 export interface IServicoDTO {

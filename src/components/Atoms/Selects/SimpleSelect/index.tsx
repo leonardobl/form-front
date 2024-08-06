@@ -40,7 +40,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     };
 
     const customStyles = {
-      control: (base: any, state: { isFocused: any }) => ({
+      control: (base: any, state: { isFocused: any; isDisabled: any }) => ({
         ...base,
         // background: myVariant === "modal" ? "#E1F2EE" : "#fff",
         background: props.bgColor ? props.bgColor : "#fff",
@@ -48,8 +48,8 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
         // match with the menu
         borderRadius: 10,
         // letterSpacing: 10,
-
-        padding: "0 20px",
+        fontSize: "16px",
+        padding: "0 10px",
         fontFamily: "Mulish",
         // color: state.isSelected ? "red" : "blue",
         // Overwrittes the different states of border
@@ -81,7 +81,7 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
       }),
       singleValue: (provided: any, state: any) => ({
         ...provided,
-        color: "#111",
+        color: state.isDisabled ? "#9d9d9d" : "#111",
       }),
 
       option: (styles: any, { isFocused, isSelected }: any) => ({
@@ -123,7 +123,11 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
     };
 
     return (
-      <S.Container $isLabel={!!props.label} $bgcolor={props?.bgColor}>
+      <S.Container
+        $isLabel={!!props.label}
+        $bgcolor={props?.bgColor}
+        aria-disabled={props?.isDisabled}
+      >
         {props.label && (
           <S.Label
             data-variant-modal={myVariant === "modal"}
@@ -138,8 +142,9 @@ export const SimpleSelect = React.forwardRef<SelectInstance, Props>(
           {...props}
           name={props.name}
           ref={ref}
+          className="react-select-container"
+          classNamePrefix="react-select"
           components={{ DropdownIndicator, ClearIndicator }}
-          // theme={(theme) => ({ ...theme, borderRadius: 10 })}
           styles={customStyles}
         />
       </S.Container>

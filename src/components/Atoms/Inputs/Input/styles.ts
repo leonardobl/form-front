@@ -18,13 +18,23 @@ export const Container = styled.div`
     top: 19px;
     color: ${(props) => props.theme.colors.main};
   }
+
+  &:has(> input[data-error="true"]) {
+    input {
+      border: 1px solid red;
+    }
+
+    label {
+      color: red;
+    }
+  }
 `;
 
 export const Label = styled.label<{ $isRequired: boolean }>`
   position: absolute;
   z-index: 1;
   top: -11px;
-  left: 24px;
+  left: 16px;
   background: linear-gradient(to top, #fff 50%, transparent 50%);
   display: flex;
   padding: 2px 5px;
@@ -49,12 +59,12 @@ export const Label = styled.label<{ $isRequired: boolean }>`
 export const Input = styled.input<{ $typeInput?: string }>`
   ${({ $typeInput }) => css`
     width: 100%;
-    height: 56px;
+    height: 46px;
     border-radius: 10px;
     border: 1px solid #9d9d9d;
     background-color: #fff;
     padding: ${$typeInput === "password" ? "0 40px 0 20px" : "0 20px"};
-    font-size: 18px;
+    font-size: 16px;
     font-family: "Mulish";
     font-weight: 400;
     color: #111;
@@ -66,6 +76,7 @@ export const Input = styled.input<{ $typeInput?: string }>`
 
     &:disabled {
       cursor: not-allowed;
+      color: #9d9d9d;
     }
 
     &[data-variant-edit="true"] {

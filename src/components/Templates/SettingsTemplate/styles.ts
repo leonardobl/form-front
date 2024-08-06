@@ -11,23 +11,28 @@ export const Container = styled.div`
 export const WrapperCards = styled.button`
   display: flex;
   justify-content: center;
-  gap: 0 32px;
+  flex-wrap: wrap;
+  gap: 24px 32px;
   width: 100%;
   background-color: transparent;
 `;
 
 export const Card = styled.div`
   border-radius: 10px;
-  padding: 24px 40px;
   display: flex;
+
+  width: 100%;
+  max-width: 300px;
+  height: 70px;
+
   align-items: center;
-  width: fit-content;
   justify-content: center;
   background: ${(props) => props.theme.colors.main};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   p {
     color: #fff;
+    font-family: Mulish;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
