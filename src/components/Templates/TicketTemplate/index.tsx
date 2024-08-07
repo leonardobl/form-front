@@ -14,10 +14,7 @@ export const TicketTemplate = () => {
   const navigate = useNavigate();
 
   function acessarFatura() {
-    window.open(
-      `${pagamento?.url}.pdf`,
-      "_blank"
-    );
+    window.open(`${pagamento?.url}.pdf`, "_blank");
   }
 
   return (
@@ -66,6 +63,12 @@ export const TicketTemplate = () => {
           </Button>
         </div> */}
       </S.GridWrapper>
+
+      <S.Info>
+        *O pagamento em <b>boleto pode levar até 3 dias úteis</b> para
+        confirmação. Mas não se preocupe, avisaremos via <b>WhatsApp</b> assim
+        que der tudo certo.
+      </S.Info>
     </S.Container>
   );
 };
