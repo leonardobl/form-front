@@ -29,8 +29,8 @@ export const ScheduleConfirmationTemplate = () => {
   return (
     <S.Container onSubmit={onSubmit}>
       <Text>
-        Selecione as datas e horários{" "}
-        <span className="textStrong">disponíveis</span>.
+        Agende a sua vistoria! Escolha a <b>data e hora disponível</b> que
+        preferir.
       </Text>
 
       <S.Grid>
