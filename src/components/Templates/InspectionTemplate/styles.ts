@@ -112,3 +112,24 @@ export const Info = styled.div`
     line-height: 24px;
   }
 `;
+
+export const ButtonDown = styled.button`
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 6px;
+  border-radius: 10px;
+  border: 1px solid #2d2d2d;
+  background: #fff;
+  padding: 10px 20px;
+
+  color: #2d2d2d;
+  text-align: center;
+  font-family: Mulish;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+`;
