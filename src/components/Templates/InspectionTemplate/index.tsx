@@ -107,6 +107,15 @@ export const InspectionTemplate = () => {
           />
         </div>
       </S.Form>
+
+      <S.Info>
+        <p>
+          No <b>dia e hora marcados</b>, é só levar seu veículo até a
+          ECV/CIRETRAN. <b>Não se esqueça de levar o documento em mãos!</b> Um
+          de nossos atendentes irá te receber e te orientar sobre os próximos
+          passos.
+        </p>
+      </S.Info>
     </S.Container>
   );
 };
