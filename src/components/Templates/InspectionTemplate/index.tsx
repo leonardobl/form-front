@@ -6,6 +6,7 @@ import { useInspectionTemplate } from "./useInspectionTemplate";
 import { reverseToBrDate } from "../../../utils/dateTransform";
 import { maskCnpj, maskCpf, maskMoney, maskPhone } from "../../../utils/masks";
 import { TipoPagamento } from "../../../enums/tipoPagamento";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 
 export const InspectionTemplate = () => {
   const { agendamento, handleDownload, isMobile } = useInspectionTemplate();
@@ -115,14 +116,24 @@ export const InspectionTemplate = () => {
         </div>
       </S.Form>
 
-      <S.Info>
-        <p>
-          No <b>dia e hora marcados</b>, é só levar seu veículo até a
-          ECV/CIRETRAN. <b>Não se esqueça de levar o documento em mãos!</b> Um
-          de nossos atendentes irá te receber e te orientar sobre os próximos
-          passos.
-        </p>
-      </S.Info>
+      {agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA ? (
+        <S.Info>
+          <p>
+            No <b>dia e hora marcados</b>, é só levar seu veículo até a
+            ECV/CIRETRAN. <b>Não se esqueça de levar o documento em mãos!</b> Um
+            de nossos atendentes irá te receber e te orientar sobre os próximos
+            passos.
+          </p>
+        </S.Info>
+      ) : (
+        <S.Info>
+          <p>
+            No <b>dia e horário marcados</b>, nosso vistoriador irá até você
+            para realizar a vistoria do seu veículo.{" "}
+            <b>Não se esqueça ter documento em mãos!</b>
+          </p>
+        </S.Info>
+      )}
     </S.Container>
   );
 };
