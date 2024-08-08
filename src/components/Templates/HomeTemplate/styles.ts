@@ -85,7 +85,7 @@ export const FlexWrapper = styled.div`
 export const Card = styled.div`
   border-radius: 10px;
   padding: 32px 16px;
-  width: 355px;
+  width: 100%;
   height: 562px;
   border: 0px solid #fbfffe;
   background: #e7edec;
@@ -118,6 +118,12 @@ export const Card = styled.div`
     height: 44px;
     width: 102px;
     margin-top: 48px;
+  }
+
+  @media (min-width: 640px) {
+    padding: 32px 16px;
+    width: 355px;
+    height: 562px;
   }
 `;
 

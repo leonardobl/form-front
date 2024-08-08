@@ -121,7 +121,7 @@ export const HomeTemplate = () => {
             <div>
               <button
                 onClick={() => {
-                  navigate("/agendamento/servicos");
+                  navigate("/agendamento/itinerantes");
                 }}
               >
                 Avançar
