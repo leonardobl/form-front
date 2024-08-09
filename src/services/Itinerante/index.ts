@@ -50,9 +50,8 @@ export class Itinerante {
     data: IItineranteReagendarProps
   ): Promise<AxiosResponse<IItineranteCompletoDTO>> {
     const { uuidItinerante, dataRealizacao } = data;
-    return ApiBrave.post(
-      `${basePath}/${uuidItinerante}/reagendar`,
-      dataRealizacao
-    );
+    return ApiBrave.post(`${basePath}/${uuidItinerante}/reagendar`, {
+      dataRealizacao,
+    });
   }
 }

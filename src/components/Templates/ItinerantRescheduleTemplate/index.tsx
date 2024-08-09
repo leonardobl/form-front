@@ -43,12 +43,10 @@ export const ItinerantRescheduleTemplate = () => {
             </S.WrapperCloseModal>
 
             <S.WrapperText>
-              <Text>
-                <span className="textStrong">Confirma</span> sua vistoria para o{" "}
-                <span className="textStrong">
-                  dia {dayjs(date).format("DD/MM/YYYY")}?
-                </span>
-              </Text>
+              <p>
+                <b>Confirma</b> sua vistoria para o{" "}
+                <b>dia {dayjs(date).format("DD/MM/YYYY")}?</b>
+              </p>
             </S.WrapperText>
             <S.WrapperButtons>
               <Button data-variant-text onClick={() => setIsOpen(false)}>
