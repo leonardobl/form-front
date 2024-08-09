@@ -61,6 +61,8 @@ export const Button = styled.button`
 
     &[data-variant-outline="true"] {
       border-radius: 10px;
+      width: fit-content;
+      padding: 0 20px;
       border: 1px solid #2d2d2d;
       background: transparent;
       box-shadow: none;

@@ -8,6 +8,8 @@ import { useMediaQuery } from "react-responsive";
 import { IPagination } from "../../../types/pagination";
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
+import { Agendamento } from "../../../services/Agendamento";
+import { useNavigate } from "react-router-dom";
 
 export const useScheduleItinetant = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +18,7 @@ export const useScheduleItinetant = () => {
   const isMobile = useMediaQuery({ maxWidth: "640px" });
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const { setIsLoad } = useContextSite();
+  const navigate = useNavigate();
 
   function getItinerantes(data?: IItineranteListProps) {
     setIsLoad(true);
@@ -55,6 +58,26 @@ export const useScheduleItinetant = () => {
     getItinerantes({ page: 0 });
   }
 
+  function handleSchedule(uuidItinerante: string) {
+    setIsLoad(true);
+    Agendamento.postV2({ uuidItinerante })
+      .then(({ data }) => {
+        navigate(`/agendamento/${data.uuid}/servicos`);
+      })
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => {
+          toast.error(mensagem);
+        }
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
+  }
+
   return {
     isOpen,
     setIsOpen,
@@ -64,5 +87,6 @@ export const useScheduleItinetant = () => {
     pagination,
     handleFilter,
     handleClean,
+    handleSchedule,
   };
 };

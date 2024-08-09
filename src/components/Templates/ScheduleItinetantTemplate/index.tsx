@@ -16,6 +16,7 @@ export const ScheduleItinetantTemplate = () => {
     pagination,
     handleClean,
     handleFilter,
+    handleSchedule,
   } = useScheduleItinetant();
 
   return (
@@ -60,7 +61,7 @@ export const ScheduleItinetantTemplate = () => {
                       {i?.quantidadeVagas}
                     </p>,
 
-                    <S.ButtonSelect onClick={() => i.uuid}>
+                    <S.ButtonSelect onClick={() => handleSchedule(i?.uuid)}>
                       Selecionar
                     </S.ButtonSelect>,
                   ]}
