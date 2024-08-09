@@ -31,39 +31,27 @@ export const useForgotPassword = () => {
     e.preventDefault();
     setIsLoad(true);
 
-    Usuario.getByEmail({ cpfCnpj: form.cpfCnpj })
-      .then(({ data }) => {
-        Usuario.requererNovaSenha({
-          cpfCnpj: data.cpfCnpj,
-        })
-          .then(() => {
-            toast.success("Email enviado com sucesso!");
-            setTimeout(() => {
-              navigate("/agendamento/login");
-            }, 2500);
-          })
-          .catch(
-            ({
-              response: {
-                data: { mensagem },
-              },
-            }) => {
-              toast.error(mensagem);
-            }
-          );
-      })
-      .catch(
-        ({
-          response: {
-            data: { mensagem },
-          },
-        }) => {
-          toast.error(mensagem);
-        }
-      )
-      .finally(() => {
-        setIsLoad(false);
-      });
+    Usuario.requererNovaSenha({
+      cpfCnpj: form.cpfCnpj,
+    })
+    .then(() => {
+      toast.success("Email enviado com sucesso!");
+      setTimeout(() => {
+        navigate("/agendamento/login");
+      }, 2500);
+    })
+    .catch(
+      ({
+        response: {
+          data: { mensagem },
+        },
+      }) => {
+        toast.error(mensagem);
+      }
+    )
+    .finally(() => {
+      setIsLoad(false);
+    });
   }
 
   return { handleSubmit, form, handleCpf };
