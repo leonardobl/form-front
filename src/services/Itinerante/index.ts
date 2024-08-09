@@ -1,9 +1,11 @@
 import { AxiosResponse } from "axios";
 import { ApiBrave } from "../../Apis/Brave";
 import {
+  IItineranteCompletoDTO,
   IItineranteDTO,
   IItineranteForm,
   IItineranteListProps,
+  IItineranteReagendarProps,
   IPageItineranteDTO,
 } from "../../types/itinerante";
 import { removeEmpty } from "../../utils/removeEmpty";
@@ -42,5 +44,15 @@ export class Itinerante {
     data: IItineranteForm
   ): Promise<AxiosResponse<IItineranteDTO>> {
     return ApiBrave.post(basePath, data);
+  }
+
+  static async reagendar(
+    data: IItineranteReagendarProps
+  ): Promise<AxiosResponse<IItineranteCompletoDTO>> {
+    const { uuidItinerante, dataRealizacao } = data;
+    return ApiBrave.post(
+      `${basePath}/${uuidItinerante}/reagendar`,
+      dataRealizacao
+    );
   }
 }
