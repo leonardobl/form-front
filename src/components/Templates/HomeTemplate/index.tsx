@@ -1,6 +1,12 @@
-import React, { useEffect } from "react";
 import * as S from "./styles";
 import { useHome } from "./useHome";
+
+const EMPRESAS = {
+  log: "Log Vistoria",
+  starcheck: "Star Check Vistoria",
+  vlx: "Velox Vistorias",
+  tokyo: "Tokyo Vistorias",
+};
 
 export const HomeTemplate = () => {
   const { navigate, Project, isCliente, isAdmin, isVistoriador, token } =
@@ -102,7 +108,8 @@ export const HomeTemplate = () => {
             <S.CardContent>
               <div>
                 <p>
-                  Sua cidade ainda não tem <b>(Empresa)? Sem problemas!</b>
+                  Sua cidade ainda não tem{" "}
+                  <b>{`${EMPRESAS[Project]} ? Sem problemas!`}</b>
                 </p>
               </div>
 
