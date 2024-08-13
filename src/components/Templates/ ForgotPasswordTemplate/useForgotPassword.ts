@@ -3,7 +3,7 @@ import { useContextSite } from "../../../context/Context";
 import { Usuario } from "../../../services/Usuario";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { maskCnpj, maskCpf } from "../../../utils/masks";
+import { maskCnpj, maskCpf, removerCaracteresEspeciais } from "../../../utils/masks";
 
 interface IFormForgotProps {
   cpfCnpj: string;
@@ -31,8 +31,10 @@ export const useForgotPassword = () => {
     e.preventDefault();
     setIsLoad(true);
 
+    const cpfCnpjUsuario = removerCaracteresEspeciais(form.cpfCnpj);
+
     Usuario.requererNovaSenha({
-      cpfCnpj: form.cpfCnpj,
+      cpfCnpj: cpfCnpjUsuario,
     })
     .then(() => {
       toast.success("Email enviado com sucesso!");
