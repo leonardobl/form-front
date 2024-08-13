@@ -27,7 +27,7 @@ export const ForgotPasswordTemplate = () => {
           maxLength={18}
         />
 
-        <Button>Enviar e-mail</Button>
+        <Button>Solicitar link</Button>
       </S.Form>
     </S.Container>
   );

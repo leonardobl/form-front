@@ -43,7 +43,10 @@ export const useResetPassword = () => {
             data: { mensagem },
           },
         }) => toast.error(mensagem)
-      );
+      )
+      .finally(() => {
+        setIsLoad(false);
+      });
   }
 
   //mapa.starcheck.com.br/alterar-senha?cpfcnpj=12345678910&codigo=D1F2G3
