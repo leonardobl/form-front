@@ -42,11 +42,11 @@ export const FormLogin = ({ onSubmitForm, ...rest }: IFormLoginProps) => {
         )}
       </div>
 
-      {/* <S.ButtonForgot
-          onClick={() => navigate("/agendamento/recuperar-senha")}
-        >
-          Esqueceu sua senha ?
-        </S.ButtonForgot> */}
+      <S.ButtonForgot
+        onClick={() => navigate("/recuperar-senha")}
+      >
+        Esqueceu sua senha?
+      </S.ButtonForgot>
 
       <Button className="button">Entrar</Button>
     </S.Form>
