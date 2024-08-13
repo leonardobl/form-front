@@ -33,7 +33,7 @@ export class Usuario {
     cpfCnpj,
   }: {
     cpfCnpj: string;
-  }): Promise<AxiosResponse<IUsuarioDTO>> {
+  }): Promise<AxiosResponse<void>> {
     return ApiUsuarios.post(`${basePath}/requerer-nova-senha`, { cpfCnpj });
   }
 
