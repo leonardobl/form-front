@@ -11,6 +11,10 @@ import { maskCnpj, maskCpf, maskMoney } from "../../../utils/masks";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 import { OrdemServico } from "../../../services/OrdemServico";
 import { toast } from "react-toastify";
+import { MyModal } from "../../Atoms/MyModal";
+import { InputDate } from "../../Atoms/Inputs/InputDate";
+import dayjs from "dayjs";
+import { Button } from "../../Atoms/Button";
 
 export const ScheduleDetailTemplate = () => {
   const {
@@ -21,6 +25,8 @@ export const ScheduleDetailTemplate = () => {
     menuDisabled,
     cancelarAgendamento,
     confirmarReembolso,
+    modalReembolso,
+    setModalReembolso,
   } = useScheduleDetail();
 
   const [urlLaudo, setUrlLaudo] = useState<string>("");
@@ -62,7 +68,7 @@ export const ScheduleDetailTemplate = () => {
             disabled={menuDisabled}
             onCancel={cancelarAgendamento}
             agendamento={agendamento}
-            handleConfirmRefund={confirmarReembolso}
+            handleConfirmRefund={setModalReembolso}
           />
         </S.WrapperText>
 
@@ -202,6 +208,54 @@ export const ScheduleDetailTemplate = () => {
           </div>
         </S.Form>
       </S.Wrapper>
+
+      <MyModal
+        isOpen={modalReembolso?.isOPen}
+        onRequestClose={() => {
+          setModalReembolso({ isOPen: false, date: null });
+        }}
+      >
+        <S.WrapperContentModalReembolso>
+          <S.HeaderModalReembolso>
+            <p onClick={() => setModalReembolso({ isOPen: false, date: null })}>
+              X
+            </p>
+          </S.HeaderModalReembolso>
+          <S.FormModalReembolso onSubmit={confirmarReembolso}>
+            <div>
+              <p>
+                Informe a data do <strong>reembolso</strong>.
+              </p>
+            </div>
+
+            <div>
+              <InputDate
+                showIcon
+                required
+                label="Data"
+                selected={modalReembolso?.date}
+                onChange={(e) =>
+                  setModalReembolso((prev) => ({
+                    ...prev,
+                    date: e,
+                  }))
+                }
+              />
+            </div>
+
+            <S.WrapperButtonsModalReembolso>
+              <Button
+                data-variant-text
+                type="button"
+                onClick={() => setModalReembolso({ isOPen: false, date: null })}
+              >
+                Cancelar
+              </Button>
+              <Button>Confirmar</Button>
+            </S.WrapperButtonsModalReembolso>
+          </S.FormModalReembolso>
+        </S.WrapperContentModalReembolso>
+      </MyModal>
     </S.Container>
   );
 };

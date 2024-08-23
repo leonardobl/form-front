@@ -104,3 +104,56 @@ export const Form = styled.form`
     grid-template-areas: "status status" "data horario" "nome nome" "cpf cpf" "telefone telefone" "email email" "modelo modelo" "placa renavam" "chassi chassi" "servico servico" "valor valor" "local local" "laudo laudo";
   }
 `;
+
+export const WrapperContentModalReembolso = styled.div`
+  width: 100%;
+  max-width: 480px;
+  padding: 16px;
+
+  @media (min-width: 640px) {
+    padding: 16px 32px 32px;
+    width: 480px;
+  }
+`;
+
+export const HeaderModalReembolso = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-bottom: 16px;
+
+  p {
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 18px;
+  }
+`;
+
+export const FormModalReembolso = styled.form`
+  width: 100%;
+  height: fit-content;
+  max-width: 340px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+
+  p {
+    color: #2d2d2d;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+`;
+
+export const WrapperButtonsModalReembolso = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 0 16px;
+  margin-top: 12px;
+
+  @media (min-width: 640px) {
+    justify-content: end;
+  }
+`;
