@@ -43,6 +43,7 @@ export const FormLogin = ({ onSubmitForm, ...rest }: IFormLoginProps) => {
       </div>
 
       <S.ButtonForgot
+        type="button"
         onClick={() => navigate("/recuperar-senha")}
       >
         Esqueceu sua senha?
