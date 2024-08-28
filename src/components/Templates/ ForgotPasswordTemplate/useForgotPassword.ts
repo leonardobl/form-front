@@ -37,7 +37,7 @@ export const useForgotPassword = () => {
       cpfCnpj: cpfCnpjUsuario,
     })
     .then(() => {
-      toast.success("Email enviado com sucesso!");
+      toast.success("Link enviado com sucesso!");
       setTimeout(() => {
         navigate("/agendamento/login");
       }, 2500);
