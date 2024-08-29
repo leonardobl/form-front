@@ -26,8 +26,10 @@ export const Form = styled.form`
 
 export const ContentModal = styled.div`
   width: 100%;
-  max-width: 451px;
+  max-width: 482px;
   padding: 20px;
+  background: #e8e8e8;
+  box-shadow: 4px 4px 16.3px 0px rgba(0, 0, 0, 0.25);
 `;
 
 export const WrapperCloseModal = styled.div`
@@ -35,22 +37,25 @@ export const WrapperCloseModal = styled.div`
   justify-content: end;
   margin-bottom: 24px;
 
-  > span {
+  span {
     color: #2d2d2d;
-    font-family: Mulish;
+    cursor: pointer;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
-    line-height: 40px;
-    cursor: pointer;
+    line-height: 24px;
   }
 `;
 
 export const WrapperText = styled.div`
   margin-bottom: 24px;
 
-  > p {
-    text-align: start;
+  p {
+    color: #2d2d2d;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
   }
 `;
 

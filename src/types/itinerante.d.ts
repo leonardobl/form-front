@@ -9,6 +9,11 @@ export interface IItineranteListProps extends IPageRequest {
   uuidDelivery?: string;
 }
 
+export interface IItineranteReagendarProps {
+  uuidItinerante: string;
+  dataRealizacao: string;
+}
+
 export interface IPageItineranteDTO {
   content: IItineranteDTO[];
   empty: boolean;
@@ -66,4 +71,21 @@ export interface IItineranteFormRHF {
     element?: IColaboradorDTO;
   }[];
   uuidDelivery: string;
+}
+
+//
+
+export interface IItineranteCompletoDTO {
+  colaboradores: IColaboradorDTO[];
+  dataRealizacao: string;
+  delivery: IDeliveryDTO;
+  endereco: IEnderecoDTO;
+  horarioFinal: string;
+  horarioFinalAlmoco: string;
+  horarioInicial: string;
+  horarioInicialAlmoco: string;
+  quantidadeVagas: number;
+  tempoMedio: string;
+  totalVagas: number;
+  uuid: string;
 }
