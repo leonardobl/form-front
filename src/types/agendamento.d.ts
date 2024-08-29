@@ -253,6 +253,7 @@ export interface IAgendamentoCadastroForm {
   uuidDelivery?: string;
   uuidLoja?: string;
   concessionaria?: boolean;
+  uuidItinerante?: string;
 }
 
 export interface IAgendamentoCadastroFormFull extends IAgendamentoCadastroForm {

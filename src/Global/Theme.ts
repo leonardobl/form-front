@@ -12,9 +12,9 @@ export const Theme = {
       medio: "75rem", // 1200px
     },
     padding: {
-      secundary: "12.5rem",
+      secundary: "12.5rem", //200px
       mobile: "2rem",
-      primary: "7.5rem",
+      primary: "7.5rem", //120px
     },
   },
   log: {
