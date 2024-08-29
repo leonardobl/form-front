@@ -26,7 +26,6 @@ import { ConcessionaireAddressRegister } from "../components/Pages/Concessionair
 export const useAgendamentoByIdRoutes = () => {
   return (
     <Route path="/agendamento/:uuidAgendamento?" element={<LayoutTemplate />}>
-      <Route path="recuperar-senha" element={<ForgotPassword />} />
 
       <Route path="login" element={<Login />} />
       <Route path="confirmar-horario" element={<ScheduleConfirmation />} />

@@ -59,29 +59,5 @@ export class Pagamento {
     const { uuid, ...rest } = props;
     return ApiBrave.post(`${basePath}/agendamento/${uuid}/reembolsar`, rest);
   }
-
-  static async downloadFatura({
-    uuidAgendamento,
-  }: {
-    uuidAgendamento: string;
-  }) {
-    const token = localStorage.getItem("@token");
-    let path = `${process.env.REACT_APP_BRAVE_API_URL}/pagamento/agendamento/${uuidAgendamento}/download-fatura`;
-
-    const response = await fetch(path, {
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + token.replaceAll('"', ""),
-      },
-    });
-    const blob = await response.blob();
-
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "fatura.pdf";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-  }
+  
 }

@@ -12,6 +12,10 @@ import { LayoutTemplate } from "../components/Templates/LayoutTemplate";
 import { Inspections } from "../components/Pages/Inspections";
 import { Inspection } from "../components/Pages/Inspection";
 import { AcceptInspection } from "../components/Pages/AcceptInspection";
+import { Concessionaires } from "../components/Pages/Concessionaires";
+import { Concessionaire } from "../components/Pages/Concessionaire";
+import { Settings } from "../components/Pages/Settings";
+import { ForgotPassword } from "../components/Pages/ForgotPassword";
 
 export const useMainRoutes = () => {
   return (
@@ -21,6 +25,7 @@ export const useMainRoutes = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/alterar-senha" element={<ResetPassword />} />
       <Route path="/offline" element={<Offline />} />
+      <Route path="recuperar-senha" element={<ForgotPassword />} />
 
       <Route
         path="/minhas-vistorias"
