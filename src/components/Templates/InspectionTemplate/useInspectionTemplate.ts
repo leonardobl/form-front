@@ -4,6 +4,8 @@ import { useSearchParams } from "react-router-dom";
 import { useContextSite } from "../../../context/Context";
 import { Agendamento } from "../../../services/Agendamento";
 import { toast } from "react-toastify";
+import { Pagamento } from "../../../services/Pagamento";
+import { useMediaQuery } from "react-responsive";
 
 export const useInspectionTemplate = () => {
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
@@ -12,6 +14,7 @@ export const useInspectionTemplate = () => {
   let [searchParams] = useSearchParams();
   const { setIsLoad } = useContextSite();
   const id = searchParams.get("id");
+  const isMobile = useMediaQuery({ maxWidth: "640px" });
 
   const getAgendamento = useCallback(() => {
     setIsLoad(true);
@@ -52,5 +55,5 @@ export const useInspectionTemplate = () => {
       });
   }
 
-  return { agendamento, handleDownload };
+  return { agendamento, handleDownload, isMobile };
 };

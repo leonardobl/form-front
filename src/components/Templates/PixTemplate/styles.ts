@@ -25,14 +25,14 @@ export const Container = styled.div`
 export const Info = styled.div`
   height: ${pxToRem(59)};
   background-color: #e8e8e8;
-  width: 100%;
-  max-width: ${pxToRem(708)};
+  width: fit-content;
   margin: 0 auto;
   border-radius: 10px;
   display: flex;
+  padding: 0 16px;
   justify-content: center;
   align-items: center;
-  margin-bottom: ${pxToRem(72)};
+  margin-bottom: 16px;
 
   > p {
     font-family: Mulish;
@@ -70,7 +70,7 @@ export const GridWrapper = styled.div`
   max-width: ${pxToRem(740)};
   width: 100%;
   display: grid;
-  margin: 0 auto;
+  margin: 0 auto 80px;
   gap: ${pxToRem(40)};
   place-items: center;
   grid-template-columns: repeat(3, 1fr);

@@ -22,27 +22,24 @@ export const Container = styled.div`
 `;
 
 export const Info = styled.div`
-  max-width: ${pxToRem(706)};
   width: 100%;
-  height: 56px;
+  max-width: 600px;
   border-radius: 10px;
   background-color: #e8e8e8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 6px 16px;
   margin: 0 auto ${pxToRem(48)};
 
   > p {
+    text-align: center;
     font-family: Mulish;
     font-size: 20px;
     font-weight: 400;
     line-height: 32px;
     letter-spacing: 0em;
-    text-align: center;
     color: #3f504c;
 
-    > span {
-      color: red;
+    > span#red {
+      color: red !important;
     }
   }
 
@@ -61,7 +58,7 @@ export const GridWrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: ${pxToRem(48)} ${pxToRem(40)};
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 48px;
   max-width: ${pxToRem(706)};
   grid-template-areas: "barra barra" "valor valor" "inp inp" "button1 button1";
 
