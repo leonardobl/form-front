@@ -160,7 +160,16 @@ export const useAdminStoreDetail = () => {
           setContaIugu(data.contaIugu);
 
           Object.keys(data).forEach((key) => {
-            setValue(key as keyof ILojaAtualizarFormProps, data[key] || "");
+            if (key === "endereco" && typeof data[key] === "object") {
+              Object.keys(data[key]).forEach((subKey) => {
+                setValue(
+                  `${key}.${subKey}` as keyof ILojaAtualizarFormProps,
+                  data[key][subKey] || ""
+                );
+              });
+            } else {
+              setValue(key as keyof ILojaAtualizarFormProps, data[key] || "");
+            }
           });
         })
         .catch(

@@ -5,6 +5,7 @@ import * as S from "./styles";
 import { useAdminStoreDetail } from "./useAdminStoreDetail";
 import { maskLimiteNumber } from "../../../utils/masks";
 import { ISelectOptions } from "../../../types/inputs";
+import { useEffect } from "react";
 
 export const AdminStoreDetailTemplate = () => {
   const {
@@ -57,6 +58,7 @@ export const AdminStoreDetailTemplate = () => {
           <Input
             {...register("endereco.complemento")}
             label="Complemento"
+            id="complemento"
             disabled
           />
         </div>
