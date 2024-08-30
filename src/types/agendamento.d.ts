@@ -293,3 +293,8 @@ export interface IReembolsoForm {
 export interface IReembolsoProps extends IReembolsoForm {
   uuid: string;
 }
+
+export interface IReembolsoConfirmarForm {
+  uuid: string;
+  dataDevolucao: string;
+}
