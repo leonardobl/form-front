@@ -9,8 +9,9 @@ export const useHome = () => {
   const isCliente = usuario?.roles?.includes(RolesEnum.ROLE_CLIENTE);
   const isAdmin = usuario?.roles?.includes(RolesEnum.ROLE_ADMIN);
   const isVistoriador = usuario?.roles?.includes(RolesEnum.ROLE_VISTORIADOR);
+  const isDespachante = usuario?.tipo === 'DESPACHANTE'
   const [token] = useSessionStorage("@token");
   const Project = process.env.REACT_APP_PROJECT;
 
-  return { navigate, isCliente, isAdmin, isVistoriador, Project, token };
+  return { navigate, isCliente, isAdmin, isVistoriador, Project, token, isDespachante };
 };

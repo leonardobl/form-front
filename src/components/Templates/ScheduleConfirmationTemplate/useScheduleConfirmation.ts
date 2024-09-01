@@ -13,6 +13,8 @@ import { useContextSite } from "../../../context/Context";
 import { Delivery } from "../../../services/Delivery";
 import { ISelectOptions } from "../../../types/inputs";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { reverseToDateObject } from "../../../utils/dateTransform";
+import { IItineranteDTO } from "../../../types/itinerante";
 
 export const useScheduleConfirmation = () => {
   const params = useParams();
@@ -32,6 +34,8 @@ export const useScheduleConfirmation = () => {
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
     {} as IAgendamentoDTO
   );
+  const [disable, setDisable] = useState<boolean>(false);
+  const [itinerante, setItinerante] = useState<IItineranteDTO>();
 
   function getDiasIndisponiveis(agendamento: IAgendamentoDTO) {
     setIsLoad(true);
@@ -74,7 +78,13 @@ export const useScheduleConfirmation = () => {
       Agendamento.getById({ uuid: params?.uuidAgendamento })
         .then(({ data }) => {
           setAgendamento(data);
-          getDiasIndisponiveis(data);
+          if (data?.itinerante?.uuid === null)
+            getDiasIndisponiveis(data);
+          else {
+            setDate(reverseToDateObject(data?.itinerante?.dataRealizacao));
+            setDisable(true);
+            setItinerante(data?.itinerante);
+          }
         })
         .catch(
           ({
@@ -196,5 +206,7 @@ export const useScheduleConfirmation = () => {
     isOpen,
     setIsOpen,
     handleReagendamento,
+    disable,
+    itinerante,
   };
 };

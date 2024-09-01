@@ -13,3 +13,10 @@ export function reverseToBrDate(date: string) {
 
   return newDate;
 }
+
+export function reverseToDateObject(date: string) {
+  if (!date) return;
+  
+  const parts = date.split("-");
+  return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+}

@@ -10,6 +10,7 @@ import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
 import { Agendamento } from "../../../services/Agendamento";
 import { useNavigate } from "react-router-dom";
+import { useSessionStorage } from "../../../hooks/useSessionStorage";
 
 export const useScheduleItinetant = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,8 @@ export const useScheduleItinetant = () => {
   const [pagination, setPagination] = useState<IPagination>({} as IPagination);
   const { setIsLoad } = useContextSite();
   const navigate = useNavigate();
+  const [token] = useSessionStorage("@token");
+  const [usuario] = useSessionStorage("cliente");
 
   function getItinerantes(data?: IItineranteListProps) {
     setIsLoad(true);
@@ -62,7 +65,27 @@ export const useScheduleItinetant = () => {
     setIsLoad(true);
     Agendamento.postV2({ uuidItinerante })
       .then(({ data }) => {
-        navigate(`/agendamento/${data.uuid}/servicos`);
+        if (token) {
+          Agendamento.vincularAgendamentoAoCliente({
+            uuidAgendamento: data.uuid,
+            uuidCliente: usuario.uuidCliente,
+          }).then(() => {
+            navigate(`/agendamento/${data.uuid}/servicos`);
+            return;
+          })
+          .catch(
+            ({
+              response: {
+                data: { mensagem },
+              },
+            }) => {
+              toast.error(mensagem);
+            }
+          )
+          .finally(() => {
+            setIsLoad(false);
+          });
+        }
       })
       .catch(
         ({

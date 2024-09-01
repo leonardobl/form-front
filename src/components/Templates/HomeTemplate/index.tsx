@@ -9,7 +9,7 @@ const EMPRESAS = {
 };
 
 export const HomeTemplate = () => {
-  const { navigate, Project, isCliente, isAdmin, isVistoriador, token } =
+  const { navigate, Project, isCliente, isAdmin, isVistoriador, token, isDespachante } =
     useHome();
 
   return (
@@ -101,7 +101,7 @@ export const HomeTemplate = () => {
           </div>
         </S.Card>
 
-        {token && !isCliente && (
+        {token && isDespachante && (
           <S.Card>
             <h2>Itinerante</h2>
 

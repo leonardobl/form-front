@@ -99,6 +99,16 @@ export const useVehicle = () => {
               return;
             }
 
+            if (data?.itinerante?.uuid) {
+              if (PAYLOAD.revistoria) {
+                navigate(`/meus-agendamentos/agendamento?id=${PAYLOAD.uuid}`);
+                return;
+              }
+
+              navigate(`/agendamento/${uuidAgendamento}/pagamento`);
+              return;
+            }
+
             navigate(
               `/agendamento/${uuidAgendamento}/servicos/cadastro-endereco`
             );
