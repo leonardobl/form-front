@@ -92,6 +92,8 @@ export const Endereco = styled.form`
 
   > :nth-child(1) {
     grid-area: title1;
+    width: 100%;
+  
   }
 
   > :nth-child(2) {
@@ -126,7 +128,7 @@ export const Endereco = styled.form`
     color: #2d2d2d;
     text-align: center;
     font-family: Mulish;
-    font-size: 16px;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
@@ -135,7 +137,7 @@ export const Endereco = styled.form`
   @media (min-width: 640px) {
     grid-template-columns: repeat(6, 1fr);
     grid-template-areas:
-      ". . title1 title1 . ."
+      ". title1 title1 title1 title1 ."
       "cep cep cep rua rua rua"
       "numero numero numero complemento complemento complemento" "bairro bairro uf uf cidade cidade";
   }

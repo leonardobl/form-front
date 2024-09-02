@@ -13,6 +13,7 @@ import { ISelectOptions } from "../../../types/inputs";
 import { MyModal } from "../../Atoms/MyModal";
 import { Input } from "../../Atoms/Inputs/Input";
 import { maskCep } from "../../../utils/masks";
+import { Title } from "../../Atoms/Title";
 
 export const ScheduleConfirmationTemplate = () => {
   const {
@@ -36,7 +37,7 @@ export const ScheduleConfirmationTemplate = () => {
       {itinerante &&
         <S.Endereco>
           <div>
-            <h2>Endereço de Realização</h2>
+            <Title>Endereço de Realização</Title>
           </div>
           <div>
             <Input
