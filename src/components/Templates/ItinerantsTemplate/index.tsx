@@ -116,7 +116,7 @@ export const ItinerantsTemplate = () => {
                       i?.delivery?.cidade,
                       i?.endereco?.cidade,
                       dayjs(i?.dataRealizacao).format("DD/MM/YYYY"),
-                      `${i?.quantidadeVagas}`,
+                      `${i?.totalVagas}`,
                     ]}
                     lastElement={
                       <S.WrapperIcons>

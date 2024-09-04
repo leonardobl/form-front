@@ -58,7 +58,7 @@ export const ScheduleItinetantTemplate = () => {
                     </p>,
                     <p>
                       <b>QTD. VAGAS: </b>
-                      {i?.quantidadeVagas}
+                      {i?.totalVagas}
                     </p>,
 
                     <S.ButtonSelect onClick={() => handleSchedule(i?.uuid)}>

@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { pxToRem } from "../../../utils/pxToRem";
+import { MyModal } from "../../Atoms/MyModal";
 
 export const Container = styled.div`
   ${({ theme: { padding } }) => css`
@@ -156,4 +157,8 @@ export const WrapperButtonsModalReembolso = styled.div`
   @media (min-width: 640px) {
     justify-content: end;
   }
+`;
+
+export const ReembolsoModal = styled(MyModal)`
+  overflow: visible !important;
 `;

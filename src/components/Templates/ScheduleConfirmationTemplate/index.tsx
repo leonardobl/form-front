@@ -27,7 +27,6 @@ export const ScheduleConfirmationTemplate = () => {
     isOpen,
     setIsOpen,
     handleReagendamento,
-    disable,
     itinerante,
   } = useScheduleConfirmation();
 
@@ -90,7 +89,6 @@ export const ScheduleConfirmationTemplate = () => {
         <div>
           <InputDate
             placeholderText="___/___/___"
-            disabled={disable}
             showIcon
             label="Data"
             minDate={new Date()}

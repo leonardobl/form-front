@@ -209,7 +209,7 @@ export const ScheduleDetailTemplate = () => {
         </S.Form>
       </S.Wrapper>
 
-      <MyModal
+      <S.ReembolsoModal
         isOpen={modalReembolso?.isOPen}
         onRequestClose={() => {
           setModalReembolso({ isOPen: false, date: null });
@@ -255,7 +255,7 @@ export const ScheduleDetailTemplate = () => {
             </S.WrapperButtonsModalReembolso>
           </S.FormModalReembolso>
         </S.WrapperContentModalReembolso>
-      </MyModal>
+      </S.ReembolsoModal>
     </S.Container>
   );
 };
