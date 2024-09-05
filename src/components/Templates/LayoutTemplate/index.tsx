@@ -24,6 +24,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
     isCliente,
     isVistoriador,
     LINKS,
+    resources,
   } = useLayout();
 
   return (
@@ -107,7 +108,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     </NavLink>
                   </div>
                 )}
-                {isAdmin && (
+                {(isAdmin || resources?.includes('CONFIGURACOES')) && (
                   <div>
                     <NavLink className={"navLink"} end to={"/configuracoes"}>
                       Configurações
