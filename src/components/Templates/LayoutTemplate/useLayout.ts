@@ -30,7 +30,7 @@ export const useLayout = () => {
 
   React.useEffect(() => {
     if(usuario)
-      Usuario.getRecursosByUuid(usuario?.uuidUsuario)
+      Usuario.getRecursosByUuid({uuid: usuario?.uuidUsuario})
       .then(({data}) => {
         setResources(data);
       });
