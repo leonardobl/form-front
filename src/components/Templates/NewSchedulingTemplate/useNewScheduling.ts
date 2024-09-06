@@ -497,7 +497,11 @@ export const useNewScheduling = () => {
           IdCidadeDetran: null,
           uuidAgendamento: dataAgendamento?.data.uuid,
         };
-        veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO);
+        veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO).catch(({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem, { autoClose: 4000 }));
       }
 
       if (tipoServico === OpcoesServicosEnum.VISTORIA) {
@@ -509,7 +513,11 @@ export const useNewScheduling = () => {
           uuidAgendamento: dataAgendamento?.data?.uuid,
         };
 
-        veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO);
+        veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO).catch(({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem, { autoClose: 4000 }));
       }
 
       setFormVihacle(veiculo?.data);
