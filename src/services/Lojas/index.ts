@@ -18,6 +18,8 @@ import objectToParams from "../../utils/objectToParams";
 
 interface ILojaParams extends IPageRequest {
   nome?: string;
+  cidade?: string;
+  ativo?: boolean;
 }
 
 interface ICadastroAtendenteProps extends IColaboradorForm {

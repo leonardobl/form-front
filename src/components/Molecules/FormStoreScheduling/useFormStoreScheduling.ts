@@ -27,7 +27,7 @@ export const useFormStoreScheduling = () => {
   });
 
   useEffect(() => {
-    Loja.get()
+    Loja.get({ativo: true})
       .then(({ data }) => {
         const options = data.content.map((item) => ({
           label: item.nome,

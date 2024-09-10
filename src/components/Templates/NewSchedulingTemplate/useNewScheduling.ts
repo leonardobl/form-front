@@ -537,7 +537,7 @@ export const useNewScheduling = () => {
     }
 
     if (tipoAtendimento === TipoAtendimentoEnum.LOJA) {
-      Loja.get()
+      Loja.get({ativo: true})
         .then(({ data }) => {
           const options = data.content.map((item) => ({
             label: item.nome,
