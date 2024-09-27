@@ -165,7 +165,7 @@ export const useAddressRegistration = () => {
       //     setCidadesOptions(options);
       //   })
       //   .catch((erro) => toast.error("Erro ao requisitar as cidades"));
-      Municipio.get({ estado: form.endereco.uf as EstadosEnum })
+      Municipio.get({ size: 999, estado: form.endereco.uf as EstadosEnum })
         .then(({ data }) => {
           const options = data.content.map((item) => ({
             value: item.nome,

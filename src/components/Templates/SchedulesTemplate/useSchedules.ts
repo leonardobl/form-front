@@ -95,7 +95,7 @@ export const useSchedules = () => {
   useEffect(() => {
     setIsLoad(true);
 
-    Municipio.get({ size: 300 })
+    Municipio.get({ size: 999 })
       .then(({ data }) => {
         const options = data.content.map((item) => ({
           value: item.nome.toUpperCase(),

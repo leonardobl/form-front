@@ -36,6 +36,8 @@ import { Agendamento } from "../../../services/Agendamento";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Pagamento } from "../../../services/Pagamento";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { EstadosEnum } from "../../../enums/estados";
+import { Municipio } from "../../../services/Municipio";
 
 export const useNewScheduling = () => {
   const { setIsLoad } = useContextSite();
@@ -385,9 +387,23 @@ export const useNewScheduling = () => {
 
   useEffect(() => {
     if (formNewClient?.endereco?.uf) {
-      Ibge.CidadesPorEstado({ sigla: formNewClient.endereco.uf })
+      // Ibge.CidadesPorEstado({ sigla: formNewClient.endereco.uf })
+      //   .then(({ data }) => {
+      //     const options = data.map((item) => ({
+      //       value: item.nome,
+      //       label: item.nome,
+      //       element: item,
+      //     }));
+      //     setCidadesOptions(options);
+      //   })
+      //   .catch((erro) => toast.error("Erro ao requisitar as cidades"));
+
+      Municipio.get({
+        size: 999,
+        estado: formNewClient?.endereco?.uf as EstadosEnum,
+      })
         .then(({ data }) => {
-          const options = data.map((item) => ({
+          const options = data.content.map((item) => ({
             value: item.nome,
             label: item.nome,
             element: item,
@@ -398,9 +414,23 @@ export const useNewScheduling = () => {
     }
 
     if (formAddress?.endereco?.uf) {
-      Ibge.CidadesPorEstado({ sigla: formAddress?.endereco?.uf })
+      // Ibge.CidadesPorEstado({ sigla: formAddress?.endereco?.uf })
+      //   .then(({ data }) => {
+      //     const options = data.map((item) => ({
+      //       value: item.nome,
+      //       label: item.nome,
+      //       element: item,
+      //     }));
+      //     setCidadesOptions(options);
+      //   })
+      //   .catch((erro) => toast.error("Erro ao requisitar as cidades"));
+
+      Municipio.get({
+        size: 999,
+        estado: formAddress?.endereco?.uf as EstadosEnum,
+      })
         .then(({ data }) => {
-          const options = data.map((item) => ({
+          const options = data.content.map((item) => ({
             value: item.nome,
             label: item.nome,
             element: item,
@@ -412,17 +442,23 @@ export const useNewScheduling = () => {
   }, [formNewClient?.endereco?.uf, formAddress?.endereco?.uf]);
 
   useEffect(() => {
-    Ibge.UFs()
-      .then(({ data }) => {
-        const options = data.map((item) => ({
-          value: item.sigla,
-          label: item.sigla,
-          element: item,
-        }));
+    // Ibge.UFs()
+    //   .then(({ data }) => {
+    //     const options = data.map((item) => ({
+    //       value: item.sigla,
+    //       label: item.sigla,
+    //       element: item,
+    //     }));
 
-        setUfOptions(options);
-      })
-      .catch((erro) => toast.error("Erro ao requisitar as UFs"));
+    //     setUfOptions(options);
+    //   })
+    //   .catch((erro) => toast.error("Erro ao requisitar as UFs"));
+    const options = Object.values(EstadosEnum).map((e) => ({
+      value: e,
+      label: e,
+    }));
+
+    setUfOptions(options);
   }, []);
 
   useEffect(() => {
@@ -497,11 +533,13 @@ export const useNewScheduling = () => {
           IdCidadeDetran: null,
           uuidAgendamento: dataAgendamento?.data.uuid,
         };
-        veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO).catch(({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem, { autoClose: 4000 }));
+        veiculo = await Veiculo.postByChassi(PAYLOAD_VEICULO).catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem, { autoClose: 4000 })
+        );
       }
 
       if (tipoServico === OpcoesServicosEnum.VISTORIA) {
@@ -513,11 +551,13 @@ export const useNewScheduling = () => {
           uuidAgendamento: dataAgendamento?.data?.uuid,
         };
 
-        veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO).catch(({
-          response: {
-            data: { mensagem },
-          },
-        }) => toast.error(mensagem, { autoClose: 4000 }));
+        veiculo = await Veiculo.postByPlaca(PAYLOAD_VEICULO).catch(
+          ({
+            response: {
+              data: { mensagem },
+            },
+          }) => toast.error(mensagem, { autoClose: 4000 })
+        );
       }
 
       setFormVihacle(veiculo?.data);
@@ -537,7 +577,7 @@ export const useNewScheduling = () => {
     }
 
     if (tipoAtendimento === TipoAtendimentoEnum.LOJA) {
-      Loja.get({ativo: true})
+      Loja.get({ ativo: true })
         .then(({ data }) => {
           const options = data.content.map((item) => ({
             label: item.nome,
