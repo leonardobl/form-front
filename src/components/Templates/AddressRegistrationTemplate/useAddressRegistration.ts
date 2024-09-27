@@ -12,6 +12,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { maskPhone } from "../../../utils/masks";
 import { ViaCep } from "../../../services/ViaCep";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { EstadosEnum } from "../../../enums/estados";
+import { Municipio } from "../../../services/Municipio";
 
 export const useAddressRegistration = () => {
   const [form, setForm] = useState<IAtendimentoDomiciliarForm>(
@@ -81,19 +83,26 @@ export const useAddressRegistration = () => {
   }
 
   useEffect(() => {
-    Ibge.UFs()
-      .then(({ data }) => {
-        const options = data
-          .map((item) => ({
-            value: item.sigla,
-            label: item.sigla,
-            element: item,
-          }))
-          .sort(compararPorSigla);
+    // Ibge.UFs()
+    //   .then(({ data }) => {
+    //     const options = data
+    //       .map((item) => ({
+    //         value: item.sigla,
+    //         label: item.sigla,
+    //         element: item,
+    //       }))
+    //       .sort(compararPorSigla);
 
-        setUfOptions(options);
-      })
-      .catch((erro) => toast.error("Erro ao requisitar as UFs"));
+    //     setUfOptions(options);
+    //   })
+    //   .catch((erro) => toast.error("Erro ao requisitar as UFs"));
+
+    const options = Object.values(EstadosEnum).map((e) => ({
+      value: e,
+      label: e,
+    }));
+
+    setUfOptions(options);
   }, []);
 
   useEffect(() => {
@@ -146,9 +155,19 @@ export const useAddressRegistration = () => {
 
   useEffect(() => {
     if (form?.endereco?.uf) {
-      Ibge.CidadesPorEstado({ sigla: form.endereco.uf })
+      // Ibge.CidadesPorEstado({ sigla: form.endereco.uf })
+      //   .then(({ data }) => {
+      //     const options = data.map((item) => ({
+      //       value: item.nome,
+      //       label: item.nome,
+      //       element: item,
+      //     }));
+      //     setCidadesOptions(options);
+      //   })
+      //   .catch((erro) => toast.error("Erro ao requisitar as cidades"));
+      Municipio.get({ estado: form.endereco.uf as EstadosEnum })
         .then(({ data }) => {
-          const options = data.map((item) => ({
+          const options = data.content.map((item) => ({
             value: item.nome,
             label: item.nome,
             element: item,
