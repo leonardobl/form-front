@@ -9,15 +9,12 @@ import { maskMoney } from "../../../utils/masks";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const PixTemplate = () => {
-  const { pagamento } = usePix();
+  const { agendamento, pagamento } = usePix();
   const navigate = useNavigate();
   const params = useParams();
 
   function acessarFatura() {
-    window.open(
-      `${pagamento?.url}.pdf`,
-      "_blank"
-    );
+    navigate(`/agendamento/${agendamento?.uuid}/fatura`);
   }
 
   return (

@@ -7,12 +7,16 @@ import { useSessionStorage } from "../../../hooks/useSessionStorage";
 import { useNavigate, useParams } from "react-router-dom";
 import { Agendamento } from "../../../services/Agendamento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
+import { IAgendamentoDTO } from "../../../types/agendamento";
 
 export const usePix = () => {
   const { setIsLoad } = useContextSite();
   const [pagamento, setPagamento] = useState<IFaturaDTO>({} as IFaturaDTO);
   const params = useParams();
   const navigate = useNavigate();
+  const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
+    {} as IAgendamentoDTO
+  );
 
   // function acessarFatura() {
   //   window.open(
@@ -54,6 +58,7 @@ export const usePix = () => {
     const timeInterval = setInterval(() => {
       Agendamento.getById({ uuid: params?.uuidAgendamento })
         .then(({ data }) => {
+          setAgendamento(data);
           if (data?.status === StatusAgendamentoEnum.PAGO) {
             navigate(
               `/agendamento/${data?.uuid}/pagamento/pix/confirmacao-pagamento`
@@ -74,5 +79,5 @@ export const usePix = () => {
     return () => clearInterval(timeInterval);
   }, [params]);
 
-  return { pagamento };
+  return { agendamento, pagamento };
 };

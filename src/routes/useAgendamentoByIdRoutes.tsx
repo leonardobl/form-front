@@ -22,6 +22,7 @@ import { Store } from "../components/Pages/Store";
 import { PixCancellation } from "../components/Pages/PixCancellation";
 import { TicketCancellation } from "../components/Pages/TicketCancellation";
 import { ConcessionaireAddressRegister } from "../components/Pages/ConcessionaireAdressRegister";
+import { Invoice } from "../components/Pages/Invoice";
 
 export const useAgendamentoByIdRoutes = () => {
   return (
@@ -29,6 +30,7 @@ export const useAgendamentoByIdRoutes = () => {
 
       <Route path="login" element={<Login />} />
       <Route path="confirmar-horario" element={<ScheduleConfirmation />} />
+      <Route path="fatura" element={<Invoice />} />
 
       <Route path="confirmar-agendamento" element={<ConfirmAppointment />} />
       <Route path="login-cadastro" element={<LoginRegister />} />

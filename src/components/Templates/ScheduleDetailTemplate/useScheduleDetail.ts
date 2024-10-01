@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useContextSite } from "../../../context/Context";
 import { toast } from "react-toastify";
 import { Agendamento } from "../../../services/Agendamento";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
@@ -13,6 +13,7 @@ export const useScheduleDetail = () => {
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
     {} as IAgendamentoDTO
   );
+  const navigate = useNavigate();
 
   function cancelarAgendamento() {
     setIsLoad(true);
@@ -65,7 +66,7 @@ export const useScheduleDetail = () => {
   ].includes(agendamento?.status);
 
   function acessarFatura() {
-    window.open(`${agendamento?.fatura?.url}.pdf`, "_blank");
+    agendamento?.fatura?.pix?.qrcodeText !== null ? navigate(`/agendamento/${agendamento.uuid}/fatura`) : window.open(`${agendamento?.fatura?.url}.pdf`, "_blank");
   }
 
   function confirmarPagamento() {
