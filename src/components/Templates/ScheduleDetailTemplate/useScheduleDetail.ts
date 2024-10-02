@@ -32,15 +32,15 @@ export const useScheduleDetail = () => {
   function confirmarReembolso() {
     setIsLoad(true);
     Agendamento.confirmarReembolso({ uuid: uuidAgendamento })
-    .then(({ data }) => setAgendamento(data))
-    .catch(
-      ({
-        response: {
-          data: { mensagem },
-        },
-      }) => toast.error(mensagem)
-    )
-    .finally(() => setIsLoad(false));
+      .then(({ data }) => setAgendamento(data))
+      .catch(
+        ({
+          response: {
+            data: { mensagem },
+          },
+        }) => toast.error(mensagem)
+      )
+      .finally(() => setIsLoad(false));
   }
 
   useEffect(() => {
@@ -66,7 +66,9 @@ export const useScheduleDetail = () => {
   ].includes(agendamento?.status);
 
   function acessarFatura() {
-    agendamento?.fatura?.pix?.qrcodeText !== null ? navigate(`/agendamento/${agendamento.uuid}/fatura`) : window.open(`${agendamento?.fatura?.url}.pdf`, "_blank");
+    agendamento?.fatura?.pix?.qrcodeText !== null
+      ? navigate(`/agendamento/${uuidAgendamento}/fatura`)
+      : window.open(`${agendamento?.fatura?.url}.pdf`, "_blank");
   }
 
   function confirmarPagamento() {

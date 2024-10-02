@@ -5,7 +5,6 @@ import { Agendamento } from "../../../services/Agendamento";
 import { useParams, useSearchParams } from "react-router-dom";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 
-
 export const useInvoiceDetail = () => {
   const params = useParams();
   const { setIsLoad } = useContextSite();
@@ -30,7 +29,6 @@ export const useInvoiceDetail = () => {
         );
     }
   }, [params?.uuidAgendamento]);
-
 
   return {
     agendamento,

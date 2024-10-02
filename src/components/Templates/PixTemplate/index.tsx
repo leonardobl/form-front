@@ -14,7 +14,7 @@ export const PixTemplate = () => {
   const params = useParams();
 
   function acessarFatura() {
-    navigate(`/agendamento/${agendamento?.uuid}/fatura`);
+    navigate(`/agendamento/${params?.uuidAgendamento}/fatura`);
   }
 
   return (
