@@ -31,6 +31,7 @@ export interface ILojaDTO {
   quantidadeVagas: number;
   tempoMedio: string;
   uuid: string;
+  contaIugu: IContaIuguDTO;
 }
 
 export interface IColaboradorDTO {

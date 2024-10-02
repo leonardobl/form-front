@@ -82,6 +82,29 @@ export const Form = styled.form`
   }
 `;
 
+export const FormCendente = styled.form`
+  width: 100%;
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem 16px;
+  grid-template-areas: "nome nome nome cnpj cnpj cnpj";
+
+  > :nth-child(1) {
+    grid-area: nome;
+  }
+
+  > :nth-child(2) {
+    grid-area: cnpj;
+  }
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 16px;
+    grid-template-areas: "nome nome" "cnpj cnpj" "nome nome";
+  }
+`;
+
 export const Info = styled.div`
   height: ${pxToRem(59)};
   background-color: #e8e8e8;

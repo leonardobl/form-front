@@ -93,12 +93,22 @@ export const InvoiceTemplate = () => {
         </S.Form>
         <Title>Dados para Pagamento</Title>
 
-        <S.Info>
-          <p>
-            <span>*</span>Seu agendamento só será realizado após a confirmação
-            do pagamento.
-          </p>
-        </S.Info>
+        <S.FormCendente>
+          <div>
+            <Input
+              label="Cedente"
+              readOnly
+              value={agendamento?.loja ? agendamento?.loja?.contaIugu?.nome : agendamento?.delivery?.contaIugu?.nome || "---"}
+            />
+          </div>
+          <div>
+            <Input
+              label="CNPJ"
+              readOnly
+              value={agendamento?.loja ? maskCnpj(agendamento?.loja?.contaIugu?.cnpj) : maskCnpj(agendamento?.delivery?.contaIugu?.cnpj) || "---"}
+            />
+          </div>
+        </S.FormCendente>
 
         <S.GridWrapper>
           <div>
