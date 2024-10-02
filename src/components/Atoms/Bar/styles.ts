@@ -10,5 +10,9 @@ export const MyBar = styled.div`
     padding: 0 42px;
     display: flex;
     align-items: center;
+
+    @media print {
+      display: none;
+    }
   `}
 `;

@@ -108,7 +108,7 @@ export const LayoutTemplate = (props: LayoutTemplateProps) => {
                     </NavLink>
                   </div>
                 )}
-                {(isAdmin || resources?.includes('CONFIGURACOES')) && (
+                {(isAdmin || resources?.includes("CONFIGURACOES")) && (
                   <div>
                     <NavLink className={"navLink"} end to={"/configuracoes"}>
                       Configurações

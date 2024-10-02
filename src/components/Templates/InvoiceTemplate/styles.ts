@@ -204,3 +204,31 @@ export const GridWrapper = styled.div`
     }
   }
 `;
+
+export const WrapperTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+
+  button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 16px;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    > svg {
+      font-size: 24px;
+    }
+  }
+
+  @media print {
+    button {
+      display: none;
+    }
+  }
+`;
