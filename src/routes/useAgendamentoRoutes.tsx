@@ -7,6 +7,7 @@ import { Store } from "../components/Pages/Store";
 import { Delivery } from "../components/Pages/Delivery";
 import { PixCancellation } from "../components/Pages/PixCancellation";
 import { TicketCancellation } from "../components/Pages/TicketCancellation";
+import { ScheduleItinetant } from "../components/Pages/ScheduleItinetant";
 
 export const useAgendamentoRoutes = () => {
   return (
@@ -28,8 +29,17 @@ export const useAgendamentoRoutes = () => {
           </ProtectedClientRoute>
         }
       />
-      <Route path="pagamento/cancelamento-pix" index element={<PixCancellation />}/>
-      <Route path="pagamento/cancelamento-boleto" index element={<TicketCancellation />}/>
+      <Route path="itinerantes" index element={<ScheduleItinetant />} />
+      <Route
+        path="pagamento/cancelamento-pix"
+        index
+        element={<PixCancellation />}
+      />
+      <Route
+        path="pagamento/cancelamento-boleto"
+        index
+        element={<TicketCancellation />}
+      />
     </Route>
   );
 };

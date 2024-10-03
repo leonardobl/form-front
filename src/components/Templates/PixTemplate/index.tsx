@@ -28,13 +28,6 @@ export const PixTemplate = () => {
         <span className="textStrong">PIX Copia e Cola</span>”.
       </Text>
 
-      <S.Info>
-        <p>
-          <span>*</span>Seu agendamento só será realizado após a confirmação do
-          pagamento.
-        </p>
-      </S.Info>
-
       <S.GridWrapper>
         <div>
           <S.ImgQr src={pagamento?.pix?.qrcode} alt="qrcode" />
@@ -50,6 +43,7 @@ export const PixTemplate = () => {
         <div>
           <Button onClick={acessarFatura}>VER FATURA</Button>
         </div>
+
         {/* <div>
           <Button
             onClick={() =>
@@ -62,6 +56,20 @@ export const PixTemplate = () => {
           </Button>
         </div> */}
       </S.GridWrapper>
+
+      <S.Info>
+        <p>
+          <span>*</span>A escolha de <strong>data</strong> e{" "}
+          <strong>horário</strong> estarão disponíveis após a confirmação do
+          pagamento.
+        </p>
+      </S.Info>
+      <S.Info>
+        <p>
+          <span>*</span>Após o pagamento, você pode esperar a confirmação na
+          tela, mas se preferir, enviaremos via <strong>WhatsApp</strong>.
+        </p>
+      </S.Info>
     </S.Container>
   );
 };

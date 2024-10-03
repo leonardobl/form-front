@@ -11,6 +11,9 @@ import {
 } from "../../../utils/dateTransform";
 import { ISelectOptions } from "../../../types/inputs";
 import { MyModal } from "../../Atoms/MyModal";
+import { Input } from "../../Atoms/Inputs/Input";
+import { maskCep } from "../../../utils/masks";
+import { Title } from "../../Atoms/Title";
 
 export const ScheduleConfirmationTemplate = () => {
   const {
@@ -24,13 +27,62 @@ export const ScheduleConfirmationTemplate = () => {
     isOpen,
     setIsOpen,
     handleReagendamento,
+    itinerante,
   } = useScheduleConfirmation();
 
   return (
     <S.Container onSubmit={onSubmit}>
+
+      {itinerante &&
+        <S.Endereco>
+          <div>
+            <Title>Endereço de Realização</Title>
+          </div>
+          <div>
+            <Input
+              disabled
+              label="CEP"
+              value={maskCep(itinerante?.endereco?.cep)} />
+          </div>
+          <div>
+            <Input
+              disabled
+              label="Endereço (Rua)"
+              value={itinerante?.endereco?.logradouro} />
+          </div>
+          <div>
+            <Input
+              disabled
+              label="Número"
+              value={itinerante?.endereco?.numero} />
+          </div>
+          <div>
+            <Input
+              disabled
+              label="Complemento"
+              value={itinerante?.endereco?.complemento} />
+          </div>
+          <div>
+            <Input
+              disabled
+              label="Bairro"
+              value={itinerante?.endereco?.bairro} />
+          </div>
+          <div>
+            <Input disabled label="UF" value={itinerante?.endereco?.uf} />
+          </div>
+          <div>
+            <Input
+              disabled
+              label="Cidade"
+              value={itinerante?.endereco?.cidade} />
+          </div>
+        </S.Endereco>
+      }
+
       <Text>
-        Selecione as datas e horários{" "}
-        <span className="textStrong">disponíveis</span>.
+        Agende a sua vistoria! Escolha a <b>data e hora disponível</b> que
+        preferir.
       </Text>
 
       <S.Grid>

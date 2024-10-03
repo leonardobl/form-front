@@ -13,6 +13,9 @@ import { useContextSite } from "../../../context/Context";
 import { Delivery } from "../../../services/Delivery";
 import { ISelectOptions } from "../../../types/inputs";
 import { useSessionStorage } from "../../../hooks/useSessionStorage";
+import { reverseToDateObject } from "../../../utils/dateTransform";
+import { IItineranteDTO } from "../../../types/itinerante";
+import { Itinerante } from "../../../services/Itinerante";
 
 export const useScheduleConfirmation = () => {
   const params = useParams();
@@ -32,10 +35,10 @@ export const useScheduleConfirmation = () => {
   const [agendamento, setAgendamento] = useState<IAgendamentoDTO>(
     {} as IAgendamentoDTO
   );
+  const [itinerante, setItinerante] = useState<IItineranteDTO>();
 
   function getDiasIndisponiveis(agendamento: IAgendamentoDTO) {
     setIsLoad(true);
-
     if (agendamento?.loja?.uuid) {
       Loja.getDiasIndisponiveis({ uuidLoja: agendamento?.loja?.uuid })
         .then(({ data }) => {
@@ -50,10 +53,9 @@ export const useScheduleConfirmation = () => {
           }) => toast.error(mensagem)
         )
         .finally(() => setIsLoad(false));
-
       return;
     }
-
+    
     Delivery.getDiasIndisponiveis({ uuidDelivery: agendamento?.delivery?.uuid })
       .then(({ data }) => {
         const options = data.map((item) => addDays(new Date(item), 1));
@@ -73,8 +75,13 @@ export const useScheduleConfirmation = () => {
     if (params?.uuidAgendamento) {
       Agendamento.getById({ uuid: params?.uuidAgendamento })
         .then(({ data }) => {
-          setAgendamento(data);
-          getDiasIndisponiveis(data);
+          setAgendamento(data);  
+          if (!data?.itinerante?.uuid) {      
+            getDiasIndisponiveis(data);
+          }else {
+            setDate(reverseToDateObject(data?.itinerante?.dataRealizacao));
+            setItinerante(data?.itinerante);
+          }
         })
         .catch(
           ({
@@ -120,9 +127,22 @@ export const useScheduleConfirmation = () => {
             label: item,
             element: item,
           }));
-
           setHorarios(options);
         });
+        return
+      }
+
+      if (agendamento?.itinerante?.uuid) {
+        Itinerante.horarios_disponiveis(agendamento?.itinerante?.uuid)
+        .then(({ data }) => {
+          const options = data.map((item) => ({
+            value: item,
+            label: item,
+            element: item,
+          }));
+          setHorarios(options);
+        });
+        return
       }
     }
   }, [date]);
@@ -196,5 +216,6 @@ export const useScheduleConfirmation = () => {
     isOpen,
     setIsOpen,
     handleReagendamento,
+    itinerante,
   };
 };

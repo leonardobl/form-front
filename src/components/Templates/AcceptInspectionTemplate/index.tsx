@@ -4,6 +4,7 @@ import { Input } from "../../Atoms/Inputs/Input";
 import { Button } from "../../Atoms/Button";
 import { useAcceptInspection } from "./useAcceptInspection";
 import { maskCep, maskPhone } from "../../../utils/masks";
+import { reverseToBrDate } from "../../../utils/dateTransform";
 
 export const AcceptInspectionTemplate = () => {
   const { atribuirAgendamento, vistoria } = useAcceptInspection();
@@ -12,13 +13,27 @@ export const AcceptInspectionTemplate = () => {
     <S.Container>
       <S.Form>
         <div>
-          <Input readOnly label="Nome" value={vistoria?.cliente?.nome} />
+          <Input
+            readOnly
+            label="Dia Agendado"
+            value={reverseToBrDate(vistoria?.diaAgendado)}
+          />
+        </div>
+        <div>
+          <Input
+            readOnly
+            label="Horário Agendado"
+            value={vistoria?.horaAgendada}
+          />
+        </div>
+        <div>
+          <Input readOnly label="Nome" value={vistoria?.atendimentoDomiciliar?.nome} />
         </div>
         <div>
           <Input
             readOnly
             label="Telefone"
-            value={maskPhone(vistoria?.cliente?.telefone)}
+            value={maskPhone(vistoria?.atendimentoDomiciliar?.telefone)}
           />
         </div>
         <div>
@@ -69,7 +84,7 @@ export const AcceptInspectionTemplate = () => {
         <div>
           <Input
             readOnly
-            label="Modelo do Carro"
+            label="Modelo do Veículo"
             value={vistoria?.veiculo?.modelo}
           />
         </div>

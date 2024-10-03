@@ -8,6 +8,10 @@ export const CustomTableItem = styled.div<ITableItemProps>`
   padding: 16px;
   border-radius: 10px;
 
+  > img {
+    cursor: pointer;
+  }
+
   p {
     color: #595959;
     font-family: Mulish;

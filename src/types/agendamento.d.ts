@@ -5,6 +5,7 @@ import { TipoServicoEnum } from "../enums/tipoServico";
 import { tipoVeiculoEnum } from "../enums/tipoVeiculo";
 import { IClienteDTO } from "./cliente";
 import { IPageableObject, ISortObject } from "./delivery";
+import { IItineranteDTO } from "./itinerante";
 import { IContaIuguDTO, ILojaDTO } from "./loja";
 import { IFaturaDTO } from "./pagamento";
 import { IPageRequest } from "./page";
@@ -22,6 +23,7 @@ export interface IAgendamentoDTO {
   emEspera: boolean;
   fatura: IFaturaDTO;
   horaAgendada: HoraAgendada;
+  itinerante: IItineranteDTO;
   loja: ILojaDTO;
   primeiroAgendamento: string;
   revistoria: boolean;
@@ -254,6 +256,7 @@ export interface IAgendamentoCadastroForm {
   uuidDelivery?: string;
   uuidLoja?: string;
   concessionaria?: boolean;
+  uuidItinerante?: string;
 }
 
 export interface IAgendamentoCadastroFormFull extends IAgendamentoCadastroForm {
@@ -292,4 +295,9 @@ export interface IReembolsoForm {
 
 export interface IReembolsoProps extends IReembolsoForm {
   uuid: string;
+}
+
+export interface IReembolsoConfirmarForm {
+  uuid: string;
+  dataDevolucao: string;
 }

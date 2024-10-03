@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   padding: ${(props) => props.theme.padding.mobile} 20px;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
 
   > h1 {
     color: #2d2d2d;

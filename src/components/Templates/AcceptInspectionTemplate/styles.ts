@@ -17,69 +17,77 @@ export const Form = styled.form`
   display: grid;
   margin: 0 auto;
   grid-template-columns: repeat(8, 1fr);
-  grid-template-areas: "nome nome nome nome nome nome nome nome" "telefone telefone telefone telefone cep cep cep cep" "rua rua rua rua rua rua rua rua" "numero numero numero numero complemento complemento complemento complemento" "bairro bairro bairro uf uf cidade cidade cidade" "modelo modelo modelo modelo modelo modelo modelo modelo" "tipo tipo tipo ano ano placa placa placa" "renavam renavam renavam renavam chassi chassi chassi chassi" ". . . button button . . .";
+  grid-template-areas: "data data data data horario horario horario horario" "nome nome nome nome nome nome nome nome" "telefone telefone telefone telefone cep cep cep cep" "rua rua rua rua rua rua rua rua" "numero numero numero numero complemento complemento complemento complemento" "bairro bairro bairro uf uf cidade cidade cidade" "modelo modelo modelo modelo modelo modelo modelo modelo" "tipo tipo tipo ano ano placa placa placa" "renavam renavam renavam renavam chassi chassi chassi chassi" ". . . button button . . .";
   gap: 48px 16px;
 
   > :nth-child(1) {
-    grid-area: nome;
+    grid-area: data;
   }
 
   > :nth-child(2) {
-    grid-area: telefone;
+    grid-area: horario;
   }
 
   > :nth-child(3) {
-    grid-area: cep;
+    grid-area: nome;
   }
 
   > :nth-child(4) {
-    grid-area: rua;
+    grid-area: telefone;
   }
 
   > :nth-child(5) {
-    grid-area: numero;
+    grid-area: cep;
   }
 
   > :nth-child(6) {
-    grid-area: complemento;
+    grid-area: rua;
   }
 
   > :nth-child(7) {
-    grid-area: bairro;
+    grid-area: numero;
   }
 
   > :nth-child(8) {
-    grid-area: uf;
+    grid-area: complemento;
   }
 
   > :nth-child(9) {
-    grid-area: cidade;
+    grid-area: bairro;
   }
+
   > :nth-child(10) {
-    grid-area: modelo;
+    grid-area: uf;
   }
 
   > :nth-child(11) {
-    grid-area: tipo;
+    grid-area: cidade;
   }
-
   > :nth-child(12) {
-    grid-area: ano;
+    grid-area: modelo;
   }
 
   > :nth-child(13) {
-    grid-area: placa;
+    grid-area: tipo;
   }
 
   > :nth-child(14) {
-    grid-area: renavam;
+    grid-area: ano;
   }
 
   > :nth-child(15) {
-    grid-area: chassi;
+    grid-area: placa;
   }
 
   > :nth-child(16) {
+    grid-area: renavam;
+  }
+
+  > :nth-child(17) {
+    grid-area: chassi;
+  }
+
+  > :nth-child(18) {
     grid-area: button;
     margin: 0 auto;
   }

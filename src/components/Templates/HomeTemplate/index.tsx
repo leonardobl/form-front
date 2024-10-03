@@ -1,31 +1,142 @@
-import React from "react";
 import * as S from "./styles";
-import { Button } from "../../Atoms/Button";
-import { Text } from "../../Atoms/Text";
 import { useHome } from "./useHome";
 
+const EMPRESAS = {
+  log: "Log Vistoria",
+  starcheck: "Star Check Vistoria",
+  vlx: "Velox Vistorias",
+  tokyo: "Tokyo Vistorias",
+};
+
 export const HomeTemplate = () => {
-  const { navigate } = useHome();
+  const { navigate, Project, isCliente, isAdmin, isVistoriador, token, isDespachante } =
+    useHome();
 
   return (
     <S.Container>
-      <S.Wrapper>
-        <Text className="text">
-          Escolha onde você deseja executar sua vistoria veicular, na{" "}
-          <span className="textStrong">loja física</span> ou em{" "}
-          <span className="textStrong">endereço de sua preferência</span>.
-        </Text>
+      <p className="text">
+        Escolha onde você <b>deseja executar sua vistoria veicular:</b>
+      </p>
 
-        <S.FlexWrapper>
-          <Button onClick={() => navigate("/agendamento/loja")}>
-            Loja Física
-          </Button>
+      <S.FlexWrapper
+        data-project-starcheck={Project === "starcheck"}
+        data-project-log={Project === "log"}
+        data-project-vlx={Project === "vlx"}
+        data-project-tokyo={Project === "tokyo"}
+      >
+        <S.Card>
+          <h2>Loja / Ciretran</h2>
 
-          <Button onClick={() => navigate("/agendamento/domicilio")}>
-            Domicílio
-          </Button>
-        </S.FlexWrapper>
-      </S.Wrapper>
+          <S.CardContent>
+            <div>
+              <p>
+                Realize sua vistoria <b>veicular na unidade mais próxima.</b>{" "}
+                Nas nossas lojas e nas Ciretrans, você encontra:
+              </p>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  Equipe técnica e completa para realização do seu{" "}
+                  <b>serviço de forma rápida;</b>
+                </li>
+                <li> Ampla sala de espera.</li>
+              </ul>
+            </div>
+            <div>
+              <p>
+                Realize seu agendamento e{" "}
+                <b>compareça no local, data e hora marcada.</b>
+                Consulte na Home do nosso site os endereços.
+              </p>
+            </div>
+          </S.CardContent>
+          <div>
+            <button
+              onClick={() => {
+                navigate(
+                  !isCliente ? "/novo-agendamento" : "/agendamento/loja"
+                );
+              }}
+            >
+              Avançar
+            </button>
+          </div>
+        </S.Card>
+        <S.Card>
+          <h2>Delivery</h2>
+
+          <S.CardContent>
+            <div>
+              <p>
+                Você escolhe o <b>local que preferir</b> e a gente realiza a
+                vistoria:
+              </p>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  <b>No conforto do seu lar:</b> Receba o nosso profissional em
+                  sua casa, sem precisar se preocupar com trânsito ou
+                  estacionamento.
+                </li>
+                <li>
+                  {" "}
+                  <b>Na praticidade da concessionária:</b> Combine a vistoria no
+                  pátio da concessionária antes de retirar o veículo.
+                </li>
+              </ul>
+            </div>
+          </S.CardContent>
+          <div>
+            <button
+              onClick={() => {
+                navigate(
+                  !isCliente ? "/novo-agendamento" : "/agendamento/domicilio"
+                );
+              }}
+            >
+              Avançar
+            </button>
+          </div>
+        </S.Card>
+
+        {token && isDespachante && (
+          <S.Card>
+            <h2>Itinerante</h2>
+
+            <S.CardContent>
+              <div>
+                <p>
+                  Sua cidade ainda não tem{" "}
+                  <b>{`${EMPRESAS[Project]} ? Sem problemas!`}</b>
+                </p>
+              </div>
+
+              <div>
+                <p>
+                  <b>Confira as próximas viagens programadas</b> para sua cidade
+                  e garanta já a sua vistoria!
+                </p>
+              </div>
+              <div>
+                <p>
+                  As <b>vagas são limitadas</b>, então não perca tempo!
+                </p>
+              </div>
+            </S.CardContent>
+            <div>
+              <button
+                onClick={() => {
+                  navigate("/agendamento/itinerantes");
+                }}
+              >
+                Avançar
+              </button>
+            </div>
+          </S.Card>
+        )}
+      </S.FlexWrapper>
     </S.Container>
   );
 };

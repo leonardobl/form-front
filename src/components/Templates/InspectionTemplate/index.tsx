@@ -6,20 +6,28 @@ import { useInspectionTemplate } from "./useInspectionTemplate";
 import { reverseToBrDate } from "../../../utils/dateTransform";
 import { maskCnpj, maskCpf, maskMoney, maskPhone } from "../../../utils/masks";
 import { TipoPagamento } from "../../../enums/tipoPagamento";
+import { TipoAtendimentoEnum } from "../../../enums/tipoAtendimento";
 
 export const InspectionTemplate = () => {
-  const { agendamento, handleDownload } = useInspectionTemplate();
+  const { agendamento, handleDownload, isMobile } = useInspectionTemplate();
 
   return (
     <S.Container>
       <S.Form>
         <S.FormHeader>
           <Text>Dados do agendamento.</Text>
-          <img
-            src="/assets/svgs/down-doc.svg"
-            alt="icone download"
-            onClick={handleDownload}
-          />
+          {isMobile ? (
+            <img
+              src="/assets/svgs/down-doc.svg"
+              alt="icone download"
+              onClick={handleDownload}
+            />
+          ) : (
+            <S.ButtonDown onClick={handleDownload}>
+              <img src="/assets/svgs/icon-down.svg" alt="" />
+              Download
+            </S.ButtonDown>
+          )}
         </S.FormHeader>
 
         <div>
@@ -107,6 +115,25 @@ export const InspectionTemplate = () => {
           />
         </div>
       </S.Form>
+
+      {agendamento?.tipoAtendimento === TipoAtendimentoEnum.LOJA ? (
+        <S.Info>
+          <p>
+            No <b>dia e hora marcados</b>, é só levar seu veículo até a
+            ECV/CIRETRAN. <b>Não se esqueça de levar o documento em mãos!</b> Um
+            de nossos atendentes irá te receber e te orientar sobre os próximos
+            passos.
+          </p>
+        </S.Info>
+      ) : (
+        <S.Info>
+          <p>
+            No <b>dia e horário marcados</b>, nosso vistoriador irá até você
+            para realizar a vistoria do seu veículo.{" "}
+            <b>Não se esqueça ter documento em mãos!</b>
+          </p>
+        </S.Info>
+      )}
     </S.Container>
   );
 };

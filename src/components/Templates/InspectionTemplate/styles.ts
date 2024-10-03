@@ -14,11 +14,11 @@ export const Container = styled.div`
 export const Form = styled.form`
   width: 100%;
   max-width: 990px;
-  margin: 0 auto;
+  margin: 0 auto 48px;
 
   display: grid;
-  grid-template-columns: repeat(5, minmax(160px, 1fr));
-  grid-template-areas: "title title title title title" "tipo tipo tipo data hora" "cliente cliente cliente cpf cpf" "telefone telefone email email email" "modelo modelo modelo placa renavam" "chassi chassi chassi chassi chassi" "valor valor pagamento pagamento pagamento";
+  grid-template-columns: repeat(6, minmax(160px, 1fr));
+  grid-template-areas: "title title title title title title" "tipo tipo data data hora hora" "cliente cliente cliente cliente cpf cpf" "email email email email telefone telefone" "modelo modelo placa placa renavam renavam" "chassi chassi valor valor pagamento pagamento";
   gap: 48px 16px;
 
   > :nth-child(1) {
@@ -91,4 +91,45 @@ export const FormHeader = styled.div`
   > img {
     cursor: pointer;
   }
+`;
+
+export const Info = styled.div`
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: #e8e8e8;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+
+  > P {
+    text-align: center;
+    color: #2d2d2d;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+`;
+
+export const ButtonDown = styled.button`
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0 6px;
+  border-radius: 10px;
+  border: 1px solid #2d2d2d;
+  background: #fff;
+  padding: 10px 20px;
+
+  color: #2d2d2d;
+  text-align: center;
+  font-family: Mulish;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
 `;

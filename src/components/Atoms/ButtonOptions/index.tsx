@@ -1,4 +1,10 @@
-import React, { useState, ComponentProps, useEffect } from "react";
+import React, {
+  useState,
+  ComponentProps,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import * as S from "./styles";
 import { StatusAgendamentoEnum } from "../../../enums/statusAgendamento";
 
@@ -11,6 +17,7 @@ import { MyModal } from "../MyModal";
 import { IAgendamentoDTO } from "../../../types/agendamento";
 import { Text } from "../Text";
 import { useButtonOptions } from "./useButtonOptions";
+import { IModalReembolsoProps } from "../../Templates/ScheduleDetailTemplate/useScheduleDetail";
 
 interface IButtonOptions extends ComponentProps<"details"> {
   disabled?: boolean;
@@ -20,7 +27,7 @@ interface IButtonOptions extends ComponentProps<"details"> {
   handleConfirmPayment: () => void;
   handleReturnStatus: () => void;
   agendamento: IAgendamentoDTO;
-  handleConfirmRefund: () => void;
+  handleConfirmRefund: Dispatch<SetStateAction<IModalReembolsoProps>>;
 }
 
 export const ButtonOptions = ({
@@ -169,12 +176,13 @@ export const ButtonOptions = ({
           </>
         )}
 
-        {(sessionAgendamento?.roles?.includes(RolesEnum.ROLE_ADMIN)
-        || recursos?.includes('CONFIMAR_REEMBOLSO')) 
-        && (
+        {(sessionAgendamento?.roles?.includes(RolesEnum.ROLE_ADMIN) ||
+          recursos?.includes("CONFIMAR_REEMBOLSO")) && (
           <div>
             <div>
-              <button onClick={handleConfirmRefund}>Confirmar Reembolso</button>
+              <button onClick={() => handleConfirmRefund({ isOPen: true })}>
+                Confirmar Reembolso
+              </button>
             </div>
           </div>
         )}
@@ -193,7 +201,6 @@ export const ButtonOptions = ({
       <div className="summary-chevron-down">
         <S.ArrowDown src="/assets/svgs/arrow-right.svg" alt="seta direita" />
       </div>
-      
 
       <MyModal isOpen={isOpen} onRequestClose={() => setISOpen(false)}>
         <S.ModalContent>

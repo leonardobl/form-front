@@ -21,9 +21,7 @@ export const MyModal = ({ children, ...rest }: IMyModalProps) => {
           // backgroundColor: "#fff",
         },
         content: {
-          // border: "1px solid #ccc",
           background: "#fff",
-          overflow: "auto",
           WebkitOverflowScrolling: "touch",
           borderRadius: "4px",
           outline: "none",

@@ -80,3 +80,65 @@ export const ModalContent = styled.div`
     }
   }
 `;
+
+export const Endereco = styled.form`
+  margin: 0 auto 2rem;
+  width: 100%;
+  max-width: 700px;
+  gap: 32px 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "title1 title1" "cep cep" "rua rua" "numero complemento" "bairro bairro" "uf cidade";
+
+  > :nth-child(1) {
+    grid-area: title1;
+    width: 100%;
+  
+  }
+
+  > :nth-child(2) {
+    grid-area: cep;
+  }
+
+  > :nth-child(3) {
+    grid-area: rua;
+  }
+
+  > :nth-child(4) {
+    grid-area: numero;
+  }
+
+  > :nth-child(5) {
+    grid-area: complemento;
+  }
+
+  > :nth-child(6) {
+    grid-area: bairro;
+  }
+
+  > :nth-child(7) {
+    grid-area: uf;
+  }
+
+  > :nth-child(8) {
+    grid-area: cidade;
+  }
+
+  h2 {
+    color: #2d2d2d;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+  }
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+      ". title1 title1 title1 title1 ."
+      "cep cep cep rua rua rua"
+      "numero numero numero complemento complemento complemento" "bairro bairro uf uf cidade cidade";
+  }
+`;
