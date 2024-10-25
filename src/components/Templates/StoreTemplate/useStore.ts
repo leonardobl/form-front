@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
@@ -22,13 +22,13 @@ export const useStore = () => {
   const { setIsLoad } = useContextSite();
   const navigate = useNavigate();
   const [usuario] = useSessionStorage("cliente");
-  const params = useParams();
+  const { uuidAgendamento } = useParams();
   const [modal, setModal] = useState<ModalProps>({ isOpen: false });
 
   function submitReagendamentoForm(data: IReagendamentoProps) {
     const PAYLOAD: IReagendamentoProps = {
       ...data,
-      uuidAgendamento: params?.uuidAgendamento,
+      uuidAgendamento: uuidAgendamento,
     };
 
     setModal({ isOpen: true, reagendamento: PAYLOAD });

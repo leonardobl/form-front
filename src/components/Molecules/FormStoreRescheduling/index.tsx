@@ -41,6 +41,7 @@ export const FormStoreRescheduling = ({
             render={({ field: { value, onChange } }) => (
               <SimpleSelectRHF
                 required
+                isDisabled
                 label="Loja"
                 inputId="loja"
                 value={lojasOptions.find((item) => item.value === value)}
